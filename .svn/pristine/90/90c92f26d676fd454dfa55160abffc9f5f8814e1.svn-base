@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parking.dao.ParkingStatusDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parking.po.ParkingStatus">
+        <result column="ID" property="id"/>
+        <result column="HOUR_SECTION" property="hourSection"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="PARKING_NAME" property="parkingName"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, HOUR_SECTION, PARKING_ID, STATUS, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="hourSection != null and hourSection != '' ">
+		AND HOUR_SECTION = #{hourSection}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="status != null and status != '' ">
+		AND STATUS = #{status}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.hourSection != null and params.hourSection != '' ">
+		AND HOUR_SECTION = #{params.hourSection}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.status != null and params.status != '' ">
+		AND STATUS = #{params.status}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT t.ID, t.HOUR_SECTION, t.PARKING_ID, t.STATUS, t.CREATEOR, t.MODIFIED, t.CREATE_DATE, t.MODIFY_DATE,tp.PARKING_NAME
+		  FROM T_PARKING_STATUS t LEFT JOIN T_PARKING tp ON  t.PARKING_ID = TP.PARKING_ID
+	     WHERE t.ID = #{id}
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT t.ID, t.HOUR_SECTION, t.PARKING_ID, t.STATUS, t.CREATEOR, t.MODIFIED, t.CREATE_DATE, t.MODIFY_DATE,tp.PARKING_NAME
+		FROM T_PARKING_STATUS t LEFT JOIN T_PARKING tp ON  tp.PARKING_ID = t.PARKING_ID
+		 WHERE 1 = 1
+		<if test="id != null and id != '' ">
+			AND t.ID = #{id}
+		</if>
+		<if test="hourSection != null">
+			AND t.HOUR_SECTION = #{hourSection}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+			AND t.PARKING_ID = #{parkingId}
+		</if>
+		<if test="status != null and status != '' ">
+			AND t.STATUS = #{status}
+		</if>
+		<if test="parkingName != null and parkingName != '' ">
+			AND tp.PARKING_NAME like '%${parkingName}%'
+		</if>
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT t.ID, t.HOUR_SECTION, t.PARKING_ID, t.STATUS, t.CREATEOR, t.MODIFIED, t.CREATE_DATE, t.MODIFY_DATE,tp.PARKING_NAME
+		  FROM T_PARKING_STATUS t LEFT JOIN T_PARKING tp ON  tp.PARKING_ID = t.PARKING_ID
+		 WHERE 1 = 1
+		<if test="params.id != null and params.id != '' ">
+			AND t.ID = #{params.id}
+		</if>
+		<if test="params.hourSection != null and params.hourSection != ''  ">
+			AND t.HOUR_SECTION = #{params.hourSection}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			AND t.PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.parkingStatus != null and params.parkingStatus != '' ">
+		AND t.STATUS = #{params.parkingStatus}
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+			AND tp.PARKING_NAME like '%${params.parkingName}%'
+		</if>
+		ORDER BY tp.parking_name,t.HOUR_SECTION
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parking.po.ParkingStatus">
+        INSERT INTO T_PARKING_STATUS (
+        	ID,
+        	HOUR_SECTION,
+        	PARKING_ID,
+        	STATUS,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{hourSection},
+        	#{parkingId},
+        	#{status},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_PARKING_STATUS 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parking.po.ParkingStatus">
+        UPDATE T_PARKING_STATUS 
+		SET
+	        HOUR_SECTION = #{hourSection},
+	        PARKING_ID = #{parkingId},
+	        STATUS = #{status}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_PARKING_STATUS
+			<set>
+    	        HOUR_SECTION = #{item.hourSection},
+    	        PARKING_ID = #{item.parkingId},
+    	        STATUS = #{item.status},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+
+	<select id="tenseTime" resultMap="resultMap">
+		(
+			SELECT * FROM t_parking_status
+			WHERE PARKING_ID = #{parkingId}
+			AND `STATUS` = '1'
+			AND HOUR_SECTION > HOUR(NOW())
+			ORDER BY HOUR_SECTION LIMIT 1
+		)
+		UNION ALL
+		(
+			SELECT * FROM t_parking_status
+			WHERE PARKING_ID = #{parkingId}
+			AND `STATUS` = '1'
+			AND HOUR_SECTION  <![CDATA[ < ]]> HOUR(NOW())
+			ORDER BY HOUR_SECTION LIMIT 1
+		)
+	</select>
+</mapper>

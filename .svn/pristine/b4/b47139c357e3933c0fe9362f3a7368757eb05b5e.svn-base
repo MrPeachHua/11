@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   
+    http://www.springframework.org/schema/tx   
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+    http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+	    
+	<bean id="departmentInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.user.dao.DepartmentInfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	    
+	<bean id="userInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.user.dao.UserInfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	    
+	<bean id="userRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.user.dao.UserRoleDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+		<bean id="menuDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.user.dao.MenuDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="menuRoleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.user.dao.MenuRoleDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<!-- 区域负责人-->
+	<bean id="regionUserDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.user.dao.RegionUserDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+</beans>

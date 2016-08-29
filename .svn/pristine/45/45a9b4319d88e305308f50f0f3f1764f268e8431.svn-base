@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parking.dao.VillageuserinfoDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parking.po.Villageuserinfo">
+        <result column="id" property="id"/>
+        <result column="village_id" property="villageId"/>
+        <result column="login_name" property="loginName"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="mobile" property="mobile"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		id, village_id, login_name, name, password, salt, create_time, create_user, update_time, update_user, mobile
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND id = #{id}
+		</if>
+		<if test="villageId != null and villageId != '' ">
+		AND village_id = #{villageId}
+		</if>
+		<if test="loginName != null and loginName != '' ">
+		AND login_name = #{loginName}
+		</if>
+		<if test="name != null and name != '' ">
+		AND name = #{name}
+		</if>
+		<if test="password != null and password != '' ">
+		AND password = #{password}
+		</if>
+		<if test="salt != null and salt != '' ">
+		AND salt = #{salt}
+		</if>
+		<if test="createTime != null and createTime != '' ">
+		AND create_time = #{createTime}
+		</if>
+		<if test="createUser != null and createUser != '' ">
+		AND create_user = #{createUser}
+		</if>
+		<if test="updateTime != null and updateTime != '' ">
+		AND update_time = #{updateTime}
+		</if>
+		<if test="updateUser != null and updateUser != '' ">
+		AND update_user = #{updateUser}
+		</if>
+		<if test="mobile != null and mobile != '' ">
+		AND mobile = #{mobile}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND id = #{params.id}
+		</if>
+		<if test="params.villageId != null and params.villageId != '' ">
+		AND village_id = #{params.villageId}
+		</if>
+		<if test="params.loginName != null and params.loginName != '' ">
+		AND login_name = #{params.loginName}
+		</if>
+		<if test="params.name != null and params.name != '' ">
+		AND name = #{params.name}
+		</if>
+		<if test="params.password != null and params.password != '' ">
+		AND password = #{params.password}
+		</if>
+		<if test="params.salt != null and params.salt != '' ">
+		AND salt = #{params.salt}
+		</if>
+		<if test="params.createTime != null and params.createTime != '' ">
+		AND create_time = #{params.createTime}
+		</if>
+		<if test="params.createUser != null and params.createUser != '' ">
+		AND create_user = #{params.createUser}
+		</if>
+		<if test="params.updateTime != null and params.updateTime != '' ">
+		AND update_time = #{params.updateTime}
+		</if>
+		<if test="params.updateUser != null and params.updateUser != '' ">
+		AND update_user = #{params.updateUser}
+		</if>
+		<if test="params.mobile != null and params.mobile != '' ">
+		AND mobile = #{params.mobile}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_VILLAGEUSERINFO 
+	     WHERE id = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_VILLAGEUSERINFO
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_VILLAGEUSERINFO
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parking.po.Villageuserinfo">
+        INSERT INTO T_VILLAGEUSERINFO (
+        	id,
+        	village_id,
+        	login_name,
+        	name,
+        	password,
+        	salt,
+        	create_time,
+        	create_user,
+        	update_time,
+        	update_user,
+        	mobile
+        ) VALUES (
+        	#{id},
+        	#{villageId},
+        	#{loginName},
+        	#{name},
+        	#{password},
+        	#{salt},
+        	#{createTime},
+        	#{createUser},
+        	#{updateTime},
+        	#{updateUser},
+        	#{mobile}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_VILLAGEUSERINFO 
+		 WHERE id = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parking.po.Villageuserinfo">
+        UPDATE T_VILLAGEUSERINFO 
+		SET
+	        village_id = #{villageId},
+	        login_name = #{loginName},
+	        name = #{name},
+	        password = #{password},
+	        salt = #{salt},
+	        create_time = #{createTime},
+	        create_user = #{createUser},
+	        update_time = #{updateTime},
+	        update_user = #{updateUser},
+	        mobile = #{mobile}
+        WHERE id = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_VILLAGEUSERINFO
+			<set>
+    	        village_id = #{item.villageId},
+    	        login_name = #{item.loginName},
+    	        name = #{item.name},
+    	        password = #{item.password},
+    	        salt = #{item.salt},
+    	        create_time = #{item.createTime},
+    	        create_user = #{item.createUser},
+    	        update_time = #{item.updateTime},
+    	        update_user = #{item.updateUser},
+    	        mobile = #{item.mobile}
+			</set>
+            WHERE id = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

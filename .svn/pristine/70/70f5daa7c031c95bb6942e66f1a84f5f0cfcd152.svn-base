@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.customer.dao.MemberLevelDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.customer.po.MemberLevel">
+        <result column="ID" property="id"/>
+        <result column="LEVEL_CODE" property="levelCode"/>
+        <result column="LEVEL_NAME" property="levelName"/>
+        <result column="GROWTH_VALUE" property="growthValue"/>
+        <result column="WEIGHT" property="weight"/>
+        <result column="IS_VALID" property="isValid"/>
+        <result column="EXT1" property="ext1"/>
+        <result column="EXT1_VALUE" property="ext1Value"/>
+        <result column="EXT2" property="ext2"/>
+        <result column="EXT2_VALUE" property="ext2Value"/>
+        <result column="EXT3" property="ext3"/>
+        <result column="EXT3_VALUE" property="ext3Value"/>
+        <result column="EXT4" property="ext4"/>
+        <result column="EXT4_VALUE" property="ext4Value"/>
+        <result column="EXT5" property="ext5"/>
+        <result column="EXT5_VALUE" property="ext5Value"/>
+        <result column="EXT6" property="ext6"/>
+        <result column="EXT6_VALUE" property="ext6Value"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, LEVEL_CODE, LEVEL_NAME, GROWTH_VALUE, WEIGHT, IS_VALID, EXT1, EXT1_VALUE, EXT2, EXT2_VALUE, EXT3, EXT3_VALUE, EXT4, EXT4_VALUE, EXT5, EXT5_VALUE, EXT6, EXT6_VALUE, CREATEOR, CREATE_DATE, MODIFIED, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="levelCode != null and levelCode != '' ">
+		AND LEVEL_CODE = #{levelCode}
+		</if>
+		<if test="levelName != null and levelName != '' ">
+		AND LEVEL_NAME = #{levelName}
+		</if>
+		<if test="growthValue != null and growthValue != '' ">
+		AND GROWTH_VALUE = #{growthValue}
+		</if>
+		<if test="weight != null and weight != '' ">
+		AND WEIGHT = #{weight}
+		</if>
+		<if test="isValid != null and isValid != '' ">
+		AND IS_VALID = #{isValid}
+		</if>
+		<if test="ext1 != null and ext1 != '' ">
+		AND EXT1 = #{ext1}
+		</if>
+		<if test="ext1Value != null and ext1Value != '' ">
+		AND EXT1_VALUE = #{ext1Value}
+		</if>
+		<if test="ext2 != null and ext2 != '' ">
+		AND EXT2 = #{ext2}
+		</if>
+		<if test="ext2Value != null and ext2Value != '' ">
+		AND EXT2_VALUE = #{ext2Value}
+		</if>
+		<if test="ext3 != null and ext3 != '' ">
+		AND EXT3 = #{ext3}
+		</if>
+		<if test="ext3Value != null and ext3Value != '' ">
+		AND EXT3_VALUE = #{ext3Value}
+		</if>
+		<if test="ext4 != null and ext4 != '' ">
+		AND EXT4 = #{ext4}
+		</if>
+		<if test="ext4Value != null and ext4Value != '' ">
+		AND EXT4_VALUE = #{ext4Value}
+		</if>
+		<if test="ext5 != null and ext5 != '' ">
+		AND EXT5 = #{ext5}
+		</if>
+		<if test="ext5Value != null and ext5Value != '' ">
+		AND EXT5_VALUE = #{ext5Value}
+		</if>
+		<if test="ext6 != null and ext6 != '' ">
+		AND EXT6 = #{ext6}
+		</if>
+		<if test="ext6Value != null and ext6Value != '' ">
+		AND EXT6_VALUE = #{ext6Value}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.levelCode != null and params.levelCode != '' ">
+		AND LEVEL_CODE = #{params.levelCode}
+		</if>
+		<if test="params.levelName != null and params.levelName != '' ">
+		AND LEVEL_NAME = #{params.levelName}
+		</if>
+		<if test="params.growthValue != null and params.growthValue != '' ">
+		AND GROWTH_VALUE = #{params.growthValue}
+		</if>
+		<if test="params.weight != null and params.weight != '' ">
+		AND WEIGHT = #{params.weight}
+		</if>
+		<if test="params.isValid != null and params.isValid != '' ">
+		AND IS_VALID = #{params.isValid}
+		</if>
+		<if test="params.ext1 != null and params.ext1 != '' ">
+		AND EXT1 = #{params.ext1}
+		</if>
+		<if test="params.ext1Value != null and params.ext1Value != '' ">
+		AND EXT1_VALUE = #{params.ext1Value}
+		</if>
+		<if test="params.ext2 != null and params.ext2 != '' ">
+		AND EXT2 = #{params.ext2}
+		</if>
+		<if test="params.ext2Value != null and params.ext2Value != '' ">
+		AND EXT2_VALUE = #{params.ext2Value}
+		</if>
+		<if test="params.ext3 != null and params.ext3 != '' ">
+		AND EXT3 = #{params.ext3}
+		</if>
+		<if test="params.ext3Value != null and params.ext3Value != '' ">
+		AND EXT3_VALUE = #{params.ext3Value}
+		</if>
+		<if test="params.ext4 != null and params.ext4 != '' ">
+		AND EXT4 = #{params.ext4}
+		</if>
+		<if test="params.ext4Value != null and params.ext4Value != '' ">
+		AND EXT4_VALUE = #{params.ext4Value}
+		</if>
+		<if test="params.ext5 != null and params.ext5 != '' ">
+		AND EXT5 = #{params.ext5}
+		</if>
+		<if test="params.ext5Value != null and params.ext5Value != '' ">
+		AND EXT5_VALUE = #{params.ext5Value}
+		</if>
+		<if test="params.ext6 != null and params.ext6 != '' ">
+		AND EXT6 = #{params.ext6}
+		</if>
+		<if test="params.ext6Value != null and params.ext6Value != '' ">
+		AND EXT6_VALUE = #{params.ext6Value}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MEMBER_LEVEL 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MEMBER_LEVEL
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MEMBER_LEVEL
+		 WHERE 1 = 1
+		 <if test="params.levelName != null and params.levelName != '' ">
+			AND LEVEL_NAME LIKE '%${params.levelName}%'
+		 </if>
+		 ORDER BY GROWTH_VALUE
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.customer.po.MemberLevel">
+        INSERT INTO T_MEMBER_LEVEL (
+        	ID,
+        	LEVEL_CODE,
+        	LEVEL_NAME,
+        	GROWTH_VALUE,
+        	WEIGHT,
+        	IS_VALID,
+        	EXT1,
+        	EXT1_VALUE,
+        	EXT2,
+        	EXT2_VALUE,
+        	EXT3,
+        	EXT3_VALUE,
+        	EXT4,
+        	EXT4_VALUE,
+        	EXT5,
+        	EXT5_VALUE,
+        	EXT6,
+        	EXT6_VALUE,
+        	CREATEOR,
+        	CREATE_DATE,
+        	MODIFIED,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{levelCode},
+        	#{levelName},
+        	#{growthValue},
+        	#{weight},
+        	#{isValid},
+        	#{ext1},
+        	#{ext1Value},
+        	#{ext2},
+        	#{ext2Value},
+        	#{ext3},
+        	#{ext3Value},
+        	#{ext4},
+        	#{ext4Value},
+        	#{ext5},
+        	#{ext5Value},
+        	#{ext6},
+        	#{ext6Value},
+        	#{createor},
+        	#{createDate},
+        	#{modified},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_MEMBER_LEVEL 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.customer.po.MemberLevel">
+        UPDATE T_MEMBER_LEVEL 
+		SET
+	        LEVEL_CODE = #{levelCode},
+	        LEVEL_NAME = #{levelName},
+	        GROWTH_VALUE = #{growthValue},
+	        WEIGHT = #{weight},
+	        IS_VALID = #{isValid},
+	        EXT1 = #{ext1},
+	        EXT1_VALUE = #{ext1Value},
+	        EXT2 = #{ext2},
+	        EXT2_VALUE = #{ext2Value},
+	        EXT3 = #{ext3},
+	        EXT3_VALUE = #{ext3Value},
+	        EXT4 = #{ext4},
+	        EXT4_VALUE = #{ext4Value},
+	        EXT5 = #{ext5},
+	        EXT5_VALUE = #{ext5Value},
+	        EXT6 = #{ext6},
+	        EXT6_VALUE = #{ext6Value},
+	        CREATEOR = #{createor},
+	        CREATE_DATE = #{createDate},
+	        MODIFIED = #{modified},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_MEMBER_LEVEL
+			<set>
+    	        LEVEL_CODE = #{item.levelCode},
+    	        LEVEL_NAME = #{item.levelName},
+    	        GROWTH_VALUE = #{item.growthValue},
+    	        WEIGHT = #{item.weight},
+    	        IS_VALID = #{item.isValid},
+    	        EXT1 = #{item.ext1},
+    	        EXT1_VALUE = #{item.ext1Value},
+    	        EXT2 = #{item.ext2},
+    	        EXT2_VALUE = #{item.ext2Value},
+    	        EXT3 = #{item.ext3},
+    	        EXT3_VALUE = #{item.ext3Value},
+    	        EXT4 = #{item.ext4},
+    	        EXT4_VALUE = #{item.ext4Value},
+    	        EXT5 = #{item.ext5},
+    	        EXT5_VALUE = #{item.ext5Value},
+    	        EXT6 = #{item.ext6},
+    	        EXT6_VALUE = #{item.ext6Value},
+    	        CREATEOR = #{item.createor},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFIED = #{item.modified},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

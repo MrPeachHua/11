@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parking.dao.ClearanceRecordDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parking.po.ClearanceRecord">
+        <result column="ID" property="id"/>
+        <result column="CAR_NUMBER" property="carNumber"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="PRICE" property="price"/>
+		<result column="SUM_PRICE" property="sumPrice"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, CAR_NUMBER, PARKING_ID,USER_ID, PRICE, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND CAR_NUMBER = #{carNumber}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="userId != null and userId != '' ">
+			AND USER_ID = #{userId}
+		</if>
+		<if test="price != null and price != '' ">
+		AND PRICE = #{price}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND CAR_NUMBER = #{params.carNumber}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.price != null and params.price != '' ">
+		AND PRICE = #{params.price}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CLEARANCE_RECORD 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CLEARANCE_RECORD
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CLEARANCE_RECORD
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parking.po.ClearanceRecord">
+        INSERT INTO T_CLEARANCE_RECORD (
+        	ID,
+        	CAR_NUMBER,
+        	PARKING_ID,
+        	USER_ID,
+        	PRICE,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{carNumber},
+        	#{parkingId},
+        	#{userId},
+        	#{price},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CLEARANCE_RECORD 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parking.po.ClearanceRecord">
+        UPDATE T_CLEARANCE_RECORD 
+		SET
+	        CAR_NUMBER = #{carNumber},
+	        PARKING_ID = #{parkingId},
+	        PRICE = #{price},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CLEARANCE_RECORD
+			<set>
+    	        CAR_NUMBER = #{item.carNumber},
+    	        PARKING_ID = #{item.parkingId},
+    	        PRICE = #{item.price},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+	<select id="getSumPrice" resultMap="resultMap">
+		SELECT tc.*,SUM(tc.price) AS SUM_PRICE FROM t_clearance_record tc
+		WHERE DATE_FORMAT(tc.CREATE_DATE, "%Y%-%m") = DATE_FORMAT(CURRENT_TIMESTAMP(), "%Y-%m")
+		AND tc.USER_ID = #{userId}
+	</select>
+</mapper>

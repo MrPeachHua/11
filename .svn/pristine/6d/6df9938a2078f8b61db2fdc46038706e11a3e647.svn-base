@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ChargeNormMap">
+	<resultMap type="com.boxiang.share.product.parking.po.ChargeNorm" id="chargeNormMap" >
+		<result property="priceId" column="price_id"/>
+		<result property="parkingStartTime" column="parkingstarttime"/>
+		<result property="parkingEndTime" column="parkingendtime"/>
+		<result property="discountType" column="discount_type"/>
+		<result property="parkingId" column="parking_id"/>
+		<result property="priceHour" column="price_hour"/>
+		<result property="priceName" column="price_name"/>
+		<result property="priceDate" column="price_date"/>
+		<result property="priceMoney" column="price_money"/>
+	</resultMap>
+	<!-- 查找对应停车场收费标准 -->
+	<select id="findChargeNormsByParkingId" parameterType="string" resultMap="chargeNormMap">
+		select * from t_charge_norm where parking_id=#{parking_id} order by tcn.price_id asc
+	</select>
+	
+</mapper>

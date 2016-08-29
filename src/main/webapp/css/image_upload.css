@@ -1,0 +1,95 @@
+/* 图片上传组件样式*/
+body{
+	font-family: "Microsoft YaHei", "微软雅黑", "sans-serif";
+}
+.content_upload {
+	width: 200px;
+	height: auto;
+	overflow: auto;
+	float: left;
+}
+
+.content_upload ul {
+	overflow: hidden;
+	height: auto;
+}
+
+.content_upload li {
+	width: 150px;
+	height: 200px;
+	text-align: center;
+	border: 1px solid #e5e5e5;
+	margin-bottom: 5px;
+	background-color: #fff;
+	margin-left: -39px;
+}
+
+.content_upload_button {
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
+	background: url('http://139.196.24.16/share/images/upload_image_default.png') no-repeat;
+	position: relative;
+	border-radius: 5px;
+}
+
+.content_upload_button label {
+	display: block;
+	cursor: pointer;
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	filter: alpha(opacity = 0); 
+	-moz-opacity : 0; 
+	-khtml-opacity : 0;
+	opacity : 0;
+	z-index: 1;
+}
+
+.content_upload_button span {
+	display: block;
+	background-color: #fff;
+	width: 150px;
+	height: 150px;
+}
+
+.content_upload_button img {
+	left: 0;
+	top: 0;
+	width: 150px;
+	height: 150px;
+	position: absolute;
+}
+
+.content_upload_button input {
+	position: absolute;
+	top: -50px;
+	left: 0px;
+}
+
+.content_upload p {
+	width: 150px;
+	height: auto;
+	min-height: 50px;
+	font-weight: bold;
+	background-color: #e7e7e7;
+	line-height: 50px;
+}
+.content_upload_button b{
+	display:block;
+	position:absolute;
+	top:5px;
+	right:5px;
+	width:16px;
+	height:16px;
+	background: url('http://139.196.24.16/share/images/closed_03.png') no-repeat;
+	z-index:30;
+	overflow:hidden;
+	cursor:pointer;
+	text-indent:-9999px;
+}
+.content_upload_button b:hover{
+	background: url('http://139.196.24.16/share/images/closed_03.png') no-repeat;
+}

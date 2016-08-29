@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.car.dao.CarTypesDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.car.po.CarTypes">
+        <result column="ID" property="id"/>
+        <result column="PARK_ID" property="parkId"/>
+        <result column="CAR_TYPE_CODE" property="carTypeCode"/>
+        <result column="CAR_TYPE_NAME" property="carTypeName"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, PARK_ID, CAR_TYPE_CODE, CAR_TYPE_NAME, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="parkId != null and parkId != '' ">
+		AND PARK_ID = #{parkId}
+		</if>
+		<if test="carTypeCode != null and carTypeCode != '' ">
+		AND CAR_TYPE_CODE = #{carTypeCode}
+		</if>
+		<if test="carTypeName != null and carTypeName != '' ">
+		AND CAR_TYPE_NAME = #{carTypeName}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.parkId != null and params.parkId != '' ">
+		AND PARK_ID = #{params.parkId}
+		</if>
+		<if test="params.carTypeCode != null and params.carTypeCode != '' ">
+		AND CAR_TYPE_CODE = #{params.carTypeCode}
+		</if>
+		<if test="params.carTypeName != null and params.carTypeName != '' ">
+		AND CAR_TYPE_NAME = #{params.carTypeName}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_TYPES 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_TYPES
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_TYPES
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.car.po.CarTypes">
+        INSERT INTO T_CAR_TYPES (
+        	ID,
+        	PARK_ID,
+        	CAR_TYPE_CODE,
+        	CAR_TYPE_NAME,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{parkId},
+        	#{carTypeCode},
+        	#{carTypeName},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CAR_TYPES 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.car.po.CarTypes">
+        UPDATE T_CAR_TYPES 
+		SET
+	        PARK_ID = #{parkId},
+	        CAR_TYPE_CODE = #{carTypeCode},
+	        CAR_TYPE_NAME = #{carTypeName},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CAR_TYPES
+			<set>
+    	        PARK_ID = #{item.parkId},
+    	        CAR_TYPE_CODE = #{item.carTypeCode},
+    	        CAR_TYPE_NAME = #{item.carTypeName},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+	<insert id="batchInsert" useGeneratedKeys="true" parameterType="java.util.List">
+		insert into T_CAR_TYPES (
+			PARK_ID,
+			CAR_TYPE_CODE,
+			CAR_TYPE_NAME,
+			IS_USED,
+			CREATEOR,
+			MODIFIED,
+			CREATE_DATE,
+			MODIFY_DATE
+			)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+			(#{item.parkId},
+			#{item.carTypeCode},
+			#{item.carTypeName},
+			#{item.isUsed},
+			#{item.createor},
+			#{item.modified},
+			#{item.createDate},
+			#{item.modifyDate})
+		</foreach>
+	</insert>
+</mapper>

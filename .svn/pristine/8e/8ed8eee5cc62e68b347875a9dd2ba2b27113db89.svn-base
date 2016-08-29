@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.feedback.dao.SystemReviewsDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.feedback.po.SystemReviews">
+        <result column="reviews_id" property="reviewsId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="reviews_info" property="reviewsInfo"/>
+        <result column="customerName" property="customerName"/>
+        <result column="customerMobile" property="customerMobile"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		a.reviews_id, a.customer_id, a.create_time, a.reviews_info
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="reviewsId != null and reviewsId != '' ">
+		AND reviews_id = #{reviewsId}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND customer_id = #{customerId}
+		</if>
+		<if test="createTime != null and createTime != '' ">
+		AND create_time = #{createTime}
+		</if>
+		<if test="reviewsInfo != null and reviewsInfo != '' ">
+		AND reviews_info like '%${reviewsInfo}%'
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.reviewsId != null and params.reviewsId != '' ">
+		AND a.reviews_id = #{params.reviewsId}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND a.customer_id = #{params.customerId}
+		</if>
+		<if test="params.createTime != null and params.createTime != '' ">
+		AND a.create_time = #{params.createTime}
+		</if>
+		<if test="params.reviewsInfo != null and params.reviewsInfo != '' ">
+		AND a.reviews_info like '%${params.reviewsInfo}%'
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_SYSTEM_REVIEWS a
+	     WHERE reviews_id = #{reviewsId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_SYSTEM_REVIEWS a
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		,b.customer_mobile,b.customer_nickname
+		 FROM T_SYSTEM_REVIEWS  a INNER JOIN t_customer b on a.customer_id=b.customer_id
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 order by create_time desc
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.feedback.po.SystemReviews">
+        INSERT INTO T_SYSTEM_REVIEWS (
+        	reviews_id,
+        	customer_id,
+        	create_time,
+        	reviews_info
+        ) VALUES (
+        	#{reviewsId},
+        	#{customerId},
+        	#{createTime},
+        	#{reviewsInfo}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_SYSTEM_REVIEWS 
+		 WHERE reviews_id = #{reviewsId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.feedback.po.SystemReviews">
+        UPDATE T_SYSTEM_REVIEWS 
+		SET
+	        customer_id = #{customerId},
+	        create_time = #{createTime},
+	        reviews_info = #{reviewsInfo}
+        WHERE reviews_id = #{reviewsId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_SYSTEM_REVIEWS
+			<set>
+    	        customer_id = #{item.customerId},
+    	        create_time = #{item.createTime},
+    	        reviews_info = #{item.reviewsInfo}
+			</set>
+            WHERE reviews_id = #{item.reviewsId} 	
+		</foreach>
+	</update>
+</mapper>

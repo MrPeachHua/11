@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parker.dao.QuestionnaireInfoDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parker.po.QuestionnaireInfo">
+        <result column="ID" property="id"/>
+        <result column="SURVEY_TYPE" property="surveyType"/>
+        <result column="FLAG" property="flag"/>
+        <result column="CONTENT" property="content"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, SURVEY_TYPE, FLAG, CONTENT, CREATEOR, CREATE_DATE, MODIFIED, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="surveyType != null and surveyType != '' ">
+		AND SURVEY_TYPE = #{surveyType}
+		</if>
+		<if test="flag != null and flag != '' ">
+		AND FLAG = #{flag}
+		</if>
+		<if test="content != null and content != '' ">
+		AND CONTENT = #{content}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.surveyType != null and params.surveyType != '' ">
+		AND SURVEY_TYPE = #{params.surveyType}
+		</if>
+		<if test="params.flag != null and params.flag != '' ">
+		AND FLAG = #{params.flag}
+		</if>
+		<if test="params.content != null and params.content != '' ">
+		AND CONTENT = #{params.content}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_QUESTIONNAIRE_INFO 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_QUESTIONNAIRE_INFO
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_QUESTIONNAIRE_INFO
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parker.po.QuestionnaireInfo">
+        INSERT INTO T_QUESTIONNAIRE_INFO (
+        	ID,
+        	SURVEY_TYPE,
+        	FLAG,
+        	CONTENT,
+        	CREATEOR,
+        	CREATE_DATE,
+        	MODIFIED,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{surveyType},
+        	#{flag},
+        	#{content},
+        	#{createor},
+        	#{createDate},
+        	#{modified},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_QUESTIONNAIRE_INFO 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parker.po.QuestionnaireInfo">
+        UPDATE T_QUESTIONNAIRE_INFO 
+		SET
+	        SURVEY_TYPE = #{surveyType},
+	        FLAG = #{flag},
+	        CONTENT = #{content},
+	        CREATEOR = #{createor},
+	        CREATE_DATE = #{createDate},
+	        MODIFIED = #{modified},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_QUESTIONNAIRE_INFO
+			<set>
+    	        SURVEY_TYPE = #{item.surveyType},
+    	        FLAG = #{item.flag},
+    	        CONTENT = #{item.content},
+    	        CREATEOR = #{item.createor},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFIED = #{item.modified},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

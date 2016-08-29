@@ -1,0 +1,77 @@
+body {
+    background-color: #EFEEEC;
+    font-family: "Microsoft YaHei", "微软雅黑", "sans-serif";
+    color: #6D7D83;
+    font-size: 16px;
+}
+.mainView {
+    background-color: #ffffff;
+    box-shadow: 0 0 1px #bbbbbb;
+}
+.defaultShadow {
+    box-shadow: 0 0 5px #bbbbbb;
+}
+.tableHeader {
+    height: 50px;
+    background-color: #EBF6FF;
+    color: #444F53;
+}
+.headerTitle {
+    height: 50px;
+    background-color: #EBF6FF;
+    padding-left: 15px;
+    color: #444F53;
+}
+.star {
+    color: #ff0000;
+    font-family: "黑体";
+}
+.greenBtn {
+    background-color: #00D9B6;
+    border: 0;
+    color: #ffffff;
+    border-radius: 5px;
+    width: 125px;
+    height: 40px;
+    font-weight: bolder;
+    margin-left: 15px;
+}
+.searchBtn {
+    background-color: #00D9B6;
+    border: 0;
+    color: #ffffff;
+    border-radius: 5px;
+    width: 88px;
+    height: 25px;
+    font-weight: bolder;
+    box-shadow: 0 2px 1px #00B394;
+}
+input[type=text], input[type=password], select {
+    border: 1px solid #D0CCC7;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 0 5px;
+    height: 30px;
+}
+.mainColor {
+    color: #00D9B6;
+}
+.fontColor {
+    color: #6D7D83;
+}
+.headerBgColor {
+    background-color: #EBF6FF;
+}
+.bodyColor {
+    background-color: #EFEEEC;
+}
+.tableView tr {
+    border-bottom: 1px solid #D0CCC7;
+}
+/*.tableView tr:hover {*/
+    /*background-color: #C1EBFF;*/
+/*}*/
+.tableView tr td {
+    height: 50px;
+    padding: 5px;
+}

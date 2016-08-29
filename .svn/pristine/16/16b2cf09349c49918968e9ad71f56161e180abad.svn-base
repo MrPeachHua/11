@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.coupon.dao.RedeemRuleDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.coupon.po.RedeemRule">
+        <result column="ID" property="id"/>
+        <result column="TYPE" property="type"/>
+        <result column="REDEEM_COUNT" property="redeemCount"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<resultMap id="resultMapWithCouponTemplate" type="com.boxiang.share.product.coupon.po.RedeemRule">
+		<result column="ID" property="id"/>
+		<result column="TYPE" property="type"/>
+		<result column="REDEEM_COUNT" property="redeemCount"/>
+		<result column="IS_USED" property="isUsed"/>
+		<result column="CREATEOR" property="createor"/>
+		<result column="MODIFIED" property="modified"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<collection property="couponTemplateList" ofType="com.boxiang.share.product.coupon.po.CouponTemplate">
+			<result column="t_ID" property="id"/>
+			<result column="t_TYPE" property="type"/>
+			<result column="TYPE_ID" property="typeId"/>
+			<result column="COUPON_KIND" property="couponKind"/>
+			<result column="COUPON_NAME" property="couponName"/>
+			<result column="COUPON_TYPE" property="couponType"/>
+			<result column="PAR_AMOUNT" property="parAmount"/>
+			<result column="PAR_DISCOUNT" property="parDiscount"/>
+			<result column="MINCONSUMPTION" property="minconsumption"/>
+			<result column="EFFECTIVE_TYPE" property="effectiveType"/>
+			<result column="EFFECTIVE_BEGIN" property="effectiveBegin"/>
+			<result column="EFFECTIVE_END" property="effectiveEnd"/>
+			<result column="EFFECTIVE_DAY" property="effectiveDay"/>
+			<result column="EXCLUSION_RULE" property="exclusionRule"/>
+			<result column="INFO" property="info"/>
+			<result column="t_IS_USED" property="isUsed"/>
+			<result column="t_CREATEOR" property="createor"/>
+			<result column="t_MODIFIED" property="modified"/>
+			<result column="t_CREATE_DATE" property="createDate"/>
+			<result column="t_MODIFY_DATE" property="modifyDate"/>
+		</collection>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, TYPE, REDEEM_COUNT, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="type != null and type != '' ">
+		AND TYPE = #{type}
+		</if>
+		<if test="redeemCount != null and redeemCount != '' ">
+		AND REDEEM_COUNT = #{redeemCount}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.type != null and params.type != '' ">
+		AND TYPE = #{params.type}
+		</if>
+		<if test="params.redeemCount != null and params.redeemCount != '' ">
+		AND REDEEM_COUNT = #{params.redeemCount}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_REDEEM_RULE 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_REDEEM_RULE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_REDEEM_RULE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" parameterType="com.boxiang.share.product.coupon.po.RedeemRule">
+        INSERT INTO T_REDEEM_RULE (
+        	ID,
+        	TYPE,
+        	REDEEM_COUNT,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{type},
+        	#{redeemCount},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_REDEEM_RULE 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.coupon.po.RedeemRule">
+        UPDATE T_REDEEM_RULE 
+		SET
+	        TYPE = #{type},
+	        REDEEM_COUNT = #{redeemCount},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_REDEEM_RULE
+			<set>
+    	        TYPE = #{item.type},
+    	        REDEEM_COUNT = #{item.redeemCount},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+
+	<!-- 查询列表带优惠券模板 -->
+	<select id="selectListWithCouponTemplate" resultMap="resultMapWithCouponTemplate">
+		SELECT
+		r.ID,
+		r.TYPE,
+		r.REDEEM_COUNT,
+		r.IS_USED,
+		r.CREATEOR,
+		r.MODIFIED,
+		r.CREATE_DATE,
+		r.MODIFY_DATE,
+		t.ID t_ID,
+		t.TYPE t_TYPE,
+		t.TYPE_ID,
+		t.COUPON_KIND,
+		t.COUPON_NAME,
+		t.COUPON_TYPE,
+		t.PAR_AMOUNT,
+		t.PAR_DISCOUNT,
+		t.MINCONSUMPTION,
+		t.EFFECTIVE_TYPE,
+		t.EFFECTIVE_BEGIN,
+		t.EFFECTIVE_END,
+		t.EFFECTIVE_DAY,
+		t.EXCLUSION_RULE,
+		t.INFO,
+		t.IS_USED t_IS_USED,
+		t.CREATEOR t_CREATEOR,
+		t.MODIFIED t_MODIFIED,
+		t.CREATE_DATE t_CREATE_DATE,
+		t.MODIFY_DATE t_MODIFY_DATE
+		from t_redeem_rule r
+		join t_coupon_template t on t.TYPE_ID = r.ID
+		where t.TYPE = 2 and t.IS_USED = 1
+		<if test="id != null and id != '' ">
+			AND r.ID = #{id}
+		</if>
+		<if test="type != null and type != '' ">
+			AND r.TYPE = #{type}
+		</if>
+		<if test="redeemCount != null and redeemCount != '' ">
+			AND r.REDEEM_COUNT = #{redeemCount}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+			AND r.IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+			AND r.CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+			AND r.MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+			AND r.CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+			AND r.MODIFY_DATE = #{modifyDate}
+		</if>
+	</select>
+
+</mapper>

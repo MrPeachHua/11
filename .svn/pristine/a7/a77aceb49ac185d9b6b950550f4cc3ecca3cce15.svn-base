@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.comment.dao.CommentDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.comment.po.Comment">
+        <result column="comment_id" property="commentId"/>
+        <result column="order_id" property="orderId"/>
+        <result column="comment_operater_type" property="commentOperaterType"/>
+        <result column="comment_level" property="commentLevel"/>
+        <result column="comment_content" property="commentContent"/>
+        <result column="comment_operater_id" property="commentOperaterId"/>
+
+		<result column="totality_star" property="totalityStar"/>
+		<result column="car_manager_star" property="carManagerStar"/>
+		<result column="business_star" property="businessStar"/>
+		<result column="totality_tag" property="totalityTag"/>
+		<result column="car_manager_tag" property="carManagerTag"/>
+		<result column="business_tag" property="businessTag"/>
+		<result column="create_date" property="createDate"/>
+		<result column="is_used" property="isUsed"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		comment_id, order_id, comment_operater_type, comment_level, comment_content, comment_operater_id, totality_star, car_manager_star, business_star, totality_tag, car_manager_tag, business_tag, create_date, is_used
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="commentId != null and commentId != '' ">
+		AND comment_id = #{commentId}
+		</if>
+		<if test="orderId != null and orderId != '' ">
+		AND order_id = #{orderId}
+		</if>
+		<if test="commentOperaterType != null and commentOperaterType != '' ">
+		AND comment_operater_type = #{commentOperaterType}
+		</if>
+		<if test="commentLevel != null and commentLevel != '' ">
+		AND comment_level = #{commentLevel}
+		</if>
+		<if test="commentContent != null and commentContent != '' ">
+		AND comment_content = #{commentContent}
+		</if>
+		<if test="commentOperaterId != null and commentOperaterId != '' ">
+		AND comment_operater_id = #{commentOperaterId}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.commentId != null and params.commentId != '' ">
+		AND comment_id = #{params.commentId}
+		</if>
+		<if test="params.orderId != null and params.orderId != '' ">
+		AND order_id = #{params.orderId}
+		</if>
+		<if test="params.commentOperaterType != null and params.commentOperaterType != '' ">
+		AND comment_operater_type = #{params.commentOperaterType}
+		</if>
+		<if test="params.commentLevel != null and params.commentLevel != '' ">
+		AND comment_level = #{params.commentLevel}
+		</if>
+		<if test="params.commentContent != null and params.commentContent != '' ">
+		AND comment_content = #{params.commentContent}
+		</if>
+		<if test="params.commentOperaterId != null and params.commentOperaterId != '' ">
+		AND comment_operater_id = #{params.commentOperaterId}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COMMENT 
+	     WHERE comment_id = #{commentId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COMMENT
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COMMENT
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<select id="queryListPageV2" resultType="com.boxiang.share.utils.ResultMap">
+		SELECT
+			c.order_id,
+			m.ORDER_TYPE,
+			tmp.DICT_NAME orderTypeName,
+			cus.customer_mobile,
+			cus.customer_nickname,
+			c.totality_star,
+			c.totality_tag,
+			c.car_manager_star,
+			c.car_manager_tag,
+			c.business_star,
+			c.business_tag,
+			c.comment_content,
+			m.CREATE_DATE
+		FROM
+			t_comment c
+		LEFT JOIN t_order_main m ON m.ORDER_ID = c.order_id
+		LEFT JOIN t_customer cus ON cus.customer_id = m.CUSTOMER_ID
+		LEFT JOIN (
+			SELECT
+				DICT_NAME,
+				DICT_VALUE
+			FROM
+				t_dictionary
+			WHERE
+				DICT_CODE = 'order_type'
+			AND IS_USED = '1'
+		) tmp ON tmp.DICT_VALUE = m.ORDER_TYPE
+		WHERE
+			c.is_used = '1'
+		<if test="params.customerMobile != null and params.customerMobile != '' ">
+			AND cus.customer_mobile = #{params.customerMobile}
+		</if>
+		<if test="params.orderId != null and params.orderId != '' ">
+			AND c.order_id = #{params.orderId}
+		</if>
+		<if test="params.orderType != null and params.orderType != '' ">
+			AND m.ORDER_TYPE = #{params.orderType}
+		</if>
+		<if test="params.startTime != null and params.startTime != '' ">
+			AND m.CREATE_DATE >= #{params.startTime}
+		</if>
+		<if test="params.endTime != null and params.endTime != '' ">
+			AND m.CREATE_DATE <![CDATA[ <= ]]> #{params.endTime}
+		</if>
+		<if test="params.star != null and params.star != '' ">
+			AND (
+				c.totality_star = #{params.star}
+				OR c.car_manager_star = #{params.star}
+				OR c.business_star = #{params.star}
+			)
+		</if>
+		ORDER BY
+			m.CREATE_DATE DESC
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.comment.po.Comment">
+        INSERT INTO T_COMMENT (
+        	comment_id,
+        	order_id,
+        	comment_operater_type,
+        	comment_level,
+        	comment_content,
+        	comment_operater_id,
+        	totality_star,
+			car_manager_star,
+			business_star,
+			totality_tag,
+			car_manager_tag,
+			business_tag,
+			create_date,
+			is_used
+        ) VALUES (
+        	#{commentId},
+        	#{orderId},
+        	#{commentOperaterType},
+        	#{commentLevel},
+        	#{commentContent},
+        	#{commentOperaterId},
+        	#{totalityStar},
+			#{carManagerStar},
+			#{businessStar},
+			#{totalityTag},
+			#{carManagerTag},
+			#{businessTag},
+			#{createDate},
+			#{isUsed}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_COMMENT 
+		 WHERE comment_id = #{commentId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.comment.po.Comment">
+        UPDATE T_COMMENT 
+		SET
+	        order_id = #{orderId},
+	        comment_operater_type = #{commentOperaterType},
+	        comment_level = #{commentLevel},
+	        comment_content = #{commentContent},
+	        comment_operater_id = #{commentOperaterId},
+	        totality_star = #{totalityStar},
+			car_manager_star = #{carManagerStar},
+			business_star = #{businessStar},
+			totality_tag = #{totalityTag},
+			car_manager_tag = #{carManagerTag},
+			business_tag = #{businessTag},
+			create_date = #{createDate},
+			is_used = #{isUsed}
+        WHERE comment_id = #{commentId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_COMMENT
+			<set>
+    	        order_id = #{item.orderId},
+    	        comment_operater_type = #{item.commentOperaterType},
+    	        comment_level = #{item.commentLevel},
+    	        comment_content = #{item.commentContent},
+    	        comment_operater_id = #{item.commentOperaterId},
+				totality_star = #{item.totalityStar},
+				car_manager_star = #{item.carManagerStar},
+				business_star = #{item.businessStar},
+				totality_tag = #{item.totalityTag},
+				car_manager_tag = #{item.carManagerTag},
+				business_tag = #{item.businessTag},
+				create_date = #{item.createDate},
+				is_used = #{item.isUsed}
+			</set>
+            WHERE comment_id = #{item.commentId} 	
+		</foreach>
+	</update>
+</mapper>

@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parking.dao.ParkingDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parking.po.Parking">
+        <result column="parking_id" property="parkingId"/>
+        <result column="parking_name" property="parkingName"/>
+        <result column="parking_country" property="parkingCountry"/>
+        <result column="parking_province" property="parkingProvince"/>
+        <result column="parking_city" property="parkingCity"/>
+        <result column="parking_county" property="parkingCounty"/>
+        <result column="parking_area" property="parkingArea"/>
+        <result column="parking_address" property="parkingAddress"/>
+        <result column="parking_latitude" property="parkingLatitude"/>
+        <result column="parking_longitude" property="parkingLongitude"/>
+        <result column="parking_count" property="parkingCount"/>
+        <result column="parking_can_use" property="parkingCanUse"/>
+        <result column="parking_status" property="parkingStatus"/>
+        <result column="parking_info" property="parkingInfo"/>
+        <result column="parking_path" property="parkingPath"/>
+        <result column="price_times" property="priceTimes"/>
+        <result column="price_max" property="priceMax"/>
+        <result column="charge_type" property="chargeType"/>
+        <result column="discount" property="discount"/>
+        <result column="isIn" property="isIn"/>
+        <result column="can_use" property="canUse"/>
+        <result column="SharePrice" property="sharePrice"/>
+        <result column="PeacetimePrice" property="peacetimePrice"/>
+        <result column="DesignatedPrice" property="designatedPrice"/>
+        <result column="StartTime" property="startTime"/>
+        <result column="StopTime" property="stopTime"/>
+        <result column="is_direct" property="isDirect"/>
+        <result column="is_cooperate" property="isCooperate"/>
+        <result column="is_open" property="isOpen"/>
+        <result column="is_index" property="isIndex"/>
+		<result column="is_charge" property="isCharge"/>
+		<result column="is_open_payment" property="isOpenPayment"/>
+		<!--<result property="is_community" column="isCommunity"/>-->
+		<result column="rule" property="rule"/>
+		<result column="vipSharePrice" property="vipSharePrice"/>
+		<result column="vipStartTime" property="vipStartTime"/>
+		<result column="vipStopTime" property="vipStopTime"/>
+		<result column="sharePriceComment" property="sharePriceComment"/>
+		<result column="vipSharePriceComment" property="vipSharePriceComment"/>
+		<result column="len" property="len"/>
+		<result column="invoice_describe" property="invoiceDescribe"/>
+		<result column="PARK_PRICE_COMMENT" property="parkPriceComment"/>
+		<result column="MAXIMUM_HOUR" property="maxinumHour"/>
+		<result column="item01" property="item01"/>
+		<result property="isCollection" column="isCollection"/>
+		<result property="defaultScan" column="defaultScan"/>
+		<result property="maximumDay" column="MAXIMUM_DAY"/>
+		<result property="parkBeginTime" column="PARK_BEGIN_TIME"/>
+		<result property="parkEndTime" column="PARK_END_TIME"/>
+		<result property="homeParkingId" column="home_parking_id"/>
+		<result property="workParkingId" column="work_parking_id"/>
+		<result property="isAutoPay" column="IS_AUTO_PAY"/>
+		<result property="parkingInitialUse" column="parking_initial_use"/>
+		<result property="parkingIdentifier" column="parking_identifier"/>
+		<result property="region" column="region"/>
+		<result property="qiyuId" column="qiyu_id"/>
+	</resultMap>
+	<resultMap type="com.boxiang.share.product.parking.po.Parking" id="parking_se">
+		<result property="customerId" column="customer_id"/>
+		<result property="parkingName" column="parking_name"/>
+		<result property="isCollection" column="isCollection"/>
+		<result property="defaultScan" column="defaultScan"/>
+		<result property="canUse" column="can_use"/>
+		<result column="charge_type" property="chargeType" />
+		<result column="price_times" property="priceTimes" />
+		<result column="is_direct" property="isDirect"/>
+		<result column="is_cooperate" property="isCooperate"/>
+		<result column="is_open" property="isOpen"/>
+		<result column="is_index" property="isIndex"/>
+		<result column="ln" property="ln" />
+		<result column="SharePrice" property="sharePrice"/>
+		<result column="PeacetimePrice" property="peacetimePrice"/>
+		<result column="isIn" property="isIn" />
+		<result column="DesignatedPrice" property="designatedPrice"/>
+		<result column="startTime" property="startTime"/>
+		<result column="stopTime" property="stopTime"/>
+		<result column="rule" property="rule"/>
+		<result column="vipSharePrice" property="vipSharePrice"/>
+		<result column="vipStartTime" property="vipStartTime"/>
+		<result column="vipStopTime" property="vipStopTime"/>
+		<result column="sharePriceComment" property="sharePriceComment"/>
+		<result column="vipSharePriceComment" property="vipSharePriceComment"/>
+		<result column="is_charge" property="isCharge"/>
+		<result column="parking_id" property="parkingId"/>
+		<result column="PARK_PRICE_COMMENT" property="parkPriceComment"/>
+		<result column="MAXIMUM_HOUR" property="maxinumHour"/>
+		<result property="isAutoPay" column="IS_AUTO_PAY"/>
+		<result property="parkingInitialUse" column="parking_initial_use"/>
+		<result property="parkingIdentifier" column="parking_identifier"/>
+		<result property="region" column="region"/>
+
+	<!--	<collection property="chargeNorms" column="charge_id" ofType="com.boxiang.share.product.parking.po.ChargeNorm">
+			<result property="parkingStartTime" column="parkingstarttime" />
+			<result property="parkingEndTime" column="parkingendtime" />
+			<result property="priceHour" column="price_hour" />
+		</collection>-->
+	</resultMap>
+	<resultMap id="resultMapForCustomer" type="com.boxiang.share.product.parking.po.Parking">
+        <result column="parking_id" property="parkingId"/>
+        <result column="parking_name" property="parkingName"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="effect_end_time" property="endDate"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="item01" property="item01"/>
+        <result column="IMG_URL" property="imgUrl"/>
+        <result column="phone" property="phone"/>
+        <result column="monthly_rental_price" property="priceM"/>
+        <result column="management_fee_monthly_unit" property="priceP"/>
+		<result property="parkingInitialUse" column="parking_initial_use"/>
+	</resultMap>
+	<resultMap id="resultMapCarLov" type="com.boxiang.share.product.parking.po.Parking">
+		<result column="parking_id" property="parkingId"/>
+		<result column="parking_name" property="parkingName"/>
+		<result column="parking_country" property="parkingCountry"/>
+		<result column="parking_province" property="parkingProvince"/>
+		<result column="parking_city" property="parkingCity"/>
+		<result column="parking_county" property="parkingCounty"/>
+		<result column="parking_area" property="parkingArea"/>
+		<result column="parking_address" property="parkingAddress"/>
+		<result column="parking_latitude" property="parkingLatitude"/>
+		<result column="parking_longitude" property="parkingLongitude"/>
+		<result column="parking_count" property="parkingCount"/>
+		<result column="parking_can_use" property="parkingCanUse"/>
+		<result column="parking_status" property="parkingStatus"/>
+		<result column="parking_info" property="parkingInfo"/>
+		<result column="parking_path" property="parkingPath"/>
+		<result column="price_times" property="priceTimes"/>
+		<result column="price_max" property="priceMax"/>
+		<result column="charge_type" property="chargeType"/>
+		<result column="discount" property="discount"/>
+		<result column="isIn" property="isIn"/>
+		<result column="can_use" property="canUse"/>
+		<result column="SharePrice" property="sharePrice"/>
+		<result column="PeacetimePrice" property="peacetimePrice"/>
+		<result column="DesignatedPrice" property="designatedPrice"/>
+		<result column="StartTime" property="startTime"/>
+		<result column="StopTime" property="stopTime"/>
+		<result column="is_direct" property="isDirect"/>
+		<result column="is_cooperate" property="isCooperate"/>
+		<result column="is_open" property="isOpen"/>
+		<result column="is_index" property="isIndex"/>
+		<result column="is_charge" property="isCharge"/>
+		<result column="is_open_payment" property="isOpenPayment"/>
+		<result column="rule" property="rule"/>
+		<result column="vipSharePrice" property="vipSharePrice"/>
+		<result column="vipStartTime" property="vipStartTime"/>
+		<result column="vipStopTime" property="vipStopTime"/>
+		<result column="sharePriceComment" property="sharePriceComment"/>
+		<result column="vipSharePriceComment" property="vipSharePriceComment"/>
+		<result column="len" property="len"/>
+		<result column="invoice_describe" property="invoiceDescribe"/>
+		<result column="PARK_PRICE_COMMENT" property="parkPriceComment"/>
+		<result column="MAXIMUM_HOUR" property="maxinumHour"/>
+		<result column="item01" property="item01"/>
+		<result property="isCollection" column="isCollection"/>
+		<result property="defaultScan" column="defaultScan"/>
+		<result property="maximumDay" column="MAXIMUM_DAY"/>
+		<result property="parkBeginTime" column="PARK_BEGIN_TIME"/>
+		<result property="parkEndTime" column="PARK_END_TIME"/>
+		<result property="homeParkingId" column="home_parking_id"/>
+		<result property="workParkingId" column="work_parking_id"/>
+		<result property="isAutoPay" column="IS_AUTO_PAY"/>
+		<result property="parkingInitialUse" column="parking_initial_use"/>
+		<result property="parkingIdentifier" column="parking_identifier"/>
+		<result property="region" column="region"/>
+		<result property="qiyuId" column="qiyu_id"/>
+	</resultMap>
+	<select id="selectParkingName" resultMap="resultMap">
+		SELECT * from t_parking WHERE 1=1
+		<if test="parkingId != null and parkingId != '' ">
+			AND parking_id = #{parkingId}
+		</if>
+	</select>
+	<select id="parkingInfoDetail"  resultMap="parking_se">
+		SELECT
+		p.*,
+		col.isCollection,
+		cip.defaultScan
+		FROM t_parking p LEFT JOIN
+		(SELECT
+		COUNT(*) isCollection,
+		p.parking_id pid
+		FROM t_parking p,
+		t_collection_parking tcp
+		WHERE p.parking_id = tcp.parking_id
+		AND tcp.customer_id = #{customerId}
+		AND tcp.parking_id = #{parkingId}) col on p.parking_id=col.pid left join
+		(SELECT
+		COUNT(*) defaultScan,
+		p.parking_id piid
+		FROM t_parking p,
+		t_index_parking tip
+		WHERE p.parking_id = tip.parking_id
+		AND tip.customer_id = #{customerId}
+		AND tip.parking_id = #{parkingId}) cip on p.parking_id=cip.piid
+		WHERE p.parking_id = col.pid
+		AND p.parking_id = cip.piid LIMIT 1
+	</select>
+	<!-- 月租 -->
+	<select id="carListByCM" resultMap="resultMapForCustomer">
+		select p.parking_id,p.parking_name,o.phone,o.car_number,o.effect_end_time,o.item01,o.phone,o.monthly_rental_price,o.max_date from t_monthlyparkinginfo o
+		LEFT JOIN t_parking p on p.parking_id = o.village_id where o.car_number
+		IN(select t.car_number from t_car t where t.customer_id=#{customerId})
+		AND o.online_payment = '1'
+		AND o.is_used = 1
+	</select>
+	<!-- 产权 -->
+	<select id="carListByCP" resultMap="resultMapForCustomer">
+		select p.parking_id,p.parking_name,o.phone,o.car_number,o.effect_end_time,o.item01,o.phone,o.management_fee_monthly_unit,o.max_date from t_propertyparkinginfo o
+		LEFT JOIN t_parking p on p.parking_id = o.village_id where o.car_number
+		IN(select t.car_number from t_car t where t.customer_id=#{customerId})
+		AND o.online_payment = '1'
+		AND o.is_used = 1
+	</select>
+	<select id="queryCooperation" resultMap="resultMapForCustomer">
+		select * from t_cooperation
+	</select>
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		parking_id, parking_name, parking_country, parking_province, parking_city, parking_county, parking_area, parking_address, parking_latitude, parking_longitude, parking_count, parking_can_use, parking_status, parking_info, parking_path, price_times, price_max, charge_type, discount, isIn, can_use, SharePrice, PeacetimePrice, DesignatedPrice, StartTime, StopTime, is_direct, is_cooperate, is_open, is_index, is_charge, rule, vipSharePrice, vipStartTime, vipStopTime, sharePriceComment, vipSharePriceComment,invoice_describe,PARK_PRICE_COMMENT,MAXIMUM_HOUR,MAXIMUM_DAY,PARK_BEGIN_TIME,PARK_END_TIME,IS_AUTO_PAY,parking_initial_use,parking_identifier,is_open_payment,region,qiyu_id
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="parkingId != null and parkingId != '' ">
+		AND parking_id = #{parkingId}
+		</if>
+		<if test="parkingName != null and parkingName != '' ">
+		AND parking_name like '%${parkingName}%'
+		</if>
+		<if test="parkingCountry != null and parkingCountry != '' ">
+		AND parking_country = #{parkingCountry}
+		</if>
+		<if test="parkingProvince != null and parkingProvince != '' ">
+		AND parking_province = #{parkingProvince}
+		</if>
+		<if test="parkingCity != null and parkingCity != '' ">
+		AND parking_city = #{parkingCity}
+		</if>
+		<if test="parkingCounty != null and parkingCounty != '' ">
+		AND parking_county = #{parkingCounty}
+		</if>
+		<if test="parkingArea != null and parkingArea != '' ">
+		AND parking_area = #{parkingArea}
+		</if>
+		<if test="parkingAddress != null and parkingAddress != '' ">
+		AND parking_address = #{parkingAddress}
+		</if>
+		<if test="parkingLatitude != null and parkingLatitude != '' ">
+		AND parking_latitude = #{parkingLatitude}
+		</if>
+		<if test="parkingLongitude != null and parkingLongitude != '' ">
+		AND parking_longitude = #{parkingLongitude}
+		</if>
+		<if test="parkingCount != null and parkingCount != '' ">
+		AND parking_count = #{parkingCount}
+		</if>
+		<if test="parkingCanUse != null and parkingCanUse != '' ">
+		AND parking_can_use = #{parkingCanUse}
+		</if>
+		<if test="parkingStatus != null and parkingStatus != '' ">
+		AND parking_status = #{parkingStatus}
+		</if>
+		<if test="parkingInfo != null and parkingInfo != '' ">
+		AND parking_info = #{parkingInfo}
+		</if>
+		<if test="parkingPath != null and parkingPath != '' ">
+		AND parking_path = #{parkingPath}
+		</if>
+		<if test="priceTimes != null and priceTimes != '' ">
+		AND price_times = #{priceTimes}
+		</if>
+		<if test="priceMax != null and priceMax != '' ">
+		AND price_max = #{priceMax}
+		</if>
+		<if test="chargeType != null and chargeType != '' ">
+		AND charge_type = #{chargeType}
+		</if>
+		<if test="discount != null and discount != '' ">
+		AND discount = #{discount}
+		</if>
+		<if test="isIn != null and isIn != '' ">
+		AND isIn = #{isIn}
+		</if>
+		<if test="canUse != null and canUse != '' ">
+		AND can_use = #{canUse}
+		</if>
+		<if test="sharePrice != null and sharePrice != '' ">
+		AND SharePrice = #{sharePrice}
+		</if>
+		<if test="peacetimePrice != null and peacetimePrice != '' ">
+		AND PeacetimePrice = #{peacetimePrice}
+		</if>
+		<if test="designatedPrice != null and designatedPrice != '' ">
+		AND DesignatedPrice = #{designatedPrice}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+		AND StartTime = #{startTime}
+		</if>
+		<if test="stopTime != null and stopTime != '' ">
+		AND StopTime = #{stopTime}
+		</if>
+		<if test="isDirect != null and isDirect != '' ">
+		AND is_direct = #{isDirect}
+		</if>
+		<if test="isCooperate != null and isCooperate != '' ">
+		AND is_cooperate = #{isCooperate}
+		</if>
+		<if test="isOpen != null and isOpen != '' ">
+		AND is_open = #{isOpen}
+		</if>
+		<if test="isIndex != null and isIndex != '' ">
+		AND is_index = #{isIndex}
+		</if>
+		<if test="rule != null and rule != '' ">
+		AND rule = #{rule}
+		</if>
+		<if test="vipSharePrice != null and vipSharePrice != '' ">
+			AND vipSharePrice = #{vipSharePrice}
+		</if>
+		<if test="vipStartTime != null and vipStartTime != '' ">
+			AND vipStartTime = #{vipStartTime}
+		</if>
+		<if test="vipStopTime != null and vipStopTime != '' ">
+			AND vipStopTime = #{vipStopTime}
+		</if>
+		<if test="sharePriceComment != null and sharePriceComment != '' ">
+			AND sharePriceComment = #{sharePriceComment}
+		</if>
+		<if test="vipSharePriceComment != null and vipSharePriceComment != '' ">
+			AND vipSharePriceComment = #{vipSharePriceComment}
+		</if>
+		<if test="region != null and region != '' ">
+			AND region = #{region}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND parking_id = #{params.parkingId}
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+		AND parking_name LIKE '%${params.parkingName}%'
+		</if>
+		<if test="params.parkingCountry != null and params.parkingCountry != '' ">
+		AND parking_country = #{params.parkingCountry}
+		</if>
+		<if test="params.parkingProvince != null and params.parkingProvince != '' ">
+		AND parking_province = #{params.parkingProvince}
+		</if>
+		<if test="params.parkingCity != null and params.parkingCity != '' ">
+		AND parking_city LIKE '${params.parkingCity}%'
+		</if>
+		<if test="params.parkingCounty != null and params.parkingCounty != '' ">
+		AND parking_county = #{params.parkingCounty}
+		</if>
+		<if test="params.parkingArea != null and params.parkingArea != '' ">
+		AND parking_area = #{params.parkingArea}
+		</if>
+		<if test="params.parkingAddress != null and params.parkingAddress != '' ">
+		AND parking_address LIKE '%${params.parkingAddress}%'
+		</if>
+		<if test="params.parkingLatitude != null and params.parkingLatitude != '' ">
+		AND parking_latitude = #{params.parkingLatitude}
+		</if>
+		<if test="params.parkingLongitude != null and params.parkingLongitude != '' ">
+		AND parking_longitude = #{params.parkingLongitude}
+		</if>
+		<if test="params.parkingCount != null and params.parkingCount != '' ">
+		AND parking_count = #{params.parkingCount}
+		</if>
+		<if test="params.parkingCanUse != null and params.parkingCanUse != '' ">
+		AND parking_can_use = #{params.parkingCanUse}
+		</if>
+		<if test="params.parkingStatus != null and params.parkingStatus != '' ">
+		AND parking_status = #{params.parkingStatus}
+		</if>
+		<if test="params.parkingInfo != null and params.parkingInfo != '' ">
+		AND parking_info = #{params.parkingInfo}
+		</if>
+		<if test="params.parkingPath != null and params.parkingPath != '' ">
+		AND parking_path = #{params.parkingPath}
+		</if>
+		<if test="params.priceTimes != null and params.priceTimes != '' ">
+		AND price_times = #{params.priceTimes}
+		</if>
+		<if test="params.priceMax != null and params.priceMax != '' ">
+		AND price_max = #{params.priceMax}
+		</if>
+		<if test="params.chargeType != null and params.chargeType != '' ">
+		AND charge_type = #{params.chargeType}
+		</if>
+		<if test="params.discount != null and params.discount != '' ">
+		AND discount = #{params.discount}
+		</if>
+		<if test="params.isIn != null and params.isIn != '' ">
+		AND isIn = #{params.isIn}
+		</if>
+		<if test="params.canUse != null and params.canUse != '' ">
+		AND can_use = #{params.canUse}
+		</if>
+		<if test="params.sharePrice != null and params.sharePrice != '' ">
+		AND SharePrice = #{params.sharePrice}
+		</if>
+		<if test="params.peacetimePrice != null and params.peacetimePrice != '' ">
+		AND PeacetimePrice = #{params.peacetimePrice}
+		</if>
+		<if test="params.designatedPrice != null and params.designatedPrice != '' ">
+		AND DesignatedPrice = #{params.designatedPrice}
+		</if>
+		<if test="params.startTime != null and params.startTime != '' ">
+		AND StartTime = #{params.startTime}
+		</if>
+		<if test="params.stopTime != null and params.stopTime != '' ">
+		AND StopTime = #{params.stopTime}
+		</if>
+		<if test="params.isDirect != null and params.isDirect != '' ">
+		AND is_direct = #{params.isDirect}
+		</if>
+		<if test="params.isCooperate != null and params.isCooperate != '' ">
+		AND is_cooperate = #{params.isCooperate}
+		</if>
+		<if test="params.isOpen != null and params.isOpen != '' ">
+		AND is_open = #{params.isOpen}
+		</if>
+		<if test="params.isIndex != null and params.isIndex != '' ">
+		AND is_index = #{params.isIndex}
+		</if>
+		<if test="params.rule != null and params.rule != '' ">
+		AND rule = #{params.rule}
+		</if>
+		<if test="params.vipSharePrice != null and params.vipSharePrice != '' ">
+			AND vipSharePrice = #{params.vipSharePrice}
+		</if>
+		<if test="params.vipStartTime != null and params.vipStartTime != '' ">
+			AND vipStartTime = #{params.vipStartTime}
+		</if>
+		<if test="params.vipStopTime != null and params.vipStopTime != '' ">
+			AND vipStopTime = #{params.vipStopTime}
+		</if>
+		<if test="params.sharePriceComment != null and params.sharePriceComment != '' ">
+			AND sharePriceComment = #{params.sharePriceComment}
+		</if>
+		<if test="params.vipSharePriceComment != null and params.vipSharePriceComment != '' ">
+			AND vipSharePriceComment = #{params.vipSharePriceComment}
+		</if>
+		<if test="params.region != null and params.region != '' ">
+			AND region = #{params.region}
+		</if>
+		<if test="params.qiyuId != null and params.qiyuId != '' ">
+			AND qiyu_id = #{params.qiyuId}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING
+	     WHERE parking_id = #{parkingId}
+	</select>
+<select id="queryByIdTest" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING
+	     WHERE parking_id = #{parkingId}
+	</select>
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING
+		 WHERE 1 = 1
+		 <include refid="whereSQL" />
+	</select>
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectListByExport" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		FROM T_PARKING
+		WHERE 1 = 1
+		<if test="parkingName != null and parkingName != '' ">
+			AND parking_name = #{parkingName}
+		</if>
+	</select>
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+	<select id="getList" resultMap="resultMap">
+		SELECT <include refid="columns" /> FROM T_PARKING where 1=1
+		<if test="parkingCountry != null and parkingCountry != '' ">
+			AND parking_country = #{parkingCountry}
+		</if>
+		<if test="parkingProvince != null and parkingProvince != '' ">
+			AND parking_province = #{parkingProvince}
+		</if>
+		<if test="parkingCity != null and parkingCity != '' ">
+			AND parking_city = #{parkingCity}
+		</if>
+		<if test="parkingArea != null and parkingArea != '' ">
+			AND parking_area = #{parkingArea}
+		</if>
+		<if test="parkingName != null and parkingName != '' ">
+			AND parking_name like '%${parkingName}%'
+		</if>
+	</select>
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parking.po.Parking">
+        INSERT INTO T_PARKING (
+        	parking_id,
+        	parking_name,
+        	parking_country,
+        	parking_province,
+        	parking_city,
+        	parking_county,
+        	parking_area,
+        	parking_address,
+        	parking_latitude,
+        	parking_longitude,
+        	parking_count,
+        	parking_can_use,
+        	parking_status,
+        	parking_info,
+        	parking_path,
+        	price_times,
+        	price_max,
+        	charge_type,
+        	discount,
+        	isIn,
+        	can_use,
+        	SharePrice,
+        	PeacetimePrice,
+        	DesignatedPrice,
+        	StartTime,
+        	StopTime,
+        	is_direct,
+        	is_cooperate,
+        	is_open,
+        	is_index,
+        	is_charge,
+        	rule,
+        	vipSharePrice,
+        	vipStartTime,
+        	vipStopTime,
+        	sharePriceComment,
+        	vipSharePriceComment,
+        	invoice_describe,
+        	PARK_PRICE_COMMENT,
+        	MAXIMUM_HOUR,
+        	MAXIMUM_DAY,
+        	PARK_BEGIN_TIME,
+        	PARK_END_TIME,
+        	IS_AUTO_PAY,
+        	parking_initial_use,
+        	parking_identifier,
+        	is_open_payment,
+        	region,
+        	qiyu_id
+        ) VALUES (
+        	#{parkingId},
+        	#{parkingName},
+        	#{parkingCountry},
+        	#{parkingProvince},
+        	#{parkingCity},
+        	#{parkingCounty},
+        	#{parkingArea},
+        	#{parkingAddress},
+        	#{parkingLatitude},
+        	#{parkingLongitude},
+        	#{parkingCount},
+        	#{parkingCanUse},
+        	#{parkingStatus},
+        	#{parkingInfo},
+        	#{parkingPath},
+        	#{priceTimes},
+        	#{priceMax},
+        	#{chargeType},
+        	#{discount},
+        	#{isIn},
+        	#{canUse},
+        	#{sharePrice},
+        	#{peacetimePrice},
+        	#{designatedPrice},
+        	#{startTime},
+        	#{stopTime},
+        	#{isDirect},
+        	#{isCooperate},
+        	#{isOpen},
+        	#{isIndex},
+        	#{isCharge},
+        	#{rule},
+        	#{vipSharePrice},
+        	#{vipStartTime},
+        	#{vipStopTime},
+        	#{sharePriceComment},
+        	#{vipSharePriceComment},
+        	#{invoiceDescribe},
+        	#{parkPriceComment},
+        	#{maxinumHour},
+        	#{maximumDay},
+        	#{parkBeginTime},
+        	#{parkEndTime},
+        	#{isAutoPay},
+        	#{parkingInitialUse},
+        	#{parkingIdentifier},
+        	#{isOpenPayment},
+        	#{region},
+        	#{qiyuId}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_PARKING
+		 WHERE parking_id = #{parkingId}
+	</delete>
+	<update id="updateCanUse">
+		UPDATE T_PARKING
+		SET parking_can_use = parking_initial_use
+		WHERE parking_initial_use>0
+	</update>
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parking.po.Parking">
+        UPDATE T_PARKING
+		SET
+	        parking_name = #{parkingName},
+	        parking_country = #{parkingCountry},
+	        parking_province = #{parkingProvince},
+	        parking_city = #{parkingCity},
+	        parking_county = #{parkingCounty},
+	        parking_area = #{parkingArea},
+	        parking_address = #{parkingAddress},
+	        parking_latitude = #{parkingLatitude},
+	        parking_longitude = #{parkingLongitude},
+	        parking_count = #{parkingCount},
+	        parking_can_use = #{parkingCanUse},
+	        parking_status = #{parkingStatus},
+	        parking_info = #{parkingInfo},
+	        parking_path = #{parkingPath},
+	        price_times = #{priceTimes},
+	        price_max = #{priceMax},
+	        charge_type = #{chargeType},
+	        discount = #{discount},
+	        isIn = #{isIn},
+	        can_use = #{canUse},
+	        SharePrice = #{sharePrice},
+	        PeacetimePrice = #{peacetimePrice},
+	        DesignatedPrice = #{designatedPrice},
+	        StartTime = #{startTime},
+	        StopTime = #{stopTime},
+	        is_direct = #{isDirect},
+	        is_cooperate = #{isCooperate},
+	        is_open = #{isOpen},
+	        is_index = #{isIndex},
+	        is_charge = #{isCharge},
+	        rule = #{rule},
+	        vipSharePrice = #{vipSharePrice},
+	        vipStartTime = #{vipStartTime},
+	        vipStopTime = #{vipStopTime},
+	        sharePriceComment = #{sharePriceComment},
+	        vipSharePriceComment = #{vipSharePriceComment},
+	        invoice_describe = #{invoiceDescribe},
+	        PARK_PRICE_COMMENT = #{parkPriceComment},
+	        MAXIMUM_HOUR = #{maxinumHour},
+		    MAXIMUM_DAY = #{maximumDay},
+		    park_begin_time = #{parkBeginTime},
+		    park_end_time = #{parkEndTime},
+		    IS_AUTO_PAY = #{isAutoPay},
+		    parking_initial_use =#{parkingInitialUse},
+		    parking_identifier =#{parkingIdentifier},
+		    is_open_payment = #{isOpenPayment},
+		    region=#{region},
+		    qiyu_id=#{qiyuId}
+        WHERE parking_id = #{parkingId}
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_PARKING
+			<set>
+    	        parking_name = #{item.parkingName},
+    	        parking_country = #{item.parkingCountry},
+    	        parking_province = #{item.parkingProvince},
+    	        parking_city = #{item.parkingCity},
+    	        parking_county = #{item.parkingCounty},
+    	        parking_area = #{item.parkingArea},
+    	        parking_address = #{item.parkingAddress},
+    	        parking_latitude = #{item.parkingLatitude},
+    	        parking_longitude = #{item.parkingLongitude},
+    	        parking_count = #{item.parkingCount},
+    	        parking_can_use = #{item.parkingCanUse},
+    	        parking_status = #{item.parkingStatus},
+    	        parking_info = #{item.parkingInfo},
+    	        parking_path = #{item.parkingPath},
+    	        price_times = #{item.priceTimes},
+    	        price_max = #{item.priceMax},
+    	        charge_type = #{item.chargeType},
+    	        discount = #{item.discount},
+    	        isIn = #{item.isIn},
+    	        can_use = #{item.canUse},
+    	        SharePrice = #{item.sharePrice},
+    	        PeacetimePrice = #{item.peacetimePrice},
+    	        DesignatedPrice = #{item.designatedPrice},
+    	        StartTime = #{item.startTime},
+    	        StopTime = #{item.stopTime},
+    	        is_direct = #{item.isDirect},
+    	        is_cooperate = #{item.isCooperate},
+    	        is_open = #{item.isOpen},
+    	        is_index = #{item.isIndex},
+				is_charge = #{item.isCharge},
+    	        rule = #{item.rule},
+				vipSharePrice = #{item.vipSharePrice},
+				vipStartTime = #{item.vipStartTime},
+				vipStopTime = #{item.vipStopTime},
+				sharePriceComment = #{item.sharePriceComment},
+				vipSharePriceComment = #{item.vipSharePriceComment},
+				IS_AUTO_PAY = #{isAutoPay},
+				parking_initial_use =#{item.parkingInitialUse},
+				parking_identifier =#{item.parkingIdentifier}
+			</set>
+            WHERE parking_id = #{item.parkingId} 	
+		</foreach>
+	</update>
+	<select id="getListParking" resultMap="resultMap">
+		SELECT
+			p.parking_id,
+			p.parking_name,
+			p.parking_country,
+			p.parking_province,
+			p.parking_city,
+			p.parking_county,
+			p.parking_area,
+			p.parking_address,
+			p.parking_latitude,
+			p.parking_longitude,
+			p.parking_count,
+			p.parking_can_use,
+			p.parking_status,
+			p.parking_info,
+			p.parking_path,
+			p.price_times,
+			p.price_max,
+			p.charge_type,
+			p.discount,
+			p.isIn,
+			p.can_use,
+			p.SharePrice,
+			p.PeacetimePrice,
+			p.DesignatedPrice,
+			p.StartTime,
+			p.StopTime,
+			p.is_direct,
+			p.is_cooperate,
+			p.is_open,
+			p.is_index,
+			p.is_charge,
+			p.rule,
+			p.sharePriceComment,
+			p.vipSharePriceComment,
+			p.invoice_describe,
+			p.PARK_PRICE_COMMENT,
+			p.MAXIMUM_HOUR,
+			p.MAXIMUM_DAY,
+			p.PARK_BEGIN_TIME,
+			p.PARK_END_TIME,
+			p.IS_AUTO_PAY,
+			p.IS_OPEN_PAYMENT,
+			p.parking_initial_use,
+			p.parking_identifier,
+			p.region,
+			dpp.${vipSharePriceComment}/100 vipSharePrice,
+			dpp.${vipStartTime} vipStartTime,
+			dpp.${vipStopTime} vipStopTime,
+			111000*SQRT((POW(${parkingLatitude}-p.parking_latitude,2)+POW(${parkingLongitude}-p.parking_longitude,2))) AS len
+		FROM t_parking p
+		LEFT JOIN t_discount_parking_price dpp ON dpp.parking_id = p.parking_id
+		WHERE 1 = 1
+		<if test="parkingLatitude != null and parkingLatitude != '' ">
+			AND p.parking_latitude BETWEEN (${parkingLatitude}-0.0025) AND (${parkingLatitude}+0.0025)
+		</if>
+		<if test="parkingLongitude != null and parkingLongitude != '' ">
+			AND p.parking_longitude BETWEEN (${parkingLongitude}-0.0025) AND (${parkingLongitude}+0.0025)
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+			AND p.parking_id = #{parkingId}
+		</if>
+		AND p.is_open=2
+		ORDER BY len
+		LIMIT 1
+	</select>
+
+	<select id="queryBlueParkingList" resultMap="resultMap">
+		select p.*,v.item01 from t_parking p
+		left join t_villageinfo v on v.id = p.parking_id
+		where 1 = 1
+	</select>
+
+	<!--修改车场空位数-->
+	<update id="updateParkingCanUse" parameterType="java.util.Map">
+		update t_parking
+		set parking_can_use = parking_can_use + #{count}
+		where parking_id = #{parkingId}
+	</update>
+	<select id="countByIndexParking" resultType="java.lang.Integer">
+		 select count(parking_id)  from t_index_parking where customer_id=#{customerId};
+	</select>
+	<select id="getParkingByCustomerId"  resultMap="parking_se">
+		SELECT
+		p.*
+		FROM t_parking p
+		WHERE p.is_index = 2
+		GROUP BY p.parking_id
+		ORDER BY p.parking_name DESC
+	</select>
+	<select id="getParkingByCustomerIdAndIn" resultMap="parking_se">
+		 SELECT
+	p.*,
+	tcp.ln
+	FROM t_parking p
+	LEFT JOIN t_index_parking tcp
+	ON p.parking_id = tcp.parking_id AND tcp.customer_id=#{params.customerId}
+  WHERE p.is_index = 2
+  GROUP BY p.parking_id
+	ORDER BY tcp.ln desc, p.parking_name desc
+	</select>
+ 	<select id="queryParkingRelevance" resultType="java.util.Map" >
+				   SELECT
+					*
+				FROM
+					t_parking p
+				LEFT JOIN (
+					SELECT
+						PARKING_ID parkingId,
+						CORRESPONDING_ID
+					FROM
+						t_parking_relevance
+					WHERE
+						PARKING_ID =#{parkingId}
+				) pr ON pr.CORRESPONDING_ID = p.parking_id;
+
+	</select>
+	<select id="selectHomeAndWorkId" resultMap="resultMap">
+		SELECT t.home_parking_id,t.work_parking_id  FROM t_index_parking t
+		WHERE t.customer_id = #{customerId} limit 1
+	</select>
+	
+	<select id="queryTargetParkingCanUseTotalCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select SUM(p.parking_can_use) from t_parking_relevance pr
+		left join t_parking p on p.parking_id = pr.CORRESPONDING_ID
+		where pr.PARKING_ID = #{parkingId}
+	</select>
+
+	<select id="queryTargetParking" parameterType="java.lang.String" resultMap="resultMap">
+		select p.* from t_parking_relevance pr
+		left join t_parking p on p.parking_id = pr.CORRESPONDING_ID
+		where pr.PARKING_ID = #{parkingId}
+	</select>
+	<select id="indexShowByPid" resultMap="resultMap">
+		SELECT p.* FROM t_parking p WHERE p.parking_id = #{parkingId} limit 1
+	</select>
+	<!-- 根据经纬度查询停车场Demo2 -->
+	<select id="searchParkListByLLDemo2"  resultMap="resultMap">
+		SELECT
+			p.parking_id,
+			p.parking_name,
+			p.parking_country,
+			p.parking_province,
+			p.parking_city,
+			p.parking_county,
+			p.parking_area,
+			p.parking_address,
+			p.parking_latitude,
+			p.parking_longitude,
+			p.parking_count,
+			p.parking_can_use,
+			p.parking_status,
+			p.parking_info,
+			p.parking_path,
+			p.price_times,
+			p.price_max,
+			p.charge_type,
+			p.discount,
+			p.isIn,
+			p.can_use,
+			p.SharePrice,
+			p.PeacetimePrice,
+			p.DesignatedPrice,
+			p.StartTime,
+			p.StopTime,
+			p.is_direct,
+			p.is_cooperate,
+			p.is_open,
+			p.is_index,
+			p.is_charge,
+			p.rule,
+			p.sharePriceComment,
+			p.vipSharePriceComment,
+			p.invoice_describe,
+			p.PARK_PRICE_COMMENT,
+			p.MAXIMUM_HOUR,
+			p.MAXIMUM_DAY,
+			p.PARK_BEGIN_TIME,
+			p.PARK_END_TIME,
+			p.IS_AUTO_PAY,
+			p.IS_OPEN_PAYMENT,
+			p.parking_initial_use,
+			p.parking_identifier,
+			p.region,
+			dpp.${vipSharePriceComment}/100 vipSharePrice,
+			dpp.${vipStartTime} vipStartTime,
+			dpp.${vipStopTime} vipStopTime,
+			((${parkingLatitude}-p.parking_latitude)*(${parkingLatitude}-p.parking_latitude)+(${parkingLongitude}-p.parking_longitude)*(${parkingLongitude}-p.parking_longitude)) len
+		FROM t_parking p
+		LEFT JOIN t_discount_parking_price dpp ON dpp.parking_id = p.parking_id
+		WHERE  p.is_open=2
+		order by len asc
+	</select>
+	<!-- 根据名字查询停车场Demo2 -->
+	<select id="searchParkListbyNameDemo2" resultMap="resultMap">
+		SELECT
+		p.*,
+		p.discount
+		FROM t_parking p
+		where p.parking_name like concat(concat('%', #{parkingName}), '%')
+		and p.isIn=2
+	</select>
+
+	<!--查询能够代泊的车场-->
+	<select id="canParkList" resultType="com.boxiang.share.utils.ResultMap">
+		SELECT
+		tp.parking_id,
+		tp.parking_name,
+		<if test="lat != null and lat != '' and lng != null and lng != '' ">
+			SQRT(
+				POW((tp.parking_latitude - #{lat}), 2) + POW((tp.parking_longitude - #{lng}), 2)
+			) len,
+		</if>
+		tp.parking_longitude,
+		tp.parking_latitude
+		FROM t_parking tp
+		WHERE tp.can_use = '2'
+		AND CURTIME() >= CAST(tp.PARK_BEGIN_TIME AS TIME)
+		AND tp.PARK_END_TIME IS NOT NULL
+		AND (
+			SELECT count(*) FROM t_parker
+			WHERE parking_id = tp.parking_id
+			AND parker_type = '0'
+			AND state = '1'
+		) > 0
+		AND (
+			SELECT SUM(p.parking_can_use) FROM t_parking_relevance pr
+			LEFT JOIN t_parking p ON p.parking_id = pr.CORRESPONDING_ID
+			WHERE pr.PARKING_ID = tp.parking_id
+		) > 0
+		AND tp.MAXIMUM_DAY > (
+			SELECT count(*) FROM t_order_park
+			WHERE PARKING_ID = tp.parking_id
+			AND CREATE_DATE BETWEEN CONCAT(CURDATE(), ' 00:00:00') AND CONCAT(CURDATE(), ' 23:59:59')
+		)
+		<if test="lat != null and lat != '' and lng != null and lng != '' ">
+			ORDER BY len
+		</if>
+	</select>
+	<select id="getParkingListForCarLov" resultMap="resultMapCarLov">
+	SELECT tp.* FROM t_parking tp
+	WHERE  tp.isIn = 2
+	</select>
+    <select id="getAppoPkList" resultMap="resultMap">
+		SELECT
+		p.parking_id,
+			p.parking_name,
+			p.parking_country,
+			p.parking_province,
+			p.parking_city,
+			p.parking_county,
+			p.parking_area,
+			p.parking_address,
+			p.parking_latitude,
+			p.parking_longitude,
+			p.parking_count,
+			p.parking_can_use,
+			p.parking_status,
+			p.parking_info,
+			p.parking_path,
+			p.price_times,
+			p.price_max,
+			p.charge_type,
+			p.discount,
+			p.isIn,
+			p.can_use,
+			p.SharePrice,
+			p.PeacetimePrice,
+			p.DesignatedPrice,
+			p.StartTime,
+			p.StopTime,
+			p.is_direct,
+			p.is_cooperate,
+			p.is_open,
+			p.is_index,
+			p.is_charge,
+			p.rule,
+			p.sharePriceComment,
+			p.vipSharePriceComment,
+			p.invoice_describe,
+			p.PARK_PRICE_COMMENT,
+			p.MAXIMUM_HOUR,
+			p.MAXIMUM_DAY,
+			p.PARK_BEGIN_TIME,
+			p.PARK_END_TIME,
+			p.IS_AUTO_PAY,
+			p.IS_OPEN_PAYMENT,
+			p.parking_initial_use,
+			p.parking_identifier,
+			p.region,
+		111000*SQRT((POW(${params.latitude}-p.parking_latitude,2)+POW(${params.longitude}-p.parking_longitude,2))) AS len
+		FROM t_parking p
+		WHERE p.is_open = '2' AND p.is_cooperate = '2'
+		ORDER BY len
+	</select>
+</mapper>

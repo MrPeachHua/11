@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.payment.dao.PaymentInfoDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.payment.po.PaymentInfo">
+        <result column="ID" property="id"/>
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="PAY_TYPE" property="payType"/>
+        <result column="USE_TYPE" property="useType"/>
+        <result column="USE_INFO" property="useInfo"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="CREATE_DATE" property="createDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, ORDER_ID, PAY_TYPE, USE_TYPE, USE_INFO, CREATEOR, CREATE_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="orderId != null and orderId != '' ">
+		AND ORDER_ID = #{orderId}
+		</if>
+		<if test="payType != null and payType != '' ">
+		AND PAY_TYPE = #{payType}
+		</if>
+		<if test="useType != null and useType != '' ">
+		AND USE_TYPE = #{useType}
+		</if>
+		<if test="useInfo != null and useInfo != '' ">
+		AND USE_INFO = #{useInfo}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.orderId != null and params.orderId != '' ">
+		AND ORDER_ID = #{params.orderId}
+		</if>
+		<if test="params.payType != null and params.payType != '' ">
+		AND PAY_TYPE = #{params.payType}
+		</if>
+		<if test="params.useType != null and params.useType != '' ">
+		AND USE_TYPE = #{params.useType}
+		</if>
+		<if test="params.useInfo != null and params.useInfo != '' ">
+		AND USE_INFO = #{params.useInfo}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PAYMENT_INFO 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PAYMENT_INFO
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PAYMENT_INFO
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.payment.po.PaymentInfo">
+        INSERT INTO T_PAYMENT_INFO (
+        	ID,
+        	ORDER_ID,
+        	PAY_TYPE,
+        	USE_TYPE,
+        	USE_INFO,
+        	CREATEOR,
+        	CREATE_DATE
+        ) VALUES (
+        	#{id},
+        	#{orderId},
+        	#{payType},
+        	#{useType},
+        	#{useInfo},
+        	#{createor},
+        	#{createDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_PAYMENT_INFO 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.payment.po.PaymentInfo">
+        UPDATE T_PAYMENT_INFO 
+		SET
+	        ORDER_ID = #{orderId},
+	        PAY_TYPE = #{payType},
+	        USE_TYPE = #{useType},
+	        USE_INFO = #{useInfo},
+	        CREATEOR = #{createor},
+	        CREATE_DATE = #{createDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_PAYMENT_INFO
+			<set>
+    	        ORDER_ID = #{item.orderId},
+    	        PAY_TYPE = #{item.payType},
+    	        USE_TYPE = #{item.useType},
+    	        USE_INFO = #{item.useInfo},
+    	        CREATEOR = #{item.createor},
+    	        CREATE_DATE = #{item.createDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

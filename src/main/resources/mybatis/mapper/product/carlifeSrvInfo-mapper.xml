@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.carlife.dao.CarlifeSrvInfoDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.carlife.po.CarlifeSrvInfo">
+        <result column="ID" property="id"/>
+        <result column="SRV_NAME" property="srvName"/>
+        <result column="LOGO_PATH" property="logoPath"/>
+        <result column="SRV_TYPE" property="srvType"/>
+        <result column="INTRO" property="intro"/>
+        <result column="STATUS" property="status"/>
+        <result column="DESCRIPTION" property="description"/>
+        <result column="SRV_LINK" property="srvLink"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+        <result column="FLAG" property="flag"/>
+		<result column="sort" property="sort"/>
+		<result column="maxCount" property="maxCount"/>
+		 <result column="CAR_TYPE" property="carType"/>
+        <result column="SRV_FEE" property="srvFee"/>
+        <result column="SRV_PRICE" property="srvPrice"/>
+         <result column="PARKING_ID" property="parkingId"/>
+          <result column="NOWPRICE" property="nowPrice"/>
+	</resultMap>
+	
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, SRV_NAME, LOGO_PATH, SRV_TYPE, INTRO, STATUS, DESCRIPTION, SRV_LINK, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE,flag,sort,maxCount
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="srvName != null and srvName != '' ">
+		AND SRV_NAME like '%${srvName}%'
+		</if>
+		<if test="logoPath != null and logoPath != '' ">
+		AND LOGO_PATH = #{logoPath}
+		</if>
+		<if test="srvType != null and srvType != '' ">
+		AND SRV_TYPE = #{srvType}
+		</if>
+		<if test="intro != null and intro != '' ">
+		AND INTRO = #{intro}
+		</if>
+		<if test="status != null and status != '' ">
+		AND STATUS = #{status}
+		</if>
+		<if test="description != null and description != '' ">
+		AND DESCRIPTION = #{description}
+		</if>
+		<if test="srvLink != null and srvLink != '' ">
+		AND SRV_LINK = #{srvLink}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.srvName != null and params.srvName != '' ">
+		AND SRV_NAME like '%${params.srvName}%'
+		</if>
+		<if test="params.logoPath != null and params.logoPath != '' ">
+		AND LOGO_PATH = #{params.logoPath}
+		</if>
+		<if test="params.srvType != null and params.srvType != '' ">
+		AND SRV_TYPE = #{params.srvType}
+		</if>
+		<if test="params.intro != null and params.intro != '' ">
+		AND INTRO = #{params.intro}
+		</if>
+		<if test="params.status != null and params.status != '' ">
+		AND STATUS = #{params.status}
+		</if>
+		<if test="params.description != null and params.description != '' ">
+		AND DESCRIPTION = #{params.description}
+		</if>
+		<if test="params.srvLink != null and params.srvLink != '' ">
+		AND SRV_LINK = #{params.srvLink}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CARLIFE_SRV_INFO 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CARLIFE_SRV_INFO
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CARLIFE_SRV_INFO
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		ORDER by sort asc
+	</select>
+	<!-- 查询排序最大数 -->
+	<select id="querySortMax" resultType="Integer">
+    SELECT MAX(a.sort) from t_carlife_srv_info a where a.sort <![CDATA[ < ]]> 999;
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.carlife.po.CarlifeSrvInfo">
+        INSERT INTO T_CARLIFE_SRV_INFO (
+        	ID,
+        	SRV_NAME,
+        	LOGO_PATH,
+        	SRV_TYPE,
+        	INTRO,
+        	STATUS,
+        	DESCRIPTION,
+        	SRV_LINK,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE,
+        	sort,
+        	flag,
+        	maxCount
+        ) VALUES (
+        	#{id},
+        	#{srvName},
+        	#{logoPath},
+        	#{srvType},
+        	#{intro},
+        	#{status},
+        	#{description},
+        	#{srvLink},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate},
+        	#{sort},
+        	#{flag},
+        	#{maxCount}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CARLIFE_SRV_INFO 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.carlife.po.CarlifeSrvInfo">
+        UPDATE T_CARLIFE_SRV_INFO 
+		SET
+	        SRV_NAME = #{srvName},
+	        LOGO_PATH = #{logoPath},
+	        SRV_TYPE = #{srvType},
+	        INTRO = #{intro},
+	        STATUS = #{status},
+	        sort = #{sort},
+	        DESCRIPTION = #{description},
+	        SRV_LINK = #{srvLink},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        MODIFY_DATE = #{modifyDate},
+	        flag = #{flag},
+	        maxCount=#{maxCount}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CARLIFE_SRV_INFO
+			<set>
+    	        SRV_NAME = #{item.srvName},
+    	        LOGO_PATH = #{item.logoPath},
+    	        SRV_TYPE = #{item.srvType},
+    	        INTRO = #{item.intro},
+    	        STATUS = #{item.status},
+    	        DESCRIPTION = #{item.description},
+    	        SRV_LINK = #{item.srvLink},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+		<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="selectCarlifeCsrByMobile" resultMap="resultMap">
+	SELECT * FROM t_carlife_srv_info
+    WHERE   IS_USED = 1
+    order by sort asc
+	</select>
+	<select id="queryCharge" resultMap="resultMap">
+   SELECT * FROM
+	t_carlife_srv_info a LEFT JOIN t_carlife_srv_billing b ON a.ID = b.SRV_ID  and b.IS_USED='1'
+    WHERE a.IS_USED='1' and  a.ID = '3' AND b.PARKING_ID = #{parkingId};
+
+	</select>
+</mapper>

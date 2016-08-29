@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parker.dao.CollectionParkingDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parker.po.CollectionParking">
+        <result column="customer_id" property="customerId"/>
+        <result column="parking_id" property="parkingId"/>
+		<result column="indexParkingType" property="indexParkingType"/>
+		<result column="defaultScan" property="defaultScan"/>
+		<result column="address_name" property="addressName"/>
+		<result column="address" property="address"/>
+		<result column="latitude" property="latitude"/>
+		<result column="longitude" property="longitude"/>
+	</resultMap>
+	<resultMap type="com.boxiang.share.product.parker.po.CollectionParking" id="parkingstandardMap">
+		<id column="parking_id" property="parkingId"/>
+		<result column="parking_name" property="parkingName"/>
+		<result column="customer_id" property="customerId"/>
+		<result column="parking_country" property="parkingCountry"/>
+		<result column="parking_province" property="parkingProvince"/>
+		<result column="parking_city" property="parkingCity"/>
+		<result column="parking_county" property="parkingCounty"/>
+		<result column="parking_area" property="parkingArea"/>
+		<result column="parking_address" property="parkingAddress"/>
+		<result column="parking_latitude" property="parkingLatitude"/>
+		<result column="parking_longitude" property="parkingLongitude"/>
+		<result column="parking_count" property="parkingCount"/>
+		<result column="parking_can_use" property="parkingCanUse"/>
+		<result column="parking_status" property="parkingStatus"/>
+		<result column="parking_info" property="parkingInfo"/>
+		<result column="parking_path" property="parkingPath"/>
+		<result column="price_times" property="priceTimes" />
+		<result column="price_max" property="priceMax" />
+		<result column="charge_type" property="chargeType" />
+		<result column="discount" property="discount" />
+		<result column="isIn" property="isIn" />
+		<result column="defaultScan" property="defaultScan" />
+		<result column="can_use" property="canUse" />
+		<result column="PeacetimePrice" property="peacetimePrice"/>
+		<result column="ln" property="ln" />
+		<result column="min(c.price_hour)" property="chargeNormMin"  />
+	</resultMap>
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		customer_id, parking_id,address_name,address,latitude,longitude
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="customerId != null and customerId != '' ">
+		AND customer_id = #{customerId}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND parking_id = #{parkingId}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND customer_id = #{params.customerId}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND parking_id = #{params.parkingId}
+		</if>
+	</sql>
+	<select id="selectCollection" resultMap="resultMap">
+		select * from t_collection_parking where customer_id=#{customerId}
+		and parking_id=#{parkingId}
+	</select>
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COLLECTION_PARKING 
+	     WHERE     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COLLECTION_PARKING
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COLLECTION_PARKING
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parker.po.CollectionParking">
+        INSERT INTO T_COLLECTION_PARKING (
+        	customer_id,
+        	parking_id,
+        	address_name,
+        	address,
+        	latitude,
+        	longitude
+        ) VALUES (
+        	#{customerId},
+        	#{parkingId},
+        	#{addressName},
+        	#{address},
+        	#{latitude},
+        	#{longitude}
+        )
+	</insert>
+	<delete id="deleteData">
+		delete from t_collection_parking WHERE address_name =#{addressName} AND customer_id =#{customerId}
+	</delete>
+	<delete id="cusCancelCollection" >
+		delete from t_collection_parking where customer_id=#{customerId} and parking_id=#{parkingId}
+	</delete>
+	<select id="setDefaultScan" statementType="CALLABLE">
+		<![CDATA[
+  	    {call setDefaultScan(#{customerId,mode=IN,jdbcType=VARCHAR},#{parkingId,mode=IN,jdbcType=VARCHAR},#{indexParkingType,mode=IN,jdbcType=INTEGER},#{defaultScan,mode=INOUT,jdbcType=INTEGER})
+  	    }
+  	 ]]>
+	</select>
+	<select id="collectionForIndexSecond" resultMap="parkingstandardMap">
+		SELECT
+	p.*,
+	tip.ln
+FROM
+	t_index_parking tip
+RIGHT JOIN t_collection_parking tcp ON tip.customer_id = tcp.customer_id
+AND tip.parking_id = tcp.parking_id
+LEFT JOIN t_parking p ON p.parking_id = tcp.parking_id
+WHERE 1=1
+		<if test="params.customerId != null and params.customerId != '' ">
+	AND tcp.customer_id = #{params.customerId}
+		</if>
+AND p.isIn = 2
+GROUP BY
+	p.parking_id
+ORDER BY
+	tip.ln DESC,
+	p.parking_name DESC
+	</select>
+	<select id="collectionForIndex" resultMap="parkingstandardMap">
+		SELECT p.*
+		FROM t_parking p LEFT JOIN
+  		t_collection_parking tcp ON p.parking_id = tcp.parking_id
+		WHERE 1=1
+		<if test="params.customerId != null and params.customerId != '' ">
+			AND tcp.customer_id = #{params.customerId}
+		</if>
+    	group by p.parking_id
+    	order by p.parking_name
+	</select>
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_COLLECTION_PARKING 
+		 WHERE 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parker.po.CollectionParking">
+        UPDATE T_COLLECTION_PARKING 
+		SET
+	        customer_id = #{customerId},
+	        parking_id = #{parkingId}
+        WHERE 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_COLLECTION_PARKING
+			<set>
+    	        customer_id = #{item.customerId},
+    	        parking_id = #{item.parkingId}
+			</set>
+            WHERE 	
+		</foreach>
+	</update>
+</mapper>

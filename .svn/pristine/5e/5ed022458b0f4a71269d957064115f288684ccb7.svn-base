@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.order.dao.CenuseDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.order.po.Cenuse">
+        <result column="id" property="id"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="region" property="region"/>
+        <result column="parkingId" property="parkingId"/>
+        <result column="parkingName" property="parkingName"/>
+        <result column="lineon" property="lineon"/>
+        <result column="lineoff" property="lineoff"/>
+        <result column="grojectLeader" property="grojectLeader"/>
+        <result column="regionalHead" property="regionalHead"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		id, pay_time, region, parkingId, parkingName, lineon, lineoff, grojectLeader, regionalHead
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND id = #{id}
+		</if>
+		<if test="payTime != null and payTime != '' ">
+		AND pay_time = #{payTime}
+		</if>
+		<if test="region != null and region != '' ">
+		AND region = #{region}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND parkingId = #{parkingId}
+		</if>
+		<if test="parkingName != null and parkingName != '' ">
+		AND parkingName = #{parkingName}
+		</if>
+		<if test="lineon != null and lineon != '' ">
+		AND lineon = #{lineon}
+		</if>
+		<if test="lineoff != null and lineoff != '' ">
+		AND lineoff = #{lineoff}
+		</if>
+		<if test="grojectLeader != null and grojectLeader != '' ">
+		AND grojectLeader = #{grojectLeader}
+		</if>
+		<if test="regionalHead != null and regionalHead != '' ">
+		AND regionalHead = #{regionalHead}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND id = #{params.id}
+		</if>
+		<if test="params.payTime != null and params.payTime != '' ">
+		AND pay_time = #{params.payTime}
+		</if>
+		<if test="params.region != null and params.region != '' ">
+		AND region = #{params.region}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND parkingId = #{params.parkingId}
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+		AND parkingName = #{params.parkingName}
+		</if>
+		<if test="params.lineon != null and params.lineon != '' ">
+		AND lineon = #{params.lineon}
+		</if>
+		<if test="params.lineoff != null and params.lineoff != '' ">
+		AND lineoff = #{params.lineoff}
+		</if>
+		<if test="params.grojectLeader != null and params.grojectLeader != '' ">
+		AND grojectLeader = #{params.grojectLeader}
+		</if>
+		<if test="params.regionalHead != null and params.regionalHead != '' ">
+		AND regionalHead = #{params.regionalHead}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CENUSE 
+	     WHERE id = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CENUSE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CENUSE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.order.po.Cenuse">
+        INSERT INTO T_CENUSE (
+        	id,
+        	pay_time,
+        	region,
+        	parkingId,
+        	parkingName,
+        	lineon,
+        	lineoff,
+        	grojectLeader,
+        	regionalHead
+        ) VALUES (
+        	#{id},
+        	#{payTime},
+        	#{region},
+        	#{parkingId},
+        	#{parkingName},
+        	#{lineon},
+        	#{lineoff},
+        	#{grojectLeader},
+        	#{regionalHead}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CENUSE 
+		 WHERE id = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.order.po.Cenuse">
+        UPDATE T_CENUSE 
+		SET
+	        pay_time = #{payTime},
+	        region = #{region},
+	        parkingId = #{parkingId},
+	        parkingName = #{parkingName},
+	        lineon = #{lineon},
+	        lineoff = #{lineoff},
+	        grojectLeader = #{grojectLeader},
+	        regionalHead = #{regionalHead}
+        WHERE id = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CENUSE
+			<set>
+    	        pay_time = #{item.payTime},
+    	        region = #{item.region},
+    	        parkingId = #{item.parkingId},
+    	        parkingName = #{item.parkingName},
+    	        lineon = #{item.lineon},
+    	        lineoff = #{item.lineoff},
+    	        grojectLeader = #{item.grojectLeader},
+    	        regionalHead = #{item.regionalHead}
+			</set>
+            WHERE id = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

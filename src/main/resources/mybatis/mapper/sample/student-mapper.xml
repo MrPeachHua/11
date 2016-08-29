@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.sample.student.dao.IStudentDao">
+
+	<!-- 公共RESLUTMAP -->
+	<resultMap id="resultMap" type="com.boxiang.share.sample.student.po.Student">
+		<result column="stu_id" property="stuId"/>
+		<result column="stu_name" property="stuName"/>
+	</resultMap>
+
+	<!-- 根据主键ID查询用户  -->
+	<select id="queryById" resultMap="resultMap">
+		select stu_id, stu_name
+		from t_student
+		where stu_id = #{stuId}
+	</select>
+	
+	<!-- 查询学生分页列表 -->
+	<select id="queryListPage" resultMap="resultMap">
+		select stu_id, stu_name
+		from t_student
+		where 1 = 1
+		<if test="params.stuName != null and params.stuName != ''">
+		and stu_name like '${params.stuName}%'
+		</if>
+	</select>
+	
+	<!-- 添加学生信息   -->
+	<insert id="insert">
+		insert into t_student(stu_id,stu_name)
+		values(#{stuId},#{stuName})
+	</insert>
+	
+	<!-- 批量修改学生信息  -->
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			update t_student
+			<set>
+				stu_name = #{item.stuName}
+			</set>
+			where stu_id = #{item.stuId}
+		</foreach>
+	</update>
+	<update id="dynamicCreateTmpTable" parameterType="string">
+		${_parameter}
+	</update>
+	<select id="selectTmpTable" resultMap="resultMap">
+		select id as stu_id,id as stu_name
+		from tb
+	</select>
+</mapper>

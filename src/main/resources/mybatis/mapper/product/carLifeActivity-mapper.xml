@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.activity.dao.CarLifeActivityDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.activity.po.CarLifeActivity">
+        <result column="ID" property="id"/>
+        <result column="START_DATE" property="startDate"/>
+        <result column="END_DATE" property="endDate"/>
+        <result column="TITLE" property="title"/>
+        <result column="TYPE" property="type"/>
+        <result column="PARKING_ID" property="parkingId"/>
+		<result column="parking_name" property="parkingName"/>
+        <result column="URL" property="url"/>
+        <result column="IMAGE_PATH" property="imagePath"/>
+		<result column="SORT" property="sort"/>
+		<result column="CONTENT_TYPE" property="contentType"/>
+		<result column="HTML" property="html"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="CREATE_DATE" property="createDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, START_DATE, END_DATE, TITLE, TYPE, PARKING_ID, URL, IMAGE_PATH, SORT, CONTENT_TYPE, HTML, IS_USED, CREATEOR, CREATE_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="startDate != null and startDate != '' ">
+		AND START_DATE = #{startDate}
+		</if>
+		<if test="endDate != null and endDate != '' ">
+		AND END_DATE = #{endDate}
+		</if>
+		<if test="title != null and title != '' ">
+		AND TITLE = #{title}
+		</if>
+		<if test="type != null and type != '' ">
+		AND TYPE = #{type}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="url != null and url != '' ">
+		AND URL = #{url}
+		</if>
+		<if test="imagePath != null and imagePath != '' ">
+		AND IMAGE_PATH = #{imagePath}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.startDate != null and params.startDate != '' ">
+		AND START_DATE = #{params.startDate}
+		</if>
+		<if test="params.endDate != null and params.endDate != '' ">
+		AND END_DATE = #{params.endDate}
+		</if>
+		<if test="params.title != null and params.title != '' ">
+		AND TITLE = #{params.title}
+		</if>
+		<if test="params.type != null and params.type != '' ">
+		AND TYPE = #{params.type}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.url != null and params.url != '' ">
+		AND URL = #{params.url}
+		</if>
+		<if test="params.imagePath != null and params.imagePath != '' ">
+		AND IMAGE_PATH = #{params.imagePath}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_LIFE_ACTIVITY 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_LIFE_ACTIVITY
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_LIFE_ACTIVITY
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<select id="queryListPageV2" resultMap="resultMap">
+		SELECT
+			c.*,
+			p.parking_name
+		FROM
+			`t_car_life_activity` c
+		LEFT JOIN t_parking p ON p.parking_id = c.PARKING_ID
+		WHERE c.IS_USED = '1'
+		AND ((c.TYPE = 1 AND NOW() BETWEEN c.START_DATE AND c.END_DATE) OR TYPE = 2)
+		<if test="params.type != null and params.type != '' ">
+			AND c.TYPE = #{params.type}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			AND c.PARKING_ID = #{params.parkingId}
+		</if>
+		ORDER BY c.SORT
+	</select>
+
+	<select id="queryListPageV3" resultMap="resultMap">
+		SELECT
+			c.*,
+			p.parking_name
+		FROM
+			`t_car_life_activity` c
+		LEFT JOIN t_parking p ON p.parking_id = c.PARKING_ID
+		WHERE c.IS_USED = '1'
+		<if test="params.id != null and params.id != '' ">
+			AND c.ID = #{params.id}
+		</if>
+		<if test="params.type != null and params.type != '' ">
+			AND c.TYPE = #{params.type}
+		</if>
+		<if test="params.title != null and params.title != '' ">
+			AND c.TITLE LIKE '%${params.title}%'
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+			AND p.parking_name LIKE '%${params.parkingName}%'
+		</if>
+		<if test="params.startDateBegin != null and params.startDateBegin != '' ">
+			AND DATE(c.START_DATE) >= #{params.startDateBegin}
+		</if>
+		<if test="params.startDateEnd != null and params.startDateEnd != '' ">
+			AND DATE(c.START_DATE) <![CDATA[ <= ]]> #{params.startDateEnd}
+		</if>
+		<if test="params.endDateBegin != null and params.endDateBegin != '' ">
+			AND DATE(c.END_DATE) >= #{params.endDateBegin}
+		</if>
+		<if test="params.endDateEnd != null and params.endDateEnd != '' ">
+			AND DATE(c.END_DATE) <![CDATA[ <= ]]> #{params.endDateEnd}
+		</if>
+		ORDER BY c.SORT
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.activity.po.CarLifeActivity">
+        INSERT INTO T_CAR_LIFE_ACTIVITY (
+        	ID,
+        	START_DATE,
+        	END_DATE,
+        	TITLE,
+        	TYPE,
+        	PARKING_ID,
+        	URL,
+        	IMAGE_PATH,
+        	SORT,
+        	CONTENT_TYPE,
+        	HTML,
+        	IS_USED,
+        	CREATEOR,
+        	CREATE_DATE
+        ) VALUES (
+        	#{id},
+        	#{startDate},
+        	#{endDate},
+        	#{title},
+        	#{type},
+        	#{parkingId},
+        	#{url},
+        	#{imagePath},
+        	#{sort},
+        	#{contentType},
+        	#{html},
+        	#{isUsed},
+        	#{createor},
+        	#{createDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CAR_LIFE_ACTIVITY 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.activity.po.CarLifeActivity">
+        UPDATE T_CAR_LIFE_ACTIVITY 
+		SET
+	        START_DATE = #{startDate},
+	        END_DATE = #{endDate},
+	        TITLE = #{title},
+	        TYPE = #{type},
+	        PARKING_ID = #{parkingId},
+	        URL = #{url},
+	        IMAGE_PATH = #{imagePath},
+	        SORT = #{sort},
+	        CONTENT_TYPE = #{contentType},
+	        HTML = #{html},
+	        IS_USED = #{isUsed}
+        WHERE ID = #{id}
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CAR_LIFE_ACTIVITY
+			<set>
+				START_DATE = #{startDate},
+				END_DATE = #{endDate},
+				TITLE = #{title},
+				TYPE = #{type},
+				PARKING_ID = #{parkingId},
+				URL = #{url},
+				IMAGE_PATH = #{imagePath},
+				SORT = #{sort},
+				CONTENT_TYPE = #{contentType},
+				HTML = #{html},
+				IS_USED = #{isUsed}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

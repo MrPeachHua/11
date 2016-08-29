@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+
+	<display-name>标签库</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>share</short-name>
+		
+	<tag>
+		<name>imageUpload</name>
+		<description>图片上传标签</description>
+		<tag-class>com.boxiang.share.taglib.ImageUploadTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>imageLabelName</name>
+			<description>图片对应的标签名</description>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>imagePathId</name>
+			<description>图片上传完成后设置图片路径的元素的id，一般为隐藏域对应的id</description>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>imagePath</name>
+			<description>已有图片路径</description>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>savePath</name>
+			<description>图片上传后只在的路径</description>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+</taglib>    

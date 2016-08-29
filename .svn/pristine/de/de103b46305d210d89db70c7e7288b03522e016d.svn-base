@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.carlife.dao.CarRentDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.carlife.po.CarRent">
+        <result column="ID" property="id"/>
+        <result column="NAME" property="name"/>
+        <result column="PRICE" property="price"/>
+        <result column="TYPE" property="type"/>
+        <result column="IMAGE_PATH" property="imagePath"/>
+        <result column="JUMP_URL" property="jumpUrl"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, NAME, PRICE, TYPE, IMAGE_PATH, JUMP_URL, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="name != null and name != '' ">
+		AND NAME like '%${name}%'
+		</if>
+		<if test="price != null and price != '' ">
+		AND PRICE = #{price}
+		</if>
+		<if test="type != null and type != '' ">
+		AND TYPE = #{type}
+		</if>
+		<if test="imagePath != null and imagePath != '' ">
+		AND IMAGE_PATH = #{imagePath}
+		</if>
+		<if test="jumpUrl != null and jumpUrl != '' ">
+		AND JUMP_URL = #{jumpUrl}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.name != null and params.name != '' ">
+		AND NAME like '%${params.name}%'
+		</if>
+		<if test="params.price != null and params.price != '' ">
+		AND PRICE = #{params.price}
+		</if>
+		<if test="params.type != null and params.type != '' ">
+		AND TYPE = #{params.type}
+		</if>
+		<if test="params.imagePath != null and params.imagePath != '' ">
+		AND IMAGE_PATH = #{params.imagePath}
+		</if>
+		<if test="params.jumpUrl != null and params.jumpUrl != '' ">
+		AND JUMP_URL = #{params.jumpUrl}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_RENT 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_RENT
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_RENT
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.carlife.po.CarRent">
+        INSERT INTO T_CAR_RENT (
+        	ID,
+        	NAME,
+        	PRICE,
+        	TYPE,
+        	IMAGE_PATH,
+        	JUMP_URL,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{name},
+        	#{price},
+        	#{type},
+        	#{imagePath},
+        	#{jumpUrl},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CAR_RENT 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.carlife.po.CarRent">
+        UPDATE T_CAR_RENT 
+		SET
+	        NAME = #{name},
+	        PRICE = #{price},
+	        TYPE = #{type},
+	        IMAGE_PATH = #{imagePath},
+	        JUMP_URL = #{jumpUrl},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CAR_RENT
+			<set>
+    	        NAME = #{item.name},
+    	        PRICE = #{item.price},
+    	        TYPE = #{item.type},
+    	        IMAGE_PATH = #{item.imagePath},
+    	        JUMP_URL = #{item.jumpUrl},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

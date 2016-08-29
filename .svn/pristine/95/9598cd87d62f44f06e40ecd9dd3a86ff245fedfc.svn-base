@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.car.dao.CarUpkeepDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.car.po.CarUpkeep">
+        <result column="LEVEL_ID" property="levelId"/>
+        <result column="UPKEEP_NAME" property="upkeepName"/>
+        <result column="UPKEEP_STATUS" property="upkeepStatus"/>
+        <result column="DISTANCE_INTERVAL" property="distanceInterval"/>
+        <result column="MONTH_INTERVAL" property="monthInterval"/>
+        <result column="OTHER_INTERVAL" property="otherInterval"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		LEVEL_ID, UPKEEP_NAME, UPKEEP_STATUS, DISTANCE_INTERVAL, MONTH_INTERVAL, OTHER_INTERVAL
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="levelId != null and levelId != '' ">
+		AND LEVEL_ID = #{levelId}
+		</if>
+		<if test="upkeepName != null and upkeepName != '' ">
+		AND UPKEEP_NAME = #{upkeepName}
+		</if>
+		<if test="upkeepStatus != null and upkeepStatus != '' ">
+		AND UPKEEP_STATUS = #{upkeepStatus}
+		</if>
+		<if test="distanceInterval != null and distanceInterval != '' ">
+		AND DISTANCE_INTERVAL = #{distanceInterval}
+		</if>
+		<if test="monthInterval != null and monthInterval != '' ">
+		AND MONTH_INTERVAL = #{monthInterval}
+		</if>
+		<if test="otherInterval != null and otherInterval != '' ">
+		AND OTHER_INTERVAL = #{otherInterval}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.levelId != null and params.levelId != '' ">
+		AND LEVEL_ID = #{params.levelId}
+		</if>
+		<if test="params.upkeepName != null and params.upkeepName != '' ">
+		AND UPKEEP_NAME = #{params.upkeepName}
+		</if>
+		<if test="params.upkeepStatus != null and params.upkeepStatus != '' ">
+		AND UPKEEP_STATUS = #{params.upkeepStatus}
+		</if>
+		<if test="params.distanceInterval != null and params.distanceInterval != '' ">
+		AND DISTANCE_INTERVAL = #{params.distanceInterval}
+		</if>
+		<if test="params.monthInterval != null and params.monthInterval != '' ">
+		AND MONTH_INTERVAL = #{params.monthInterval}
+		</if>
+		<if test="params.otherInterval != null and params.otherInterval != '' ">
+		AND OTHER_INTERVAL = #{params.otherInterval}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_UPKEEP 
+	     WHERE LEVEL_ID = #{levelId}
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_UPKEEP
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_UPKEEP
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.car.po.CarUpkeep">
+        INSERT INTO T_CAR_UPKEEP (
+        	LEVEL_ID,
+        	UPKEEP_NAME,
+        	UPKEEP_STATUS,
+        	DISTANCE_INTERVAL,
+        	MONTH_INTERVAL,
+        	OTHER_INTERVAL
+        ) VALUES (
+        	#{levelId},
+        	#{upkeepName},
+        	#{upkeepStatus},
+        	#{distanceInterval},
+        	#{monthInterval},
+        	#{otherInterval}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CAR_UPKEEP 
+		 WHERE LEVEL_ID = #{levelId}
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.car.po.CarUpkeep">
+        UPDATE T_CAR_UPKEEP 
+		SET
+	        LEVEL_ID = #{levelId},
+	        UPKEEP_NAME = #{upkeepName},
+	        UPKEEP_STATUS = #{upkeepStatus},
+	        DISTANCE_INTERVAL = #{distanceInterval},
+	        MONTH_INTERVAL = #{monthInterval},
+	        OTHER_INTERVAL = #{otherInterval}
+        WHERE LEVEL_ID = #{levelId}
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CAR_UPKEEP
+			<set>
+    	        LEVEL_ID = #{item.levelId},
+    	        UPKEEP_NAME = #{item.upkeepName},
+    	        UPKEEP_STATUS = #{item.upkeepStatus},
+    	        DISTANCE_INTERVAL = #{item.distanceInterval},
+    	        MONTH_INTERVAL = #{item.monthInterval},
+    	        OTHER_INTERVAL = #{item.otherInterval}
+			</set>
+            WHERE LEVEL_ID = #{levelId}
+		</foreach>
+	</update>
+
+	<select id="gainupkeep" resultType="java.util.Map">
+		select * from (
+			SELECT
+				t1.UPKEEP_NAME weekupTitle,
+				CASE
+				WHEN t1.DISTANCE_INTERVAL <![CDATA[ < ]]> #{travlledDistance} THEN CONCAT('一般',CAST(t2.DISTANCE_INTERVAL * (((#{travlledDistance} - t1.DISTANCE_INTERVAL) / t2.DISTANCE_INTERVAL) + 1) AS UNSIGNED),'公里保养一次')
+				WHEN t1.MONTH_INTERVAL <![CDATA[ < ]]> #{monthInterval} THEN CONCAT('一般',CAST(t2.MONTH_INTERVAL * (((#{monthInterval} - t1.MONTH_INTERVAL) / t2.MONTH_INTERVAL) + 1) AS UNSIGNED),'个月保养一次')
+				ELSE ''
+				END weekupContent,
+				CASE
+				WHEN LENGTH(d.UPKEEP_ICON) > 0 THEN CONCAT(#{basePath},d.UPKEEP_ICON)
+				ELSE ''
+				END weekupIcon
+			FROM
+				t_car_upkeep t1
+			LEFT JOIN t_car_upkeep t2 ON t2.LEVEL_ID = t1.LEVEL_ID AND t2.UPKEEP_NAME = t1.UPKEEP_NAME
+			LEFT JOIN t_car_upkeep_dict d ON d.UPKEEP_NAME = t1.UPKEEP_NAME
+			WHERE 1 = 1
+			AND LENGTH(t1.DISTANCE_INTERVAL) > 0
+			AND LENGTH(t2.MONTH_INTERVAL) > 0
+			AND (t1.DISTANCE_INTERVAL <![CDATA[ < ]]> #{travlledDistance} OR t2.MONTH_INTERVAL <![CDATA[ < ]]> #{monthInterval})
+			AND t1.UPKEEP_STATUS = '首保'
+			AND t2.UPKEEP_STATUS = '间隔'
+			AND t1.LEVEL_ID IN (${levelIds})
+			ORDER BY d.UPKEEP_SORT
+		) tmp
+		where LENGTH(weekupContent) > 0
+		group by weekupTitle
+	</select>
+</mapper>

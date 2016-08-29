@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/security 
+			http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	
+	<!-- 该路径下的资源不用过滤 -->
+	<security:http pattern="/**/*.ico" security="none" />
+	<security:http pattern="/**/*.jpg" security="none" />
+	<security:http pattern="/**/*.png" security="none" />
+	<security:http pattern="/**/*.gif" security="none" />
+	<security:http pattern="/**/*.css" security="none" />
+	<security:http pattern="/**/*.js" security="none" />
+	<security:http auto-config="true" use-expressions="true" access-denied-page="/auth/denied" >
+		<security:remember-me key="sharekey" token-validity-seconds="2419200" />
+		<security:form-login login-page="/auth/login"
+			authentication-failure-url="/auth/login?error=true" default-target-url="/main/index.html" />
+		<security:logout invalidate-session="true" logout-success-url="/auth/login" logout-url="/auth/logout" />
+		
+		<security:custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+		
+		<security:session-management session-authentication-strategy-ref="sas"/>
+		
+		<security:intercept-url pattern="/auth/login" access="permitAll" />
+		<security:intercept-url pattern="/sample/**" access="permitAll" />
+		<security:intercept-url pattern="/app/**" access="permitAll" />
+		<security:intercept-url pattern="/blue/**" access="permitAll" />
+		<security:intercept-url pattern="/other/**" access="permitAll" />
+		<security:intercept-url pattern="/payment/**" access="permitAll" />
+		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/**" access="hasRole('AUTH_VIEW')" />
+	</security:http>
+
+	<bean id="sas" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<constructor-arg name="sessionRegistry" ref="sessionRegistry"/>
+		<property name="maximumSessions" value="1"/>
+		<property name="alwaysCreateSession" value="true"/>
+		<property name="migrateSessionAttributes" value="false"/>
+		<property name="exceptionIfMaximumExceeded" value="false"/>
+	</bean>
+	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+	
+	<bean class="org.springframework.security.authentication.event.LoggerListener" />
+	
+	<bean id="myFilter" class="com.boxiang.framework.security.MyFilterSecurityInterceptor">
+		<!-- 用户拥有的权限 -->
+		<property name="authenticationManager" ref="myAuthenticationManager" />
+		<!-- 用户是否拥有所请求资源的权限 -->
+		<property name="accessDecisionManager" ref="myAccessDecisionManager" />
+		<!-- 资源与权限对应关系 -->
+		<property name="securityMetadataSource" ref="mySecurityMetadataSource" />
+	</bean>
+	
+
+	<security:authentication-manager alias="myAuthenticationManager">
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			<security:password-encoder hash="md5" ref="passwordEncoder">
+				<security:salt-source system-wide="Boxiang2016" />
+			</security:password-encoder>
+		</security:authentication-provider>
+	</security:authentication-manager>
+	<bean id="customUserDetailsService" class="com.boxiang.framework.security.CustomUserDetailsService" />
+	<bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+		
+	<bean id="myAccessDecisionManager" class="com.boxiang.framework.security.MyAccessDecisionManager" />
+	<bean id="mySecurityMetadataSource" class="com.boxiang.framework.security.MyInvocationSecurityMetadataSourceService" />
+</beans>
+

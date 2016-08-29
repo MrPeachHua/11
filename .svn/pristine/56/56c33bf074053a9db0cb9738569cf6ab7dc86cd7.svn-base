@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.system.dao.SmsDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.system.po.Sms">
+        <result column="record_id" property="recordId"/>
+        <result column="content" property="content"/>
+        <result column="mobile" property="mobile"/>
+        <result column="add_time" property="addTime"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		record_id, content, mobile, add_time
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="recordId != null and recordId != '' ">
+		AND record_id = #{recordId}
+		</if>
+		<if test="content != null and content != '' ">
+		AND content = #{content}
+		</if>
+		<if test="mobile != null and mobile != '' ">
+		AND mobile = #{mobile}
+		</if>
+		<if test="addTime != null and addTime != '' ">
+		AND add_time = #{addTime}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.recordId != null and params.recordId != '' ">
+		AND record_id = #{params.recordId}
+		</if>
+		<if test="params.content != null and params.content != '' ">
+		AND content LIKE '%${params.content}%'
+		</if>
+		<if test="params.mobile != null and params.mobile != '' ">
+		AND mobile LIKE '%${params.mobile}%'
+		</if>
+		<if test="params.addTime != null and params.addTime != '' ">
+		AND add_time LIKE '%${params.addTime}%'
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_SMS 
+	     WHERE record_id = #{recordId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_SMS
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_SMS
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 ORDER BY add_time DESC
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.system.po.Sms">
+        INSERT INTO T_SMS (
+        	record_id,
+        	content,
+        	mobile,
+        	add_time
+        ) VALUES (
+        	#{recordId},
+        	#{content},
+        	#{mobile},
+        	#{addTime}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_SMS 
+		 WHERE record_id = #{recordId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.system.po.Sms">
+        UPDATE T_SMS 
+		SET
+	        content = #{content},
+	        mobile = #{mobile},
+	        add_time = #{addTime}
+        WHERE record_id = #{recordId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_SMS
+			<set>
+    	        content = #{item.content},
+    	        mobile = #{item.mobile},
+    	        add_time = #{item.addTime}
+			</set>
+            WHERE record_id = #{item.recordId} 	
+		</foreach>
+	</update>
+	
+	<!-- 查询月租用户手机号 -->
+	<select id="selectMonthMobile" resultMap="resultMap">
+		SELECT 
+		cu.customer_mobile AS mobile
+		FROM t_customer cu LEFT JOIN t_car ca ON ca.customer_id = cu.customer_id
+		WHERE customer_mobile IS NOT null
+		AND ca.car_number IN (SELECT car_number FROM t_monthlyparkinginfo WHERE 1=1
+		<if test="parkingId != null and parkingId != ''">
+			AND village_id = #{parkingId}
+		</if>
+		)
+		GROUP BY cu.customer_mobile
+
+	</select>
+	
+	<!-- 查询产权用户手机号 -->
+	<select id="selectPropertyMobile" resultMap="resultMap">
+		SELECT 
+		cu.customer_mobile AS mobile
+		FROM t_customer cu LEFT JOIN t_car ca ON ca.customer_id = cu.customer_id
+		WHERE customer_mobile IS NOT null
+		AND ca.car_number IN (SELECT car_number FROM t_propertyparkinginfo WHERE 1=1
+		<if test="parkingId != null and parkingId != ''">
+			AND village_id = #{parkingId}
+		</if>
+		)
+		GROUP BY cu.customer_mobile
+
+	</select>
+</mapper>

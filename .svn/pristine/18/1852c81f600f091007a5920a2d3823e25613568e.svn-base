@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.order.dao.OrderTemporaryShareDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.order.po.OrderTemporaryShare">
+        <result column="ID" property="id"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="CAR_NUMBER" property="carNumber"/>
+        <result column="PARKING_CODE" property="parkingCode"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="PARKING_NUM" property="parkingNum"/>
+		<result column="package_day" property="packageDay"/>
+		<result column="verified_date" property="verifiedDate"/>
+		<result column="start_end_time" property="startEndTime"/>
+	</resultMap>
+	<resultMap id="resultMapByOrderId" type="com.boxiang.share.product.order.po.OrderTemporaryShare">
+		<result column="ID" property="id"/>
+		<result column="PARKING_ID" property="parkingId"/>
+		<result column="ORDER_ID" property="orderId"/>
+		<result column="CAR_NUMBER" property="carNumber"/>
+		<result column="PARKING_CODE" property="parkingCode"/>
+		<result column="IS_USED" property="isUsed"/>
+		<result column="CREATEOR" property="createor"/>
+		<result column="MODIFIED" property="modified"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="PARKING_NUM" property="parkingNum"/>
+		<result column="APPOINTMENT_DATE" property="appointmentDate"/>
+		<result column="VOUCHER_STATUS" property="voucherStatus"/>
+		<result column="AMOUNT_PAYABLE" property="amountPayable"/>
+		<result column="AMOUNT_DISCOUNT" property="amountDiscount"/>
+		<result column="AMOUNT_PAID" property="amountPaid"/>
+		<result column="PAY_TYPE" property="payType"/>
+		<result column="PAY_TIME" property="payTime"/>
+		<result column="CUSTOMER_ID" property="customerId"/>
+		<result column="monday_begin_time" property="mondayBeginTime"/>
+		<result column="monday_end_time" property="mondayEndTime"/>
+		<result column="friday_begin_time" property="fridayBeginTime"/>
+		<result column="friday_end_time" property="fridayEndTime"/>
+		<result column="saturday_begin_time" property="saturdayBeginTime"/>
+		<result column="saturday_end_time" property="saturdayEndTime"/>
+		<result column="sunday_begin_time" property="sundayBeginTime"/>
+		<result column="sunday_end_time" property="sundayEndTime"/>
+		<result column="thursday_begin_time" property="thursdayBeginTime"/>
+		<result column="thursday_end_time" property="thursdayEndTime"/>
+		<result column="tuesday_begin_time" property="tuesdayBeginTime"/>
+		<result column="tuesday_end_time" property="tuesdayEndTime"/>
+		<result column="wednesday_begin_time" property="wednesdayBeginTime"/>
+		<result column="wednesday_end_time" property="wednesdayEndTime"/>
+		<result column="verified_date" property="verifiedDate"/>
+		<result column="start_end_time" property="startEndTime"/>
+	</resultMap>
+	<resultMap id="resultMap2" type="com.boxiang.share.product.order.po.OrderTemporaryShare">
+        <result column="ID" property="id"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="CAR_NUMBER" property="carNumber"/>
+        <result column="PARKING_CODE" property="parkingCode"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+        <result column="APPOINTMENT_DATE" property="appointmentDate"/>
+        <result column="PARKING_NAME" property="parkingName"/>
+         <result column="StartTime" property="startTime"/>
+          <result column="StopTime" property="stopTime"/>
+		<result column="monday_begin_time" property="mondayBeginTime"/>
+		<result column="monday_end_time" property="mondayEndTime"/>
+		<result column="friday_begin_time" property="fridayBeginTime"/>
+		<result column="friday_end_time" property="fridayEndTime"/>
+		<result column="saturday_begin_time" property="saturdayBeginTime"/>
+		<result column="saturday_end_time" property="saturdayEndTime"/>
+		<result column="sunday_begin_time" property="sundayBeginTime"/>
+		<result column="sunday_end_time" property="sundayEndTime"/>
+		<result column="thursday_begin_time" property="thursdayBeginTime"/>
+		<result column="thursday_end_time" property="thursdayEndTime"/>
+		<result column="tuesday_begin_time" property="tuesdayBeginTime"/>
+		<result column="tuesday_end_time" property="tuesdayEndTime"/>
+		<result column="wednesday_begin_time" property="wednesdayBeginTime"/>
+		<result column="wednesday_end_time" property="wednesdayEndTime"/>
+		<result column="start_end_time" property="startEndTime"/>
+	</resultMap>
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, PARKING_ID, ORDER_ID, CAR_NUMBER, PARKING_CODE, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE,PARKING_NUM,APPOINTMENT_DATE,VOUCHER_STATUS,package_day,verified_date,start_end_time
+	</sql>
+	<select id="selectByOrderId" parameterType="java.util.Map" resultMap="resultMapByOrderId">
+		SELECT  * from (select DISTINCT a.AMOUNT_PAYABLE,a.AMOUNT_DISCOUNT,b.PARKING_ID,a.AMOUNT_PAID,a.PAY_TYPE,a.PAY_TIME,b.ORDER_ID,
+		b.CAR_NUMBER,b.PARKING_NUM,b.APPOINTMENT_DATE,b.VOUCHER_STATUS,b.PARKING_CODE,t.parking_name,t.StartTime,t.StopTime,
+		p.monday_begin_time,
+		p.monday_end_time,
+		p.friday_begin_time,
+		p.friday_end_time,
+		p.saturday_begin_time,
+		p.saturday_end_time,
+		p.sunday_begin_time,
+		p.sunday_end_time,
+		p.thursday_begin_time,
+		p.thursday_end_time,
+		p.tuesday_begin_time,
+		p.tuesday_end_time,
+		p.wednesday_begin_time,
+		p.wednesday_end_time,
+		b.start_end_time
+		from t_order_main a LEFT JOIN t_order_temporary_share b
+		ON a.ORDER_ID = b.ORDER_ID
+		LEFT  JOIN  t_parking t on t.parking_id = b.parking_id
+		LEFT JOIN t_discount_parking_price p ON p.parking_id=b.PARKING_ID
+		where 1=1
+		<if test="orderId != null and orderId != '' ">
+			AND b.ORDER_ID = #{orderId}
+		</if>)q
+	</select>
+	<select id="selectTime" resultMap="resultMapByOrderId">
+		SELECT DISTINCT * FROM
+		t_order_main a LEFT JOIN t_order_temporary_share b
+		ON a.ORDER_ID = b.ORDER_ID
+		LEFT  JOIN  t_parking t on t.parking_id = b.parking_id
+		where 1=1
+		<if test=" voucherStatus!= null and voucherStatus != '' ">
+			AND b.VOUCHER_STATUS = #{voucherStatus}
+		</if>
+		<if test=" customerId!= null and customerId != '' ">
+			AND a.CUSTOMER_ID = #{customerId}
+		</if>
+
+	</select>
+	<update id="updateByOrderId" parameterType="com.boxiang.share.product.order.po.OrderTemporaryShare">
+		UPDATE T_ORDER_TEMPORARY_SHARE
+		SET
+		VOUCHER_STATUS = #{voucherStatus},
+		verified_date = #{verifiedDate},
+		PARKING_NUM = #{parkingNum}
+		WHERE ORDER_ID = #{orderId}
+	</update>
+
+	<!--<update id="updateByVoucher" parameterType="com.boxiang.share.product.order.po.OrderTemporaryShare">
+		UPDATE T_ORDER_TEMPORARY_SHARE
+		SET
+		VOUCHER_STATUS = #{voucherStatus}
+		WHERE PARKING_CODE = #{parkingCode}
+	</update>-->
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="orderId != null and orderId != '' ">
+		AND ORDER_ID = #{orderId}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND CAR_NUMBER = #{carNumber}
+		</if>
+		<if test="parkingCode != null and parkingCode != '' ">
+		AND PARKING_CODE = #{parkingCode}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.orderId != null and params.orderId != '' ">
+		AND ORDER_ID = #{params.orderId}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND CAR_NUMBER = #{params.carNumber}
+		</if>
+		<if test="params.parkingCode != null and params.parkingCode != '' ">
+		AND PARKING_CODE = #{params.parkingCode}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_TEMPORARY_SHARE 
+	     WHERE ID = #{id}     
+	</select>
+<select id="queryByOrderId" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_TEMPORARY_SHARE 
+	     WHERE order_id = #{orderID}
+	</select>
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_TEMPORARY_SHARE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+	<select id="selectAppByToday" resultMap="resultMap2">
+		SELECT b.CAR_NUMBER,b.ORDER_ID ,b.APPOINTMENT_DATE,c.parking_name,c.StartTime,c.StopTime,b.PARKING_CODE
+		from t_order_main a LEFT JOIN t_order_temporary_share b
+		on a.ORDER_ID = b.ORDER_ID
+		LEFT JOIN t_parking c on c.parking_id = b.parking_id
+where b.APPOINTMENT_DATE is not null
+ <if test="params.parkingId != null and params.parkingId != '' ">AND  b.PARKING_ID=#{params.parkingId}</if>
+
+	<if test="params.appointmentDate !=null and params.appointmentDate !=''">
+		AND b.APPOINTMENT_DATE LIKE '%${params.appointmentDate}%'
+	</if>
+		ORDER BY a.PAY_TIME DESC
+	</select>
+	<select id="scanOrderId" resultMap="resultMapByOrderId">
+		SELECT * from t_order_main a LEFT JOIN t_order_temporary_share b
+on a.ORDER_ID = b.ORDER_ID where 1=1
+		<if test=" orderId!= null and  orderId!= '' ">
+			AND b.ORDER_ID=#{orderId}
+		</if>
+
+	</select>
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_TEMPORARY_SHARE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+<select id="queryDate" resultMap="resultMap">
+	select a.* from t_order_temporary_share a INNER JOIN t_order_main b ON a.ORDER_ID = b.ORDER_ID
+where a.CAR_NUMBER=#{carNumber} AND a.PARKING_ID=#{parkingId} and b.ORDER_STATUS='11'
+ and a.VOUCHER_STATUS='0'
+</select>
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.order.po.OrderTemporaryShare">
+        INSERT INTO T_ORDER_TEMPORARY_SHARE (
+        	ID,
+        	PARKING_ID,
+        	ORDER_ID,
+        	CAR_NUMBER,
+        	PARKING_CODE,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE,
+        	APPOINTMENT_DATE,
+        	PARKING_NUM,
+        	package_day
+        ) VALUES (
+        	#{id},
+        	#{parkingId},
+        	#{orderId},
+        	#{carNumber},
+        	#{parkingCode},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate},
+        	#{appointmentDate},
+        	#{parkingNum},
+        	#{packageDay}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_ORDER_TEMPORARY_SHARE 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.order.po.OrderTemporaryShare">
+        UPDATE T_ORDER_TEMPORARY_SHARE 
+		SET
+	        PARKING_ID = #{parkingId},
+	        ORDER_ID = #{orderId},
+	        CAR_NUMBER = #{carNumber},
+	        PARKING_CODE = #{parkingCode},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate},
+	        VOUCHER_STATUS=#{voucherStatus},
+	        APPOINTMENT_DATE=#{appointmentDate},
+	        PARKING_NUM=#{parkingNum},
+	        package_day=#{packageDay},
+	        verified_date = #{verifiedDate},
+	        start_end_time = #{startEndTime}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_ORDER_TEMPORARY_SHARE
+			<set>
+    	        PARKING_ID = #{item.parkingId},
+    	        ORDER_ID = #{item.orderId},
+    	        CAR_NUMBER = #{item.carNumber},
+    	        PARKING_CODE = #{item.parkingCode},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+	<select id="queryVoucherPage" resultMap="resultMap2">
+  SELECT  * FROM  (
+		SELECT DISTINCT
+		b.CAR_NUMBER,b.APPOINTMENT_DATE,b.PARKING_CODE,
+		c.parking_name,c.StartTime,c.StopTime,a.ORDER_ID,c.parking_id,a.PAY_TIME,
+		p.monday_begin_time,
+		p.monday_end_time,
+		p.friday_begin_time,
+		p.friday_end_time,
+		p.saturday_begin_time,
+		p.saturday_end_time,
+		p.sunday_begin_time,
+		p.sunday_end_time,
+		p.thursday_begin_time,
+		p.thursday_end_time,
+		p.tuesday_begin_time,
+		p.tuesday_end_time,
+		p.wednesday_begin_time,
+		p.wednesday_end_time,
+		b.start_end_time
+		FROM t_order_main a
+		LEFT JOIN  t_order_temporary_share b ON a.ORDER_ID=b.ORDER_ID
+		LEFT JOIN t_parking c ON c.parking_id = b.PARKING_ID
+		LEFT JOIN t_discount_parking_price p ON p.parking_id=b.PARKING_ID
+		where a.customer_id = #{params.customerId} AND b.VOUCHER_STATUS =#{params.voucherStatus} AND b.APPOINTMENT_DATE is not null
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			AND c.parking_id = #{params.parkingId}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND b.CAR_NUMBER = #{params.carNumber}
+		</if>
+		ORDER BY b.CREATE_DATE DESC
+	) abc WHERE  1=1
+	</select>
+	<select id="queryAppointment" resultMap="resultMap2">
+		SELECT a.APPOINTMENT_DATE 
+		FROM t_order_temporary_share a
+	    WHERE a.PARKING_ID=#{parkingId} and a.CAR_NUMBER=#{carNumber}
+	</select>
+
+	<sql id="orderTemporaryShareJoinOrderMain">
+		ots.ID,
+		ots.PARKING_ID,
+		ots.ORDER_ID,
+		ots.CAR_NUMBER,
+		ots.PARKING_CODE,
+		ots.IS_USED,
+		ots.CREATEOR,
+		ots.MODIFIED,
+		ots.CREATE_DATE,
+		ots.MODIFY_DATE,
+		ots.PARKING_NUM,
+		ots.APPOINTMENT_DATE,
+		ots.VOUCHER_STATUS,
+		ots.IS_PUSH_TO_BLUE,
+		om.ORDER_ID 'orderMain.ORDER_ID',
+		om.ORDER_TYPE 'orderMain.ORDER_TYPE',
+		om.ORDER_STATUS 'orderMain.ORDER_STATUS',
+		om.INVOICE_STATUS 'orderMain.INVOICE_STATUS',
+		om.IS_NEED_INVOICE 'orderMain.IS_NEED_INVOICE',
+		om.CUSTOMER_ID 'orderMain.CUSTOMER_ID',
+		om.AMOUNT_PAYABLE 'orderMain.AMOUNT_PAYABLE',
+		om.AMOUNT_DISCOUNT 'orderMain.AMOUNT_DISCOUNT',
+		om.AMOUNT_PAID 'orderMain.AMOUNT_PAID',
+		om.PAY_TYPE 'orderMain.PAY_TYPE',
+		om.PAY_TIME 'orderMain.PAY_TIME',
+		om.TRADE_NO 'orderMain.TRADE_NO',
+		om.IS_USED 'orderMain.IS_USED',
+		om.CREATEOR 'orderMain.CREATEOR',
+		om.MODIFIED 'orderMain.MODIFIED',
+		om.CREATE_DATE 'orderMain.CREATE_DATE',
+		om.MODIFY_DATE 'orderMain.MODIFY_DATE'
+	</sql>
+
+	<!--拿到需要提交到蓝卡的订单信息-->
+	<select id="getCommitToBlueOrder" resultType="com.boxiang.share.product.order.po.OrderTemporaryShare">
+		SELECT
+			<include refid="orderTemporaryShareJoinOrderMain"/>
+		FROM
+			t_order_temporary_share ots
+		LEFT JOIN t_order_main om ON om.ORDER_ID = ots.ORDER_ID
+		LEFT JOIN t_villageinfo vi ON vi.id = ots.PARKING_ID
+		WHERE
+		om.ORDER_STATUS = '11'
+		AND ots.IS_PUSH_TO_BLUE = '0'
+		AND LENGTH(ots.CAR_NUMBER) > 0
+		AND LENGTH(vi.item01) > 0
+	</select>
+
+	<update id="updateIsPushToBlue">
+		UPDATE t_order_temporary_share
+		SET IS_PUSH_TO_BLUE = '1'
+		WHERE ORDER_ID = #{orderId}
+	</update>
+	<update id="updateParking" parameterType="com.boxiang.share.product.order.po.OrderTemporaryShare">
+		UPDATE t_parking a,
+		(
+		SELECT
+		PARKING_ID,
+		COUNT(*) AS count
+		FROM
+		t_order_temporary_share
+		WHERE
+		APPOINTMENT_DATE IS NOT NULL
+		AND APPOINTMENT_DATE LIKE '%${appointmentDate}%'
+		GROUP BY
+		PARKING_ID
+		) b
+		SET a.parking_can_use = (
+		CASE
+		WHEN (a.parking_can_use - b.COUNT) <![CDATA[ < ]]> 0 THEN
+		0
+		ELSE
+		(a.parking_can_use - b.COUNT)
+		END
+		)
+		WHERE
+		a.PARKING_ID = b.PARKING_ID
+	</update>
+	<select id="selectCountToday" resultMap="resultMap">
+		SELECT * from t_order_temporary_share where APPOINTMENT_DATE is not NULL
+		and APPOINTMENT_DATE LIKE '%${appointmentDate}%'
+	</select>
+</mapper>

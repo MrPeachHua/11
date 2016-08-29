@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.carlife.dao.CarlifeSrvBillingDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.carlife.po.CarlifeSrvBilling">
+        <result column="ID" property="id"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="SRV_ID" property="srvId"/>
+         <result column="parkingName" property="parkingName"/>
+        <result column="CAR_TYPE" property="carType"/>
+        <result column="SRV_FEE" property="srvFee"/>
+        <result column="SRV_PRICE" property="srvPrice"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+        <result column="DICT_NAME" property="dict_name"/>
+        <result column="SRV_NAME" property="srv_name"/>
+        <result column="INTRO" property="intro"/>
+        <result column="NOWPRICE" property="nowPrice"/>
+        
+        
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		a.ID,a.PARKING_ID, a.SRV_ID, a.CAR_TYPE, a.SRV_FEE, a.SRV_PRICE, a.IS_USED, a.CREATEOR, a.MODIFIED, a.CREATE_DATE, a.MODIFY_DATE,a.NOWPRICE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND a.ID = #{id}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND a.PARKING_ID = #{parkingId}
+		</if>
+		<if test="srvId != null and srvId != '' ">
+		AND a.SRV_ID = #{srvId}
+		</if>
+		<if test="carType != null and carType != '' ">
+		AND a.CAR_TYPE = #{carType}
+		</if>
+		<if test="srvFee != null and srvFee != '' ">
+		AND a.SRV_FEE = #{srvFee}
+		</if>
+		<if test="srvPrice != null and srvPrice != '' ">
+		AND a.SRV_PRICE = #{srvPrice}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND a.IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND a.CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND a.MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND a.CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND a.MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND a.ID = #{params.id}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND a.PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.srvId != null and params.srvId != '' ">
+		AND a.SRV_ID = #{params.srvId}
+		</if>
+		<if test="params.carType != null and params.carType != '' ">
+		AND a.CAR_TYPE = #{params.carType}
+		</if>
+		<if test="params.srvFee != null and params.srvFee != '' ">
+		AND a.SRV_FEE = #{params.srvFee}
+		</if>
+		<if test="params.srvPrice != null and params.srvPrice != '' ">
+		AND a.SRV_PRICE = #{params.srvPrice}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND a.IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND a.CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND a.MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND a.CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND a.MODIFY_DATE = #{params.modifyDate}
+		</if>
+		<if test="params.srvName != null and params.srvName != '' ">
+		AND b.SRV_NAME like  '%${params.srvName}%'
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+		AND c.PARKING_NAME like  '%${params.parkingName}%'
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		,b.SRV_NAME,c.parking_name
+		  FROM T_CARLIFE_SRV_BILLING  a
+		   LEFT JOIN t_carlife_srv_info b on a.SRV_ID=b.ID 
+		  LEFT JOIN t_parking c ON a.PARKING_ID=c.parking_id
+	     WHERE a.ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CARLIFE_SRV_BILLING a
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+	<select id="selectListParking" resultType="com.boxiang.share.product.parking.po.Parking">
+		SELECT b.*
+		FROM T_CARLIFE_SRV_BILLING a INNER JOIN t_parking b on a.PARKING_ID=b.parking_id
+		WHERE 1 = 1 and a.SRV_ID = #{srvId}  and a.IS_USED = '1' GROUP BY a.PARKING_ID
+	</select>
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		,b.SRV_NAME,c.parking_name
+		  FROM T_CARLIFE_SRV_BILLING a 
+		   LEFT JOIN t_carlife_srv_info b on a.SRV_ID=b.ID 
+		  LEFT JOIN t_parking c ON a.PARKING_ID=c.parking_id
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.carlife.po.CarlifeSrvBilling">
+        INSERT INTO T_CARLIFE_SRV_BILLING (
+        	ID,
+        	PARKING_ID,
+        	SRV_ID,
+        	CAR_TYPE,
+        	SRV_FEE,
+        	SRV_PRICE,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE,
+        	NOWPRICE
+        ) VALUES (
+        	#{id},
+        	#{parkingId},
+        	#{srvId},
+        	#{carType},
+        	#{srvFee},
+        	#{srvPrice},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate},
+        	#{nowPrice}
+        	
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CARLIFE_SRV_BILLING 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.carlife.po.CarlifeSrvBilling">
+        UPDATE T_CARLIFE_SRV_BILLING 
+		SET
+	        PARKING_ID = #{parkingId},
+	        SRV_ID = #{srvId},
+	        CAR_TYPE = #{carType},
+	        SRV_FEE = #{srvFee},
+	        SRV_PRICE = #{srvPrice},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        MODIFY_DATE = #{modifyDate},
+	        NOWPRICE=#{nowPrice}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CARLIFE_SRV_BILLING
+			<set>
+    	        PARKING_ID = #{item.parkingId},
+    	        SRV_ID = #{item.srvId},
+    	        CAR_TYPE = #{item.carType},
+    	        SRV_FEE = #{item.srvFee},
+    	        SRV_PRICE = #{item.srvPrice},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+	<select id="selectSrvInfo"  resultMap="resultMap">
+	SELECT tb.*,td.DICT_NAME,ti.SRV_NAME,ti.INTRO FROM t_carlife_srv_billing tb 
+	LEFT JOIN t_dictionary td ON td.DICT_CODE="car_type" AND td.DICT_VALUE = tb.CAR_TYPE
+	LEFT JOIN t_carlife_srv_info ti ON ti.ID = tb.SRV_ID
+	WHERE tb.PARKING_ID=#{parkingId}
+	AND tb.SRV_ID = #{srvId}
+	AND tb.IS_USED = 1
+	</select>
+</mapper>

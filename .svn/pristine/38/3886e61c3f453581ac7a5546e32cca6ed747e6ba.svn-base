@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parking.dao.ParkingPriceDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parking.po.ParkingPrice">
+        <result column="Id" property="id"/>
+        <result column="SchemeId" property="schemeId"/>
+        <result column="ParkingId" property="parkingId"/>
+        <result column="Price" property="price"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		Id, SchemeId, ParkingId, Price
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND Id = #{id}
+		</if>
+		<if test="schemeId != null and schemeId != '' ">
+		AND SchemeId = #{schemeId}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND ParkingId = #{parkingId}
+		</if>
+		<if test="price != null and price != '' ">
+		AND Price = #{price}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND Id = #{params.id}
+		</if>
+		<if test="params.schemeId != null and params.schemeId != '' ">
+		AND SchemeId = #{params.schemeId}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND ParkingId = #{params.parkingId}
+		</if>
+		<if test="params.price != null and params.price != '' ">
+		AND Price = #{params.price}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_PRICE 
+	     WHERE Id = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_PRICE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_PRICE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parking.po.ParkingPrice">
+        INSERT INTO T_PARKING_PRICE (
+        	Id,
+        	SchemeId,
+        	ParkingId,
+        	Price
+        ) VALUES (
+        	#{id},
+        	#{schemeId},
+        	#{parkingId},
+        	#{price}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_PARKING_PRICE 
+		 WHERE Id = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parking.po.ParkingPrice">
+        UPDATE T_PARKING_PRICE 
+		SET
+	        SchemeId = #{schemeId},
+	        ParkingId = #{parkingId},
+	        Price = #{price}
+        WHERE Id = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_PARKING_PRICE
+			<set>
+    	        SchemeId = #{item.schemeId},
+    	        ParkingId = #{item.parkingId},
+    	        Price = #{item.price}
+			</set>
+            WHERE Id = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

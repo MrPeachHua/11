@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.customer.dao.CustomerDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.customer.po.Customer">
+        <result column="customer_id" property="customerId"/>
+        <result column="customer_nickname" property="customerNickname"/>
+        <result column="customer_password" property="customerPassword"/>
+        <result column="customer_level" property="customerLevel"/>
+        <result column="customer_name" property="customerName"/>
+        <result column="customer_sex" property="customerSex"/>
+        <result column="customer_age" property="customerAge"/>
+        <result column="customer_head" property="customerHead"/>
+        <result column="customer_mobile" property="customerMobile"/>
+        <result column="customer_email" property="customerEmail"/>
+        <result column="customer_region" property="customerRegion"/>
+        <result column="customer_job" property="customerJob"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+        <result column="customer_card_id" property="customerCardId"/>
+        <result  column="identity" property="identity"/>
+        <result column="wx_id" property="wxId"/>
+        <result column="sina_id" property="sinaId"/>
+        <result column="qq_id" property="qqId"/>
+		<result column="money" property="money"/>
+		<result column="pay_password" property="pay_password"/>
+		<result column="last_login_time" property="lastLoginTime"/>
+		<result column="reg_phone" property="reg_phone"/>
+		<result column="redeem_code" property="redeemCode"/>
+		<result column="car_number" property="carNumber"/>
+		<result column="wxpay_openid" property="wxpayOpenid"/>
+		<result column="coupon" property="coupon"/>
+	</resultMap>
+	
+	<resultMap id="resultMapQD" type="com.boxiang.share.product.customer.po.Customer">
+        <result column="customer_id" property="customerId"/>
+        <result column="customer_nickname" property="customerNickname"/>
+        <result column="customer_password" property="customerPassword"/>
+        <result column="customer_level" property="customerLevel"/>
+        <result column="customer_name" property="customerName"/>
+        <result column="customer_sex" property="customerSex"/>
+        <result column="customer_age" property="customerAge"/>
+        <result column="customer_head" property="customerHead"/>
+        <result column="customer_mobile" property="customerMobile"/>
+        <result column="customer_email" property="customerEmail"/>
+        <result column="customer_region" property="customerRegion"/>
+        <result column="customer_job" property="customerJob"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+        <result column="customer_card_id" property="customerCardId"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <result column="channel" property="channel"/>
+        <result column="registerBegin" property="registerBegin"/>
+        <result column="registerEnd" property="registerEnd"/>
+        <result column="loginBegin" property="loginBegin"/>
+        <result column="loginEnd" property="loginEnd"/>
+        <result column="registerNum" property="registerNum"/>
+        <result column="loginNum" property="loginNum"/>
+		<result column="reg_phone" property="reg_phone"/>
+		<result column="redeem_code" property="redeemCode"/>
+		<result column="GROWTH_VALUE" property="growthValue"/>
+		<result column="LAST_LOGIN_SYS" property="lastLoginSys"/>
+		<result column="LAST_LOGIN_MACHINE" property="lastLoginMachine"/>
+		<result column="APP_VERSION" property="appVersion"/>
+	</resultMap>
+	<!-- 根据微信唯一标示查找对象 -->
+	<select id="queryByWxId" resultMap="resultMap">
+		select <include refid="columns"/> from t_customer 
+		where wx_id=#{wxId}
+	</select>
+	<select id="exportCustomerInfo" resultType="com.boxiang.share.customer.po.CustomerInfo">
+		SELECT <include refid="columns" />
+		  FROM T_CUSTOMER
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+	<select id="queryByC" resultMap="resultMapQD">
+	SELECT t1.channel,count(t2.last_login_time) AS loginNum,
+	COUNT(t3.created_at) AS registerNum FROM t_customer t1
+	LEFT JOIN t_customer t2 ON t2.customer_id = t1.customer_id 
+	<if test="params.loginBegin != null and params.loginBegin != '' ">
+	     	and t2.last_login_time  &gt;= #{params.loginBegin} 
+	     </if>
+	     <if test="params.loginEnd != null and params.loginEnd != '' ">
+	     	and  t2.last_login_time  &lt;= #{params.loginEnd}
+	     </if>
+	LEFT JOIN t_customer t3 ON t3.customer_id = t1.customer_id 
+	<if test="params.registerBegin != null and params.registerBegin != '' ">
+	     	and t3.created_at &gt;= #{params.registerBegin} 
+	     </if>
+	     <if test="params.registerEnd != null and params.registerEnd != '' ">
+	     	and  t3.created_at &lt;= #{params.registerEnd}
+	     </if>
+	    
+	WHERE t1.channel is NOT NULL
+	 <if test="params.channel != null and params.channel != '' ">
+	     	and  t1.channel = #{params.channel}
+	 </if>
+	GROUP BY t1.channel
+	</select>
+	
+	<!-- 根据渠道查询    0318 -->
+	<select id="selectByChannel" resultMap="resultMapQD">
+	SELECT
+	c.customer_mobile,
+	c.customer_nickname,
+	c.created_at,
+	c.last_login_time,
+	c.channel
+	FROM t_customer c where c.channel= #{params.channel}
+	<if test="params.loginBegin != null and params.loginBegin != '' ">
+	     	and c.last_login_time  &gt;= #{params.loginBegin} 
+	     </if>
+	     <if test="params.loginEnd != null and params.loginEnd != '' ">
+	     	and  c.last_login_time  &lt;= #{params.loginEnd}
+	     </if>
+	<if test="params.registerBegin != null and params.registerBegin != '' ">
+	     	and c.created_at &gt;= #{params.registerBegin} 
+	     </if>
+	     <if test="params.registerEnd != null and params.registerEnd != '' ">
+	     	and  c.created_at &lt;= #{params.registerEnd}
+	     </if>
+	</select>
+	<select id="exportByC" resultMap="resultMapQD">
+	SELECT t1.channel,count(t2.last_login_time) AS loginNum,
+	COUNT(t3.created_at) AS registerNum FROM t_customer t1
+	LEFT JOIN t_customer t2 ON t2.customer_id = t1.customer_id 
+	<if test="loginBegin != null and loginBegin != '' ">
+	     	and t2.last_login_time  &gt;= #{loginBegin} 
+	     </if>
+	     <if test="loginEnd != null and loginEnd != '' ">
+	     	and  t2.last_login_time  &lt;= #{loginEnd}
+	     </if>
+	LEFT JOIN t_customer t3 ON t3.customer_id = t1.customer_id 
+	<if test="registerBegin != null and registerBegin != '' ">
+	     	and t3.created_at &gt;= #{registerBegin} 
+	     </if>
+	     <if test="registerEnd != null and registerEnd != '' ">
+	     	and  t3.created_at &lt;= #{registerEnd}
+	     </if>
+	    
+	WHERE t1.channel is NOT NULL
+	 <if test="channel != null and channel != '' ">
+	     	and  t1.channel = #{channel}
+	 </if>
+	GROUP BY t1.channel
+	</select>
+	
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		customer_id, customer_nickname, customer_password, customer_level, customer_name, customer_sex, customer_age, customer_head, customer_mobile, customer_email, customer_region, customer_job, created_at, updated_at, customer_card_id, identity, wx_id, sina_id, qq_id,money,pay_password,last_login_time,reg_phone,redeem_code,wxpay_openid,LAST_LOGIN_MACHINE,APP_VERSION,GROWTH_VALUE,LAST_LOGIN_SYS
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="customerId != null and customerId != '' ">
+		AND customer_id = #{customerId}
+		</if>
+		<if test="customerNickname != null and customerNickname != '' ">
+		AND customer_nickname = #{customerNickname}
+		</if>
+		<if test="customerPassword != null and customerPassword != '' ">
+		AND customer_password = #{customerPassword}
+		</if>
+		<if test="customerLevel != null and customerLevel != '' ">
+		AND customer_level = #{customerLevel}
+		</if>
+		<if test="customerName != null and customerName != '' ">
+		AND customer_name = #{customerName}
+		</if>
+		<if test="customerSex != null and customerSex != '' ">
+		AND customer_sex = #{customerSex}
+		</if>
+		<if test="customerAge != null and customerAge != '' ">
+		AND customer_age = #{customerAge}
+		</if>
+		<if test="customerHead != null and customerHead != '' ">
+		AND customer_head = #{customerHead}
+		</if>
+		<if test="customerMobile != null and customerMobile != '' ">
+		AND customer_mobile = #{customerMobile}
+		</if>
+		<if test="customerEmail != null and customerEmail != '' ">
+		AND customer_email = #{customerEmail}
+		</if>
+		<if test="customerRegion != null and customerRegion != '' ">
+		AND customer_region = #{customerRegion}
+		</if>
+		<if test="customerJob != null and customerJob != '' ">
+		AND customer_job = #{customerJob}
+		</if>
+		<if test="createdAt != null and createdAt != '' ">
+		AND created_at = #{createdAt}
+		</if>
+		<if test="updatedAt != null and updatedAt != '' ">
+		AND updated_at = #{updatedAt}
+		</if>
+		<if test="customerCardId != null and customerCardId != '' ">
+		AND customer_card_id = #{customerCardId}
+		</if>
+		<if test="wxId != null and wxId != '' ">
+		AND wx_id = #{wxId}
+		</if>
+		<if test="sinaId != null and sinaId != '' ">
+		AND sina_id = #{sinaId}
+		</if>
+		<if test="qqId != null and qqId != '' ">
+		AND qq_id = #{qqId}
+		</if>
+		<if test="redeemCode != null and redeemCode != '' ">
+			AND redeem_code = #{redeemCode}
+		</if>
+		<if test="wxpayOpenid != null and wxpayOpenid != '' ">
+			AND wxpay_openid = #{wxpayOpenid}
+		</if>
+	</sql>
+	
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND customer_id = #{params.customerId}
+		</if>
+		<if test="params.customerNickname != null and params.customerNickname != '' ">
+		AND customer_nickname LIKE '%${params.customerNickname}%'
+		</if>
+		<if test="params.customerPassword != null and params.customerPassword != '' ">
+		AND customer_password = #{params.customerPassword}
+		</if>
+		<if test="params.customerLevel != null and params.customerLevel != '' ">
+		AND customer_level = #{params.customerLevel}
+		</if>
+		<if test="params.customerName != null and params.customerName != '' ">
+		AND customer_name = #{params.customerName}
+		</if>
+		<if test="params.customerSex != null and params.customerSex != '' ">
+		AND customer_sex = #{params.customerSex}
+		</if>
+		<if test="params.customerAge != null and params.customerAge != '' ">
+		AND customer_age = #{params.customerAge}
+		</if>
+		<if test="params.customerHead != null and params.customerHead != '' ">
+		AND customer_head = #{params.customerHead}
+		</if>
+		<if test="params.customerMobile != null and params.customerMobile != '' ">
+		AND customer_mobile like '%${params.customerMobile}%'
+		</if>
+		<if test="params.customerEmail != null and params.customerEmail != '' ">
+		AND customer_email = #{params.customerEmail}
+		</if>
+		<if test="params.customerRegion != null and params.customerRegion != '' ">
+		AND customer_region = #{params.customerRegion}
+		</if>
+		<if test="params.customerJob != null and params.customerJob != '' ">
+		AND customer_job = #{params.customerJob}
+		</if>
+		<if test="params.createdAt != null and params.createdAt != '' ">
+		AND created_at = #{params.createdAt}
+		</if>
+		<if test="params.updatedAt != null and params.updatedAt != '' ">
+		AND updated_at = #{params.updatedAt}
+		</if>
+		<if test="params.customerCardId != null and params.customerCardId != '' ">
+		AND customer_card_id = #{params.customerCardId}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CUSTOMER 
+	     WHERE customer_id = #{customerId} ,customer_mobile = #{customerMobile}
+	</select>
+ <select id="queryByCustomerId" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CUSTOMER 
+	     WHERE customer_id = #{customerId}    
+	</select>
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CUSTOMER
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CUSTOMER
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 order by created_at desc
+	</select>
+	<select id="queryListPage2" resultType="java.util.Map">
+		SELECT <include refid="columns" />,
+		(SELECT COUNT(*) FROM  t_coupon where t_coupon.customer_id=t_customer.customer_id) coupon,
+		(SELECT DICT_NAME from t_dictionary where DICT_CODE='customer_level' and t_customer.customer_level=DICT_VALUE) customer_levelName
+		FROM T_CUSTOMER
+		WHERE 1 = 1
+		<include refid="wherePageSql" />
+		<if test="params.appVersion != null and params.appVersion != '' ">
+			AND APP_VERSION = #{params.appVersion}
+		</if>
+		<if test="params.registerBegin != null and params.registerBegin != '' ">
+			AND created_at <![CDATA[ >= ]]> #{params.registerBegin}
+		</if>
+		<if test="params.registerEnd != null and params.registerEnd != '' ">
+			AND created_at <![CDATA[ <= ]]> #{params.registerEnd}
+		</if>
+		<if test="params.loginBegin != null and params.loginBegin != '' ">
+			AND last_login_time <![CDATA[ >= ]]> #{params.loginBegin}
+		</if>
+		<if test="params.loginEnd != null and params.loginEnd != '' ">
+			AND last_login_time <![CDATA[ <= ]]> #{params.loginEnd}
+		</if>
+		order by created_at desc
+	</select>
+	<select id="queryByMobile" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CUSTOMER
+		 WHERE customer_mobile=#{customerMobile}
+	</select>
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.customer.po.Customer">
+        INSERT INTO T_CUSTOMER (
+        	customer_id,
+        	customer_nickname,
+        	customer_password,
+        	customer_level,
+        	customer_name,
+        	customer_sex,
+        	customer_age,
+        	customer_head,
+        	customer_mobile,
+        	customer_email,
+        	customer_region,
+        	customer_job,
+        	channel,
+        	created_at,
+        	updated_at,
+        	customer_card_id,
+        	identity,
+        	reg_phone,
+        	wx_id,
+        	sina_id,
+        	qq_id,
+        	wxpay_openid,
+        	last_login_time
+        ) VALUES (
+        	#{customerId},
+        	#{customerNickname},
+        	#{customerPassword},
+        	#{customerLevel},
+        	#{customerName},
+        	#{customerSex},
+        	#{customerAge},
+        	#{customerHead},
+        	#{customerMobile},
+        	#{customerEmail},
+        	#{customerRegion},
+        	#{customerJob},
+        	#{channel},
+        	#{createdAt},
+        	#{updatedAt},
+        	#{customerCardId},
+        	#{identity},
+        	#{reg_phone},
+        	#{wxId},
+        	#{sinaId},
+        	#{qqId},
+        	#{wxpayOpenid},
+        	#{lastLoginTime}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CUSTOMER 
+		 WHERE customer_id = #{customerId} ,customer_mobile = #{customerMobile} 
+	</delete>
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.customer.po.Customer">
+        UPDATE T_CUSTOMER 
+		SET
+			customer_mobile = #{customerMobile},
+	        customer_nickname = #{customerNickname},
+	        customer_password = #{customerPassword},
+	        customer_level = #{customerLevel},
+	        customer_name = #{customerName},
+	        customer_sex = #{customerSex},
+	        customer_age = #{customerAge},
+	        customer_head = #{customerHead},
+	        customer_email = #{customerEmail},
+	        customer_region = #{customerRegion},
+	        customer_job = #{customerJob},
+	        created_at = #{createdAt},
+	        updated_at = #{updatedAt},
+	        customer_card_id = #{customerCardId},
+	        pay_password = #{pay_password},
+	        wx_id = #{wxId},
+	        sina_id = #{sinaId},
+	        qq_id = #{qqId},
+	        wxpay_openid = #{wxpayOpenid},
+	        last_login_time = #{lastLoginTime}
+        WHERE customer_id = #{customerId}
+	</update>
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CUSTOMER
+			<set>
+    	        customer_nickname = #{item.customerNickname},
+    	        customer_password = #{item.customerPassword},
+    	        customer_level = #{item.customerLevel},
+    	        customer_name = #{item.customerName},
+    	        customer_sex = #{item.customerSex},
+    	        customer_age = #{item.customerAge},
+    	        customer_head = #{item.customerHead},
+    	        customer_email = #{item.customerEmail},
+    	        customer_region = #{item.customerRegion},
+    	        customer_job = #{item.customerJob},
+    	        created_at = #{item.createdAt},
+    	        updated_at = #{item.updatedAt},
+    	        customer_card_id = #{item.customerCardId}
+			</set>
+            WHERE customer_id = #{item.customerId} ,customer_mobile = #{item.customerMobile} 	
+		</foreach>
+	</update>
+
+	<!--给用户加钱-->
+	<update id="addMoney">
+		UPDATE T_CUSTOMER
+		SET
+			money = money + #{money}
+        WHERE customer_id = #{customerId}
+	</update>
+
+	<!--给用户扣钱-->
+	<update id="subtractMoney" parameterType="java.util.Map">
+		UPDATE T_CUSTOMER
+		SET
+		money = money - #{amountPaid}
+		WHERE customer_id = #{customerId}
+		and money - #{amountPaid} >= 0
+	</update>
+
+	<!--设置兑换码-->
+	<update id="updateRedeemCode">
+		UPDATE T_CUSTOMER
+		SET
+		redeem_code = #{redeemCode}
+		WHERE customer_id = #{customerId}
+	</update>
+	<!-- 查询当前有效的月租用户   -->
+	<select id="queryByNow" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT
+		*
+		FROM
+		t_monthlyparkinginfo m
+		LEFT JOIN t_customer c ON c.customer_mobile = m.phone
+		<if test="parkingId != null and parkingId != '' ">
+			AND m.village_id = #{parkingId}
+		</if>
+		WHERE
+		c.created_at BETWEEN #{beginDate} AND #{endDate}
+		AND m.car_number NOT IN (
+			SELECT
+			b.CAR_NUMBER
+			FROM
+			t_scene_record b
+			WHERE
+			b.SCENE_MODE = '3'
+			AND b.is_used = '1'
+			AND b.RULE_ID = #{Id}
+		)
+	</select>
+	<!-- 查询当前有效的产权用户   -->
+	<select id="queryByNow2" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT
+		*
+		FROM
+		t_propertyparkinginfo m
+		LEFT JOIN t_customer c ON c.customer_mobile = m.phone
+		<if test="parkingId != null and parkingId != '' ">
+			AND m.village_id = #{parkingId}
+		</if>
+		WHERE
+		c.created_at BETWEEN #{beginDate} AND #{endDate}
+		AND m.car_number NOT IN (
+			SELECT
+			b.CAR_NUMBER
+			FROM
+			t_scene_record b
+			WHERE
+			b.SCENE_MODE = '3'
+			AND b.is_used = '1'
+			AND b.RULE_ID = #{Id}
+		)
+	</select>
+
+	<select id="customerWithRegisterRule" resultMap="resultMap">
+		SELECT
+		*
+		FROM
+		${tableName} m
+		LEFT JOIN t_customer c ON c.customer_mobile = m.phone
+		WHERE 1 = 1
+		<if test="parkingId != null and parkingId != '' ">
+			AND m.village_id = #{parkingId}
+		</if>
+		AND c.customer_id = #{customerId}
+		AND c.created_at BETWEEN #{beginDate} AND #{endDate}
+		AND m.car_number NOT IN (
+			SELECT
+			b.CAR_NUMBER
+			FROM
+			t_scene_record b
+			WHERE
+			b.SCENE_MODE = '3'
+			AND b.IS_USED = '1'
+			AND b.RULE_ID = #{ruleId}
+		)
+	</select>
+	<select id="customerWithNotMonProRegisterRule" resultMap="resultMap">
+		SELECT * FROM t_customer
+		WHERE 1 = 1
+		AND customer_id = #{customerId}
+		AND created_at BETWEEN #{beginDate} AND #{endDate}
+		AND customer_mobile not in (
+			SELECT IFNULL(phone,'')
+			FROM t_monthlyparkinginfo
+			WHERE 1 = 1
+			<if test="parkingId != null and parkingId != '' ">
+				and village_id = #{parkingId}
+			</if>
+			UNION
+			select IFNULL(phone,'')
+			from t_propertyparkinginfo
+			where 1 = 1
+			<if test="parkingId != null and parkingId != '' ">
+				and village_id = #{parkingId}
+			</if>
+		)
+	</select>
+
+	<select id="customerWithInParkRule" parameterType="java.util.Map" resultMap="resultMap">
+			select * from ${tableName} mq
+			JOIN t_customer c ON c.customer_mobile = mq.phone
+			where 0 = 0
+			and #{inParkPushCount} > (
+				SELECT count(*) FROM t_scene_record r
+				WHERE r.SCENE_MODE = '1'
+				and r.RULE_ID = #{ruleId}
+				and r.CAR_NUMBER = #{carNumber}
+				and r.CUSTOMER_ID = c.customer_id
+			)
+			and #{inTime} not in (
+				SELECT r.MODIFY_DATE FROM t_scene_record r
+				WHERE r.SCENE_MODE = '1'
+				and r.RULE_ID = #{ruleId}
+				and r.CAR_NUMBER = #{carNumber}
+				and r.CUSTOMER_ID = c.customer_id
+			)
+			and car_number = #{carNumber}
+			and village_id = #{parkingId}
+	</select>
+
+	<select id="customerByRester" parameterType="java.util.Map" resultMap="resultMap">
+					SELECT * FROM t_customer a
+					INNER JOIN t_car b ON a.customer_id = b.customer_id
+					WHERE 0 = 0
+					AND b.car_number = #{carNumber}
+					AND #{inTime} NOT IN (
+						SELECT r.MODIFY_DATE FROM t_scene_record r
+						WHERE r.SCENE_MODE = '1'
+						and r.RULE_ID = #{ruleId}
+						and r.CAR_NUMBER = #{carNumber}
+						AND r.CUSTOMER_ID = a.customer_id
+					)
+					AND #{inParkPushCount} > (
+						SELECT count(*) FROM t_scene_record t
+						WHERE t.SCENE_MODE = '1'
+						AND t.RULE_ID = #{ruleId}
+						AND t.CAR_NUMBER = #{carNumber}
+						AND t.CUSTOMER_ID = a.customer_id
+					)
+					AND a.customer_mobile not in (
+						SELECT IFNULL(phone,'')
+						FROM t_monthlyparkinginfo
+						WHERE 1 = 1
+						and village_id = #{parkingId}
+						and car_number = #{carNumber}
+						UNION
+						select IFNULL(phone,'')
+						from t_propertyparkinginfo
+						where 1 = 1
+						and village_id = #{parkingId}
+						and car_number = #{carNumber}
+					)
+	</select>
+
+	<select id="customerWithParkingStatusPush" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT
+		*
+		FROM
+		${tableName} t
+		JOIN t_customer c ON c.customer_mobile = t.phone
+		WHERE 1 = 1
+		<if test="parkingId != null and parkingId != '' ">
+			AND village_id = #{parkingId}
+		</if>
+		GROUP BY phone
+	</select>
+
+	<select id="customerWithParkingStatusPushForCommonCustomer" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT
+		*
+		FROM
+		t_customer
+		where 1 = 1
+		and customer_mobile not in
+		(
+			SELECT IFNULL(phone,'')
+			FROM t_monthlyparkinginfo
+			WHERE 1 = 1
+			<if test="parkingId != null and parkingId != '' ">
+				and village_id = #{parkingId}
+			</if>
+			UNION
+			select IFNULL(phone,'')
+			from t_propertyparkinginfo
+			where 1 = 1
+			<if test="parkingId != null and parkingId != '' ">
+				and village_id = #{parkingId}
+			</if>
+		)
+	</select>
+
+	<update id="updateLastLoginTime">
+		UPDATE t_customer
+		SET last_login_time = #{lastLoginTime}
+		WHERE customer_id = #{customerId}
+	</update>
+	<update id="updateLastLoginTime2">
+		UPDATE t_customer
+		SET last_login_time = #{lastLoginTime},
+		LAST_LOGIN_SYS = #{lastLoginSys},
+		LAST_LOGIN_MACHINE = #{lastLoginMachine},
+		APP_VERSION = #{appVersion}
+		WHERE customer_id = #{customerId}
+	</update>
+	<!--查询下单推送的用户-->
+	<select id="customerWithOrderPush" resultType="java.util.Map">
+		SET SESSION group_concat_max_len = 4294967295;
+		SELECT
+			m.CUSTOMER_ID customerId,
+			COUNT(*) orderCount,
+			GROUP_CONCAT(m.ORDER_ID) concatOrderId,
+			tmp.recordOrderId,
+			c.customer_mobile customerMobile
+		FROM
+			t_order_main m
+		LEFT JOIN t_customer c ON c.customer_id = m.CUSTOMER_ID
+		LEFT JOIN (
+			SELECT
+				CUSTOMER_ID,
+				GROUP_CONCAT(ORDER_ID) recordOrderId
+			FROM
+				t_scene_record
+			WHERE
+				IS_USED = '1'
+			AND SCENE_MODE = #{sceneMode}
+			GROUP BY
+				CUSTOMER_ID
+		) tmp ON tmp.CUSTOMER_ID = m.CUSTOMER_ID
+		WHERE
+			m.IS_USED = '1'
+		AND m.ORDER_STATUS IN ('5','11')
+		AND m.ORDER_TYPE = #{orderType}
+		AND m.CREATE_DATE BETWEEN #{beginDate} AND #{endDate}
+		AND (tmp.recordOrderId IS NULL OR NOT FIND_IN_SET(m.ORDER_ID, tmp.recordOrderId))
+		GROUP BY
+			m.CUSTOMER_ID
+		HAVING
+			orderCount >= #{orderCount};
+	</select>
+
+	<!--优惠券过期前提醒-->
+	<select id="monthlyPropertyExpireBefore" resultType="java.util.Map">
+		SELECT
+			m.village_id villageId,
+			m.car_number carNumber,
+			m.phone,
+			m.effect_end_time effectEndTime,
+			DATEDIFF(m.effect_end_time, CURDATE()) expireDays,
+			c.customer_mobile customerMobile,
+			c.customer_id customerId
+		FROM
+			${tableName} m
+		JOIN t_customer c ON c.customer_mobile = m.phone
+		WHERE
+			m.is_used = 1
+		<if test="parkingId != null and parkingId != '' ">
+			AND m.village_id = #{parkingId}
+		</if>
+		AND m.effect_end_time > NOW()
+		AND LENGTH(m.phone) > 0
+		AND 0 = (
+			SELECT
+				COUNT(*)
+			FROM
+				t_scene_record r
+			WHERE
+				r.IS_USED = '1'
+			AND r.RULE_ID = #{ruleId}
+			AND r.SCENE_MODE = #{sceneMode}
+			AND r.MODIFY_DATE = m.effect_end_time
+			AND r.CAR_NUMBER = m.car_number
+		)
+		HAVING
+			expireDays = #{monthlyPropertyExpireBefore}
+	</select>
+
+	<!--月租产权过期提醒-->
+	<select id="monthlyPropertyExpireAfter" resultType="java.util.Map">
+		SELECT
+			m.village_id villageId,
+			m.car_number carNumber,
+			m.phone,
+			m.effect_end_time effectEndTime,
+			DATEDIFF(CURDATE(), m.effect_end_time) expireDays,
+			c.customer_mobile customerMobile,
+			c.customer_id customerId
+		FROM
+			${tableName} m
+		JOIN t_customer c ON c.customer_mobile = m.phone
+		WHERE
+			m.is_used = 1
+		<if test="parkingId != null and parkingId != '' ">
+			AND m.village_id = #{parkingId}
+		</if>
+		AND m.effect_end_time <![CDATA[ < ]]> NOW()
+		AND LENGTH(m.phone) > 0
+		AND 0 = (
+			SELECT
+				COUNT(*)
+			FROM
+				t_scene_record r
+			WHERE
+				r.IS_USED = '1'
+			AND r.RULE_ID = #{ruleId}
+			AND r.SCENE_MODE = #{sceneMode}
+			AND r.MODIFY_DATE = m.effect_end_time
+			AND r.CAR_NUMBER = m.car_number
+		)
+		HAVING
+			expireDays = #{monthlyPropertyExpireAfter}
+	</select>
+
+	<!--优惠券到期前提醒-->
+	<select id="couponExpireAlert" resultType="java.util.Map">
+		SELECT
+			cp.coupon_id couponId,
+			cp.customer_id customerId,
+			c.customer_mobile customerMobile
+		FROM
+			t_coupon cp
+		LEFT JOIN t_customer c ON c.customer_id = cp.customer_id
+		WHERE
+			cp.coupon_status = '100201'
+		AND cp.effective_end >= NOW()
+		<if test="couponExpireType != null and couponExpireType != '' ">
+			AND cp.coupon_kind IN (${couponExpireType})
+		</if>
+		AND DATEDIFF(cp.effective_end, CURDATE()) = #{couponExpireBefore}
+		AND 0 = (
+			SELECT
+				COUNT(*)
+			FROM
+				t_scene_record r
+			WHERE
+				r.IS_USED = '1'
+			AND r.RULE_ID = #{ruleId}
+			AND r.SCENE_MODE = #{sceneMode}
+			AND r.COUPON_ID = cp.coupon_id
+		)
+	</select>
+</mapper>

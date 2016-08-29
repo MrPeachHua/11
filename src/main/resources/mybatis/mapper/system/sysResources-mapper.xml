@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.system.dao.SysResourcesDao">
+
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.system.po.SysResources">
+        <result column="RESOURCE_ID" property="resourceId"/>
+        <result column="RESOURCE_NAME" property="resourceName"/>
+        <result column="RESOURCE_DESC" property="resourceDesc"/>
+        <result column="RESOURCE_TYPE" property="resourceType"/>
+        <result column="RESOURCE_STRING" property="resourceString"/>
+        <result column="PRIORITY" property="priority"/>
+        <result column="ENABLED" property="enabled"/>
+        <result column="ISSYS" property="issys"/>
+        <result column="MODULE" property="module"/>
+        <result column="authority_id" property="authorityId"/>
+		<result column="authority_name" property="authorityName"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		RESOURCE_ID, RESOURCE_NAME, RESOURCE_DESC, RESOURCE_TYPE, RESOURCE_STRING, PRIORITY, ENABLED, ISSYS, MODULE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="resourceId != null and resourceId != '' ">
+		AND RESOURCE_ID = #{resourceId}
+		</if>
+		<if test="resourceName != null and resourceName != '' ">
+		AND RESOURCE_NAME = #{resourceName}
+		</if>
+		<if test="resourceDesc != null and resourceDesc != '' ">
+		AND RESOURCE_DESC = #{resourceDesc}
+		</if>
+		<if test="resourceType != null and resourceType != '' ">
+		AND RESOURCE_TYPE = #{resourceType}
+		</if>
+		<if test="resourceString != null and resourceString != '' ">
+		AND RESOURCE_STRING = #{resourceString}
+		</if>
+		<if test="priority != null and priority != '' ">
+		AND PRIORITY = #{priority}
+		</if>
+		<if test="enabled != null and enabled != '' ">
+		AND ENABLED = #{enabled}
+		</if>
+		<if test="issys != null and issys != '' ">
+		AND ISSYS = #{issys}
+		</if>
+		<if test="module != null and module != '' ">
+		AND MODULElike  '%${module}%'
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.resourceId != null and params.resourceId != '' ">
+		AND RESOURCE_ID = #{params.resourceId}
+		</if>
+		<if test="params.resourceName != null and params.resourceName != '' ">
+		AND RESOURCE_NAME = #{params.resourceName}
+		</if>
+		<if test="params.resourceDesc != null and params.resourceDesc != '' ">
+		AND RESOURCE_DESC = #{params.resourceDesc}
+		</if>
+		<if test="params.resourceType != null and params.resourceType != '' ">
+		AND RESOURCE_TYPE = #{params.resourceType}
+		</if>
+		<if test="params.resourceString != null and params.resourceString != '' ">
+		AND RESOURCE_STRING = #{params.resourceString}
+		</if>
+		<if test="params.priority != null and params.priority != '' ">
+		AND PRIORITY = #{params.priority}
+		</if>
+		<if test="params.enabled != null and params.enabled != '' ">
+		AND ENABLED = #{params.enabled}
+		</if>
+		<if test="params.issys != null and params.issys != '' ">
+		AND ISSYS = #{params.issys}
+		</if>
+		<if test="params.module != null and params.module != '' ">
+		AND MODULE like  '%${params.module}%'
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_RESOURCES
+	     WHERE RESOURCE_ID = #{resourceId}
+	</select>
+
+	<select id="queryUrlByAuthName" parameterType="java.lang.String" resultType="java.lang.String">
+		select resource_string 
+		from sys_authorities_resources a 
+		inner join sys_resources b on a.RESOURCE_ID=b.RESOURCE_ID
+		inner join sys_authorities c on a.AUTHORITY_ID= c.AUTHORITY_ID 
+		WHERE c.AUTHORITY_NAME = #{authName}   
+		 AND a.ENABLED=1 and b.ENABLED=1 and c.ENABLED=1
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_RESOURCES
+		 WHERE 1 = 1
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_RESOURCES
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.system.po.SysResources">
+        INSERT INTO SYS_RESOURCES (
+        	RESOURCE_ID,
+        	RESOURCE_NAME,
+        	RESOURCE_DESC,
+        	RESOURCE_TYPE,
+        	RESOURCE_STRING,
+        	PRIORITY,
+        	ENABLED,
+        	ISSYS,
+        	MODULE
+        ) VALUES (
+        	#{resourceId},
+        	#{resourceName},
+        	#{resourceDesc},
+        	#{resourceType},
+        	#{resourceString},
+        	#{priority},
+        	#{enabled},
+        	#{issys},
+        	#{module}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM SYS_RESOURCES 
+		 WHERE RESOURCE_ID = #{resourceId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.system.po.SysResources">
+        UPDATE SYS_RESOURCES 
+		SET
+	        RESOURCE_NAME = #{resourceName},
+	        RESOURCE_DESC = #{resourceDesc},
+	        RESOURCE_TYPE = #{resourceType},
+	        RESOURCE_STRING = #{resourceString},
+	        PRIORITY = #{priority},
+	        ENABLED = #{enabled},
+	        ISSYS = #{issys},
+	        MODULE = #{module}
+        WHERE RESOURCE_ID = #{resourceId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE SYS_RESOURCES
+			<set>
+    	        RESOURCE_NAME = #{item.resourceName},
+    	        RESOURCE_DESC = #{item.resourceDesc},
+    	        RESOURCE_TYPE = #{item.resourceType},
+    	        RESOURCE_STRING = #{item.resourceString},
+    	        PRIORITY = #{item.priority},
+    	        ENABLED = #{item.enabled},
+    	        ISSYS = #{item.issys},
+    	        MODULE = #{item.module}
+			</set>
+            WHERE RESOURCE_ID = #{item.resourceId}
+		</foreach>
+	</update>
+    <!--关联查询 -->
+	<select id="queryList" parameterType="java.lang.String" resultMap="resultMap">
+			   SELECT
+			*
+		FROM
+			sys_authorities a
+		LEFT JOIN (
+			SELECT
+				b.*,c.AUTHORITY_ID
+			FROM
+				sys_resources b
+			LEFT JOIN sys_authorities_resources c ON b.RESOURCE_ID = c.RESOURCE_ID
+		where c.RESOURCE_ID=#{resourceId} and c.ENABLED='1' and b.ENABLED='1'
+		) temp on temp.AUTHORITY_ID=a.AUTHORITY_ID where a.ENABLED='1'
+		 </select>
+
+</mapper>

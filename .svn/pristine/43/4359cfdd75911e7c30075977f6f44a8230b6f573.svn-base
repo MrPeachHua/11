@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.system.dao.MessagePubDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.system.po.MessagePub">
+        <result column="MESSAGE_ID" property="messageId"/>
+        <result column="TITLE" property="title"/>
+        <result column="MESSAGE" property="message"/>
+        <result column="MESSAGE_TWO" property="messageTwo"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		MESSAGE_ID, TITLE, MESSAGE, MESSAGE_TWO, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="messageId != null and messageId != '' ">
+		AND MESSAGE_ID = #{messageId}
+		</if>
+		<if test="title != null and title != '' ">
+		AND TITLE like '%${title}%'
+		</if>
+		<if test="message != null and message != '' ">
+		AND MESSAGE like '%${message}%'
+		</if>
+		<if test="messageTwo != null and messageTwo != '' ">
+		AND MESSAGE_TWO = #{messageTwo}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.messageId != null and params.messageId != '' ">
+		AND MESSAGE_ID = #{params.messageId}
+		</if>
+		<if test="params.title != null and params.title != '' ">
+		AND TITLE like  '%${params.title}%'
+		</if>
+		<if test="params.message != null and params.message != '' ">
+		AND MESSAGE like  '%${params.message}%'
+		</if>
+		<if test="params.messageTwo != null and params.messageTwo != '' ">
+		AND MESSAGE_TWO = #{params.messageTwo}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MESSAGE_PUB 
+	     WHERE MESSAGE_ID = #{messageId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MESSAGE_PUB
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MESSAGE_PUB
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 ORDER BY
+	     IS_USED DESC,
+         CREATE_DATE DESC
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.system.po.MessagePub">
+        INSERT INTO T_MESSAGE_PUB (
+        	MESSAGE_ID,
+        	TITLE,
+        	MESSAGE,
+        	MESSAGE_TWO,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{messageId},
+        	#{title},
+        	#{message},
+        	#{messageTwo},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_MESSAGE_PUB 
+		 WHERE MESSAGE_ID = #{messageId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.system.po.MessagePub">
+        UPDATE T_MESSAGE_PUB 
+		SET
+	        TITLE = #{title},
+	        MESSAGE = #{message},
+	        MESSAGE_TWO = #{messageTwo},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE MESSAGE_ID = #{messageId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_MESSAGE_PUB
+			<set>
+    	        TITLE = #{item.title},
+    	        MESSAGE = #{item.message},
+    	        MESSAGE_TWO = #{item.messageTwo},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE MESSAGE_ID = #{item.messageId} 	
+		</foreach>
+	</update>
+</mapper>

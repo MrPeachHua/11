@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.system.dao.AppVersionDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.system.po.AppVersion">
+        <result column="ID" property="id"/>
+        <result column="PLATFORM_CODE" property="platformCode"/>
+        <result column="VERSION_CODE" property="versionCode"/>
+        <result column="VERSION_CHANNEL" property="versionChannel"/>
+        <result column="NOTICE" property="notice"/>
+        <result column="IS_NEEDED" property="isNeeded"/>
+        <result column="UPDATE_URL" property="updateUrl"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="CREATE_DATE" property="createDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, PLATFORM_CODE, VERSION_CODE, VERSION_CHANNEL, NOTICE, IS_NEEDED, UPDATE_URL, IS_USED, CREATEOR, CREATE_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="platformCode != null and platformCode != '' ">
+		AND PLATFORM_CODE = #{platformCode}
+		</if>
+		<if test="versionCode != null and versionCode != '' ">
+		AND VERSION_CODE = #{versionCode}
+		</if>
+		<if test="versionChannel != null and versionChannel != '' ">
+		AND VERSION_CHANNEL = #{versionChannel}
+		</if>
+		<if test="notice != null and notice != '' ">
+		AND NOTICE = #{notice}
+		</if>
+		<if test="isNeeded != null and isNeeded != '' ">
+		AND IS_NEEDED = #{isNeeded}
+		</if>
+		<if test="updateUrl != null and updateUrl != '' ">
+		AND UPDATE_URL = #{updateUrl}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.platformCode != null and params.platformCode != '' ">
+		AND PLATFORM_CODE = #{params.platformCode}
+		</if>
+		<if test="params.versionCode != null and params.versionCode != '' ">
+		AND VERSION_CODE = #{params.versionCode}
+		</if>
+		<if test="params.versionChannel != null and params.versionChannel != '' ">
+		AND VERSION_CHANNEL = #{params.versionChannel}
+		</if>
+		<if test="params.notice != null and params.notice != '' ">
+		AND NOTICE = #{params.notice}
+		</if>
+		<if test="params.isNeeded != null and params.isNeeded != '' ">
+		AND IS_NEEDED = #{params.isNeeded}
+		</if>
+		<if test="params.updateUrl != null and params.updateUrl != '' ">
+		AND UPDATE_URL = #{params.updateUrl}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.startDate != null and params.startDate != '' ">
+			AND CREATE_DATE >= #{params.startDate}
+		</if>
+		<if test="params.endDate != null and params.endDate != '' ">
+			AND CREATE_DATE <![CDATA[<=]]> #{params.endDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_APP_VERSION 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_APP_VERSION
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+		ORDER BY (VERSION_CODE+0) DESC
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_APP_VERSION
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		ORDER BY (VERSION_CODE+0) DESC
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.system.po.AppVersion">
+        INSERT INTO T_APP_VERSION (
+        	ID,
+        	PLATFORM_CODE,
+        	VERSION_CODE,
+        	VERSION_CHANNEL,
+        	NOTICE,
+        	IS_NEEDED,
+        	UPDATE_URL,
+        	IS_USED,
+        	CREATEOR,
+        	CREATE_DATE
+        ) VALUES (
+        	#{id},
+        	#{platformCode},
+        	#{versionCode},
+        	#{versionChannel},
+        	#{notice},
+        	#{isNeeded},
+        	#{updateUrl},
+        	#{isUsed},
+        	#{createor},
+        	#{createDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_APP_VERSION 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.system.po.AppVersion">
+        UPDATE T_APP_VERSION 
+		SET
+	        PLATFORM_CODE = #{platformCode},
+	        VERSION_CODE = #{versionCode},
+	        VERSION_CHANNEL = #{versionChannel},
+	        NOTICE = #{notice},
+	        IS_NEEDED = #{isNeeded},
+	        UPDATE_URL = #{updateUrl},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        CREATE_DATE = #{createDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_APP_VERSION
+			<set>
+    	        PLATFORM_CODE = #{item.platformCode},
+    	        VERSION_CODE = #{item.versionCode},
+    	        VERSION_CHANNEL = #{item.versionChannel},
+    	        NOTICE = #{item.notice},
+    	        IS_NEEDED = #{item.isNeeded},
+    	        UPDATE_URL = #{item.updateUrl},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        CREATE_DATE = #{item.createDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

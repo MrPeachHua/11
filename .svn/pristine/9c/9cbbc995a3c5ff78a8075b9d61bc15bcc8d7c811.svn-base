@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.ccic.dao.CcicInsureDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.ccic.po.CcicInsure">
+        <result column="ID" property="id"/>
+        <result column="INSURANCE_APPLICANT_NO" property="insuranceApplicantNo"/>
+        <result column="INSURE_CODE" property="insureCode"/>
+        <result column="INSURE_NAME" property="insureName"/>
+        <result column="INSURE_AMOUNT" property="insureAmount"/>
+        <result column="INSURE_PREMIUM" property="insurePremium"/>
+        <result column="INSURE_FLAG" property="insureFlag"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, INSURANCE_APPLICANT_NO, INSURE_CODE, INSURE_NAME, INSURE_AMOUNT, INSURE_PREMIUM, INSURE_FLAG, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="insuranceApplicantNo != null and insuranceApplicantNo != '' ">
+		AND INSURANCE_APPLICANT_NO = #{insuranceApplicantNo}
+		</if>
+		<if test="insureCode != null and insureCode != '' ">
+		AND INSURE_CODE = #{insureCode}
+		</if>
+		<if test="insureName != null and insureName != '' ">
+		AND INSURE_NAME = #{insureName}
+		</if>
+		<if test="insureAmount != null and insureAmount != '' ">
+		AND INSURE_AMOUNT = #{insureAmount}
+		</if>
+		<if test="insurePremium != null and insurePremium != '' ">
+		AND INSURE_PREMIUM = #{insurePremium}
+		</if>
+		<if test="insureFlag != null and insureFlag != '' ">
+		AND INSURE_FLAG = #{insureFlag}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.insuranceApplicantNo != null and params.insuranceApplicantNo != '' ">
+		AND INSURANCE_APPLICANT_NO = #{params.insuranceApplicantNo}
+		</if>
+		<if test="params.insureCode != null and params.insureCode != '' ">
+		AND INSURE_CODE = #{params.insureCode}
+		</if>
+		<if test="params.insureName != null and params.insureName != '' ">
+		AND INSURE_NAME = #{params.insureName}
+		</if>
+		<if test="params.insureAmount != null and params.insureAmount != '' ">
+		AND INSURE_AMOUNT = #{params.insureAmount}
+		</if>
+		<if test="params.insurePremium != null and params.insurePremium != '' ">
+		AND INSURE_PREMIUM = #{params.insurePremium}
+		</if>
+		<if test="params.insureFlag != null and params.insureFlag != '' ">
+		AND INSURE_FLAG = #{params.insureFlag}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CCIC_INSURE 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CCIC_INSURE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CCIC_INSURE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.ccic.po.CcicInsure">
+        INSERT INTO T_CCIC_INSURE (
+        	ID,
+        	INSURANCE_APPLICANT_NO,
+        	INSURE_CODE,
+        	INSURE_NAME,
+        	INSURE_AMOUNT,
+        	INSURE_PREMIUM,
+        	INSURE_FLAG,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{insuranceApplicantNo},
+        	#{insureCode},
+        	#{insureName},
+        	#{insureAmount},
+        	#{insurePremium},
+        	#{insureFlag},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+	<insert id="batchAdd">
+        INSERT INTO T_CCIC_INSURE (
+        	ID,
+        	INSURANCE_APPLICANT_NO,
+        	INSURE_CODE,
+        	INSURE_NAME,
+        	INSURE_AMOUNT,
+        	INSURE_PREMIUM,
+        	INSURE_FLAG,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES 
+		<foreach collection="list" item="item" open="" close="" separator=",">
+		(
+			#{item.id},
+			#{item.insuranceApplicantNo},
+			#{item.insureCode},
+			#{item.insureName},
+			#{item.insureAmount},
+			#{item.insurePremium},
+			#{item.insureFlag},
+			#{item.createor},
+			#{item.modified},
+			#{item.createDate},
+			#{item.modifyDate}
+		)
+		</foreach>
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CCIC_INSURE 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<delete id="deleteByInsuranceApplicantNo">
+		DELETE FROM T_CCIC_INSURE
+		WHERE INSURANCE_APPLICANT_NO = #{insuranceApplicantNo}
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.ccic.po.CcicInsure">
+        UPDATE T_CCIC_INSURE 
+		SET
+	        INSURANCE_APPLICANT_NO = #{insuranceApplicantNo},
+	        INSURE_CODE = #{insureCode},
+	        INSURE_NAME = #{insureName},
+	        INSURE_AMOUNT = #{insureAmount},
+	        INSURE_PREMIUM = #{insurePremium},
+	        INSURE_FLAG = #{insureFlag},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CCIC_INSURE
+			<set>
+    	        INSURANCE_APPLICANT_NO = #{item.insuranceApplicantNo},
+    	        INSURE_CODE = #{item.insureCode},
+    	        INSURE_NAME = #{item.insureName},
+    	        INSURE_AMOUNT = #{item.insureAmount},
+    	        INSURE_PREMIUM = #{item.insurePremium},
+    	        INSURE_FLAG = #{item.insureFlag},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

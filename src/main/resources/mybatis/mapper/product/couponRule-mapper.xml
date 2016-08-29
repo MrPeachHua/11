@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.coupon.dao.CouponRuleDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.coupon.po.CouponRule">
+        <result column="ID" property="id"/>
+        <result column="BLUE_PARKING_ID" property="blueParkingId"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="PARKING_NAME" property="parkingName"/>
+        <result column="SCENE_MODE" property="sceneMode"/>
+        <result column="USER_TYPE" property="userType"/>
+        <result column="PUSH_MODE" property="pushMode"/>
+        <result column="BEGIN_DATE" property="beginDate"/>
+        <result column="END_DATE" property="endDate"/>
+        <result column="PUSH_CONTENT" property="pushContent"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="IN_PARK_PUSH_COUNT" property="inParkPushCount"/>
+		<result column="ORDER_TYPE" property="orderType"/>
+		<result column="ORDER_COUNT" property="orderCount"/>
+		<result column="MONTHLY_PROPERTY_EXPIRE_BEFORE" property="monthlyPropertyExpireBefore"/>
+		<result column="MONTHLY_PROPERTY_EXPIRE_AFTER" property="monthlyPropertyExpireAfter"/>
+		<result column="COUPON_EXPIRE_BEFORE" property="couponExpireBefore"/>
+		<result column="COUPON_EXPIRE_TYPE" property="couponExpireType"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, BLUE_PARKING_ID, PARKING_ID, PARKING_NAME, SCENE_MODE, USER_TYPE, PUSH_MODE, BEGIN_DATE, END_DATE, PUSH_CONTENT, IN_PARK_PUSH_COUNT, ORDER_TYPE, ORDER_COUNT, MONTHLY_PROPERTY_EXPIRE_BEFORE, MONTHLY_PROPERTY_EXPIRE_AFTER, COUPON_EXPIRE_BEFORE, COUPON_EXPIRE_TYPE, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="blueParkingId != null and blueParkingId != '' ">
+		AND BLUE_PARKING_ID = #{blueParkingId}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="parkingName != null and parkingName != '' ">
+		AND PARKING_NAME = #{parkingName}
+		</if>
+		<if test="sceneMode != null and sceneMode != '' ">
+		AND SCENE_MODE = #{sceneMode}
+		</if>
+		<if test="userType != null and userType != '' ">
+		AND USER_TYPE = #{userType}
+		</if>
+		<if test="pushMode != null and pushMode != '' ">
+		AND PUSH_MODE = #{pushMode}
+		</if>
+		<if test="beginDate != null and beginDate != '' ">
+		AND BEGIN_DATE = #{beginDate}
+		</if>
+		<if test="endDate != null and endDate != '' ">
+		AND END_DATE = #{endDate}
+		</if>
+		<if test="pushContent != null and pushContent != '' ">
+		AND PUSH_CONTENT = #{pushContent}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.blueParkingId != null and params.blueParkingId != '' ">
+		AND BLUE_PARKING_ID = #{params.blueParkingId}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+		AND PARKING_NAME = #{params.parkingName}
+		</if>
+		<if test="params.sceneMode != null and params.sceneMode != '' ">
+		AND SCENE_MODE = #{params.sceneMode}
+		</if>
+		<if test="params.userType != null and params.userType != '' ">
+		AND USER_TYPE = #{params.userType}
+		</if>
+		<if test="params.pushMode != null and params.pushMode != '' ">
+		AND PUSH_MODE = #{params.pushMode}
+		</if>
+		<if test="params.beginDate != null and params.beginDate != '' ">
+		AND BEGIN_DATE = #{params.beginDate}
+		</if>
+		<if test="params.endDate != null and params.endDate != '' ">
+		AND END_DATE = #{params.endDate}
+		</if>
+		<if test="params.pushContent != null and params.pushContent != '' ">
+		AND PUSH_CONTENT = #{params.pushContent}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COUPON_RULE 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COUPON_RULE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+   <!-- 查询赠送规则 -->
+	<select id="queryByRule" parameterType="java.util.Map" resultMap="resultMap">
+		SELECT
+			*
+		FROM
+			t_coupon_rule a
+		where a.IS_USED='1'
+		and NOW() BETWEEN a.BEGIN_DATE and a.END_DATE
+		and a.SCENE_MODE LIKE '%${mode}%'
+		<if test="parkingId != null and parkingId != '' ">
+			AND a.PARKING_ID = #{parkingId}
+		</if>
+	</select>
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COUPON_RULE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 ORDER BY ID DESC
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" useGeneratedKeys="true" keyColumn="ID" keyProperty="id" parameterType="com.boxiang.share.product.coupon.po.CouponRule">
+        INSERT INTO T_COUPON_RULE (
+        	ID,
+        	BLUE_PARKING_ID,
+        	PARKING_ID,
+        	PARKING_NAME,
+        	SCENE_MODE,
+        	USER_TYPE,
+        	PUSH_MODE,
+        	BEGIN_DATE,
+        	END_DATE,
+        	PUSH_CONTENT,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE,
+        	IN_PARK_PUSH_COUNT,
+        	ORDER_TYPE,
+        	ORDER_COUNT,
+        	MONTHLY_PROPERTY_EXPIRE_BEFORE,
+        	MONTHLY_PROPERTY_EXPIRE_AFTER,
+        	COUPON_EXPIRE_BEFORE,
+        	COUPON_EXPIRE_TYPE
+        ) VALUES (
+        	#{id},
+        	#{blueParkingId},
+        	#{parkingId},
+        	#{parkingName},
+        	#{sceneMode},
+        	#{userType},
+        	#{pushMode},
+        	#{beginDate},
+        	#{endDate},
+        	#{pushContent},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate},
+        	#{inParkPushCount},
+        	#{orderType},
+        	#{orderCount},
+        	#{monthlyPropertyExpireBefore},
+        	#{monthlyPropertyExpireAfter},
+        	#{couponExpireBefore},
+        	#{couponExpireType}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_COUPON_RULE 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.coupon.po.CouponRule">
+        UPDATE T_COUPON_RULE 
+		SET
+	        BLUE_PARKING_ID = #{blueParkingId},
+	        PARKING_ID = #{parkingId},
+	        PARKING_NAME = #{parkingName},
+	        SCENE_MODE = #{sceneMode},
+	        USER_TYPE = #{userType},
+	        PUSH_MODE = #{pushMode},
+	        BEGIN_DATE = #{beginDate},
+	        END_DATE = #{endDate},
+	        PUSH_CONTENT = #{pushContent},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate},
+	        IN_PARK_PUSH_COUNT = #{inParkPushCount},
+	        ORDER_TYPE = #{orderType},
+        	ORDER_COUNT = #{orderCount},
+        	MONTHLY_PROPERTY_EXPIRE_BEFORE = #{monthlyPropertyExpireBefore},
+        	MONTHLY_PROPERTY_EXPIRE_AFTER = #{monthlyPropertyExpireAfter},
+        	COUPON_EXPIRE_BEFORE = #{couponExpireBefore},
+        	COUPON_EXPIRE_TYPE = #{couponExpireType}
+        WHERE ID = #{id}
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_COUPON_RULE
+			<set>
+    	        BLUE_PARKING_ID = #{item.blueParkingId},
+    	        PARKING_ID = #{item.parkingId},
+    	        PARKING_NAME = #{item.parkingName},
+    	        SCENE_MODE = #{item.sceneMode},
+    	        USER_TYPE = #{item.userType},
+    	        PUSH_MODE = #{item.pushMode},
+    	        BEGIN_DATE = #{item.beginDate},
+    	        END_DATE = #{item.endDate},
+    	        PUSH_CONTENT = #{item.pushContent},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate},
+				IN_PARK_PUSH_COUNT = #{inParkPushCount},
+				ORDER_TYPE = #{orderType},
+				ORDER_COUNT = #{orderCount},
+				MONTHLY_PROPERTY_EXPIRE_BEFORE = #{monthlyPropertyExpireBefore},
+				MONTHLY_PROPERTY_EXPIRE_AFTER = #{monthlyPropertyExpireAfter},
+				COUPON_EXPIRE_BEFORE = #{couponExpireBefore},
+				COUPON_EXPIRE_TYPE = #{couponExpireType}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

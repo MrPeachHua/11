@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.customer.dao.MemberGroupDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.customer.po.MemberGroup">
+        <result column="ID" property="id"/>
+        <result column="GROUP_NAME" property="groupName"/>
+        <result column="GROUP_CODE" property="groupCode"/>
+        <result column="GROWTH_VALUE" property="growthValue"/>
+        <result column="IS_VALID" property="isValid"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, GROUP_NAME, GROUP_CODE, GROWTH_VALUE, IS_VALID, CREATEOR, CREATE_DATE, MODIFIED, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="groupName != null and groupName != '' ">
+		AND GROUP_NAME = #{groupName}
+		</if>
+		<if test="groupCode != null and groupCode != '' ">
+		AND GROUP_CODE = #{groupCode}
+		</if>
+		<if test="growthValue != null and growthValue != '' ">
+		AND GROWTH_VALUE = #{growthValue}
+		</if>
+		<if test="isValid != null and isValid != '' ">
+		AND IS_VALID = #{isValid}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.groupName != null and params.groupName != '' ">
+		AND GROUP_NAME LIKE '%${params.groupName}%'
+		</if>
+		<if test="params.groupCode != null and params.groupCode != '' ">
+		AND GROUP_CODE = #{params.groupCode}
+		</if>
+		<if test="params.growthValue != null and params.growthValue != '' ">
+		AND GROWTH_VALUE = #{params.growthValue}
+		</if>
+		<if test="params.isValid != null and params.isValid != '' ">
+		AND IS_VALID = #{params.isValid}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MEMBER_GROUP 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MEMBER_GROUP
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MEMBER_GROUP
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 ORDER BY GROWTH_VALUE
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.customer.po.MemberGroup">
+        INSERT INTO T_MEMBER_GROUP (
+        	ID,
+        	GROUP_NAME,
+        	GROUP_CODE,
+        	GROWTH_VALUE,
+        	IS_VALID,
+        	CREATEOR,
+        	CREATE_DATE,
+        	MODIFIED,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{groupName},
+        	#{groupCode},
+        	#{growthValue},
+        	#{isValid},
+        	#{createor},
+        	#{createDate},
+        	#{modified},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_MEMBER_GROUP 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.customer.po.MemberGroup">
+        UPDATE T_MEMBER_GROUP 
+		SET
+	        GROUP_NAME = #{groupName},
+	        GROUP_CODE = #{groupCode},
+	        GROWTH_VALUE = #{growthValue},
+	        IS_VALID = #{isValid},
+	        CREATEOR = #{createor},
+	        CREATE_DATE = #{createDate},
+	        MODIFIED = #{modified},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_MEMBER_GROUP
+			<set>
+    	        GROUP_NAME = #{item.groupName},
+    	        GROUP_CODE = #{item.groupCode},
+    	        GROWTH_VALUE = #{item.growthValue},
+    	        IS_VALID = #{item.isValid},
+    	        CREATEOR = #{item.createor},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFIED = #{item.modified},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

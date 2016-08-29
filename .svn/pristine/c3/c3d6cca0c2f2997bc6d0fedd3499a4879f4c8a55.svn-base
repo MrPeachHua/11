@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.carlife.dao.CarlifeEventPageDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.carlife.po.CarlifeEventPage">
+        <result column="ID" property="id"/>
+        <result column="TITLE" property="title"/>
+        <result column="IMAGE_PATH" property="imagePath"/>
+        <result column="IMAGE_LINK" property="imageLink"/>
+        <result column="SORT" property="sort"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+        <result column="IMAGE_TYPE"  property="imageType"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, TITLE, IMAGE_PATH, IMAGE_LINK, SORT, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE,IMAGE_TYPE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="title != null and title != '' ">
+		AND TITLE = #{title}
+		</if>
+		<if test="imagePath != null and imagePath != '' ">
+		AND IMAGE_PATH = #{imagePath}
+		</if>
+		<if test="imageLink != null and imageLink != '' ">
+		AND IMAGE_LINK = #{imageLink}
+		</if>
+		<if test="sort != null and sort != '' ">
+		AND SORT = #{sort}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+		<if test="imageType != null and imageType != '' ">
+		AND IMAGE_TYPE = #{imageType}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.title != null and params.title != '' ">
+		AND TITLE = #{params.title}
+		</if>
+		<if test="params.imagePath != null and params.imagePath != '' ">
+		AND IMAGE_PATH = #{params.imagePath}
+		</if>
+		<if test="params.imageLink != null and params.imageLink != '' ">
+		AND IMAGE_LINK = #{params.imageLink}
+		</if>
+		<if test="params.sort != null and params.sort != '' ">
+		AND SORT = #{params.sort}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+		<if test="params.imageType != null and params.imageType != '' ">
+		AND IMAGE_TYPE = #{params.imageType}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CARLIFE_EVENT_PAGE 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CARLIFE_EVENT_PAGE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CARLIFE_EVENT_PAGE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.carlife.po.CarlifeEventPage">
+        INSERT INTO T_CARLIFE_EVENT_PAGE (
+        	ID,
+        	TITLE,
+        	IMAGE_PATH,
+        	IMAGE_LINK,
+        	SORT,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE,
+        	IMAGE_TYPE
+        ) VALUES (
+        	#{id},
+        	#{title},
+        	#{imagePath},
+        	#{imageLink},
+        	#{sort},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate},
+        	#{imageType}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CARLIFE_EVENT_PAGE 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.carlife.po.CarlifeEventPage">
+        UPDATE T_CARLIFE_EVENT_PAGE 
+		SET
+	        TITLE = #{title},
+	        IMAGE_PATH = #{imagePath},
+	        IMAGE_LINK = #{imageLink},
+	        SORT = #{sort},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        MODIFY_DATE = #{modifyDate},
+	        IMAGE_TYPE = #{imageType}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CARLIFE_EVENT_PAGE
+			<set>
+    	        TITLE = #{item.title},
+    	        IMAGE_PATH = #{item.imagePath},
+    	        IMAGE_LINK = #{item.imageLink},
+    	        SORT = #{item.sort},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        MODIFY_DATE = #{item.modifyDate},
+    	        IMAGE_TYPE = #{item.imageType}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>	
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectListForLoop" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CARLIFE_EVENT_PAGE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+		 ORDER BY IMAGE_TYPE , SORT
+	</select>
+</mapper>

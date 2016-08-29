@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parking.dao.DiscountParkingPriceDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parking.po.DiscountParkingPrice">
+        <result column="parking_id" property="parkingId"/>
+        <result column="monday_price" property="mondayPrice"/>
+        <result column="tuesday_price" property="tuesdayPrice"/>
+        <result column="wednesday_price" property="wednesdayPrice"/>
+        <result column="thursday_price" property="thursdayPrice"/>
+        <result column="friday_price" property="fridayPrice"/>
+        <result column="saturday_price" property="saturdayPrice"/>
+        <result column="sunday_price" property="sundayPrice"/>
+        <result column="monday_begin_time" property="mondayBeginTime"/>
+        <result column="monday_end_time" property="mondayEndTime"/>
+        <result column="tuesday_begin_time" property="tuesdayBeginTime"/>
+        <result column="tuesday_end_time" property="tuesdayEndTime"/>
+        <result column="wednesday_begin_time" property="wednesdayBeginTime"/>
+        <result column="wednesday_end_time" property="wednesdayEndTime"/>
+        <result column="thursday_begin_time" property="thursdayBeginTime"/>
+        <result column="thursday_end_time" property="thursdayEndTime"/>
+        <result column="friday_begin_time" property="fridayBeginTime"/>
+        <result column="friday_end_time" property="fridayEndTime"/>
+        <result column="saturday_begin_time" property="saturdayBeginTime"/>
+        <result column="saturday_end_time" property="saturdayEndTime"/>
+        <result column="sunday_begin_time" property="sundayBeginTime"/>
+        <result column="sunday_end_time" property="sundayEndTime"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		parking_id, monday_price, tuesday_price, wednesday_price, thursday_price, friday_price, saturday_price, sunday_price, monday_begin_time, monday_end_time, tuesday_begin_time, tuesday_end_time, wednesday_begin_time, wednesday_end_time, thursday_begin_time, thursday_end_time, friday_begin_time, friday_end_time, saturday_begin_time, saturday_end_time, sunday_begin_time, sunday_end_time
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="parkingId != null and parkingId != '' ">
+		AND parking_id = #{parkingId}
+		</if>
+		<if test="mondayPrice != null and mondayPrice != '' ">
+		AND monday_price = #{mondayPrice}
+		</if>
+		<if test="tuesdayPrice != null and tuesdayPrice != '' ">
+		AND tuesday_price = #{tuesdayPrice}
+		</if>
+		<if test="wednesdayPrice != null and wednesdayPrice != '' ">
+		AND wednesday_price = #{wednesdayPrice}
+		</if>
+		<if test="thursdayPrice != null and thursdayPrice != '' ">
+		AND thursday_price = #{thursdayPrice}
+		</if>
+		<if test="fridayPrice != null and fridayPrice != '' ">
+		AND friday_price = #{fridayPrice}
+		</if>
+		<if test="saturdayPrice != null and saturdayPrice != '' ">
+		AND saturday_price = #{saturdayPrice}
+		</if>
+		<if test="sundayPrice != null and sundayPrice != '' ">
+		AND sunday_price = #{sundayPrice}
+		</if>
+		<if test="mondayBeginTime != null and mondayBeginTime != '' ">
+		AND monday_begin_time = #{mondayBeginTime}
+		</if>
+		<if test="mondayEndTime != null and mondayEndTime != '' ">
+		AND monday_end_time = #{mondayEndTime}
+		</if>
+		<if test="tuesdayBeginTime != null and tuesdayBeginTime != '' ">
+		AND tuesday_begin_time = #{tuesdayBeginTime}
+		</if>
+		<if test="tuesdayEndTime != null and tuesdayEndTime != '' ">
+		AND tuesday_end_time = #{tuesdayEndTime}
+		</if>
+		<if test="wednesdayBeginTime != null and wednesdayBeginTime != '' ">
+		AND wednesday_begin_time = #{wednesdayBeginTime}
+		</if>
+		<if test="wednesdayEndTime != null and wednesdayEndTime != '' ">
+		AND wednesday_end_time = #{wednesdayEndTime}
+		</if>
+		<if test="thursdayBeginTime != null and thursdayBeginTime != '' ">
+		AND thursday_begin_time = #{thursdayBeginTime}
+		</if>
+		<if test="thursdayEndTime != null and thursdayEndTime != '' ">
+		AND thursday_end_time = #{thursdayEndTime}
+		</if>
+		<if test="fridayBeginTime != null and fridayBeginTime != '' ">
+		AND friday_begin_time = #{fridayBeginTime}
+		</if>
+		<if test="fridayEndTime != null and fridayEndTime != '' ">
+		AND friday_end_time = #{fridayEndTime}
+		</if>
+		<if test="saturdayBeginTime != null and saturdayBeginTime != '' ">
+		AND saturday_begin_time = #{saturdayBeginTime}
+		</if>
+		<if test="saturdayEndTime != null and saturdayEndTime != '' ">
+		AND saturday_end_time = #{saturdayEndTime}
+		</if>
+		<if test="sundayBeginTime != null and sundayBeginTime != '' ">
+		AND sunday_begin_time = #{sundayBeginTime}
+		</if>
+		<if test="sundayEndTime != null and sundayEndTime != '' ">
+		AND sunday_end_time = #{sundayEndTime}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND parking_id = #{params.parkingId}
+		</if>
+		<if test="params.mondayPrice != null and params.mondayPrice != '' ">
+		AND monday_price = #{params.mondayPrice}
+		</if>
+		<if test="params.tuesdayPrice != null and params.tuesdayPrice != '' ">
+		AND tuesday_price = #{params.tuesdayPrice}
+		</if>
+		<if test="params.wednesdayPrice != null and params.wednesdayPrice != '' ">
+		AND wednesday_price = #{params.wednesdayPrice}
+		</if>
+		<if test="params.thursdayPrice != null and params.thursdayPrice != '' ">
+		AND thursday_price = #{params.thursdayPrice}
+		</if>
+		<if test="params.fridayPrice != null and params.fridayPrice != '' ">
+		AND friday_price = #{params.fridayPrice}
+		</if>
+		<if test="params.saturdayPrice != null and params.saturdayPrice != '' ">
+		AND saturday_price = #{params.saturdayPrice}
+		</if>
+		<if test="params.sundayPrice != null and params.sundayPrice != '' ">
+		AND sunday_price = #{params.sundayPrice}
+		</if>
+		<if test="params.mondayBeginTime != null and params.mondayBeginTime != '' ">
+		AND monday_begin_time = #{params.mondayBeginTime}
+		</if>
+		<if test="params.mondayEndTime != null and params.mondayEndTime != '' ">
+		AND monday_end_time = #{params.mondayEndTime}
+		</if>
+		<if test="params.tuesdayBeginTime != null and params.tuesdayBeginTime != '' ">
+		AND tuesday_begin_time = #{params.tuesdayBeginTime}
+		</if>
+		<if test="params.tuesdayEndTime != null and params.tuesdayEndTime != '' ">
+		AND tuesday_end_time = #{params.tuesdayEndTime}
+		</if>
+		<if test="params.wednesdayBeginTime != null and params.wednesdayBeginTime != '' ">
+		AND wednesday_begin_time = #{params.wednesdayBeginTime}
+		</if>
+		<if test="params.wednesdayEndTime != null and params.wednesdayEndTime != '' ">
+		AND wednesday_end_time = #{params.wednesdayEndTime}
+		</if>
+		<if test="params.thursdayBeginTime != null and params.thursdayBeginTime != '' ">
+		AND thursday_begin_time = #{params.thursdayBeginTime}
+		</if>
+		<if test="params.thursdayEndTime != null and params.thursdayEndTime != '' ">
+		AND thursday_end_time = #{params.thursdayEndTime}
+		</if>
+		<if test="params.fridayBeginTime != null and params.fridayBeginTime != '' ">
+		AND friday_begin_time = #{params.fridayBeginTime}
+		</if>
+		<if test="params.fridayEndTime != null and params.fridayEndTime != '' ">
+		AND friday_end_time = #{params.fridayEndTime}
+		</if>
+		<if test="params.saturdayBeginTime != null and params.saturdayBeginTime != '' ">
+		AND saturday_begin_time = #{params.saturdayBeginTime}
+		</if>
+		<if test="params.saturdayEndTime != null and params.saturdayEndTime != '' ">
+		AND saturday_end_time = #{params.saturdayEndTime}
+		</if>
+		<if test="params.sundayBeginTime != null and params.sundayBeginTime != '' ">
+		AND sunday_begin_time = #{params.sundayBeginTime}
+		</if>
+		<if test="params.sundayEndTime != null and params.sundayEndTime != '' ">
+		AND sunday_end_time = #{params.sundayEndTime}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_DISCOUNT_PARKING_PRICE 
+	     WHERE parking_id = #{parkingId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_DISCOUNT_PARKING_PRICE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_DISCOUNT_PARKING_PRICE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parking.po.DiscountParkingPrice">
+        INSERT INTO T_DISCOUNT_PARKING_PRICE (
+        	parking_id,
+        	monday_price,
+        	tuesday_price,
+        	wednesday_price,
+        	thursday_price,
+        	friday_price,
+        	saturday_price,
+        	sunday_price,
+        	monday_begin_time,
+        	monday_end_time,
+        	tuesday_begin_time,
+        	tuesday_end_time,
+        	wednesday_begin_time,
+        	wednesday_end_time,
+        	thursday_begin_time,
+        	thursday_end_time,
+        	friday_begin_time,
+        	friday_end_time,
+        	saturday_begin_time,
+        	saturday_end_time,
+        	sunday_begin_time,
+        	sunday_end_time
+        ) VALUES (
+        	#{parkingId},
+        	#{mondayPrice},
+        	#{tuesdayPrice},
+        	#{wednesdayPrice},
+        	#{thursdayPrice},
+        	#{fridayPrice},
+        	#{saturdayPrice},
+        	#{sundayPrice},
+        	#{mondayBeginTime},
+        	#{mondayEndTime},
+        	#{tuesdayBeginTime},
+        	#{tuesdayEndTime},
+        	#{wednesdayBeginTime},
+        	#{wednesdayEndTime},
+        	#{thursdayBeginTime},
+        	#{thursdayEndTime},
+        	#{fridayBeginTime},
+        	#{fridayEndTime},
+        	#{saturdayBeginTime},
+        	#{saturdayEndTime},
+        	#{sundayBeginTime},
+        	#{sundayEndTime}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_DISCOUNT_PARKING_PRICE 
+		 WHERE parking_id = #{parkingId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parking.po.DiscountParkingPrice">
+        UPDATE T_DISCOUNT_PARKING_PRICE 
+		SET
+	        monday_price = #{mondayPrice},
+	        tuesday_price = #{tuesdayPrice},
+	        wednesday_price = #{wednesdayPrice},
+	        thursday_price = #{thursdayPrice},
+	        friday_price = #{fridayPrice},
+	        saturday_price = #{saturdayPrice},
+	        sunday_price = #{sundayPrice},
+	        monday_begin_time = #{mondayBeginTime},
+	        monday_end_time = #{mondayEndTime},
+	        tuesday_begin_time = #{tuesdayBeginTime},
+	        tuesday_end_time = #{tuesdayEndTime},
+	        wednesday_begin_time = #{wednesdayBeginTime},
+	        wednesday_end_time = #{wednesdayEndTime},
+	        thursday_begin_time = #{thursdayBeginTime},
+	        thursday_end_time = #{thursdayEndTime},
+	        friday_begin_time = #{fridayBeginTime},
+	        friday_end_time = #{fridayEndTime},
+	        saturday_begin_time = #{saturdayBeginTime},
+	        saturday_end_time = #{saturdayEndTime},
+	        sunday_begin_time = #{sundayBeginTime},
+	        sunday_end_time = #{sundayEndTime}
+        WHERE parking_id = #{parkingId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_DISCOUNT_PARKING_PRICE
+			<set>
+    	        monday_price = #{item.mondayPrice},
+    	        tuesday_price = #{item.tuesdayPrice},
+    	        wednesday_price = #{item.wednesdayPrice},
+    	        thursday_price = #{item.thursdayPrice},
+    	        friday_price = #{item.fridayPrice},
+    	        saturday_price = #{item.saturdayPrice},
+    	        sunday_price = #{item.sundayPrice},
+    	        monday_begin_time = #{item.mondayBeginTime},
+    	        monday_end_time = #{item.mondayEndTime},
+    	        tuesday_begin_time = #{item.tuesdayBeginTime},
+    	        tuesday_end_time = #{item.tuesdayEndTime},
+    	        wednesday_begin_time = #{item.wednesdayBeginTime},
+    	        wednesday_end_time = #{item.wednesdayEndTime},
+    	        thursday_begin_time = #{item.thursdayBeginTime},
+    	        thursday_end_time = #{item.thursdayEndTime},
+    	        friday_begin_time = #{item.fridayBeginTime},
+    	        friday_end_time = #{item.fridayEndTime},
+    	        saturday_begin_time = #{item.saturdayBeginTime},
+    	        saturday_end_time = #{item.saturdayEndTime},
+    	        sunday_begin_time = #{item.sundayBeginTime},
+    	        sunday_end_time = #{item.sundayEndTime}
+			</set>
+            WHERE parking_id = #{item.parkingId} 	
+		</foreach>
+	</update>
+</mapper>

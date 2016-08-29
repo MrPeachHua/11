@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.car.dao.CarDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.car.po.Car">
+        <result column="car_id" property="carId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="car_brand" property="carBrand"/>
+        <result column="car_color" property="carColor"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="car_buy_date" property="carBuyDate"/>
+        <result column="car_use_date" property="carUseDate"/>
+        <result column="car_lasts" property="carLasts"/>
+        <result column="car_use_type" property="carUseType"/>
+        <result column="car_size" property="carSize"/>
+        <result column="car_issue_date" property="carIssueDate"/>
+        <result column="car_image" property="carImage"/>
+        <result column="car_mine_image" property="carMineImage"/>
+        <result column="car_driver_image" property="carDriverImage"/>
+        <result column="owner_id_number" property="ownerIdNumber"/>
+		<result column="is_auto_pay" property="isAutoPay"/>
+	</resultMap>
+
+	<resultMap id="resultMapWithCustomer" type="com.boxiang.share.product.car.po.Car">
+		<result column="car_id" property="carId"/>
+		<result column="customer_id" property="customerId"/>
+		<result column="car_brand" property="carBrand"/>
+		<result column="car_color" property="carColor"/>
+		<result column="car_number" property="carNumber"/>
+		<result column="car_buy_date" property="carBuyDate"/>
+		<result column="car_use_date" property="carUseDate"/>
+		<result column="car_lasts" property="carLasts"/>
+		<result column="car_use_type" property="carUseType"/>
+		<result column="car_size" property="carSize"/>
+		<result column="car_issue_date" property="carIssueDate"/>
+		<result column="car_image" property="carImage"/>
+		<result column="car_mine_image" property="carMineImage"/>
+		<result column="car_driver_image" property="carDriverImage"/>
+		<result column="owner_id_number" property="ownerIdNumber"/>
+		<result column="is_auto_pay" property="isAutoPay"/>
+		<association property="customer" javaType="com.boxiang.share.product.customer.po.Customer">
+			<result column="cus_id" property="customerId"/>
+			<result column="customer_nickname" property="customerNickname"/>
+			<result column="customer_password" property="customerPassword"/>
+			<result column="customer_level" property="customerLevel"/>
+			<result column="customer_name" property="customerName"/>
+			<result column="customer_sex" property="customerSex"/>
+			<result column="customer_age" property="customerAge"/>
+			<result column="customer_head" property="customerHead"/>
+			<result column="customer_mobile" property="customerMobile"/>
+			<result column="customer_email" property="customerEmail"/>
+			<result column="customer_region" property="customerRegion"/>
+			<result column="customer_job" property="customerJob"/>
+			<result column="created_at" property="createdAt"/>
+			<result column="updated_at" property="updatedAt"/>
+			<result column="customer_card_id" property="customerCardId"/>
+			<result  column="identity" property="identity"/>
+			<result column="wx_id" property="wxId"/>
+			<result column="sina_id" property="sinaId"/>
+			<result column="qq_id" property="qqId"/>
+			<result column="money" property="money"/>
+			<result column="pay_password" property="pay_password"/>
+			<result column="last_login_time" property="lastLoginTime"/>
+			<result column="reg_phone" property="reg_phone"/>
+		</association>
+	</resultMap>
+	<resultMap id="resultMap2" type="com.boxiang.share.product.car.po.Car">
+		<result column="car_id" property="carId"/>
+		<result column="customer_id" property="customerId"/>
+		<result column="TRADE_NAME" property="tradeName"/>
+		<result column="car_brand" property="carBrand"/>
+		<result column="CAR_SERIES" property="carSeries"/>
+		<result column="VEHICLE_TYPE" property="vehicleType"/>
+		<result column="DISPLACEMENT" property="displacement"/>
+		<result column="STYLE_YEAR" property="styleYear"/>
+		<result column="car_color" property="carColor"/>
+		<result column="car_number" property="carNumber"/>
+		<result column="travlled_distance" property="travlledDistance"/>
+		<result column="car_buy_date" property="carBuyDate"/>
+		<result column="car_use_date" property="carUseDate"/>
+		<result column="car_lasts" property="carLasts"/>
+		<result column="car_use_type" property="carUseType"/>
+		<result column="car_size" property="carSize"/>
+		<result column="car_issue_date" property="carIssueDate"/>
+		<result column="car_image" property="carImage"/>
+		<result column="car_mine_image" property="carMineImage"/>
+		<result column="car_driver_image" property="carDriverImage"/>
+		<result column="owner_id_number" property="ownerIdNumber"/>
+		<result column="is_auto_pay" property="isAutoPay"/>
+		<result column="is_default" property="isDefault"/>
+		<result column="frame_num" property="frameNum"/>
+		<result column="engine_num" property="engineNum"/>
+		<result column="BRAND_ICON" property="brandIcon"/>
+		<result column="INTAKE_TYPE" property="intakeType"/>
+		<result column="INTAKE_NAME" property="intakeName"/>
+	</resultMap>
+	<select id="queryCarListWithCustomer" resultMap="resultMapWithCustomer">
+		SELECT
+		car.car_id,
+		car.customer_id,
+		car.car_brand,
+		car.car_color,
+		car.car_number,
+		car.car_buy_date,
+		car.car_use_date,
+		car.car_lasts,
+		car.car_use_type,
+		car.car_size,
+		car.car_issue_date,
+		car.car_image,
+		car.car_mine_image,
+		car.car_driver_image,
+		car.owner_id_number,
+		car.is_auto_pay,
+		cus.customer_id cus_id,
+		cus.customer_nickname,
+		cus.customer_password,
+		cus.customer_level,
+		cus.customer_name,
+		cus.customer_sex,
+		cus.customer_age,
+		cus.customer_head,
+		cus.customer_mobile,
+		cus.customer_email,
+		cus.customer_region,
+		cus.customer_job,
+		cus.created_at,
+		cus.updated_at,
+		cus.customer_card_id,
+		cus.last_login_time,
+		cus.channel,
+		cus.identity,
+		cus.wx_id,
+		cus.sina_id,
+		cus.qq_id,
+		cus.money,
+		cus.pay_password,
+		cus.reg_phone
+		from t_car car
+		left join t_customer cus on cus.customer_id = car.customer_id
+		where 0 = 0
+		<if test="carId != null and carId != '' ">
+			AND car.car_id = #{carId}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+			AND car.customer_id = #{customerId}
+		</if>
+		<if test="isAutoPay != null and isAutoPay != '' ">
+			AND car.is_auto_pay = #{isAutoPay}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+			AND car.car_number = #{carNumber}
+		</if>
+		<if test="customer.money != null and customer.money != '' ">
+			AND cus.money >= #{customer.money}
+		</if>
+	</select>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		car_id, customer_id, car_brand, car_color, car_number, car_buy_date, car_use_date, car_lasts, car_use_type, car_size, car_issue_date, car_image, car_mine_image, car_driver_image, owner_id_number, is_auto_pay
+	</sql>
+	<sql id="columns2">
+		car_id, customer_id, TRADE_NAME, car_brand, CAR_SERIES, VEHICLE_TYPE, DISPLACEMENT, STYLE_YEAR, car_color, car_number, travlled_distance, car_buy_date, car_use_date, car_lasts, car_use_type, car_size, car_issue_date, car_image, car_mine_image, car_driver_image, owner_id_number, is_auto_pay, is_default, frame_num, engine_num,INTAKE_TYPE
+	</sql>
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="carId != null and carId != '' ">
+		AND car_id = #{carId}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND customer_id = #{customerId}
+		</if>
+		<if test="carBrand != null and carBrand != '' ">
+		AND car_brand = #{carBrand}
+		</if>
+		<if test="carColor != null and carColor != '' ">
+		AND car_color = #{carColor}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND car_number = #{carNumber}
+		</if>
+		<if test="carBuyDate != null and carBuyDate != '' ">
+		AND car_buy_date = #{carBuyDate}
+		</if>
+		<if test="carUseDate != null and carUseDate != '' ">
+		AND car_use_date = #{carUseDate}
+		</if>
+		<if test="carLasts != null and carLasts != '' ">
+		AND car_lasts = #{carLasts}
+		</if>
+		<if test="carUseType != null and carUseType != '' ">
+		AND car_use_type = #{carUseType}
+		</if>
+		<if test="carSize != null and carSize != '' ">
+		AND car_size = #{carSize}
+		</if>
+		<if test="carIssueDate != null and carIssueDate != '' ">
+		AND car_issue_date = #{carIssueDate}
+		</if>
+		<if test="carImage != null and carImage != '' ">
+		AND car_image = #{carImage}
+		</if>
+		<if test="carMineImage != null and carMineImage != '' ">
+		AND car_mine_image = #{carMineImage}
+		</if>
+		<if test="carDriverImage != null and carDriverImage != '' ">
+		AND car_driver_image = #{carDriverImage}
+		</if>
+		<if test="ownerIdNumber != null and ownerIdNumber != '' ">
+		AND owner_id_number = #{ownerIdNumber}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.carId != null and params.carId != '' ">
+		AND car_id = #{params.carId}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND customer_id = #{params.customerId}
+		</if>
+		<if test="params.carBrand != null and params.carBrand != '' ">
+		AND car_brand = #{params.carBrand}
+		</if>
+		<if test="params.carColor != null and params.carColor != '' ">
+		AND car_color = #{params.carColor}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND car_number = #{params.carNumber}
+		</if>
+		<if test="params.carBuyDate != null and params.carBuyDate != '' ">
+		AND car_buy_date = #{params.carBuyDate}
+		</if>
+		<if test="params.carUseDate != null and params.carUseDate != '' ">
+		AND car_use_date = #{params.carUseDate}
+		</if>
+		<if test="params.carLasts != null and params.carLasts != '' ">
+		AND car_lasts = #{params.carLasts}
+		</if>
+		<if test="params.carUseType != null and params.carUseType != '' ">
+		AND car_use_type = #{params.carUseType}
+		</if>
+		<if test="params.carSize != null and params.carSize != '' ">
+		AND car_size = #{params.carSize}
+		</if>
+		<if test="params.carIssueDate != null and params.carIssueDate != '' ">
+		AND car_issue_date = #{params.carIssueDate}
+		</if>
+		<if test="params.carImage != null and params.carImage != '' ">
+		AND car_image = #{params.carImage}
+		</if>
+		<if test="params.carMineImage != null and params.carMineImage != '' ">
+		AND car_mine_image = #{params.carMineImage}
+		</if>
+		<if test="params.carDriverImage != null and params.carDriverImage != '' ">
+		AND car_driver_image = #{params.carDriverImage}
+		</if>
+		<if test="params.ownerIdNumber != null and params.ownerIdNumber != '' ">
+		AND owner_id_number = #{params.ownerIdNumber}
+		</if>
+	</sql>
+	<sql id="whereSQL2">
+		<if test="carId != null and carId != '' ">
+			AND car_id = #{carId}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+			AND customer_id = #{customerId}
+		</if>
+		<if test="tradeName != null and tradeName != '' ">
+			AND TRADE_NAME = #{tradeName}
+		</if>
+		<if test="carBrand != null and carBrand != '' ">
+			AND car_brand = #{carBrand}
+		</if>
+		<if test="carSeries != null and carSeries != '' ">
+			AND CAR_SERIES = #{carSeries}
+		</if>
+		<if test="vehicleType != null and vehicleType != '' ">
+			AND VEHICLE_TYPE = #{vehicleType}
+		</if>
+		<if test="displacement != null and displacement != '' ">
+			AND DISPLACEMENT = #{displacement}
+		</if>
+		<if test="styleYear != null and styleYear != '' ">
+			AND STYLE_YEAR = #{styleYear}
+		</if>
+		<if test="carColor != null and carColor != '' ">
+			AND car_color = #{carColor}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+			AND car_number = #{carNumber}
+		</if>
+		<if test="travlledDistance != null and travlledDistance != '' ">
+			AND travlled_distance = #{travlledDistance}
+		</if>
+		<if test="carBuyDate != null and carBuyDate != '' ">
+			AND car_buy_date = #{carBuyDate}
+		</if>
+		<if test="carUseDate != null and carUseDate != '' ">
+			AND car_use_date = #{carUseDate}
+		</if>
+		<if test="carLasts != null and carLasts != '' ">
+			AND car_lasts = #{carLasts}
+		</if>
+		<if test="carUseType != null and carUseType != '' ">
+			AND car_use_type = #{carUseType}
+		</if>
+		<if test="carSize != null and carSize != '' ">
+			AND car_size = #{carSize}
+		</if>
+		<if test="carIssueDate != null and carIssueDate != '' ">
+			AND car_issue_date = #{carIssueDate}
+		</if>
+		<if test="carImage != null and carImage != '' ">
+			AND car_image = #{carImage}
+		</if>
+		<if test="carMineImage != null and carMineImage != '' ">
+			AND car_mine_image = #{carMineImage}
+		</if>
+		<if test="carDriverImage != null and carDriverImage != '' ">
+			AND car_driver_image = #{carDriverImage}
+		</if>
+		<if test="ownerIdNumber != null and ownerIdNumber != '' ">
+			AND owner_id_number = #{ownerIdNumber}
+		</if>
+		<if test="isAutoPay != null and isAutoPay != '' ">
+			AND is_auto_pay = #{isAutoPay}
+		</if>
+		<if test="isDefault != null and isDefault != '' ">
+			AND is_default = #{isDefault}
+		</if>
+		<if test="frameNum != null and frameNum != '' ">
+			AND frame_num = #{frameNum}
+		</if>
+		<if test="engineNum != null and engineNum != '' ">
+			AND engine_num = #{engineNum}
+		</if>
+		<if test="intakeType != null and intakeType != '' ">
+			AND INTAKE_TYPE = #{intakeType}
+		</if>
+
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql2">
+		<if test="params.carId != null and params.carId != '' ">
+			AND car_id = #{params.carId}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+			AND customer_id = #{params.customerId}
+		</if>
+		<if test="params.tradeName != null and params.tradeName != '' ">
+			AND TRADE_NAME = #{params.tradeName}
+		</if>
+		<if test="params.carBrand != null and params.carBrand != '' ">
+			AND car_brand = #{params.carBrand}
+		</if>
+		<if test="params.carSeries != null and params.carSeries != '' ">
+			AND CAR_SERIES = #{params.carSeries}
+		</if>
+		<if test="params.vehicleType != null and params.vehicleType != '' ">
+			AND VEHICLE_TYPE = #{params.vehicleType}
+		</if>
+		<if test="params.displacement != null and params.displacement != '' ">
+			AND DISPLACEMENT = #{params.displacement}
+		</if>
+		<if test="params.styleYear != null and params.styleYear != '' ">
+			AND STYLE_YEAR = #{params.styleYear}
+		</if>
+		<if test="params.carColor != null and params.carColor != '' ">
+			AND car_color = #{params.carColor}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND car_number like '%${params.carNumber}%'
+		</if>
+		<if test="params.travlledDistance != null and params.travlledDistance != '' ">
+			AND travlled_distance = #{params.travlledDistance}
+		</if>
+		<if test="params.carBuyDate != null and params.carBuyDate != '' ">
+			AND car_buy_date = #{params.carBuyDate}
+		</if>
+		<if test="params.carUseDate != null and params.carUseDate != '' ">
+			AND car_use_date = #{params.carUseDate}
+		</if>
+		<if test="params.carLasts != null and params.carLasts != '' ">
+			AND car_lasts = #{params.carLasts}
+		</if>
+		<if test="params.carUseType != null and params.carUseType != '' ">
+			AND car_use_type = #{params.carUseType}
+		</if>
+		<if test="params.carSize != null and params.carSize != '' ">
+			AND car_size = #{params.carSize}
+		</if>
+		<if test="params.carIssueDate != null and params.carIssueDate != '' ">
+			AND car_issue_date = #{params.carIssueDate}
+		</if>
+		<if test="params.carImage != null and params.carImage != '' ">
+			AND car_image = #{params.carImage}
+		</if>
+		<if test="params.carMineImage != null and params.carMineImage != '' ">
+			AND car_mine_image = #{params.carMineImage}
+		</if>
+		<if test="params.carDriverImage != null and params.carDriverImage != '' ">
+			AND car_driver_image = #{params.carDriverImage}
+		</if>
+		<if test="params.ownerIdNumber != null and params.ownerIdNumber != '' ">
+			AND owner_id_number = #{params.ownerIdNumber}
+		</if>
+		<if test="params.isAutoPay != null and params.isAutoPay != '' ">
+			AND is_auto_pay = #{params.isAutoPay}
+		</if>
+		<if test="params.isDefault != null and params.isDefault != '' ">
+			AND is_default = #{params.isDefault}
+		</if>
+		<if test="params.frameNum != null and params.frameNum != '' ">
+			AND frame_num = #{params.frameNum}
+		</if>
+		<if test="params.engineNum != null and params.engineNum != '' ">
+			AND engine_num = #{params.engineNum}
+		</if>
+	</sql>
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap2">
+		SELECT <include refid="columns2" />
+		  FROM T_CAR 
+	     WHERE car_id = #{carId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap2">
+		SELECT <include refid="columns2" />
+		  FROM T_CAR
+		 WHERE 1 = 1	
+		 <include refid="whereSQL2" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+	<select id="queryListPage2" resultType="java.util.Map">
+		SELECT <include refid="columns2" />,
+		(select customer_mobile from t_customer where t_car.customer_id =t_customer.customer_id ) customer_mobile,
+		(SELECT DICT_NAME from t_dictionary where DICT_CODE='intake_type' and t_car.INTAKE_TYPE=DICT_VALUE) intake_name
+		FROM T_CAR
+		WHERE 1 = 1
+		<include refid="wherePageSql2" />
+		<if test="params.customerMobile != null and params.customerMobile != '' ">
+			AND customer_mobile = #{params.customerMobile}
+		</if>
+		<!--<if test="params.customerMobile != null and params.customerMobile != '' ">
+			AND customer_mobile = #{params.customerMobile}
+		</if>-->
+	</select>
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.car.po.Car">
+		INSERT INTO T_CAR (
+		car_id,
+		customer_id,
+		TRADE_NAME,
+		car_brand,
+		CAR_SERIES,
+		VEHICLE_TYPE,
+		DISPLACEMENT,
+		STYLE_YEAR,
+		car_color,
+		car_number,
+		travlled_distance,
+		car_buy_date,
+		car_use_date,
+		car_lasts,
+		car_use_type,
+		car_size,
+		car_issue_date,
+		car_image,
+		car_mine_image,
+		car_driver_image,
+		owner_id_number,
+		is_auto_pay,
+		is_default,
+		frame_num,
+		engine_num,
+		intake_type
+		) VALUES (
+		#{carId},
+		#{customerId},
+		#{tradeName},
+		#{carBrand},
+		#{carSeries},
+		#{vehicleType},
+		#{displacement},
+		#{styleYear},
+		#{carColor},
+		#{carNumber},
+		#{travlledDistance},
+		#{carBuyDate},
+		#{carUseDate},
+		#{carLasts},
+		#{carUseType},
+		#{carSize},
+		#{carIssueDate},
+		#{carImage},
+		#{carMineImage},
+		#{carDriverImage},
+		#{ownerIdNumber},
+		#{isAutoPay},
+		#{isDefault},
+		#{frameNum},
+		#{engineNum},
+		#{intakeType}
+		)
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CAR
+		WHERE car_id = #{carId}
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.car.po.Car">
+        UPDATE T_CAR
+		SET
+	        customer_id = #{customerId},
+	        TRADE_NAME = #{tradeName},
+	        car_brand = #{carBrand},
+	        CAR_SERIES = #{carSeries},
+	        VEHICLE_TYPE = #{vehicleType},
+	        DISPLACEMENT = #{displacement},
+	        STYLE_YEAR = #{styleYear},
+	        car_color = #{carColor},
+	        car_number = #{carNumber},
+	        travlled_distance = #{travlledDistance},
+	        car_buy_date = #{carBuyDate},
+	        car_use_date = #{carUseDate},
+	        car_lasts = #{carLasts},
+	        car_use_type = #{carUseType},
+	        car_size = #{carSize},
+	        car_issue_date = #{carIssueDate},
+	        car_image = #{carImage},
+	        car_mine_image = #{carMineImage},
+	        car_driver_image = #{carDriverImage},
+	        owner_id_number = #{ownerIdNumber},
+	        is_auto_pay = #{isAutoPay},
+	        is_default = #{isDefault},
+	        frame_num = #{frameNum},
+	        engine_num = #{engineNum},
+	         INTAKE_TYPE = #{intakeType}
+        WHERE car_id = #{carId}
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CAR
+			<set>
+				customer_id = #{item.customerId},
+				TRADE_NAME = #{item.tradeName},
+				car_brand = #{item.carBrand},
+				CAR_SERIES = #{item.carSeries},
+				VEHICLE_TYPE = #{item.vehicleType},
+				DISPLACEMENT = #{item.displacement},
+				STYLE_YEAR = #{item.styleYear},
+				car_color = #{item.carColor},
+				car_number = #{item.carNumber},
+				travlled_distance = #{item.travlledDistance},
+				car_buy_date = #{item.carBuyDate},
+				car_use_date = #{item.carUseDate},
+				car_lasts = #{item.carLasts},
+				car_use_type = #{item.carUseType},
+				car_size = #{item.carSize},
+				car_issue_date = #{item.carIssueDate},
+				car_image = #{item.carImage},
+				car_mine_image = #{item.carMineImage},
+				car_driver_image = #{item.carDriverImage},
+				owner_id_number = #{item.ownerIdNumber},
+				is_auto_pay = #{item.isAutoPay},
+				is_default = #{item.isDefault},
+				frame_num = #{item.frameNum},
+				engine_num = #{item.engineNum},
+				INTAKE_TYPE = #{item.intakeType}
+			</set>
+			WHERE car_id = #{item.carId}
+		</foreach>
+	</update>
+
+	<select id="carManage" resultType="com.boxiang.share.utils.ResultMap">
+		SELECT * FROM (
+		<foreach collection="params.type" item="item" open="" close="" separator="UNION ALL">
+			SELECT
+			<if test="item == 1 ">
+				'月租'
+			</if>
+			<if test="item == 2 ">
+				'产权'
+			</if>
+			<if test="item == 3 ">
+				'特殊'
+			</if>
+			type,
+			village_id,
+			car_number,
+			create_time,
+			phone
+			FROM
+			<if test="item == 1 ">
+				t_monthlyparkinginfo
+			</if>
+			<if test="item == 2 ">
+				t_propertyparkinginfo
+			</if>
+			<if test="item == 3 ">
+				t_specialparkinginfo
+			</if>
+			WHERE is_used = '1'
+		</foreach>
+		) tmp
+		WHERE 1 = 1
+		<if test="params.parkingId != null">
+			AND village_id IN (
+			<foreach collection="params.parkingId" item="item" index="index" open="" close="" separator=",">
+				#{params.parkingId[${index}]}
+			</foreach>
+			)
+		</if>
+		<if test="params.carNumber != null">
+			AND car_number IN (
+			<foreach collection="params.carNumber" item="item" index="index" open="" close="" separator=",">
+				#{params.carNumber[${index}]}
+			</foreach>
+			)
+		</if>
+		ORDER BY create_time DESC
+	</select>
+       <select id="queryParkingList" parameterType="java.lang.String"  resultMap="resultMap2">
+		   SELECT <include refid="columns2" />,BRAND_ICON,
+		   (SELECT DICT_VALUE from t_dictionary where DICT_CODE='intake_type' and t_dictionary.DICT_VALUE = t_car.INTAKE_TYPE ) intakeType,
+		   ( SELECT DICT_NAME from t_dictionary where DICT_CODE='intake_type' and t_dictionary.DICT_VALUE = t_car.INTAKE_TYPE ) intakeName
+		   FROM T_CAR LEFT JOIN t_car_brand on car_brand=BRAND_NAME
+		   WHERE 1 = 1
+			   AND customer_id = #{customerId}
+		   ORDER by is_default desc
+	   </select>
+	<select id="queryParkingList2" resultMap="resultMap2">
+		SELECT <include refid="columns2" />,BRAND_ICON
+		FROM T_CAR LEFT JOIN t_car_brand on car_brand=BRAND_NAME
+		WHERE 1 = 1
+		AND customer_id = #{customerId}
+		<if test="isDefault != null and isDefault != '' ">
+			and is_default=#{isDefault}
+		</if>
+		ORDER by is_default desc
+	</select>
+	<select id="queryCarList" parameterType="java.lang.String"  resultMap="resultMap2">
+		SELECT <include refid="columns2" />
+		FROM T_CAR
+		WHERE 1 = 1
+		AND car_id != #{carId} and customer_id=#{customerId}
+	</select>
+	<select id="queryById2" parameterType="java.lang.String"  resultMap="resultMap2">
+		SELECT <include refid="columns2" />,(SELECT DICT_NAME from t_dictionary where DICT_CODE='intake_type' and DICT_VALUE = t_car.INTAKE_TYPE) intake_name
+		FROM T_CAR
+		WHERE 1 = 1
+		AND car_id = #{carId}
+	</select>
+</mapper>

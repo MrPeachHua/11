@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.system.dao.SysAuthoritiesDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.system.po.SysAuthorities">
+        <result column="AUTHORITY_ID" property="authorityId"/>
+        <result column="AUTHORITY_NAME" property="authorityName"/>
+        <result column="AUTHORITY_DESC" property="authorityDesc"/>
+        <result column="ENABLED" property="enabled"/>
+        <result column="ISSYS" property="issys"/>
+        <result column="MODULE" property="module"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		AUTHORITY_ID, AUTHORITY_NAME, AUTHORITY_DESC, ENABLED, ISSYS, MODULE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="authorityId != null and authorityId != '' ">
+		AND AUTHORITY_ID = #{authorityId}
+		</if>
+		<if test="authorityName != null and authorityName != '' ">
+		AND AUTHORITY_NAME = #{authorityName}
+		</if>
+		<if test="authorityDesc != null and authorityDesc != '' ">
+		AND AUTHORITY_DESC = #{authorityDesc}
+		</if>
+		<if test="enabled != null and enabled != '' ">
+		AND ENABLED = #{enabled}
+		</if>
+		<if test="issys != null and issys != '' ">
+		AND ISSYS = #{issys}
+		</if>
+		<if test="module != null and module != '' ">
+		AND MODULE like '%${module}%'
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.authorityId != null and params.authorityId != '' ">
+		AND AUTHORITY_ID = #{params.authorityId}
+		</if>
+		<if test="params.authorityName != null and params.authorityName != '' ">
+			AND AUTHORITY_NAME like '%${params.authorityName}%'
+		</if>
+		<if test="params.authorityDesc != null and params.authorityDesc != '' ">
+		AND AUTHORITY_DESC like '%${params.authorityDesc}%'
+		</if>
+		<if test="params.enabled != null and params.enabled != '' ">
+		AND ENABLED = #{params.enabled}
+		</if>
+		<if test="params.issys != null and params.issys != '' ">
+		AND ISSYS = #{params.issys}
+		</if>
+		<if test="params.module != null and params.module != '' ">
+		AND MODULE like '%${params.module}%'
+		</if>
+	</sql>
+	
+	<select id="queryAllAuthName" resultType="java.lang.String">
+		SELECT AUTHORITY_NAME FROM SYS_AUTHORITIES WHERE ENABLED=1
+	</select>
+	
+	<select id="loadUserAuthoritiesByAccount" resultType="java.lang.String">
+		select e.AUTHORITY_NAME 
+		from sys_users_roles a 
+		inner join sys_users b on a.USER_ID=b.USER_ID 
+		inner join sys_roles c on a.ROLE_ID = c.ROLE_ID 
+		inner join sys_roles_authorities d on d.ROLE_ID=c.ROLE_ID
+		inner join sys_authorities e on d.AUTHORITY_ID=e.AUTHORITY_ID
+		where b.USER_ACCOUNT = #{userAccount} AND a.ENABLED=1 and b.ENABLED=1 and c.ENABLED=1 and d.ENABLED=1 and e.ENABLED=1
+	</select>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_AUTHORITIES 
+	     WHERE AUTHORITY_ID = #{authorityId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_AUTHORITIES
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_AUTHORITIES
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.system.po.SysAuthorities">
+        INSERT INTO SYS_AUTHORITIES (
+        	AUTHORITY_ID,
+        	AUTHORITY_NAME,
+        	AUTHORITY_DESC,
+        	ENABLED,
+        	ISSYS,
+        	MODULE
+        ) VALUES (
+        	#{authorityId},
+        	#{authorityName},
+        	#{authorityDesc},
+        	#{enabled},
+        	#{issys},
+        	#{module}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM SYS_AUTHORITIES 
+		 WHERE AUTHORITY_ID = #{authorityId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.system.po.SysAuthorities">
+        UPDATE SYS_AUTHORITIES 
+		SET
+	        AUTHORITY_NAME = #{authorityName},
+	        AUTHORITY_DESC = #{authorityDesc},
+	        ENABLED = #{enabled},
+	        ISSYS = #{issys},
+	        MODULE = #{module}
+        WHERE AUTHORITY_ID = #{authorityId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE SYS_AUTHORITIES
+			<set>
+    	        AUTHORITY_NAME = #{item.authorityName},
+    	        AUTHORITY_DESC = #{item.authorityDesc},
+    	        ENABLED = #{item.enabled},
+    	        ISSYS = #{item.issys},
+    	        MODULE = #{item.module}
+			</set>
+            WHERE AUTHORITY_ID = #{item.authorityId} 	
+		</foreach>
+	</update>
+	<!-- 查询当前资源下的所有权限-->
+	<select id="queryAuthorities" parameterType="java.lang.String" resultMap="resultMap">
+		SELECT
+			*
+		FROM
+			sys_authorities a
+		LEFT JOIN sys_authorities_resources b ON a.AUTHORITY_ID = b.AUTHORITY_ID
+		AND b.ENABLED = '1'
+		WHERE
+			a.ENABLED = '1'
+		AND b.RESOURCE_ID = #{resourseId}
+
+	</select>
+	<select id="queryAuthoritiesByRoles" parameterType="java.lang.String" resultMap="resultMap">
+		SELECT
+		*
+		FROM
+		sys_authorities a
+		LEFT JOIN sys_roles_authorities b ON a.AUTHORITY_ID = b.AUTHORITY_ID
+		AND b.ENABLED = '1'
+		WHERE
+		a.ENABLED = '1'
+		AND b.ROLE_ID = #{roleId}
+	</select>
+</mapper>

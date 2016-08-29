@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.coupon.dao.CouponDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.coupon.po.Coupon">
+		<result column="coupon_id" property="couponId"/>
+        <result column="vouchers_name" property="vouchersName"/>
+        <result column="vouchers_type" property="vouchersType"/>
+        <result column="channel" property="channel"/>
+        <result column="coupon_type" property="couponType"/>
+        <result column="par_amount" property="parAmount"/>
+        <result column="par_discount" property="parDiscount"/>
+        <result column="minconsumption" property="minconsumption"/>
+        <result column="discount" property="discount"/>
+        <result column="maxdiscount" property="maxdiscount"/>
+        <result column="receive_begin" property="receiveBegin"/>
+        <result column="receive_end" property="receiveEnd"/>
+		<result column="effectivetime" property="effectivetime"/>
+        <result column="effective_begin" property="effectiveBegin"/>
+        <result column="effective_end" property="effectiveEnd"/>
+        <result column="exclusion_rule" property="exclusionRule"/>
+		<result column="info" property="info"/>
+        <result column="coupon_status" property="couponStatus"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="use_time" property="useTime"/>
+        <result column="coupon_parking" property="couponParking"/>
+        <result column="coupon_order" property="couponOrder"/>
+        <result column="receive_time" property="receiveTime"/>
+        <result column="coupon_kind" property="couponKind"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="startTime" property="startTime"/>
+        <result column="stopTime" property="stopTime"/>
+         <result column="couponKind2" property="couponKind2"/>
+          <result column="orderType" property="orderType"/>
+		<result column="parking_id" property="parkingId"/>
+		<association property="customer" javaType="com.boxiang.share.product.customer.po.Customer">
+			<id column="customer_id" property="customerId" />
+			<result column="customer_name" property="customerName" />
+			<result column="customer_mobile" property="customerMobile" />
+		</association>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		coupon_id, vouchers_name, vouchers_type, channel, coupon_type, par_amount, par_discount, minconsumption, discount, maxdiscount, receive_begin, receive_end, effectivetime, effective_begin, effective_end, exclusion_rule, info, coupon_status, customer_id, use_time, coupon_parking, coupon_order,receive_time,coupon_kind,creator,create_time,parking_id
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="couponId != null and couponId != '' ">
+		AND coupon_id = #{couponId}
+		</if>
+		<if test="vouchersName != null and vouchersName != '' ">
+		AND vouchers_name like '%${vouchersName}%'
+		</if>
+		<if test="vouchersType != null and vouchersType != '' ">
+		AND vouchers_type = #{vouchersType}
+		</if>
+		<if test="channel != null and channel != '' ">
+		AND channel = #{channel}
+		</if>
+		<if test="couponType != null and couponType != '' ">
+		AND coupon_type = #{couponType}
+		</if>
+		<if test="parAmount != null and parAmount != '' ">
+		AND par_amount = #{parAmount}
+		</if>
+		<if test="parDiscount != null and parDiscount != '' ">
+		AND par_discount = #{parDiscount}
+		</if>
+		<if test="minconsumption != null and minconsumption != '' ">
+		AND minconsumption = #{minconsumption}
+		</if>
+		<if test="discount != null and discount != '' ">
+		AND discount = #{discount}
+		</if>
+		<if test="maxdiscount != null and maxdiscount != '' ">
+		AND maxdiscount = #{maxdiscount}
+		</if>
+		<if test="receiveBegin != null and receiveBegin != '' ">
+		AND receive_begin = #{receiveBegin}
+		</if>
+		<if test="receiveEnd != null and receiveEnd != '' ">
+		AND receive_end = #{receiveEnd}
+		</if>
+		<if test="effectivetime != null and effectivetime != '' ">
+		AND effectivetime = #{effectivetime}
+		</if>
+		<if test="receiveTime != null and receiveTime != '' ">
+		AND receive_time = #{receiveTime}
+		</if>
+		<if test="effectiveBegin != null and effectiveBegin != '' ">
+		AND effective_begin = #{effectiveBegin}
+		</if>
+		<if test="effectiveEnd != null and effectiveEnd != '' ">
+		AND effective_end = #{effectiveEnd}
+		</if>
+		<if test="exclusionRule != null and exclusionRule != '' ">
+		AND exclusion_rule = #{exclusionRule}
+		</if>
+		<if test="info != null and info != '' ">
+		AND info = #{info}
+		</if>
+		<if test="couponStatus != null and couponStatus != '' ">
+		AND coupon_status = #{couponStatus}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND customer_id = #{customerId}
+		</if>
+		<if test="useTime != null and useTime != '' ">
+		AND use_time = #{useTime}
+		</if>
+		<if test="couponParking != null and couponParking != '' ">
+		AND coupon_parking = #{couponParking}
+		</if>
+		<if test="couponOrder != null and couponOrder != '' ">
+		AND coupon_order = #{couponOrder}
+		</if>
+		<if test="parkingId != null and parkingId != ''">
+			and t_coupon.parking_id like '%${parkingId}%'
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.couponId != null and params.couponId != '' ">
+		AND coupon_id = #{params.couponId}
+		</if>
+		<if test="params.vouchersName != null and params.vouchersName != '' ">
+		AND vouchers_name like '%${params.vouchersName}%'
+		</if>
+		<if test="params.vouchersType != null and params.vouchersType != '' ">
+		AND vouchers_type = #{params.vouchersType}
+		</if>
+		<if test="params.channel != null and params.channel != '' ">
+		AND channel = #{params.channel}
+		</if>
+		<if test="params.couponType != null and params.couponType != '' ">
+		AND coupon_type = #{params.couponType}
+		</if>
+		<if test="params.parAmount != null and params.parAmount != '' ">
+		AND par_amount = #{params.parAmount}
+		</if>
+		<if test="params.parDiscount != null and params.parDiscount != '' ">
+		AND par_discount = #{params.parDiscount}
+		</if>
+		<if test="params.minconsumption != null and params.minconsumption != '' ">
+		AND minconsumption = #{params.minconsumption}
+		</if>
+		<if test="params.discount != null and params.discount != '' ">
+		AND discount = #{params.discount}
+		</if>
+		<if test="params.maxdiscount != null and params.maxdiscount != '' ">
+		AND maxdiscount = #{params.maxdiscount}
+		</if>
+		<if test="params.receiveBegin != null and params.receiveBegin != '' ">
+		AND receive_begin = #{params.receiveBegin}
+		</if>
+		<if test="params.receiveBegin != null and params.receiveBegin != '' ">
+		AND receive_time = #{params.receiveTime}
+		</if>
+		<if test="params.receiveEnd != null and params.receiveEnd != '' ">
+		AND receive_end = #{params.receiveEnd}
+		</if>
+		<if test="params.effectivetime != null and params.effectivetime != '' ">
+		AND effectivetime = #{params.effectivetime}
+		</if>
+		<if test="params.effectiveBegin != null and params.effectiveBegin != '' ">
+		AND effective_begin = #{params.effectiveBegin}
+		</if>
+		<if test="params.effectiveEnd != null and params.effectiveEnd != '' ">
+		AND effective_end = #{params.effectiveEnd}
+		</if>
+		<if test="params.exclusionRule != null and params.exclusionRule != '' ">
+		AND exclusion_rule = #{params.exclusionRule}
+		</if>
+		<if test="params.info != null and params.info != '' ">
+		AND info = #{params.info}
+		</if>
+		<if test="params.couponStatus != null and params.couponStatus != '' ">
+		AND coupon_status = #{params.couponStatus}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND customer_id = #{params.customerId}
+		</if>
+		<if test="params.useTime != null and params.useTime != '' ">
+		AND use_time = #{params.useTime}
+		</if>
+		<if test="params.couponParking != null and params.couponParking != '' ">
+		AND coupon_parking = #{params.couponParking}
+		</if>
+		<if test="params.couponOrder != null and params.couponOrder != '' ">
+		AND coupon_order = #{params.couponOrder}
+		</if>
+		<if test="params.couponKind != null and params.couponKind != '' ">
+		AND coupon_kind = #{params.couponKind}
+		</if>
+		<if test="params.creator != null and params.creator != '' ">
+		AND creator like '%${params.creator}%'
+		</if>
+		<if test="params.parkingId != null and params.parkingId != ''">
+			and parking_id like '%${params.parkingId}%'
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COUPON 
+	     WHERE coupon_id = #{couponId}     
+	</select>
+	<select id="queryByStatusAndCustomerId" resultMap="resultMap">
+		select <include refid="columns" /> from T_COUPON 
+		WHERE 1 = 1 
+		<include refid="whereSQL" />
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="queryList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		FROM T_COUPON
+		WHERE 1 = 1
+		<include refid="whereSQL" />
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT
+		t_coupon.customer_id,
+		t_coupon.coupon_type,  
+		t_coupon.coupon_id, 
+		t_coupon.vouchers_name,
+		t_coupon.vouchers_type,
+		t_coupon.channel,  
+		t_coupon.par_amount,
+		t_coupon.par_discount,  
+		t_coupon.receive_begin, 
+		t_coupon.receive_end, 
+		t_coupon.receive_time, 
+		t_coupon.effective_begin,
+		t_coupon.effective_end,
+		t_coupon.use_time, 
+		t_coupon.discount,
+		t_customer.customer_mobile,
+		t_coupon.info,
+		t_coupon.coupon_kind,
+		t_coupon.creator,
+		SUBSTRING(t_coupon.create_time,1,10) as create_time
+		FROM T_COUPON LEFT JOIN t_customer on 
+		t_coupon.customer_id = t_customer.customer_id 
+		WHERE 1 = 1 	
+		<if test="couponId != null and couponId != '' ">
+		AND t_coupon.coupon_id = #{couponId}
+		</if>
+		<if test="vouchersName != null and vouchersName != '' ">
+		AND t_coupon.vouchers_name like '%${vouchersName}%'
+		</if>
+		<if test="vouchersType != null and vouchersType != '' ">
+		AND t_coupon.vouchers_type = #{vouchersType}
+		</if>
+		<if test="channel != null and channel != '' ">
+		AND t_coupon.channel = #{channel}
+		</if>
+		<if test="parkingId != null and parkingId != ''">
+			and t_coupon.parking_id like '%${parkingId}%'
+		</if>
+		<if test="couponType != null and couponType != '' ">
+		AND t_coupon.coupon_type = #{couponType}
+		</if>
+		<if test="parAmount != null and parAmount != '' ">
+		AND t_coupon.par_amount = #{parAmount}
+		</if>
+		<if test="parDiscount != null and parDiscount != '' ">
+		AND t_coupon.par_discount = #{parDiscount}
+		</if>
+		<if test="minconsumption != null and minconsumption != '' ">
+		AND t_coupon.minconsumption = #{minconsumption}
+		</if>
+		<if test="discount != null and discount != '' ">
+		AND t_coupon.discount = #{discount}
+		</if>
+		<if test="maxdiscount != null and maxdiscount != '' ">
+		AND t_coupon.maxdiscount = #{maxdiscount}
+		</if>
+		<if test="receiveBegin != null and receiveBegin != '' ">
+		AND t_coupon.receive_begin = #{receiveBegin}
+		</if>
+		<if test="receiveEnd != null and receiveEnd != '' ">
+		AND t_coupon.receive_end = #{receiveEnd}
+		</if>
+		<if test="effectivetime != null and effectivetime != '' ">
+		AND t_coupon.effectivetime = #{effectivetime}
+		</if>
+		<if test="receiveTime != null and receiveTime != '' ">
+		AND t_coupon.receive_time = #{receiveTime}
+		</if>
+		<if test="effectiveBegin != null and effectiveBegin != '' ">
+		AND t_coupon.effective_begin = #{effectiveBegin}
+		</if>
+		<if test="effectiveEnd != null and effectiveEnd != '' ">
+		AND t_coupon.effective_end = #{effectiveEnd}
+		</if>
+		<if test="exclusionRule != null and exclusionRule != '' ">
+		AND t_coupon.exclusion_rule = #{exclusionRule}
+		</if>
+		<if test="info != null and info != '' ">
+		AND t_coupon.info = #{info}
+		</if>
+		<if test="couponStatus != null and couponStatus != '' ">
+		AND t_coupon.coupon_status = #{couponStatus}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND t_coupon.customer_id = #{customerId}
+		</if>
+		<if test="useTime != null and useTime != '' ">
+		AND t_coupon.use_time = #{useTime}
+		</if>
+		<if test="couponParking != null and couponParking != '' ">
+		AND t_coupon.coupon_parking = #{couponParking}
+		</if>
+		<if test="couponOrder != null and couponOrder != '' ">
+		AND t_coupon.coupon_order = #{couponOrder}
+		</if>
+		<if test="couponKind != null and couponKind != '' ">
+		AND t_coupon.coupon_kind = #{couponKind}
+		</if>
+		<if test="creator != null and creator != '' ">
+		AND creator like '%${creator}%'
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			AND SUBSTRING(t_coupon.create_time,1,10) &gt;= #{startTime}
+		</if>
+		<if test="stopTime != null and stopTime != '' ">
+			AND SUBSTRING(t_coupon.create_time,1,10) &lt;= #{stopTime}
+		</if>
+	</select>
+	
+	<select id="queryCouponByOrder" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COUPON 
+	     WHERE 1 = 1 	  	
+		<include refid="whereSQL" />
+	</select>
+ <select id="queryCouponByOrderId" resultMap="resultMap">
+		SELECT  <include refid="columns" />
+		FROM t_coupon  WHERE coupon_status='100202' and  
+	    coupon_order IN (
+		SELECT
+		 a.ORDER_ID
+		FROM
+			T_ORDER_MAIN a
+		WHERE
+			a.ORDER_STATUS='10' and IS_USED='1'  and a.order_type in ('10','11','13','14','15','17')
+and CURRENT_TIMESTAMP() >DATE_ADD(a.create_date,INTERVAL 15 MINUTE)
+
+	)
+	</select>
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT
+		t_coupon.customer_id,
+		t_coupon.coupon_id, 
+		t_coupon.vouchers_name,
+		t_coupon.coupon_kind,  
+		t_coupon.channel,
+		t_coupon.coupon_type,  
+		t_coupon.par_amount,
+		t_coupon.par_discount,  
+		t_coupon.receive_begin, 
+		t_coupon.receive_end, 
+		t_coupon.receive_time, 
+		t_coupon.effective_begin,
+		t_coupon.effective_end,
+		t_coupon.use_time, 
+		t_coupon.discount,
+		t_customer.customer_mobile,
+		t_coupon.info,
+		t_coupon.vouchers_type,
+		t_coupon.creator,
+		SUBSTRING(t_coupon.create_time,1,10) as create_time
+		FROM T_COUPON LEFT JOIN t_customer on 
+		t_coupon.customer_id = t_customer.customer_id 
+		WHERE 1 = 1 
+		<include refid="wherePageSql" />
+		<if test="params.startTime != null and params.startTime != '' ">
+			AND SUBSTRING(t_coupon.create_time,1,10) &gt;= #{params.startTime}
+		</if>
+		<if test="params.stopTime != null and params.stopTime != '' ">
+			AND SUBSTRING(t_coupon.create_time,1,10) &lt;= #{params.stopTime}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != ''">
+			and t_coupon.parking_id like '%${params.parkingId}%'
+		</if>
+		order by t_coupon.create_time desc
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.coupon.po.Coupon">
+        INSERT INTO T_COUPON (
+        	coupon_id,
+        	vouchers_name,
+        	vouchers_type,
+        	channel,
+        	coupon_type,
+        	par_amount,
+        	par_discount,
+        	minconsumption,
+        	discount,
+        	maxdiscount,
+        	receive_begin,
+        	receive_end,
+        	effectivetime,
+        	effective_begin,
+        	effective_end,
+        	exclusion_rule,
+        	info,
+        	coupon_status,
+        	customer_id,
+        	use_time,
+        	coupon_parking,
+        	coupon_order,
+        	receive_time,
+        	coupon_kind,
+        	creator,
+        	create_time,
+        	parking_id
+        ) VALUES (
+        	#{couponId},
+        	#{vouchersName},
+        	#{vouchersType},
+        	#{channel},
+        	#{couponType},
+        	#{parAmount},
+        	#{parDiscount},
+        	#{minconsumption},
+        	#{discount},
+        	#{maxdiscount},
+        	#{receiveBegin},
+        	#{receiveEnd},
+        	#{effectivetime},
+        	#{effectiveBegin},
+        	#{effectiveEnd},
+        	#{exclusionRule},
+        	#{info},
+        	#{couponStatus},
+        	#{customerId},
+        	#{useTime},
+        	#{couponParking},
+        	#{couponOrder},
+        	#{receiveTime},
+        	#{couponKind},
+        	#{creator},
+        	#{createTime},
+        	#{parkingId}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_COUPON 
+		 WHERE coupon_id = #{couponId} 
+	</delete>
+	<!-- 定时任务 -->
+	<select id="queryByCouponStatus" resultMap="resultMap">
+		select <include refid="columns" /> FROM
+		T_COUPON where (coupon_status='100101' or coupon_status='100201')
+	</select>
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.coupon.po.Coupon">
+        UPDATE T_COUPON 
+		SET
+	        vouchers_name = #{vouchersName},
+	        vouchers_type = #{vouchersType},
+	        channel = #{channel},
+	        coupon_type = #{couponType},
+	        par_amount = #{parAmount},
+	        par_discount = #{parDiscount},
+	        minconsumption = #{minconsumption},
+	        discount = #{discount},
+	        maxdiscount = #{maxdiscount},
+	        receive_begin = #{receiveBegin},
+	        receive_end = #{receiveEnd},
+	        effectivetime = #{effectivetime},
+	        effective_begin = #{effectiveBegin},
+	        effective_end = #{effectiveEnd},
+	        exclusion_rule = #{exclusionRule},
+	        info = #{info},
+	        coupon_status = #{couponStatus},
+	        customer_id = #{customerId},
+	        use_time = #{useTime},
+	        coupon_parking = #{couponParking},
+	        coupon_order = #{couponOrder},
+	        receive_time = #{receiveTime},
+	        coupon_kind = #{couponKind}
+        WHERE coupon_id = #{couponId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_COUPON
+			<set>
+    	        vouchers_name = #{item.vouchersName},
+    	        vouchers_type = #{item.vouchersType},
+    	        channel = #{item.channel},
+    	        coupon_type = #{item.couponType},
+    	        par_amount = #{item.parAmount},
+    	        par_discount = #{item.parDiscount},
+    	        minconsumption = #{item.minconsumption},
+    	        discount = #{item.discount},
+    	        maxdiscount = #{item.maxdiscount},
+    	        receive_begin = #{item.receiveBegin},
+    	        receive_end = #{item.receiveEnd},
+    	        effectivetime = #{item.effectivetime},
+    	        effective_begin = #{item.effectiveBegin},
+    	        effective_end = #{item.effectiveEnd},
+    	        exclusion_rule = #{item.exclusionRule},
+    	        info = #{item.info},
+    	        coupon_status = #{item.couponStatus},
+    	        customer_id = #{item.customerId},
+    	        use_time = #{item.useTime},
+    	        coupon_parking = #{item.couponParking},
+    	        coupon_order = #{item.couponOrder},
+    	        receive_time = #{item.receiveTime},
+    	        coupon_kind = #{item.couponKind}
+			</set>
+            WHERE coupon_id = #{item.couponId} 	
+		</foreach>
+	</update>
+	<select id="selectRegCoupons" resultMap="resultMap">
+	SELECT * FROM t_coupon tc WHERE tc.channel =1 
+		<!-- AND CURRENT_TIMESTAMP() BETWEEN tc.effective_begin 
+		AND tc.effective_end  -->
+		AND tc.coupon_status = '100101'
+		AND tc.customer_id IS NULL
+	</select>
+	<select id="selectNum" resultMap="resultMap">
+		select * from t_coupon where 1=1
+		<if test="channel != null and channel != '' ">
+		AND channel = #{channel}
+		</if> 
+		AND coupon_status = #{couponStatus}
+		AND
+		(#{receiveBegin} BETWEEN receive_begin and receive_end
+		or #{receiveEnd} BETWEEN receive_begin and receive_end)
+	</select>
+	<select id="selectNums" resultMap="resultMap">
+		select * from t_coupon where 1=1
+		<if test="channel != null and channel != '' ">
+		AND channel = #{channel}
+		</if> 
+		AND coupon_status = #{couponStatus}
+		AND
+		(#{effectiveBegin} BETWEEN effective_begin and effective_end
+		or #{effectiveEnd} BETWEEN effective_begin and effective_end)
+		
+	</select>
+	<!-- 查询优惠券状态-->
+	<select id="selectCouponByData" resultMap="resultMap">
+		select * from t_coupon 
+		where coupon_status= #{couponStatus}
+		and customer_id is null and 
+		(coupon_id= #{couponId} or vouchers_name= #{vouchersName})
+		<!-- and CURRENT_TIMESTAMP() &lt;= effective_end -->
+	</select>
+	<select id="selectCouponByCus" resultMap="resultMap">
+		select * from t_coupon
+		where customer_id=#{customerId} and vouchers_name= #{vouchersName}
+	</select>
+	<!-- 我的优惠券列表 -->
+	<select id="getcouponlist"  resultMap="resultMap">
+		select * from t_coupon where 1 = 1 
+		<if test="params.customerId != null and params.customerId != ''">
+			and customer_id = #{params.customerId} 
+		</if>
+			and (parking_id like '%${params.parkingId}%' or parking_id is null or parking_id = '')
+		<!-- 筛选优惠券种类 -->
+		<if test="params.couponKind != null and params.couponKind != '' and params.couponKind2 != null and params.couponKind != ''">
+			and (coupon_kind = #{params.couponKind} or coupon_kind = #{params.couponKind2})
+		</if>
+		<if test="params.parAmount != null and params.parAmount !='' ">
+			and minconsumption &lt;= #{params.parAmount}
+		</if>
+		<if test="params.orderType != null and params.orderType !='' ">
+			<!-- 使用优惠券时，查询已领取的未过期优惠券 -->
+		and coupon_status = '100201'
+		and CURRENT_TIMESTAMP() BETWEEN effective_begin AND effective_end
+		</if>
+		
+		<if test="(params.orderType == null or params.orderType =='') and params.couponStatus == '100201' ">
+			<!-- 使用优惠券时，查询已领取的未过期优惠券 -->
+		and coupon_status = '100201'
+			and CURRENT_TIMESTAMP() BETWEEN effective_begin AND effective_end
+		</if>
+		<if test="(params.orderType == null or params.orderType =='') and params.couponStatus == '200102' ">
+			and  CURRENT_TIMESTAMP() &gt; effective_end
+		</if>
+		ORDER BY  create_time DESC
+	</select>
+	
+</mapper>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parker.dao.QuestionnaireSurveyDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parker.po.QuestionnaireSurvey">
+        <result column="ID" property="id"/>
+        <result column="QUEST_CODE" property="questCode"/>
+        <result column="SURVEY_TYPE" property="surveyType"/>
+        <result column="CONTENT" property="content"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="CUSTOMER_ID" property="customerId"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID,CUSTOMER_ID, QUEST_CODE, SURVEY_TYPE, CONTENT, CREATEOR, CREATE_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="questCode != null and questCode != '' ">
+		AND QUEST_CODE = #{questCode}
+		</if>
+		<if test="surveyType != null and surveyType != '' ">
+		AND SURVEY_TYPE = #{surveyType}
+		</if>
+		<if test="content != null and content != '' ">
+		AND CONTENT = #{content}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND CUSTOMER_ID = #{customerId}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.questCode != null and params.questCode != '' ">
+		AND QUEST_CODE = #{params.questCode}
+		</if>
+		<if test="params.surveyType != null and params.surveyType != '' ">
+		AND SURVEY_TYPE = #{params.surveyType}
+		</if>
+		<if test="params.content != null and params.content != '' ">
+		AND CONTENT = #{params.content}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.customerId!= null and params.customerId!= != '' ">
+		AND CUSTOMER_ID = #{params.customerId!=}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_QUESTIONNAIRE_SURVEY 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_QUESTIONNAIRE_SURVEY
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_QUESTIONNAIRE_SURVEY
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parker.po.QuestionnaireSurvey">
+        INSERT INTO T_QUESTIONNAIRE_SURVEY (
+        	ID,
+        	QUEST_CODE,
+        	CUSTOMER_ID,
+        	SURVEY_TYPE,
+        	CONTENT,
+        	CREATEOR,
+        	CREATE_DATE
+        ) VALUES (
+        	#{id},
+        	#{questCode},
+        	#{customerId},
+        	#{surveyType},
+        	#{content},
+        	#{createor},
+        	#{createDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_QUESTIONNAIRE_SURVEY 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parker.po.QuestionnaireSurvey">
+        UPDATE T_QUESTIONNAIRE_SURVEY 
+		SET
+	        QUEST_CODE = #{questCode},
+	        CUSTOMER_ID=#{customerId},
+	        SURVEY_TYPE = #{surveyType},
+	        CONTENT = #{content},
+	        CREATEOR = #{createor},
+	        CREATE_DATE = #{createDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_QUESTIONNAIRE_SURVEY
+			<set>
+    	        QUEST_CODE = #{item.questCode},
+    	        customer_id=#{item.customerId},
+    	        SURVEY_TYPE = #{item.surveyType},
+    	        CONTENT = #{item.content},
+    	        CREATEOR = #{item.createor},
+    	        CREATE_DATE = #{item.createDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

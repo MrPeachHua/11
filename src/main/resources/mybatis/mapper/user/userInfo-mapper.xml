@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.user.dao.UserInfoDao">
+	
+	<!-- 列结果resultMap junior.pan 2016-1-2 -->
+	<resultMap id="resultMap" type="com.boxiang.share.user.po.UserInfo">
+        <result column="user_id" property="userId"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_sex" property="userSex"/>
+        <result column="user_mobile" property="userMobile"/>
+        <result column="user_age" property="userAge"/>
+        <result column="user_address" property="userAddress"/>
+        <result column="user_num" property="userNum"/>
+        <result column="user_pw" property="userPw"/>
+        <result column="user_tel" property="userTel"/>
+        <result column="user_idnum" property="userIdnum"/>
+        <result column="user_email" property="userEmail"/>
+        <result column="user_addtime" property="userAddtime"/>
+        <result column="user_addman" property="userAddman"/>
+        <result column="user_changetime" property="userChangetime"/>
+        <result column="user_changeman" property="userChangeman"/>
+        <result column="user_intest" property="userIntest"/>
+        <result column="user_diploma" property="userDiploma"/>
+        <result column="user_bankcard" property="userBankcard"/>
+        <result column="user_nation" property="userNation"/>
+        <result column="is_married" property="isMarried"/>
+        <result column="is_used" property="isUsed"/>
+        <result column="role_power" property="rolePower"/>
+        <result column="parking_id" property="parkingId"/>
+        <result column="sys_user_id" property="sysUserId"/>
+		<result column="head" property="head"/>
+	</resultMap>
+
+	<!-- 公共列 junior.pan 2016-1-2 -->
+	<sql id="columns">
+		a.parking_id,user_id, a.department_id, department_name, a.role_id, role_name, user_name, user_sex, user_mobile, user_age, user_address, user_num, user_pw, user_tel, user_idnum, user_email, user_addtime, user_addman, user_changetime, user_changeman, user_intest, user_diploma, user_bankcard, user_nation, is_married, a.is_used, role_power, sys_user_id
+	</sql>
+	<select id="selectSysUser" resultMap="resultMap">
+		SELECT d.sys_user_id,d.parking_id,d.user_mobile,a.role_name,d.user_pw,d.user_name,d.user_sex,d.user_age,d.user_idnum,d.head from sys_roles a LEFT JOIN sys_users_roles b on a.role_id = b.role_id
+		LEFT JOIN t_user_info d on b.user_id = d.sys_user_id
+		<if test="userNum != null and userNum != '' ">
+			where d.user_num = #{userNum}
+		</if>
+	</select>
+	<!-- 公共条件 junior.pan 2016-1-2 -->
+	<sql id="whereSQL">
+		<if test="userId != null and userId != '' ">
+		AND user_id = #{userId}
+		</if>
+		<if test="departmentId != null and departmentId != '' ">
+		AND a.department_id = #{departmentId}
+		</if>
+		<if test="roleId != null and roleId != '' ">
+		AND a.role_id = #{roleId}
+		</if>
+		<if test="userName != null and userName != '' ">
+		AND user_name like '%${userName}%'
+		</if>
+		<if test="departmentName != null and departmentName != '' ">
+		AND department_name like '%${departmentName}%'
+		</if>
+		<if test="roleName != null and roleName != '' ">
+		AND role_name like '%${roleName}%'
+		</if>
+		<if test="userSex != null and userSex != '' ">
+		AND user_sex = #{userSex}
+		</if>
+		<if test="userMobile != null and userMobile != '' ">
+		AND user_mobile = #{userMobile}
+		</if>
+		<if test="userAge != null and userAge != '' ">
+		AND user_age = #{userAge}
+		</if>
+		<if test="userAddress != null and userAddress != '' ">
+		AND user_address = #{userAddress}
+		</if>
+		<if test="userNum != null and userNum != '' ">
+		AND user_num = #{userNum}
+		</if>
+		<if test="userPw != null and userPw != '' ">
+		AND user_pw = #{userPw}
+		</if>
+		<if test="userTel != null and userTel != '' ">
+		AND user_tel = #{userTel}
+		</if>
+		<if test="userIdnum != null and userIdnum != '' ">
+		AND user_idnum = #{userIdnum}
+		</if>
+		<if test="userEmail != null and userEmail != '' ">
+		AND user_email = #{userEmail}
+		</if>
+		<if test="userAddtime != null and userAddtime != '' ">
+		AND user_addtime = #{userAddtime}
+		</if>
+		<if test="userAddman != null and userAddman != '' ">
+		AND user_addman = #{userAddman}
+		</if>
+		<if test="userChangetime != null and userChangetime != '' ">
+		AND user_changetime = #{userChangetime}
+		</if>
+		<if test="userChangeman != null and userChangeman != '' ">
+		AND user_changeman = #{userChangeman}
+		</if>
+		<if test="userIntest != null and userIntest != '' ">
+		AND user_intest = #{userIntest}
+		</if>
+		<if test="userDiploma != null and userDiploma != '' ">
+		AND user_diploma = #{userDiploma}
+		</if>
+		<if test="userBankcard != null and userBankcard != '' ">
+		AND user_bankcard = #{userBankcard}
+		</if>
+		<if test="userNation != null and userNation != '' ">
+		AND user_nation = #{userNation}
+		</if>
+		<if test="isMarried != null and isMarried != '' ">
+		AND is_married = #{isMarried}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND a.is_used = #{isUsed}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND a.parking_id = #{parkingId}
+		</if>
+		<if test="sysUserId != null and sysUserId != '' ">
+		AND a.sys_user_id = #{sysUserId}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL junior.pan 2016-1-2 -->
+	<sql id="wherePageSql">
+		<if test="params.userId != null and params.userId != '' ">
+		AND user_id = #{params.userId}
+		</if>
+		<if test="params.departmentId != null and params.departmentId != '' ">
+		AND a.department_id = #{params.departmentId}
+		</if>
+		<if test="params.roleId != null and params.roleId != '' ">
+		AND a.role_id = #{params.roleId}
+		</if>
+		<if test="(params.roleId != null and params.roleId != '') and (params.me != null and params.me != '') ">
+		AND FIND_IN_SET(a.role_id,#{params.roleId}) OR a.user_id = #{params.me}
+		</if>
+		<if test="params.userName != null and params.userName != '' ">
+		AND user_name like '%${params.userName}%'
+		</if>
+		<if test="params.departmentName != null and params.departmentName != '' ">
+		AND department_name like '%${params.departmentName}%'
+		</if>
+		<if test="params.roleName != null and params.roleName != '' ">
+		AND role_name like '%${params.roleName}%'
+		</if>
+		<if test="params.userSex != null and params.userSex != '' ">
+		AND user_sex = #{params.userSex}
+		</if>
+		<if test="params.userMobile != null and params.userMobile != '' ">
+		AND user_mobile = #{params.userMobile}
+		</if>
+		<if test="params.userAge != null and params.userAge != '' ">
+		AND user_age = #{params.userAge}
+		</if>
+		<if test="params.userAddress != null and params.userAddress != '' ">
+		AND user_address = #{params.userAddress}
+		</if>
+		<if test="params.userNum != null and params.userNum != '' ">
+		AND user_num = #{params.userNum}
+		</if>
+		<if test="params.userPw != null and params.userPw != '' ">
+		AND user_pw = #{params.userPw}
+		</if>
+		<if test="params.userTel != null and params.userTel != '' ">
+		AND user_tel = #{params.userTel}
+		</if>
+		<if test="params.userIdnum != null and params.userIdnum != '' ">
+		AND user_idnum = #{params.userIdnum}
+		</if>
+		<if test="params.userEmail != null and params.userEmail != '' ">
+		AND user_email = #{params.userEmail}
+		</if>
+		<if test="params.userAddtime != null and params.userAddtime != '' ">
+		AND user_addtime = #{params.userAddtime}
+		</if>
+		<if test="params.userAddman != null and params.userAddman != '' ">
+		AND user_addman = #{params.userAddman}
+		</if>
+		<if test="params.userChangetime != null and params.userChangetime != '' ">
+		AND user_changetime = #{params.userChangetime}
+		</if>
+		<if test="params.userChangeman != null and params.userChangeman != '' ">
+		AND user_changeman = #{params.userChangeman}
+		</if>
+		<if test="params.userIntest != null and params.userIntest != '' ">
+		AND user_intest = #{params.userIntest}
+		</if>
+		<if test="params.userDiploma != null and params.userDiploma != '' ">
+		AND user_diploma = #{params.userDiploma}
+		</if>
+		<if test="params.userBankcard != null and params.userBankcard != '' ">
+		AND user_bankcard = #{params.userBankcard}
+		</if>
+		<if test="params.userNation != null and params.userNation != '' ">
+		AND user_nation = #{params.userNation}
+		</if>
+		<if test="params.isMarried != null and params.isMarried != '' ">
+		AND is_married = #{params.isMarried}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND a.is_used = #{params.isUsed}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND a.parking_id = #{params.parkingId}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 junior.pan 2016-1-2 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT a.*,b.*
+		  FROM t_user_info a LEFT JOIN t_department_info b on a.department_id = b.department_id <!--INNER JOIN t_user_role c on a.role_id = c.role_id-->
+	     WHERE user_id = #{userId}  and a.is_used = '1'
+	</select>
+
+	<!-- 查询列表 junior.pan 2016-1-2 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT a.*,b.*
+		  FROM t_user_info a LEFT JOIN t_department_info b on a.department_id = b.department_id <!--INNER JOIN t_user_role c on a.role_id = c.role_id-->
+		 WHERE 1 = 1 and	a.is_used = '1'
+		 <include refid="whereSQL" />
+	</select>
+	<!-- 查询列表  2016-06-23 -->
+	<select id="selectList2" resultMap="resultMap">
+		SELECT a.*,b.department_name,c.module,e.ROLE_NAME
+		FROM t_user_info a LEFT JOIN t_department_info b on a.department_id = b.department_id
+		INNER JOIN sys_users c on a.sys_user_id=c.USER_ID
+		INNER JOIN sys_users_roles d on c.USER_ID = d.USER_ID
+		INNER JOIN sys_roles e on e.role_id=d.role_id
+		WHERE 1 = 1 and c.ENABLED='1' and a.is_used ='1' and b.is_used = '1'
+		<include refid="whereSQL" />
+	</select>
+	<!-- 查询分页列表 junior.pan 2016-1-2 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT a.*,b.department_name,c.module
+		FROM t_user_info a LEFT JOIN t_department_info b on a.department_id = b.department_id
+		INNER JOIN sys_users c on a.sys_user_id=c.USER_ID
+		WHERE 1 = 1 and c.ENABLED='1' and a.is_used ='1' and b.is_used = '1'
+		<if test="params.module != null and params.module != '' ">
+			AND c.module = #{params.module}
+		</if>
+		<if test="params.userName != null and params.userName != '' ">
+			AND a.user_name like '%${params.userName}%'
+		</if>
+		<if test="params.departmentName != null and params.departmentName != '' ">
+			AND b.department_name like '%${params.departmentName}%'
+		</if>
+		<if test="params.userDiploma != null and params.userDiploma != '' ">
+			AND a.user_diploma = #{params.userDiploma}
+		</if>
+		order by a.user_addtime asc
+	</select>
+
+	<!-- 插入 junior.pan 2016-1-2 -->
+	<insert id="insert" parameterType="com.boxiang.share.user.po.UserInfo">
+        INSERT INTO T_USER_INFO (
+        	user_id,
+        	department_id,
+        	role_id,
+        	user_name,
+        	user_sex,
+        	user_mobile,
+        	user_age,
+        	user_address,
+        	user_num,
+        	user_pw,
+        	user_tel,
+        	user_idnum,
+        	user_email,
+        	user_addtime,
+        	user_addman,
+        	user_changetime,
+        	user_changeman,
+        	user_intest,
+        	user_diploma,
+        	user_bankcard,
+        	user_nation,
+        	is_married,
+        	is_used,
+        	parking_id,sys_user_id
+        ) VALUES (
+        	#{userId},
+        	#{departmentId},
+        	#{roleId},
+        	#{userName},
+        	#{userSex},
+        	#{userMobile},
+        	#{userAge},
+        	#{userAddress},
+        	#{userNum},
+        	#{userPw},
+        	#{userTel},
+        	#{userIdnum},
+        	#{userEmail},
+        	#{userAddtime},
+        	#{userAddman},
+        	#{userChangetime},
+        	#{userChangeman},
+        	#{userIntest},
+        	#{userDiploma},
+        	#{userBankcard},
+        	#{userNation},
+        	#{isMarried},
+        	#{isUsed},
+        	#{parkingId},#{sysUserId}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 junior.pan 2016-1-2 -->
+	<delete id="delete">
+		DELETE FROM T_USER_INFO 
+		 WHERE user_id = #{userId} 
+	</delete>
+
+	<update id="deleteFalse">
+        UPDATE T_USER_INFO 
+		SET
+	        is_used = '0'
+		 WHERE user_id = #{userId} 
+	</update>
+
+	<!-- 更新 junior.pan 2016-1-2 -->
+	<update id="update" parameterType="com.boxiang.share.user.po.UserInfo">
+        UPDATE T_USER_INFO 
+		SET
+	        department_id = #{departmentId},
+	        role_id = #{roleId},
+	        user_sex = #{userSex},
+	        user_mobile = #{userMobile},
+	        user_age = #{userAge},
+	        user_address = #{userAddress},
+	        user_tel = #{userTel},
+	        user_idnum = #{userIdnum},
+	        user_email = #{userEmail},
+	        user_addtime = #{userAddtime},
+	        user_addman = #{userAddman},
+	        user_changetime = #{userChangetime},
+	        user_changeman = #{userChangeman},
+	        user_intest = #{userIntest},
+	        user_diploma = #{userDiploma},
+	        user_bankcard = #{userBankcard},
+	        user_nation = #{userNation},
+	        is_married = #{isMarried},
+	        parking_id=#{parkingId}
+        WHERE user_id = #{userId} 	        
+	</update>
+	<update id="updatePw" parameterType="com.boxiang.share.user.po.UserInfo">
+        UPDATE T_USER_INFO 
+		SET
+	        user_pw = #{userPw}
+        WHERE user_id = #{userId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_USER_INFO
+			<set>
+    	        department_id = #{item.departmentId},
+    	        role_id = #{item.roleId},
+    	        user_name = #{item.userName},
+    	        user_sex = #{item.userSex},
+    	        user_mobile = #{item.userMobile},
+    	        user_age = #{item.userAge},
+    	        user_address = #{item.userAddress},
+    	        user_num = #{item.userNum},
+    	        user_pw = #{item.userPw},
+    	        user_tel = #{item.userTel},
+    	        user_idnum = #{item.userIdnum},
+    	        user_email = #{item.userEmail},
+    	        user_addtime = #{item.userAddtime},
+    	        user_addman = #{item.userAddman},
+    	        user_changetime = #{item.userChangetime},
+    	        user_changeman = #{item.userChangeman},
+    	        user_intest = #{item.userIntest},
+    	        user_diploma = #{item.userDiploma},
+    	        user_bankcard = #{item.userBankcard},
+    	        user_nation = #{item.userNation},
+    	        is_married = #{item.isMarried},
+    	        is_used = #{item.isUsed},
+    	        parking_id=#{item.parkingId}
+			</set>
+            WHERE user_id = #{item.userId} 	
+		</foreach>
+	</update>
+</mapper>

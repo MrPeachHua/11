@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.ccic.dao.CcicCustomerDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.ccic.po.CcicCustomer">
+        <result column="ID" property="id"/>
+        <result column="CUSTOMER_ID" property="customerId"/>
+        <result column="NAME" property="name"/>
+        <result column="MOBILE" property="mobile"/>
+        <result column="EMAIL" property="email"/>
+        <result column="CAR_LICENCE" property="carLicence"/>
+        <result column="CITY_CODE" property="cityCode"/>
+        <result column="REGISTER_DATE" property="registerDate"/>
+        <result column="BIZ_BEGIN_DATE" property="bizBeginDate"/>
+        <result column="FOR_BEGIN_DATE" property="forBeginDate"/>
+        <result column="UTMSN" property="utmsn"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, CUSTOMER_ID, NAME, MOBILE, EMAIL, CAR_LICENCE, CITY_CODE, REGISTER_DATE, BIZ_BEGIN_DATE, FOR_BEGIN_DATE, UTMSN, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND CUSTOMER_ID = #{customerId}
+		</if>
+		<if test="name != null and name != '' ">
+		AND NAME = #{name}
+		</if>
+		<if test="mobile != null and mobile != '' ">
+		AND MOBILE = #{mobile}
+		</if>
+		<if test="email != null and email != '' ">
+		AND EMAIL = #{email}
+		</if>
+		<if test="carLicence != null and carLicence != '' ">
+		AND CAR_LICENCE = #{carLicence}
+		</if>
+		<if test="cityCode != null and cityCode != '' ">
+		AND CITY_CODE = #{cityCode}
+		</if>
+		<if test="registerDate != null and registerDate != '' ">
+		AND REGISTER_DATE = #{registerDate}
+		</if>
+		<if test="bizBeginDate != null and bizBeginDate != '' ">
+		AND BIZ_BEGIN_DATE = #{bizBeginDate}
+		</if>
+		<if test="forBeginDate != null and forBeginDate != '' ">
+		AND FOR_BEGIN_DATE = #{forBeginDate}
+		</if>
+		<if test="utmsn != null and utmsn != '' ">
+		AND UTMSN = #{utmsn}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND CUSTOMER_ID = #{params.customerId}
+		</if>
+		<if test="params.name != null and params.name != '' ">
+		AND NAME = #{params.name}
+		</if>
+		<if test="params.mobile != null and params.mobile != '' ">
+		AND MOBILE = #{params.mobile}
+		</if>
+		<if test="params.email != null and params.email != '' ">
+		AND EMAIL = #{params.email}
+		</if>
+		<if test="params.carLicence != null and params.carLicence != '' ">
+		AND CAR_LICENCE = #{params.carLicence}
+		</if>
+		<if test="params.cityCode != null and params.cityCode != '' ">
+		AND CITY_CODE = #{params.cityCode}
+		</if>
+		<if test="params.registerDate != null and params.registerDate != '' ">
+		AND REGISTER_DATE = #{params.registerDate}
+		</if>
+		<if test="params.bizBeginDate != null and params.bizBeginDate != '' ">
+		AND BIZ_BEGIN_DATE = #{params.bizBeginDate}
+		</if>
+		<if test="params.forBeginDate != null and params.forBeginDate != '' ">
+		AND FOR_BEGIN_DATE = #{params.forBeginDate}
+		</if>
+		<if test="params.utmsn != null and params.utmsn != '' ">
+		AND UTMSN = #{params.utmsn}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CCIC_CUSTOMER 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CCIC_CUSTOMER
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CCIC_CUSTOMER
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.ccic.po.CcicCustomer">
+        INSERT INTO T_CCIC_CUSTOMER (
+        	ID,
+        	CUSTOMER_ID,
+        	NAME,
+        	MOBILE,
+        	EMAIL,
+        	CAR_LICENCE,
+        	CITY_CODE,
+        	REGISTER_DATE,
+        	BIZ_BEGIN_DATE,
+        	FOR_BEGIN_DATE,
+        	UTMSN,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{customerId},
+        	#{name},
+        	#{mobile},
+        	#{email},
+        	#{carLicence},
+        	#{cityCode},
+        	#{registerDate},
+        	#{bizBeginDate},
+        	#{forBeginDate},
+        	#{utmsn},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CCIC_CUSTOMER 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.ccic.po.CcicCustomer">
+        UPDATE T_CCIC_CUSTOMER 
+		SET
+	        CUSTOMER_ID = #{customerId},
+	        NAME = #{name},
+	        MOBILE = #{mobile},
+	        EMAIL = #{email},
+	        CAR_LICENCE = #{carLicence},
+	        CITY_CODE = #{cityCode},
+	        REGISTER_DATE = #{registerDate},
+	        BIZ_BEGIN_DATE = #{bizBeginDate},
+	        FOR_BEGIN_DATE = #{forBeginDate},
+	        UTMSN = #{utmsn},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CCIC_CUSTOMER
+			<set>
+    	        CUSTOMER_ID = #{item.customerId},
+    	        NAME = #{item.name},
+    	        MOBILE = #{item.mobile},
+    	        EMAIL = #{item.email},
+    	        CAR_LICENCE = #{item.carLicence},
+    	        CITY_CODE = #{item.cityCode},
+    	        REGISTER_DATE = #{item.registerDate},
+    	        BIZ_BEGIN_DATE = #{item.bizBeginDate},
+    	        FOR_BEGIN_DATE = #{item.forBeginDate},
+    	        UTMSN = #{item.utmsn},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

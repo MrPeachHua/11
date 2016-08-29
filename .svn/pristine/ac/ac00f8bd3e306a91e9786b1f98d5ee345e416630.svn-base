@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.system.dao.SendMessageDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.system.po.SendMessage">
+        <result column="id" property="id"/>
+        <result column="parking_id" property="parkingId"/>
+        <result column="order_type" property="orderType"/>
+        <result column="person_name" property="personName"/>
+        <result column="person_mobile" property="personMobile"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+		<result column="parking_name" property="parkingName"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		id, parking_id, order_type, person_name, person_mobile, create_time, create_user, update_time, update_user
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND id = #{id}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND parking_id = #{parkingId}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+		AND order_type = #{orderType}
+		</if>
+		<if test="personName != null and personName != '' ">
+		AND person_name = #{personName}
+		</if>
+		<if test="personMobile != null and personMobile != '' ">
+		AND person_mobile = #{personMobile}
+		</if>
+		<if test="createTime != null and createTime != '' ">
+		AND create_time = #{createTime}
+		</if>
+		<if test="createUser != null and createUser != '' ">
+		AND create_user = #{createUser}
+		</if>
+		<if test="updateTime != null and updateTime != '' ">
+		AND update_time = #{updateTime}
+		</if>
+		<if test="updateUser != null and updateUser != '' ">
+		AND update_user = #{updateUser}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND id = #{params.id}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND parking_id = #{params.parkingId}
+		</if>
+		<if test="params.orderType != null and params.orderType != '' ">
+		AND order_type = #{params.orderType}
+		</if>
+		<if test="params.personName != null and params.personName != '' ">
+		AND person_name = #{params.personName}
+		</if>
+		<if test="params.personMobile != null and params.personMobile != '' ">
+		AND person_mobile = #{params.personMobile}
+		</if>
+		<if test="params.createTime != null and params.createTime != '' ">
+		AND create_time = #{params.createTime}
+		</if>
+		<if test="params.createUser != null and params.createUser != '' ">
+		AND create_user = #{params.createUser}
+		</if>
+		<if test="params.updateTime != null and params.updateTime != '' ">
+		AND update_time = #{params.updateTime}
+		</if>
+		<if test="params.updateUser != null and params.updateUser != '' ">
+		AND update_user = #{params.updateUser}
+		</if>
+	</sql>
+	<select id="selectListByParking" resultMap="resultMap">
+		SELECT * FROM T_SEND_MESSAGE a
+		LEFT JOIN T_PARKING b ON a.parking_id = b.parking_id
+		WHERE 1=1
+		<if test="params.personName != null and params.personName != '' ">
+			AND a.person_name like '%${params.personName}%'
+		</if>
+		<if test="params.personMobile != null and params.personMobile != '' ">
+			AND a.person_mobile = #{params.personMobile}
+		</if>
+		<if test="params.orderType != null and params.orderType != '' ">
+			AND a.order_type = #{params.orderType}
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+			AND b.parking_name like '%${params.parkingName}%'
+		</if>
+	</select>
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_SEND_MESSAGE 
+	     WHERE id = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_SEND_MESSAGE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_SEND_MESSAGE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.system.po.SendMessage">
+        INSERT INTO T_SEND_MESSAGE (
+        	id,
+        	parking_id,
+        	order_type,
+        	person_name,
+        	person_mobile,
+        	create_time,
+        	create_user,
+        	update_time,
+        	update_user
+        ) VALUES (
+        	#{id},
+        	#{parkingId},
+        	#{orderType},
+        	#{personName},
+        	#{personMobile},
+        	#{createTime},
+        	#{createUser},
+        	#{updateTime},
+        	#{updateUser}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_SEND_MESSAGE 
+		 WHERE id = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.system.po.SendMessage">
+        UPDATE T_SEND_MESSAGE 
+		SET
+	        parking_id = #{parkingId},
+	        order_type = #{orderType},
+	        person_name = #{personName},
+	        person_mobile = #{personMobile},
+	        create_time = #{createTime},
+	        create_user = #{createUser},
+	        update_time = #{updateTime},
+	        update_user = #{updateUser}
+        WHERE id = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_SEND_MESSAGE
+			<set>
+    	        parking_id = #{item.parkingId},
+    	        order_type = #{item.orderType},
+				person_name = #{item.personName},
+				person_mobile = #{item.personMobile},
+    	        create_time = #{item.createTime},
+    	        create_user = #{item.createUser},
+    	        update_time = #{item.updateTime},
+    	        update_user = #{item.updateUser}
+			</set>
+            WHERE id = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

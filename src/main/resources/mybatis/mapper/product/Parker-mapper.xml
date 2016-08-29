@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parker.dao.ParkerDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parker.po.Parker">
+        <result column="parker_id" property="parkerId"/>
+        <result column="parker_password" property="parkerPassword"/>
+        <result column="parking_id" property="parkingId"/>
+        <result column="parker_level" property="parkerLevel"/>
+        <result column="parker_name" property="parkerName"/>
+        <result column="parker_cardid" property="parkerCardid"/>
+        <result column="parker_age" property="parkerAge"/>
+        <result column="parker_sex" property="parkerSex"/>
+        <result column="parker_driver_age" property="parkerDriverAge"/>
+        <result column="parker_head" property="parkerHead"/>
+        <result column="parker_mobile" property="parkerMobile"/>
+        <result column="parker_driver_number" property="parkerDriverNumber"/>
+        <result column="parker_driver_image" property="parkerDriverImage"/>
+        <result column="parker_type" property="parkerType"/>
+		<result column="state" property="state"/>
+		<result column="last_oper_time" property="lastOperTime"/>
+		<result column="version" property="version"/>
+		<result column="is_display" property="isDisplay"/>
+        <result column="CAR_NUMBER" property="carNumber"/>
+         <result column="ORDER_STATUS" property="orderStatus"/>
+         <result column="ORDER_BEGIN_DATE" property="orderBeginDate"/>
+        <result column="ORDER_END_DATE" property="orderEndDate"/>
+        <result column="ACTUAL_BEGIN_DATE" property="actualBeginDate"/>
+        <result column="ACTUAL_END_DATE" property="actualEndDate"/>
+         <result column="VALIDATE_IMAGE_PATH" property="validateImagePath"/>
+        <result column="PARKING_IMAGE_PATH" property="parkingImagePath"/>
+         <result column="AMOUNT_PAYABLE" property="amountPayable"/>
+        <result column="AMOUNT_DISCOUNT" property="amountDiscount"/>
+        <result column="AMOUNT_PAID" property="amountPaid"/>
+        
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		parker_id, parker_password, parking_id, parker_level, parker_name, parker_cardid, parker_age, parker_sex, parker_driver_age, parker_head, parker_mobile, parker_driver_number, parker_driver_image, parker_type, state, last_oper_time, version,is_display
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="parkerId != null and parkerId != '' ">
+		AND parker_id = #{parkerId}
+		</if>
+		<if test="parkerPassword != null and parkerPassword != '' ">
+		AND parker_password = #{parkerPassword}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND parking_id = #{parkingId}
+		</if>
+		<if test="parkerLevel != null and parkerLevel != '' ">
+		AND parker_level = #{parkerLevel}
+		</if>
+		<if test="parkerName != null and parkerName != '' ">
+		AND parker_name = #{parkerName}
+		</if>
+		<if test="parkerCardid != null and parkerCardid != '' ">
+		AND parker_cardid = #{parkerCardid}
+		</if>
+		<if test="parkerAge != null and parkerAge != '' ">
+		AND parker_age = #{parkerAge}
+		</if>
+		<if test="parkerSex != null and parkerSex != '' ">
+		AND parker_sex = #{parkerSex}
+		</if>
+		<if test="parkerDriverAge != null and parkerDriverAge != '' ">
+		AND parker_driver_age = #{parkerDriverAge}
+		</if>
+		<if test="parkerHead != null and parkerHead != '' ">
+		AND parker_head = #{parkerHead}
+		</if>
+		<if test="parkerMobile != null and parkerMobile != '' ">
+		AND parker_mobile = #{parkerMobile}
+		</if>
+		<if test="parkerDriverNumber != null and parkerDriverNumber != '' ">
+		AND parker_driver_number = #{parkerDriverNumber}
+		</if>
+		<if test="parkerDriverImage != null and parkerDriverImage != '' ">
+		AND parker_driver_image = #{parkerDriverImage}
+		</if>
+		<if test="parkerType != null and parkerType != '' ">
+		AND parker_type = #{parkerType}
+		</if>
+		<if test="state != null and state != '' ">
+			AND state = #{state}
+		</if>
+		<if test="version != null and version != '' ">
+			AND version = #{version}
+		</if>
+		<if test="isDisplay != null and isDisplay != '' ">
+			AND is_display = #{isDisplay}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.parkerId != null and params.parkerId != '' ">
+		AND parker_id = #{params.parkerId}
+		</if>
+		<if test="params.parkerPassword != null and params.parkerPassword != '' ">
+		AND parker_password = #{params.parkerPassword}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND parking_id = #{params.parkingId}
+		</if>
+		<if test="params.parkerLevel != null and params.parkerLevel != '' ">
+		AND parker_level = #{params.parkerLevel}
+		</if>
+		<if test="params.parkerName != null and params.parkerName != '' ">
+		AND parker_name like '%${params.parkerName}%'
+		</if>
+		<if test="params.parkerCardid != null and params.parkerCardid != '' ">
+		AND parker_cardid = #{params.parkerCardid}
+		</if>
+		<if test="params.parkerAge != null and params.parkerAge != '' ">
+		AND parker_age = #{params.parkerAge}
+		</if>
+		<if test="params.parkerSex != null and params.parkerSex != '' ">
+		AND parker_sex = #{params.parkerSex}
+		</if>
+		<if test="params.parkerDriverAge != null and params.parkerDriverAge != '' ">
+		AND parker_driver_age = #{params.parkerDriverAge}
+		</if>
+		<if test="params.parkerHead != null and params.parkerHead != '' ">
+		AND parker_head = #{params.parkerHead}
+		</if>
+		<if test="params.parkerMobile != null and params.parkerMobile != '' ">
+		AND parker_mobile like '%${params.parkerMobile}%'
+		</if>
+		<if test="params.parkerDriverNumber != null and params.parkerDriverNumber != '' ">
+		AND parker_driver_number = #{params.parkerDriverNumber}
+		</if>
+		<if test="params.parkerDriverImage != null and params.parkerDriverImage != '' ">
+		AND parker_driver_image = #{params.parkerDriverImage}
+		</if>
+		<if test="params.parkerType != null and params.parkerType != '' ">
+		AND parker_type = #{params.parkerType}
+		</if>
+		<if test="params.state != null and params.state != '' ">
+			AND state = #{params.state}
+		</if>
+		<if test="params.version != null and params.version != '' ">
+			AND version = #{params.version}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKER 
+	     WHERE parker_id = #{parkerId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKER
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+	<select id="selectLogin" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		 FROM t_parker a WHERE 
+		 a.parker_mobile=#{parkerMobile}
+		 AND a.parker_password=#{parkerPassword}
+		 AND a.parker_type in('0','1')
+	</select>
+	<select id="selectCount" resultType="int">
+		SELECT COUNT(*)
+		FROM T_PARKER
+		WHERE 1 = 1
+		<include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKER
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parker.po.Parker">
+        INSERT INTO T_PARKER (
+        	parker_id,
+        	parker_password,
+        	parking_id,
+        	parker_level,
+        	parker_name,
+        	parker_cardid,
+        	parker_age,
+        	parker_sex,
+        	parker_driver_age,
+        	parker_head,
+        	parker_mobile,
+        	parker_driver_number,
+        	parker_driver_image,
+        	parker_type,
+        	last_oper_time,
+        	is_display
+        ) VALUES (
+        	#{parkerId},
+        	#{parkerPassword},
+        	#{parkingId},
+        	#{parkerLevel},
+        	#{parkerName},
+        	#{parkerCardid},
+        	#{parkerAge},
+        	#{parkerSex},
+        	#{parkerDriverAge},
+        	#{parkerHead},
+        	#{parkerMobile},
+        	#{parkerDriverNumber},
+        	#{parkerDriverImage},
+        	#{parkerType},
+        	#{lastOperTime},
+        	#{isDisplay}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_PARKER 
+		 WHERE parker_id = #{parkerId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parker.po.Parker">
+        UPDATE T_PARKER 
+		SET
+	        parker_password = #{parkerPassword},
+	        parking_id = #{parkingId},
+	        parker_level = #{parkerLevel},
+	        parker_name = #{parkerName},
+	        parker_cardid = #{parkerCardid},
+	        parker_age = #{parkerAge},
+	        parker_sex = #{parkerSex},
+	        parker_driver_age = #{parkerDriverAge},
+	        parker_head = #{parkerHead},
+	        parker_mobile = #{parkerMobile},
+	        parker_driver_number = #{parkerDriverNumber},
+	        parker_driver_image = #{parkerDriverImage},
+	        parker_type = #{parkerType},
+	        is_display=#{isDisplay}
+        WHERE parker_id = #{parkerId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_PARKER
+			<set>
+    	        parker_password = #{item.parkerPassword},
+    	        parking_id = #{item.parkingId},
+    	        parker_level = #{item.parkerLevel},
+    	        parker_name = #{item.parkerName},
+    	        parker_cardid = #{item.parkerCardid},
+    	        parker_age = #{item.parkerAge},
+    	        parker_sex = #{item.parkerSex},
+    	        parker_driver_age = #{item.parkerDriverAge},
+    	        parker_head = #{item.parkerHead},
+    	        parker_mobile = #{item.parkerMobile},
+    	        parker_driver_number = #{item.parkerDriverNumber},
+    	        parker_driver_image = #{item.parkerDriverImage},
+    	        parker_type = #{item.parkerType}
+			</set>
+            WHERE parker_id = #{item.parkerId} 	
+		</foreach>
+	</update>
+
+	<select id="queryParkerById" resultType="com.boxiang.share.product.order.po.AppMyParkOrderVo">
+		select
+		op.ORDER_ID orderId,
+		op.CAR_NUMBER carNumber,
+		om.ORDER_TYPE orderType,
+		om.ORDER_STATUS orderStatus,
+		op.ORDER_BEGIN_DATE orderBeginDate,
+		op.ORDER_END_DATE orderEndDate,
+		op.ACTUAL_BEGIN_DATE actualBeginDate,
+		op.ACTUAL_END_DATE actualEndDate,
+		op.VALIDATE_IMAGE_PATH validateImagePath,
+		op.PARKING_IMAGE_PATH parkingImagePath,
+		op.PARKING_ID parkingId,
+		op.KEY_BOX keyBox,
+		op.BACK_PARK backPark,
+		(select parking_name from t_parking where parking_id = op.PARKING_ID) parkingName,
+		op.TARGET_PARKING_ID targetParkingId,
+		(select parking_name from t_parking where parking_id = op.TARGET_PARKING_ID) targetParkingName,
+		om.PAY_TYPE payType,
+		om.PAY_TIME payTime,
+		om.AMOUNT_PAYABLE amountPayable,
+		om.AMOUNT_DISCOUNT amountDiscount,
+		om.AMOUNT_PAID amountPaid,
+		om.CUSTOMER_ID customerId,
+		op.PARKER_ID parkerId,
+		p.parker_name parkerName,
+		p.parker_head parkerHead,
+		p.parker_mobile parkerMobile,
+		op.PARKER_BACK_ID parkerBackId,
+		pb.parker_name parkerBackName,
+		pb.parker_head parkerBackHead,
+		pb.parker_mobile parkerBackMobile,
+		op.CREATE_DATE createDate
+		from t_order_park op
+		left join t_order_main om on om.ORDER_ID = op.ORDER_ID
+		left join t_parker p on p.parker_id = op.PARKER_ID
+		left join t_parker pb on pb.parker_id = op.PARKER_BACK_ID
+		where 1 = 1
+		<if test="params.customerId != null and params.customerId != '' ">
+			and om.CUSTOMER_ID = #{params.customerId}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			and op.CAR_NUMBER = #{params.carNumber}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			and op.PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.orderStatus != null and params.orderStatus != '' ">
+			and om.ORDER_STATUS ${params.orderStatus}
+		</if>
+		<if test="params.orderId != null and params.orderId != '' ">
+			and op.ORDER_ID = #{params.orderId}
+		</if>
+		order by op.CREATE_DATE desc
+	</select>
+
+	<select id="queryBusyCount" parameterType="java.util.Map" resultType="java.util.Map">
+		select
+		(select count(*) from t_parker
+		where parking_id = #{parkingId}
+		and state = '1'
+		and parker_type = '0'
+		) totalCount
+		,
+		(select count(*) from t_parker
+		where parking_id = #{parkingId}
+		and last_oper_time BETWEEN #{startTime} and #{endTime}
+		and state = '1'
+		and parker_type = '0'
+		) busyCount
+	</select>
+
+	<!--分配一个代泊员-->
+	<select id="dispatchParker" resultMap="resultMap">
+		select * from t_parker
+		where parking_id = #{parkingId}
+		and state = '1'
+		and parker_type = '0'
+		order by last_oper_time asc
+		limit 1
+	</select>
+	<select id="selectParkingIdByParker" resultMap="resultMap">
+		select *  FROM t_parker WHERE 1=1
+		<include refid="whereSQL" />
+	</select>
+	<update id="updateLastOperTime">
+		update t_parker
+		set last_oper_time = #{lastOperTime},
+		version = version + 1
+		where parker_id = #{parkerId}
+		<if test="version != null and version != '' ">
+			and version = #{version}
+		</if>
+	</update>
+
+	<update id="updateState">
+		update t_parker
+		set state = #{state}
+		where parker_id = #{parkerId}
+	</update>
+	<select id="selctDaiBoUser" resultMap="resultMap">
+		select *  FROM t_parker WHERE 1=1
+		AND parker_type IN ('0','1')
+		<include refid="whereSQL" />
+	</select>
+</mapper>

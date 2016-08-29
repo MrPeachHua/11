@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parking.dao.ParkingVoucherDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parking.po.ParkingVoucher">
+        <result column="ID" property="id"/>
+        <result column="CUSTOMER_ID" property="customerId"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="PV_STATUS" property="pvStatus"/>
+	</resultMap>
+	<resultMap type="com.boxiang.share.product.parking.po.ParkingVoucher" id="resultMapForParking">
+		<result column="CUSTOMER_ID" property="customerId"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="parkingName" property="parkingName"/>
+        <result column="startTime" property="startTime"/>
+        <result column="stopTime" property="stopTime"/>
+        <result column="sharePrice" property="sharePrice"/>
+        <result column="vipSharePrice" property="vipSharePrice"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="PV_STATUS" property="pvStatus"/>
+	</resultMap>
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, CUSTOMER_ID, PARKING_ID, IS_USED, CREATEOR, CREATE_DATE,car_number,PV_STATUS
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND CUSTOMER_ID = #{customerId}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND car_number = #{carNumber}
+		</if>
+		<if test="pvStatus != null and pvStatus != '' ">
+		AND PV_STATUS = #{pvStatus}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+	<if test="params.pvStatus != null and params.pvStatus != '' ">
+		AND PV_STATUS = #{params.pvStatus}
+		</if>
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND CUSTOMER_ID = #{params.customerId}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND car_number = #{params.carNumber}
+		</if>
+	</sql>
+	
+	<select id="selectListByDate" resultMap="resultMap">
+		select <include refid="columns" /> from t_parking_voucher p 
+		where p.CAR_NUMBER=#{carNumber} and p.PARKING_ID=#{parkingId}
+		and DATE(p.CREATE_DATE)=DATE(NOW())  
+	</select>
+	<select id="queryCountStatus" resultMap="resultMap">
+		select <include refid="columns" /> from t_parking_voucher p 
+		where 1=1 <include refid="whereSQL" />
+	</select>
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_VOUCHER 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_VOUCHER
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+		 ORDER BY CREATE_DATE DESC
+	</select>
+	<select id="selectListByCustomer" resultMap="resultMapForParking">
+	select v.CREATE_DATE,p.parking_name,p.StartTime,p.StopTime,p.SharePrice,v.car_number,p.vipSharePrice
+	from t_parking_voucher v 
+	LEFT JOIN t_parking p on p.parking_id = v.PARKING_ID
+	where 1=1
+	and v.PV_STATUS in (0,1)
+	 <if test="params.customerId != null and params.customerId != '' ">
+	and v.CUSTOMER_ID=#{params.customerId}
+	</if>
+	ORDER BY v.CREATE_DATE desc
+	</select>
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_VOUCHER
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parking.po.ParkingVoucher">
+        INSERT INTO T_PARKING_VOUCHER (
+        	ID,
+        	CUSTOMER_ID,
+        	PARKING_ID,
+        	IS_USED,
+        	CREATEOR,
+        	CREATE_DATE,
+        	car_number,
+        	PV_STATUS
+        ) VALUES (
+        	#{id},
+        	#{customerId},
+        	#{parkingId},
+        	#{isUsed},
+        	#{createor},
+        	#{createDate},
+        	#{carNumber},
+        	#{pvStatus}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_PARKING_VOUCHER 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parking.po.ParkingVoucher">
+        UPDATE T_PARKING_VOUCHER 
+		SET
+	        CUSTOMER_ID = #{customerId},
+	        PARKING_ID = #{parkingId},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        CREATE_DATE = #{createDate},
+	        car_number = #{carNumber},
+	        PV_STATUS=#{pvStatus}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_PARKING_VOUCHER
+			<set>
+    	        CUSTOMER_ID = #{item.customerId},
+    	        PARKING_ID = #{item.parkingId},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        CREATE_DATE = #{item.createDate},
+    	        car_number = #{item.carNumber},
+    	          PV_STATUS=#{item.pvStatus}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

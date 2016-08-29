@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.customer.dao.OrderPayRecordDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.customer.po.OrderPayRecord">
+        <result column="record_id" property="recordId"/>
+        <result column="trade_no" property="tradeNo"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="order_id" property="orderId"/>
+        <result column="pay_amount" property="payAmount"/>
+        <result column="pay_type" property="payType"/>
+        <result column="pay_account" property="payAccount"/>
+        <result column="add_time" property="addTime"/>
+        <result column="pay_state" property="payState"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		record_id, trade_no, customer_id, order_id, pay_amount, pay_type, pay_account, add_time, pay_state
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="recordId != null and recordId != '' ">
+		AND record_id = #{recordId}
+		</if>
+		<if test="tradeNo != null and tradeNo != '' ">
+		AND trade_no = #{tradeNo}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND customer_id = #{customerId}
+		</if>
+		<if test="orderId != null and orderId != '' ">
+		AND order_id = #{orderId}
+		</if>
+		<if test="payAmount != null and payAmount != '' ">
+		AND pay_amount = #{payAmount}
+		</if>
+		<if test="payType != null and payType != '' ">
+		AND pay_type = #{payType}
+		</if>
+		<if test="payAccount != null and payAccount != '' ">
+		AND pay_account = #{payAccount}
+		</if>
+		<if test="addTime != null and addTime != '' ">
+		AND add_time = #{addTime}
+		</if>
+		<if test="payState != null and payState != '' ">
+		AND pay_state = #{payState}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.recordId != null and params.recordId != '' ">
+		AND record_id = #{params.recordId}
+		</if>
+		<if test="params.tradeNo != null and params.tradeNo != '' ">
+		AND trade_no = #{params.tradeNo}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND customer_id = #{params.customerId}
+		</if>
+		<if test="params.orderId != null and params.orderId != '' ">
+		AND order_id = #{params.orderId}
+		</if>
+		<if test="params.payAmount != null and params.payAmount != '' ">
+		AND pay_amount = #{params.payAmount}
+		</if>
+		<if test="params.payType != null and params.payType != '' ">
+		AND pay_type = #{params.payType}
+		</if>
+		<if test="params.payAccount != null and params.payAccount != '' ">
+		AND pay_account = #{params.payAccount}
+		</if>
+		<if test="params.addTime != null and params.addTime != '' ">
+		AND add_time = #{params.addTime}
+		</if>
+		<if test="params.payState != null and params.payState != '' ">
+		AND pay_state = #{params.payState}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_PAY_RECORD 
+	     WHERE record_id = #{recordId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_PAY_RECORD
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_PAY_RECORD
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.customer.po.OrderPayRecord">
+        INSERT INTO T_ORDER_PAY_RECORD (
+        	record_id,
+        	trade_no,
+        	customer_id,
+        	order_id,
+        	pay_amount,
+        	pay_type,
+        	pay_account,
+        	add_time,
+        	pay_state
+        ) VALUES (
+        	#{recordId},
+        	#{tradeNo},
+        	#{customerId},
+        	#{orderId},
+        	#{payAmount},
+        	#{payType},
+        	#{payAccount},
+        	#{addTime},
+        	#{payState}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_ORDER_PAY_RECORD 
+		 WHERE record_id = #{recordId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.customer.po.OrderPayRecord">
+        UPDATE T_ORDER_PAY_RECORD 
+		SET
+	        trade_no = #{tradeNo},
+	        customer_id = #{customerId},
+	        order_id = #{orderId},
+	        pay_amount = #{payAmount},
+	        pay_type = #{payType},
+	        pay_account = #{payAccount},
+	        add_time = #{addTime},
+	        pay_state = #{payState}
+        WHERE record_id = #{recordId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_ORDER_PAY_RECORD
+			<set>
+    	        trade_no = #{item.tradeNo},
+    	        customer_id = #{item.customerId},
+    	        order_id = #{item.orderId},
+    	        pay_amount = #{item.payAmount},
+    	        pay_type = #{item.payType},
+    	        pay_account = #{item.payAccount},
+    	        add_time = #{item.addTime},
+    	        pay_state = #{item.payState}
+			</set>
+            WHERE record_id = #{item.recordId} 	
+		</foreach>
+	</update>
+</mapper>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.system.synwhite.dao.WhitesynRecordDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.system.synwhite.po.WhitesynRecord">
+        <result column="ID" property="id"/>
+        <result column="PARKING_INFO" property="parkingInfo"/>
+        <result column="CALLBACK_INFO" property="callbackInfo"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="CREATE_DATE" property="createDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, PARKING_INFO, CALLBACK_INFO, IS_USED, CREATEOR, CREATE_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="parkingInfo != null and parkingInfo != '' ">
+		AND PARKING_INFO = #{parkingInfo}
+		</if>
+		<if test="callbackInfo != null and callbackInfo != '' ">
+		AND CALLBACK_INFO = #{callbackInfo}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.parkingInfo != null and params.parkingInfo != '' ">
+		AND PARKING_INFO = #{params.parkingInfo}
+		</if>
+		<if test="params.callbackInfo != null and params.callbackInfo != '' ">
+		AND CALLBACK_INFO = #{params.callbackInfo}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_WHITESYN_RECORD 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_WHITESYN_RECORD
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_WHITESYN_RECORD
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.system.synwhite.po.WhitesynRecord">
+        INSERT INTO T_WHITESYN_RECORD (
+        	ID,
+        	PARKING_INFO,
+        	CALLBACK_INFO,
+        	IS_USED,
+        	CREATEOR,
+        	CREATE_DATE
+        ) VALUES (
+        	#{id},
+        	#{parkingInfo},
+        	#{callbackInfo},
+        	#{isUsed},
+        	#{createor},
+        	#{createDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_WHITESYN_RECORD 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.system.synwhite.po.WhitesynRecord">
+        UPDATE T_WHITESYN_RECORD 
+		SET
+	        PARKING_INFO = #{parkingInfo},
+	        CALLBACK_INFO = #{callbackInfo},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        CREATE_DATE = #{createDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_WHITESYN_RECORD
+			<set>
+    	        PARKING_INFO = #{item.parkingInfo},
+    	        CALLBACK_INFO = #{item.callbackInfo},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        CREATE_DATE = #{item.createDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

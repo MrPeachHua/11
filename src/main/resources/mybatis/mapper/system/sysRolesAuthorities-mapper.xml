@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.system.dao.SysRolesAuthoritiesDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.system.po.SysRolesAuthorities">
+        <result column="ID" property="id"/>
+        <result column="ROLE_ID" property="roleId"/>
+        <result column="AUTHORITY_ID" property="authorityId"/>
+        <result column="ENABLED" property="enabled"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, ROLE_ID, AUTHORITY_ID, ENABLED
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="roleId != null and roleId != '' ">
+		AND ROLE_ID = #{roleId}
+		</if>
+		<if test="authorityId != null and authorityId != '' ">
+		AND AUTHORITY_ID = #{authorityId}
+		</if>
+		<if test="enabled != null and enabled != '' ">
+		AND ENABLED = #{enabled}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.roleId != null and params.roleId != '' ">
+		AND ROLE_ID = #{params.roleId}
+		</if>
+		<if test="params.authorityId != null and params.authorityId != '' ">
+		AND AUTHORITY_ID = #{params.authorityId}
+		</if>
+		<if test="params.enabled != null and params.enabled != '' ">
+		AND ENABLED = #{params.enabled}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_ROLES_AUTHORITIES 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_ROLES_AUTHORITIES
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<select id="selectList2" resultType="com.boxiang.share.system.po.SysAuthorities">
+		SELECT
+			*
+		FROM
+		sys_users
+		LEFT JOIN sys_users_roles ON sys_users.USER_ID = sys_users_roles.USER_ID
+		LEFT JOIN sys_roles_authorities on sys_roles_authorities.ROLE_ID = sys_users_roles.ROLE_ID
+		LEFT JOIN sys_authorities ON SYS_ROLES_AUTHORITIES.AUTHORITY_ID = sys_authorities.AUTHORITY_ID
+		WHERE
+	1 = 1 and  sys_users.USER_ID = #{userId} GROUP BY sys_authorities.AUTHORITY_ID
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_ROLES_AUTHORITIES
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.system.po.SysRolesAuthorities">
+        INSERT INTO SYS_ROLES_AUTHORITIES (
+        	ID,
+        	ROLE_ID,
+        	AUTHORITY_ID,
+        	ENABLED
+        ) VALUES (
+        	#{id},
+        	#{roleId},
+        	#{authorityId},
+        	#{enabled}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM SYS_ROLES_AUTHORITIES 
+		 WHERE ID = #{id} 
+	</delete>
+	<delete id="del">
+		DELETE FROM SYS_ROLES_AUTHORITIES
+		WHERE role_id = #{roleId}
+	</delete>
+	<delete id="delByAuthId">
+		DELETE FROM SYS_ROLES_AUTHORITIES
+		WHERE AUTHORITY_ID = #{authorityId}
+	</delete>
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.system.po.SysRolesAuthorities">
+        UPDATE SYS_ROLES_AUTHORITIES 
+		SET
+	        ROLE_ID = #{roleId},
+	        AUTHORITY_ID = #{authorityId},
+	        ENABLED = #{enabled}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE SYS_ROLES_AUTHORITIES
+			<set>
+    	        ROLE_ID = #{item.roleId},
+    	        AUTHORITY_ID = #{item.authorityId},
+    	        ENABLED = #{item.enabled}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

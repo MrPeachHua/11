@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.customer.dao.CustomerGrowthDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.customer.po.CustomerGrowth">
+        <result column="ID" property="id"/>
+        <result column="CUSTOMER_ID" property="customerId"/>
+        <result column="CUSTOMER_MOBILE" property="customerMobile"/>
+        <result column="GROWTH_TIME" property="growthTime"/>
+        <result column="ACTION_ID" property="actionId"/>
+        <result column="GROUP_ID" property="groupId"/>
+        <result column="DETAIL_INFO" property="detailInfo"/>
+        <result column="GROWTH_VALUE" property="growthValue"/>
+        <result column="MEMO" property="memo"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, CUSTOMER_ID, CUSTOMER_MOBILE, GROWTH_TIME, ACTION_ID, GROUP_ID, DETAIL_INFO, GROWTH_VALUE, MEMO
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND CUSTOMER_ID = #{customerId}
+		</if>
+		<if test="customerMobile != null and customerMobile != '' ">
+		AND CUSTOMER_MOBILE = #{customerMobile}
+		</if>
+		<if test="growthTime != null and growthTime != '' ">
+		AND GROWTH_TIME = #{growthTime}
+		</if>
+		<if test="actionId != null and actionId != '' ">
+		AND ACTION_ID = #{actionId}
+		</if>
+		<if test="groupId != null and groupId != '' ">
+		AND GROUP_ID = #{groupId}
+		</if>
+		<if test="detailInfo != null and detailInfo != '' ">
+		AND DETAIL_INFO = #{detailInfo}
+		</if>
+		<if test="growthValue != null and growthValue != '' ">
+		AND GROWTH_VALUE = #{growthValue}
+		</if>
+		<if test="memo != null and memo != '' ">
+		AND MEMO = #{memo}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND CUSTOMER_ID = #{params.customerId}
+		</if>
+		<if test="params.customerMobile != null and params.customerMobile != '' ">
+		AND CUSTOMER_MOBILE = #{params.customerMobile}
+		</if>
+		<if test="params.growthTime != null and params.growthTime != '' ">
+		AND GROWTH_TIME = #{params.growthTime}
+		</if>
+		<if test="params.actionId != null and params.actionId != '' ">
+		AND ACTION_ID = #{params.actionId}
+		</if>
+		<if test="params.groupId != null and params.groupId != '' ">
+		AND GROUP_ID = #{params.groupId}
+		</if>
+		<if test="params.detailInfo != null and params.detailInfo != '' ">
+		AND DETAIL_INFO = #{params.detailInfo}
+		</if>
+		<if test="params.growthValue != null and params.growthValue != '' ">
+		AND GROWTH_VALUE = #{params.growthValue}
+		</if>
+		<if test="params.memo != null and params.memo != '' ">
+		AND MEMO = #{params.memo}
+		</if>
+	</sql>
+
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CUSTOMER_GROWTH 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CUSTOMER_GROWTH
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CUSTOMER_GROWTH
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+
+	<!-- 关联条件查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage1" resultMap="resultMap">
+		SELECT
+		T_CUSTOMER_GROWTH.ID,
+		T_CUSTOMER_GROWTH.CUSTOMER_ID,
+		T_CUSTOMER_GROWTH.CUSTOMER_MOBILE,
+		T_CUSTOMER_GROWTH.GROWTH_TIME,
+		T_CUSTOMER_GROWTH.ACTION_ID,
+		T_CUSTOMER_GROWTH.GROUP_ID,
+		T_CUSTOMER_GROWTH.DETAIL_INFO,
+		T_CUSTOMER_GROWTH.GROWTH_VALUE,
+		T_CUSTOMER_GROWTH.MEMO
+		FROM T_CUSTOMER_GROWTH   LEFT JOIN T_CUSTOMER  ON
+		T_CUSTOMER_GROWTH.CUSTOMER_ID=T_CUSTOMER.CUSTOMER_ID
+		WHERE 1 = 1
+		<include refid="wherePageSql" />
+		<if test="params.customerLevel != null and params.customerLevel != '' ">
+			AND T_CUSTOMER.customer_level=#{params.customerLevel}
+		</if>
+		<if test="params.endTime != null and params.endTime != '' ">
+			AND T_CUSTOMER_GROWTH.GROWTH_TIME BETWEEN #{params.startTime} AND #{params.endTime}
+		</if>
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.customer.po.CustomerGrowth">
+        INSERT INTO T_CUSTOMER_GROWTH (
+        	ID,
+        	CUSTOMER_ID,
+        	CUSTOMER_MOBILE,
+        	GROWTH_TIME,
+        	ACTION_ID,
+        	GROUP_ID,
+        	DETAIL_INFO,
+        	GROWTH_VALUE,
+        	MEMO
+        ) VALUES (
+        	#{id},
+        	#{customerId},
+        	#{customerMobile},
+        	#{growthTime},
+        	#{actionId},
+        	#{groupId},
+        	#{detailInfo},
+        	#{growthValue},
+        	#{memo}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CUSTOMER_GROWTH 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.customer.po.CustomerGrowth">
+        UPDATE T_CUSTOMER_GROWTH 
+		SET
+	        CUSTOMER_ID = #{customerId},
+	        CUSTOMER_MOBILE = #{customerMobile},
+	        GROWTH_TIME = #{growthTime},
+	        ACTION_ID = #{actionId},
+	        GROUP_ID = #{groupId},
+	        DETAIL_INFO = #{detailInfo},
+	        GROWTH_VALUE = #{growthValue},
+	        MEMO = #{memo}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CUSTOMER_GROWTH
+			<set>
+    	        CUSTOMER_ID = #{item.customerId},
+    	        CUSTOMER_MOBILE = #{item.customerMobile},
+    	        GROWTH_TIME = #{item.growthTime},
+    	        ACTION_ID = #{item.actionId},
+    	        GROUP_ID = #{item.groupId},
+    	        DETAIL_INFO = #{item.detailInfo},
+    	        GROWTH_VALUE = #{item.growthValue},
+    	        MEMO = #{item.memo}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

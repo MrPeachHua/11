@@ -1,0 +1,5 @@
+var jsonUrl = {
+	"key":"Boxiang2016",
+	"carList":"http://localhost:9090/share/app/temporary/carlist/",
+	"orderc":"http://localhost:9090/share/app/order/orderc"
+}

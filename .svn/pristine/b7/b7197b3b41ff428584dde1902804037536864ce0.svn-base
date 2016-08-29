@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.system.dao.SysLogsDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.system.po.SysLogs">
+        <result column="ID" property="id"/>
+        <result column="LOG_DATE" property="logDate"/>
+        <result column="LOG_TYPE" property="logType"/>
+        <result column="LOG_SUMMARY" property="logSummary"/>
+        <result column="IP_ADDRESS" property="ipAddress"/>
+        <result column="HOST_NAME" property="hostName"/>
+        <result column="SYS_USER_ID" property="sysUserId"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="CLASS_NAME" property="className"/>
+        <result column="METHOD_NAME" property="methodName"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, LOG_DATE, LOG_TYPE, LOG_SUMMARY, IP_ADDRESS, HOST_NAME, SYS_USER_ID, USER_NAME, CLASS_NAME, METHOD_NAME
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="logDate != null and logDate != '' ">
+		AND LOG_DATE = #{logDate}
+		</if>
+		<if test="logType != null and logType != '' ">
+		AND LOG_TYPE = #{logType}
+		</if>
+		<if test="logSummary != null and logSummary != '' ">
+		AND LOG_SUMMARY = #{logSummary}
+		</if>
+		<if test="ipAddress != null and ipAddress != '' ">
+		AND IP_ADDRESS = #{ipAddress}
+		</if>
+		<if test="hostName != null and hostName != '' ">
+		AND HOST_NAME = #{hostName}
+		</if>
+		<if test="sysUserId != null and sysUserId != '' ">
+		AND SYS_USER_ID = #{sysUserId}
+		</if>
+		<if test="userName != null and userName != '' ">
+		AND USER_NAME = #{userName}
+		</if>
+		<if test="className != null and className != '' ">
+		AND CLASS_NAME = #{className}
+		</if>
+		<if test="methodName != null and methodName != '' ">
+		AND METHOD_NAME = #{methodName}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.logDate != null and params.logDate != '' ">
+		AND LOG_DATE = #{params.logDate}
+		</if>
+		<if test="params.logType != null and params.logType != '' ">
+		AND LOG_TYPE = #{params.logType}
+		</if>
+		<if test="params.logSummary != null and params.logSummary != '' ">
+		AND LOG_SUMMARY LIKE '%${params.logSummary}%'
+		</if>
+		<if test="params.ipAddress != null and params.ipAddress != '' ">
+		AND IP_ADDRESS = #{params.ipAddress}
+		</if>
+		<if test="params.hostName != null and params.hostName != '' ">
+		AND HOST_NAME = #{params.hostName}
+		</if>
+		<if test="params.sysUserId != null and params.sysUserId != '' ">
+		AND SYS_USER_ID = #{params.sysUserId}
+		</if>
+		<if test="params.userName != null and params.userName != '' ">
+		AND USER_NAME = #{params.userName}
+		</if>
+		<if test="params.className != null and params.className != '' ">
+		AND CLASS_NAME = #{params.className}
+		</if>
+		<if test="params.methodName != null and params.methodName != '' ">
+		AND METHOD_NAME = #{params.methodName}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_LOGS 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_LOGS
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM SYS_LOGS
+		 WHERE 1 = 1
+		<if test="params.form_beginTime != null and params.form_beginTime != '' ">
+			AND LOG_DATE &gt; #{params.form_beginTime}
+		</if>
+		<if test="params.form_beginTime != null and params.form_beginTime != '' ">
+			AND LOG_DATE &lt; #{params.form_endTime}
+		</if>
+		 <include refid="wherePageSql" />
+		ORDER BY LOG_DATE DESC
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.system.po.SysLogs">
+        INSERT INTO SYS_LOGS (
+        	ID,
+        	LOG_DATE,
+        	LOG_TYPE,
+        	LOG_SUMMARY,
+        	IP_ADDRESS,
+        	HOST_NAME,
+        	SYS_USER_ID,
+        	USER_NAME,
+        	CLASS_NAME,
+        	METHOD_NAME
+        ) VALUES (
+        	#{id},
+        	#{logDate},
+        	#{logType},
+        	#{logSummary},
+        	#{ipAddress},
+        	#{hostName},
+        	#{sysUserId},
+        	#{userName},
+        	#{className},
+        	#{methodName}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM SYS_LOGS 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.system.po.SysLogs">
+        UPDATE SYS_LOGS 
+		SET
+	        LOG_DATE = #{logDate},
+	        LOG_TYPE = #{logType},
+	        LOG_SUMMARY = #{logSummary},
+	        IP_ADDRESS = #{ipAddress},
+	        HOST_NAME = #{hostName},
+	        SYS_USER_ID = #{sysUserId},
+	        USER_NAME = #{userName},
+	        CLASS_NAME = #{className},
+	        METHOD_NAME = #{methodName}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE SYS_LOGS
+			<set>
+    	        LOG_DATE = #{item.logDate},
+    	        LOG_TYPE = #{item.logType},
+    	        LOG_SUMMARY = #{item.logSummary},
+    	        IP_ADDRESS = #{item.ipAddress},
+    	        HOST_NAME = #{item.hostName},
+    	        SYS_USER_ID = #{item.sysUserId},
+    	        USER_NAME = #{item.userName},
+    	        CLASS_NAME = #{item.className},
+    	        METHOD_NAME = #{item.methodName}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

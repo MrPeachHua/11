@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   
+    http://www.springframework.org/schema/tx   
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+    http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+	    
+	<bean id="carlifeSrvInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.carlife.dao.CarlifeSrvInfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carlifeEventPageDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.carlife.dao.CarlifeEventPageDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carlifeSrvBillingDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.carlife.dao.CarlifeSrvBillingDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="parkingDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.ParkingDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carlifeSrvNewtagDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.carlife.dao.CarlifeSrvNewtagDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="customerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.customer.dao.CustomerDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="couponDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.coupon.dao.CouponDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="systemReviewsDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.feedback.dao.SystemReviewsDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean id="carDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.car.dao.CarDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderMainDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.OrderMainDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderTemporaryDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.OrderTemporaryDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderTemporaryShareDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.OrderTemporaryShareDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderEquityDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.OrderEquityDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderMonthlyDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.OrderMonthlyDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderParkDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.OrderParkDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="villageinfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.VillageinfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="monthlyparkingfeeorderinfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.MonthlyparkingfeeorderinfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="propertyparkinginfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.PropertyparkinginfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderPayRecordDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.customer.dao.OrderPayRecordDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="monthlyparkinginfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.MonthlyparkinginfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="villageuserinfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.VillageuserinfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderRefuelDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.carlife.dao.OrderRefuelDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carlifeRefuelCardDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.carlife.dao.CarlifeRefuelCardDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="questionnaireInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parker.dao.QuestionnaireInfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="questionnaireSurveyDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parker.dao.QuestionnaireSurveyDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="parkingVoucherDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.ParkingVoucherDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="parkingPriceDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.ParkingPriceDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carRentDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.carlife.dao.CarRentDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderRechargeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.OrderRechargeDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="rechargeRuleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.customer.dao.RechargeRuleDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="rechargeRuleGiftAmountDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.customer.dao.RechargeRuleGiftAmountDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.OrderDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="redDotDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.customer.dao.RedDotDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="couponRuleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.coupon.dao.CouponRuleDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="couponTemplateDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.coupon.dao.CouponTemplateDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="redeemRecordDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.coupon.dao.RedeemRecordDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="redeemRuleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.coupon.dao.RedeemRuleDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="orderCarwashDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.OrderCarwashDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+		<!-- 发票 -->
+	<bean id="invoiceDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.InvoiceDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="sceneRecordDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.coupon.dao.SceneRecordDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carModelDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.car.dao.CarModelDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="parkerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parker.dao.ParkerDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="collectionParkingDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parker.dao.CollectionParkingDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="parkingRelevanceDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.ParkingRelevanceDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="commentDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.comment.dao.CommentDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="advertisingDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.advertising.dao.AdvertisingDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="discountParkingPriceDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.DiscountParkingPriceDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="packagePriceDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.PackagePriceDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<!-- 车场车位状态-->
+	<bean id="parkingStatusDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.ParkingStatusDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<!-- 车场进出场-->
+	<bean id="carInOutRecordDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.CarInOutRecordDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<!-- 活动调查-->
+	<bean id="eventQuestionnaireDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.customer.dao.EventQuestionnaireDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<!-- 临时放行记录-->
+	<bean id="clearanceRecordDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.ClearanceRecordDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="parkerStateRecordDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parker.dao.ParkerStateRecordDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="cenuseDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.order.dao.CenuseDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="villageOwnerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.villageowner.dao.VillageOwnerDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="invitationDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.villageowner.dao.InvitationDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="parkingScanRecordDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.record.dao.ParkingScanRecordDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="activityDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.activity.dao.ActivityDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carInOutRecordV2Dao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.parking.dao.CarInOutRecordV2Dao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carLifeActivityDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.activity.dao.CarLifeActivityDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<!-- 微信社区-->
+	<bean id="carlovQrcodeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.qrcode.dao.CarlovQrcodeDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="activityQrCodeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.activity.dao.ActivityQrCodeDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carUpkeepDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.car.dao.CarUpkeepDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carUpkeepDictDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.car.dao.CarUpkeepDictDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carMainDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.car.dao.CarMainDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="carBrandDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.carBrand.dao.CarBrandDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="ccicCustomerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.ccic.dao.CcicCustomerDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="ccicInsureDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.ccic.dao.CcicInsureDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="ccicOrderInfoDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.ccic.dao.CcicOrderInfoDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean id="memberLevelDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.customer.dao.MemberLevelDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+
+	<bean id="carTypesDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.product.car.dao.CarTypesDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean id="memberGroupDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.customer.dao.MemberGroupDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean id="customerGrowthDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.boxiang.share.customer.dao.CustomerGrowthDao"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+
+</beans>

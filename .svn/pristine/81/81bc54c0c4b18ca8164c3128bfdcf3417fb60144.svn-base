@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.customer.dao.RechargeRuleDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.customer.po.RechargeRule">
+        <result column="ID" property="id"/>
+        <result column="IMAGE_PATH" property="imagePath"/>
+        <result column="BEGIN_DATE" property="beginDate"/>
+        <result column="END_DATE" property="endDate"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+	<resultMap id="resultMap2" type="com.boxiang.share.product.customer.po.RechargeRuleGiftAmount">
+		<result column="ID" property="id"/>
+        <result column="RULE_ID" property="ruleId"/>
+        <result column="AMOUNT" property="amount"/>
+        <result column="GIFT_AMOUNT" property="giftAmount"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	
+	</resultMap>
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, IMAGE_PATH, BEGIN_DATE, END_DATE, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="imagePath != null and imagePath != '' ">
+		AND IMAGE_PATH = #{imagePath}
+		</if>
+		<if test="beginDate != null and beginDate != '' ">
+		AND BEGIN_DATE = #{beginDate}
+		</if>
+		<if test="endDate != null and endDate != '' ">
+		AND END_DATE = #{endDate}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.imagePath != null and params.imagePath != '' ">
+		AND IMAGE_PATH = #{params.imagePath}
+		</if>
+		<if test="params.beginDate != null and params.beginDate != '' ">
+		AND BEGIN_DATE = #{params.beginDate}
+		</if>
+		<if test="params.endDate != null and params.endDate != '' ">
+		AND END_DATE = #{params.endDate}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_RECHARGE_RULE 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_RECHARGE_RULE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_RECHARGE_RULE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.boxiang.share.product.customer.po.RechargeRule">
+        INSERT INTO T_RECHARGE_RULE (
+        	ID,
+        	IMAGE_PATH,
+        	BEGIN_DATE,
+        	END_DATE,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{imagePath},
+        	#{beginDate},
+        	#{endDate},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_RECHARGE_RULE 
+		 WHERE ID = #{id} 
+	</delete>
+<update id="deleteRule" parameterType="com.boxiang.share.product.customer.po.RechargeRule">
+        UPDATE T_RECHARGE_RULE 
+		SET
+	        IS_USED = #{isUsed}
+        WHERE ID = #{id} 	        
+	</update>
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.customer.po.RechargeRule">
+        UPDATE T_RECHARGE_RULE 
+		SET
+	        IMAGE_PATH = #{imagePath},
+	        BEGIN_DATE = #{beginDate},
+	        END_DATE = #{endDate},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+<update id="updateRule" parameterType="com.boxiang.share.product.customer.po.RechargeRule">
+        UPDATE T_RECHARGE_RULE 
+		SET
+	        IMAGE_PATH = #{imagePath},
+	        BEGIN_DATE = #{beginDate},
+	        END_DATE = #{endDate},
+	        MODIFIED = #{modified},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_RECHARGE_RULE
+			<set>
+    	        IMAGE_PATH = #{item.imagePath},
+    	        BEGIN_DATE = #{item.beginDate},
+    	        END_DATE = #{item.endDate},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+	<select id="selectRule" resultMap="resultMap2">
+		SELECT
+	a.ID, a.IMAGE_PATH, a.BEGIN_DATE, a.END_DATE,b.RULE_ID,b.AMOUNT,b.GIFT_AMOUNT
+FROM
+	t_recharge_rule a 
+LEFT JOIN t_recharge_rule_gift_amount b ON a.ID = b.RULE_ID and b.IS_USED='1'
+where a.END_DATE <![CDATA[ > ]]>
+ NOW() and a.IS_USED='1'
+	</select>
+</mapper>

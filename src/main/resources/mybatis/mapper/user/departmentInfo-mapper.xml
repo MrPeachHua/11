@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.user.dao.DepartmentInfoDao">
+	
+	<!-- 列结果resultMap junior.pan 2016-1-2 -->
+	<resultMap id="resultMap" type="com.boxiang.share.user.po.DepartmentInfo">
+        <result column="department_id" property="departmentId"/>
+        <result column="department_name" property="departmentName"/>
+		<result column="module" property="module"/>
+        <result column="department_desc" property="departmentDesc"/>
+        <result column="is_used" property="isUsed"/>
+	</resultMap>
+
+	<!-- 公共列 junior.pan 2016-1-2 -->
+	<sql id="columns">
+		department_id, department_name, module, department_desc, is_used
+	</sql>
+
+	<!-- 公共条件 junior.pan 2016-1-2 -->
+	<sql id="whereSQL">
+		<if test="departmentId != null and departmentId != '' ">
+		AND department_id = #{departmentId}
+		</if>
+		<if test="departmentName != null and departmentName != '' ">
+		AND department_name like '%${departmentName}%'
+		</if>
+		<if test="module != null and module != '' ">
+			AND module = #{module}
+		</if>
+		<if test="departmentDesc != null and departmentDesc != '' ">
+		AND department_desc = #{departmentDesc}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND is_used = #{isUsed}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL junior.pan 2016-1-2 -->
+	<sql id="wherePageSql">
+		<if test="params.departmentId != null and params.departmentId != '' ">
+		AND department_id = #{params.departmentId}
+		</if>
+		<if test="params.departmentName != null and params.departmentName != '' ">
+		AND department_name like '%${params.departmentName}%'
+		</if>
+		<if test="params.module != null and params.module != '' ">
+			AND module = #{params.module}
+		</if>
+		<if test="params.departmentDesc != null and params.departmentDesc != '' ">
+		AND department_desc = #{params.departmentDesc}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND is_used = #{params.isUsed}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 junior.pan 2016-1-2 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_DEPARTMENT_INFO 
+	     WHERE department_id = #{departmentId}     
+	</select>
+
+	<!-- 查询列表 junior.pan 2016-1-2 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_DEPARTMENT_INFO
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 junior.pan 2016-1-2 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_DEPARTMENT_INFO
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 junior.pan 2016-1-2 -->
+	<insert id="insert" parameterType="com.boxiang.share.user.po.DepartmentInfo">
+        INSERT INTO T_DEPARTMENT_INFO (
+        	department_id,
+        	department_name,
+        	module,
+        	department_desc,
+        	is_used
+        ) VALUES (
+        	#{departmentId},
+        	#{departmentName},
+        	#{module},
+        	#{departmentDesc},
+        	#{isUsed}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 junior.pan 2016-1-2 -->
+	<delete id="delete">
+		DELETE FROM T_DEPARTMENT_INFO 
+		 WHERE department_id = #{departmentId} 
+	</delete>
+
+	<update id="deleteFalse">
+        UPDATE T_DEPARTMENT_INFO 
+		SET
+	        is_used = '0'
+		 WHERE department_id = #{departmentId} 
+	</update>
+	
+	<!-- 更新 junior.pan 2016-1-2 -->
+	<update id="update" parameterType="com.boxiang.share.user.po.DepartmentInfo">
+        UPDATE T_DEPARTMENT_INFO 
+		SET
+	        department_name = #{departmentName},
+	         module = #{module},
+	        department_desc = #{departmentDesc},
+	        is_used = #{isUsed}
+        WHERE department_id = #{departmentId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_DEPARTMENT_INFO
+			<set>
+    	        department_name = #{item.departmentName},
+				module = #{item.module},
+    	        department_desc = #{item.departmentDesc},
+    	        is_used = #{item.isUsed}
+			</set>
+            WHERE department_id = #{item.departmentId} 	
+		</foreach>
+	</update>
+</mapper>

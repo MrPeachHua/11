@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.order.dao.InvoiceDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.order.po.Invoice">
+        <result column="ID" property="id"/>
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="CUSTOMER_ID" property="customerId"/>
+        <result column="CAR_NUMBER" property="carNumber"/>
+        <result column="INVOICE_NAME" property="invoiceName"/>
+        <result column="SEND_TYPE" property="sendType"/>
+        <result column="SEND_ADDRESS" property="sendAddress"/>
+        <result column="IS_DEFAULT" property="isDefault"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, ORDER_ID, CUSTOMER_ID, CAR_NUMBER, INVOICE_NAME, SEND_TYPE, SEND_ADDRESS, IS_DEFAULT, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="orderId != null and orderId != '' ">
+		AND ORDER_ID = #{orderId}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND CUSTOMER_ID = #{customerId}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND CAR_NUMBER = #{carNumber}
+		</if>
+		<if test="invoiceName != null and invoiceName != '' ">
+		AND INVOICE_NAME = #{invoiceName}
+		</if>
+		<if test="sendType != null and sendType != '' ">
+		AND SEND_TYPE = #{sendType}
+		</if>
+		<if test="sendAddress != null">
+		AND SEND_ADDRESS = #{sendAddress}
+		</if>
+		<if test="isDefault != null and isDefault != '' ">
+		AND IS_DEFAULT = #{isDefault}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.orderId != null and params.orderId != '' ">
+		AND ORDER_ID = #{params.orderId}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND CUSTOMER_ID = #{params.customerId}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND CAR_NUMBER = #{params.carNumber}
+		</if>
+		<if test="params.invoiceName != null and params.invoiceName != '' ">
+		AND INVOICE_NAME = #{params.invoiceName}
+		</if>
+		<if test="params.sendType != null and params.sendType != '' ">
+		AND SEND_TYPE = #{params.sendType}
+		</if>
+		<if test="params.sendAddress != null and params.sendAddress != '' ">
+		AND SEND_ADDRESS = #{params.sendAddress}
+		</if>
+		<if test="params.isDefault != null and params.isDefault != '' ">
+		AND IS_DEFAULT = #{params.isDefault}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_INVOICE 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_INVOICE
+		 WHERE 1 = 1
+		 <include refid="whereSQL" />
+		 		 ORDER BY CREATE_DATE DESC
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_INVOICE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.order.po.Invoice">
+        INSERT INTO T_INVOICE (
+        	ID,
+        	ORDER_ID,
+        	CUSTOMER_ID,
+        	CAR_NUMBER,
+        	INVOICE_NAME,
+        	SEND_TYPE,
+        	SEND_ADDRESS,
+        	IS_DEFAULT,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{orderId},
+        	#{customerId},
+        	#{carNumber},
+        	#{invoiceName},
+        	#{sendType},
+        	#{sendAddress},
+        	#{isDefault},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_INVOICE 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.order.po.Invoice">
+        UPDATE T_INVOICE 
+		SET
+	        ORDER_ID = #{orderId},
+	        CUSTOMER_ID = #{customerId},
+	        CAR_NUMBER = #{carNumber},
+	        INVOICE_NAME = #{invoiceName},
+	        SEND_TYPE = #{sendType},
+	        SEND_ADDRESS = #{sendAddress},
+	        IS_DEFAULT = #{isDefault},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_INVOICE
+			<set>
+    	        ORDER_ID = #{item.orderId},
+    	        CUSTOMER_ID = #{item.customerId},
+    	        CAR_NUMBER = #{item.carNumber},
+    	        INVOICE_NAME = #{item.invoiceName},
+    	        SEND_TYPE = #{item.sendType},
+    	        SEND_ADDRESS = #{item.sendAddress},
+    	        IS_DEFAULT = #{item.isDefault},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

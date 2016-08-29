@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parking.dao.CarInOutRecordDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parking.po.CarInOutRecord">
+        <result column="ID" property="id"/>
+		<result column="CAR_TYPE" property="carType"/>
+        <result column="CONFIDENCE" property="confidence"/>
+        <result column="DISCOUNT_CHARGE" property="discountCharge"/>
+        <result column="DISCOUNT_CODE" property="discountCode"/>
+        <result column="DISCOUNT_TIME" property="discountTime"/>
+        <result column="EDIT_FLAG" property="editFlag"/>
+        <result column="INGATE_ID" property="ingateId"/>
+        <result column="IN_IMAGENAME" property="inImagename"/>
+        <result column="IN_LEDID" property="inLedid"/>
+        <result column="INOROUT" property="inorout"/>
+        <result column="INREADER_ID" property="inreaderId"/>
+        <result column="INTIME" property="intime"/>
+        <result column="INVIDEO_ID" property="invideoId"/>
+        <result column="INVOICE_CODE" property="invoiceCode"/>
+        <result column="OFFLINE_CHARGE" property="offlineCharge"/>
+        <result column="ONLINE_CHARGE" property="onlineCharge"/>
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="OUTGATE_ID" property="outgateId"/>
+        <result column="OUT_IMAGENAME" property="outImagename"/>
+        <result column="OUTLED_ID" property="outledId"/>
+        <result column="OUTREADER_ID" property="outreaderId"/>
+        <result column="OUTTIME" property="outtime"/>
+        <result column="OUTVIDEO_ID" property="outvideoId"/>
+        <result column="PARK_ID" property="parkId"/>
+        <result column="PARK_SPACE_NUM" property="parkSpaceNum"/>
+        <result column="PAY_CHARGE" property="payCharge"/>
+        <result column="PLATE_COLOR" property="plateColor"/>
+        <result column="PLATE_ID" property="plateId"/>
+        <result column="PLATEK" property="platek"/>
+        <result column="REAL_CHARGE" property="realCharge"/>
+        <result column="RECORD_ID" property="recordId"/>
+        <result column="SYS_WRITE_DATE" property="sysWriteDate"/>
+        <result column="USER_TYPE" property="userType"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="parking_name" property="parkingName"/>
+		<result column="startInTime" property="startInTime"/>
+		<result column="endInTime" property="endInTime"/>
+		<result column="startOutTime" property="startOutTime"/>
+		<result column="endOutTime" property="endOutTime"/>
+		<result column="parking_id" property="parkingId"/>
+	</resultMap>
+	<select id="queryCarRecordList" resultMap="resultMap">
+		SELECT * FROM (SELECT a.id,a.CREATE_DATE,a.ORDER_ID,a.INOROUT,a.INTIME,a.OUTTIME,a.plate_id,c.parking_name,a.PAY_CHARGE,a.REAL_CHARGE FROM t_car_in_out_record a LEFT JOIN t_villageinfo b ON a.PARK_ID=b.item01
+		LEFT JOIN t_parking c ON b.id = c.parking_id
+		WHERE 1=1 AND a.INTIME IS NOT NULL AND c.parking_name IS NOT NULL AND a.INOROUT=1
+		GROUP BY a.INTIME
+		UNION ALL
+		SELECT a.id,a.CREATE_DATE,a.ORDER_ID,a.INOROUT,a.INTIME,a.OUTTIME,a.plate_id,c.parking_name,a.PAY_CHARGE,a.REAL_CHARGE FROM t_car_in_out_record a LEFT JOIN t_villageinfo b ON a.PARK_ID=b.item01
+		LEFT JOIN t_parking c ON b.id = c.parking_id
+		WHERE 1=1 AND a.INTIME IS NOT NULL AND c.parking_name IS NOT NULL AND a.INOROUT=2
+		GROUP BY a.OUTTIME
+		) a
+		WHERE 1=1
+		<if test="parkingName != null and parkingName != '' ">
+			AND a.parking_name LIKE '%${parkingName}%'
+		</if>
+		<if test="inorout != null and inorout != '' ">
+			AND a.inorout = #{inorout}
+		</if>
+		<if test="startInTime !=null and startInTime != '' ">
+			AND a.INTIME &gt;=#{startInTime}
+		</if>
+		<if test="endInTime !=null and endInTime != '' ">
+			AND a.INTIME &lt;=#{endInTime}
+		</if>
+		<if test="startOutTime !=null and startOutTime != '' ">
+			AND a.OUTTIME &gt;=#{startOutTime}
+		</if>
+		<if test="endOutTime !=null and endOutTime !='' ">
+			AND a.OUTTIME &lt;=#{endOutTime}
+		</if>
+		<if test="plateId != null and plateId != '' ">
+			AND a.PLATE_ID  LIKE '%${plateId}%'
+		</if>
+		ORDER BY a.INTIME DESC,a.OUTTIME DESC
+	</select>
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, CAR_TYPE, CONFIDENCE, DISCOUNT_CHARGE, DISCOUNT_CODE, DISCOUNT_TIME, EDIT_FLAG, INGATE_ID, IN_IMAGENAME, IN_LEDID, INOROUT, INREADER_ID, INTIME, INVIDEO_ID, INVOICE_CODE, OFFLINE_CHARGE, ONLINE_CHARGE, ORDER_ID, OUTGATE_ID, OUT_IMAGENAME, OUTLED_ID, OUTREADER_ID, OUTTIME, OUTVIDEO_ID, PARK_ID, PARK_SPACE_NUM, PAY_CHARGE, PLATE_COLOR, PLATE_ID, PLATEK, REAL_CHARGE, RECORD_ID, SYS_WRITE_DATE, USER_TYPE, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="confidence != null and confidence != '' ">
+		AND CONFIDENCE = #{confidence}
+		</if>
+		<if test="discountCharge != null and discountCharge != '' ">
+		AND DISCOUNT_CHARGE = #{discountCharge}
+		</if>
+		<if test="discountCode != null and discountCode != '' ">
+		AND DISCOUNT_CODE = #{discountCode}
+		</if>
+		<if test="discountTime != null and discountTime != '' ">
+		AND DISCOUNT_TIME = #{discountTime}
+		</if>
+		<if test="editFlag != null and editFlag != '' ">
+		AND EDIT_FLAG = #{editFlag}
+		</if>
+		<if test="ingateId != null and ingateId != '' ">
+		AND INGATE_ID = #{ingateId}
+		</if>
+		<if test="inImagename != null and inImagename != '' ">
+		AND IN_IMAGENAME = #{inImagename}
+		</if>
+		<if test="inLedid != null and inLedid != '' ">
+		AND IN_LEDID = #{inLedid}
+		</if>
+		<if test="inorout != null and inorout != '' ">
+		AND INOROUT = #{inorout}
+		</if>
+		<if test="inreaderId != null and inreaderId != '' ">
+		AND INREADER_ID = #{inreaderId}
+		</if>
+		<if test="intime != null and intime != '' ">
+		AND INTIME = #{intime}
+		</if>
+		<if test="invideoId != null and invideoId != '' ">
+		AND INVIDEO_ID = #{invideoId}
+		</if>
+		<if test="invoiceCode != null and invoiceCode != '' ">
+		AND INVOICE_CODE = #{invoiceCode}
+		</if>
+		<if test="offlineCharge != null and offlineCharge != '' ">
+		AND OFFLINE_CHARGE = #{offlineCharge}
+		</if>
+		<if test="onlineCharge != null and onlineCharge != '' ">
+		AND ONLINE_CHARGE = #{onlineCharge}
+		</if>
+		<if test="orderId != null and orderId != '' ">
+		AND ORDER_ID = #{orderId}
+		</if>
+		<if test="outgateId != null and outgateId != '' ">
+		AND OUTGATE_ID = #{outgateId}
+		</if>
+		<if test="outImagename != null and outImagename != '' ">
+		AND OUT_IMAGENAME = #{outImagename}
+		</if>
+		<if test="outledId != null and outledId != '' ">
+		AND OUTLED_ID = #{outledId}
+		</if>
+		<if test="outreaderId != null and outreaderId != '' ">
+		AND OUTREADER_ID = #{outreaderId}
+		</if>
+		<if test="outtime != null and outtime != '' ">
+		AND OUTTIME = #{outtime}
+		</if>
+		<if test="outvideoId != null and outvideoId != '' ">
+		AND OUTVIDEO_ID = #{outvideoId}
+		</if>
+		<if test="parkId != null and parkId != '' ">
+		AND PARK_ID = #{parkId}
+		</if>
+		<if test="parkSpaceNum != null and parkSpaceNum != '' ">
+		AND PARK_SPACE_NUM = #{parkSpaceNum}
+		</if>
+		<if test="payCharge != null and payCharge != '' ">
+		AND PAY_CHARGE = #{payCharge}
+		</if>
+		<if test="plateColor != null and plateColor != '' ">
+		AND PLATE_COLOR = #{plateColor}
+		</if>
+		<if test="plateId != null and plateId != '' ">
+		AND PLATE_ID = #{plateId}
+		</if>
+		<if test="platek != null and platek != '' ">
+		AND PLATEK = #{platek}
+		</if>
+		<if test="realCharge != null and realCharge != '' ">
+		AND REAL_CHARGE = #{realCharge}
+		</if>
+		<if test="recordId != null and recordId != '' ">
+		AND RECORD_ID = #{recordId}
+		</if>
+		<if test="sysWriteDate != null and sysWriteDate != '' ">
+		AND SYS_WRITE_DATE = #{sysWriteDate}
+		</if>
+		<if test="userType != null and userType != '' ">
+		AND USER_TYPE = #{userType}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+<select id="selectParkingName" resultMap="resultMap">
+	SELECT c.parking_name,c.parking_id FROM t_car_in_out_record a LEFT JOIN t_villageinfo  b ON a.PARK_ID = b.item01 LEFT JOIN t_parking c ON c.parking_id = b.id
+WHERE 1=1
+	<if test="id != null and id != '' ">
+		AND a.ID = #{id}
+	</if>
+</select>
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.confidence != null and params.confidence != '' ">
+		AND CONFIDENCE = #{params.confidence}
+		</if>
+		<if test="params.discountCharge != null and params.discountCharge != '' ">
+		AND DISCOUNT_CHARGE = #{params.discountCharge}
+		</if>
+		<if test="params.discountCode != null and params.discountCode != '' ">
+		AND DISCOUNT_CODE = #{params.discountCode}
+		</if>
+		<if test="params.discountTime != null and params.discountTime != '' ">
+		AND DISCOUNT_TIME = #{params.discountTime}
+		</if>
+		<if test="params.editFlag != null and params.editFlag != '' ">
+		AND EDIT_FLAG = #{params.editFlag}
+		</if>
+		<if test="params.ingateId != null and params.ingateId != '' ">
+		AND INGATE_ID = #{params.ingateId}
+		</if>
+		<if test="params.inImagename != null and params.inImagename != '' ">
+		AND IN_IMAGENAME = #{params.inImagename}
+		</if>
+		<if test="params.inLedid != null and params.inLedid != '' ">
+		AND IN_LEDID = #{params.inLedid}
+		</if>
+		<if test="params.inorout != null and params.inorout != '' ">
+		AND INOROUT = #{params.inorout}
+		</if>
+		<if test="params.inreaderId != null and params.inreaderId != '' ">
+		AND INREADER_ID = #{params.inreaderId}
+		</if>
+		<if test="params.intime != null and params.intime != '' ">
+		AND INTIME = #{params.intime}
+		</if>
+		<if test="params.invideoId != null and params.invideoId != '' ">
+		AND INVIDEO_ID = #{params.invideoId}
+		</if>
+		<if test="params.invoiceCode != null and params.invoiceCode != '' ">
+		AND INVOICE_CODE = #{params.invoiceCode}
+		</if>
+		<if test="params.offlineCharge != null and params.offlineCharge != '' ">
+		AND OFFLINE_CHARGE = #{params.offlineCharge}
+		</if>
+		<if test="params.onlineCharge != null and params.onlineCharge != '' ">
+		AND ONLINE_CHARGE = #{params.onlineCharge}
+		</if>
+		<if test="params.orderId != null and params.orderId != '' ">
+		AND ORDER_ID = #{params.orderId}
+		</if>
+		<if test="params.outgateId != null and params.outgateId != '' ">
+		AND OUTGATE_ID = #{params.outgateId}
+		</if>
+		<if test="params.outImagename != null and params.outImagename != '' ">
+		AND OUT_IMAGENAME = #{params.outImagename}
+		</if>
+		<if test="params.outledId != null and params.outledId != '' ">
+		AND OUTLED_ID = #{params.outledId}
+		</if>
+		<if test="params.outreaderId != null and params.outreaderId != '' ">
+		AND OUTREADER_ID = #{params.outreaderId}
+		</if>
+		<if test="params.outtime != null and params.outtime != '' ">
+		AND OUTTIME = #{params.outtime}
+		</if>
+		<if test="params.outvideoId != null and params.outvideoId != '' ">
+		AND OUTVIDEO_ID = #{params.outvideoId}
+		</if>
+		<if test="params.parkId != null and params.parkId != '' ">
+		AND PARK_ID = #{params.parkId}
+		</if>
+		<if test="params.parkSpaceNum != null and params.parkSpaceNum != '' ">
+		AND PARK_SPACE_NUM = #{params.parkSpaceNum}
+		</if>
+		<if test="params.payCharge != null and params.payCharge != '' ">
+		AND PAY_CHARGE = #{params.payCharge}
+		</if>
+		<if test="params.plateColor != null and params.plateColor != '' ">
+		AND PLATE_COLOR = #{params.plateColor}
+		</if>
+		<if test="params.plateId != null and params.plateId != '' ">
+		AND PLATE_ID = #{params.plateId}
+		</if>
+		<if test="params.platek != null and params.platek != '' ">
+		AND PLATEK = #{params.platek}
+		</if>
+		<if test="params.realCharge != null and params.realCharge != '' ">
+		AND REAL_CHARGE = #{params.realCharge}
+		</if>
+		<if test="params.recordId != null and params.recordId != '' ">
+		AND RECORD_ID = #{params.recordId}
+		</if>
+		<if test="params.sysWriteDate != null and params.sysWriteDate != '' ">
+		AND SYS_WRITE_DATE = #{params.sysWriteDate}
+		</if>
+		<if test="params.userType != null and params.userType != '' ">
+		AND USER_TYPE = #{params.userType}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+	<select id="selectCarRecordApp" resultMap="resultMap">
+		<!--SELECT a.INOROUT,a.INTIME,a.OUTTIME,a.plate_id,c.parking_name,c.parking_id FROM t_car_in_out_record a LEFT JOIN t_villageinfo b ON a.PARK_ID=b.item01
+		LEFT JOIN t_parking c ON b.id = c.parking_id
+		WHERE 1=1 AND c.parking_name IS NOT NULL AND a.INOROUT=2
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			AND LOCATE(c.parking_id,#{params.parkingId})>0
+		</if>
+		<if test="params.plateId != null and params.plateId != '' ">
+			AND a.PLATE_ID  LIKE '%${params.plateId}%'
+		</if>
+		ORDER BY a.OUTTIME DESC-->
+		SELECT * FROM (SELECT a.INOROUT,a.INTIME,a.OUTTIME,a.plate_id,c.parking_name,c.parking_id FROM t_car_in_out_record a LEFT JOIN t_villageinfo b ON a.PARK_ID=b.item01
+		LEFT JOIN t_parking c ON b.id = c.parking_id
+		WHERE 1=1 AND a.INTIME IS NOT NULL AND c.parking_name IS NOT NULL AND a.INOROUT=1
+		GROUP BY a.INTIME
+		UNION ALL
+		SELECT a.INOROUT,a.INTIME,a.OUTTIME,a.plate_id,c.parking_name,c.parking_id FROM t_car_in_out_record a LEFT JOIN t_villageinfo b ON a.PARK_ID=b.item01
+		LEFT JOIN t_parking c ON b.id = c.parking_id
+		WHERE 1=1 AND a.INTIME IS NOT NULL AND c.parking_name IS NOT NULL AND a.INOROUT=2
+		GROUP BY a.OUTTIME
+		) a
+		WHERE 1=1
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			AND LOCATE(a.parking_id,#{params.parkingId})>0
+		</if>
+		<if test="params.plateId != null and params.plateId != '' ">
+			AND a.PLATE_ID  LIKE '%${params.plateId}%'
+		</if>
+		ORDER BY a.INTIME DESC,a.OUTTIME DESC
+	</select>
+
+
+
+<select id="selectCarRecord" resultMap="resultMap">
+	SELECT * FROM (SELECT a.id,a.CREATE_DATE,a.ORDER_ID,a.INOROUT,a.INTIME,a.OUTTIME,a.plate_id,c.parking_name,a.PAY_CHARGE,a.REAL_CHARGE FROM t_car_in_out_record a LEFT JOIN t_villageinfo b ON a.PARK_ID=b.item01
+	LEFT JOIN t_parking c ON b.id = c.parking_id
+	WHERE 1=1 AND a.INTIME IS NOT NULL AND c.parking_name IS NOT NULL AND a.INOROUT=1
+	GROUP BY a.INTIME
+	UNION ALL
+	SELECT a.id,a.CREATE_DATE,a.ORDER_ID,a.INOROUT,a.INTIME,a.OUTTIME,a.plate_id,c.parking_name,a.PAY_CHARGE,a.REAL_CHARGE FROM t_car_in_out_record a LEFT JOIN t_villageinfo b ON a.PARK_ID=b.item01
+	LEFT JOIN t_parking c ON b.id = c.parking_id
+	WHERE 1=1 AND a.INTIME IS NOT NULL AND c.parking_name IS NOT NULL AND a.INOROUT=2
+	GROUP BY a.OUTTIME
+	) a
+	WHERE 1=1
+	<if test="params.parkingName != null and params.parkingName != '' ">
+		AND a.parking_name LIKE '%${params.parkingName}%'
+	</if>
+	<if test="params.inorout != null and params.inorout != '' ">
+		AND a.inorout = #{params.inorout}
+	</if>
+	<if test="params.startInTime !=null and params.startInTime != '' ">
+		AND a.INTIME &gt;=#{params.startInTime}
+	</if>
+	<if test="params.endInTime !=null and params.endInTime != '' ">
+		AND a.INTIME &lt;=#{params.endInTime}
+	</if>
+	<if test="params.startOutTime !=null and params.startOutTime != '' ">
+		AND a.OUTTIME &gt;=#{params.startOutTime}
+	</if>
+	<if test="params.endOutTime !=null and params.endOutTime !='' ">
+		AND a.OUTTIME &lt;=#{params.endOutTime}
+	</if>
+	<if test="params.plateId != null and params.plateId != '' ">
+		AND a.PLATE_ID  LIKE '%${params.plateId}%'
+	</if>
+	<if test="params.report != null and params.report != '' ">
+		AND a.inorout = '2'
+	</if>
+
+	ORDER BY a.INTIME DESC,a.OUTTIME DESC
+</select>
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_IN_OUT_RECORD 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_IN_OUT_RECORD
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectLastOne" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		FROM T_CAR_IN_OUT_RECORD
+		WHERE 1 = 1
+		<include refid="whereSQL" />
+		ORDER BY CREATE_DATE DESC
+		LIMIT 1
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_IN_OUT_RECORD
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parking.po.CarInOutRecord">
+        INSERT INTO T_CAR_IN_OUT_RECORD (
+        	ID,
+        	CAR_TYPE,
+        	CONFIDENCE,
+        	DISCOUNT_CHARGE,
+        	DISCOUNT_CODE,
+        	DISCOUNT_TIME,
+        	EDIT_FLAG,
+        	INGATE_ID,
+        	IN_IMAGENAME,
+        	IN_LEDID,
+        	INOROUT,
+        	INREADER_ID,
+        	INTIME,
+        	INVIDEO_ID,
+        	INVOICE_CODE,
+        	OFFLINE_CHARGE,
+        	ONLINE_CHARGE,
+        	ORDER_ID,
+        	OUTGATE_ID,
+        	OUT_IMAGENAME,
+        	OUTLED_ID,
+        	OUTREADER_ID,
+        	OUTTIME,
+        	OUTVIDEO_ID,
+        	PARK_ID,
+        	PARK_SPACE_NUM,
+        	PAY_CHARGE,
+        	PLATE_COLOR,
+        	PLATE_ID,
+        	PLATEK,
+        	REAL_CHARGE,
+        	RECORD_ID,
+        	SYS_WRITE_DATE,
+        	USER_TYPE,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{carType},
+        	#{confidence},
+        	#{discountCharge},
+        	#{discountCode},
+        	#{discountTime},
+        	#{editFlag},
+        	#{ingateId},
+        	#{inImagename},
+        	#{inLedid},
+        	#{inorout},
+        	#{inreaderId},
+        	#{intime},
+        	#{invideoId},
+        	#{invoiceCode},
+        	#{offlineCharge},
+        	#{onlineCharge},
+        	#{orderId},
+        	#{outgateId},
+        	#{outImagename},
+        	#{outledId},
+        	#{outreaderId},
+        	#{outtime},
+        	#{outvideoId},
+        	#{parkId},
+        	#{parkSpaceNum},
+        	#{payCharge},
+        	#{plateColor},
+        	#{plateId},
+        	#{platek},
+        	#{realCharge},
+        	#{recordId},
+        	#{sysWriteDate},
+        	#{userType},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CAR_IN_OUT_RECORD 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parking.po.CarInOutRecord">
+        UPDATE T_CAR_IN_OUT_RECORD 
+		SET
+	        CONFIDENCE = #{confidence},
+	        DISCOUNT_CHARGE = #{discountCharge},
+	        DISCOUNT_CODE = #{discountCode},
+	        DISCOUNT_TIME = #{discountTime},
+	        EDIT_FLAG = #{editFlag},
+	        INGATE_ID = #{ingateId},
+	        IN_IMAGENAME = #{inImagename},
+	        IN_LEDID = #{inLedid},
+	        INOROUT = #{inorout},
+	        INREADER_ID = #{inreaderId},
+	        INTIME = #{intime},
+	        INVIDEO_ID = #{invideoId},
+	        INVOICE_CODE = #{invoiceCode},
+	        OFFLINE_CHARGE = #{offlineCharge},
+	        ONLINE_CHARGE = #{onlineCharge},
+	        ORDER_ID = #{orderId},
+	        OUTGATE_ID = #{outgateId},
+	        OUT_IMAGENAME = #{outImagename},
+	        OUTLED_ID = #{outledId},
+	        OUTREADER_ID = #{outreaderId},
+	        OUTTIME = #{outtime},
+	        OUTVIDEO_ID = #{outvideoId},
+	        PARK_ID = #{parkId},
+	        PARK_SPACE_NUM = #{parkSpaceNum},
+	        PAY_CHARGE = #{payCharge},
+	        PLATE_COLOR = #{plateColor},
+	        PLATE_ID = #{plateId},
+	        PLATEK = #{platek},
+	        REAL_CHARGE = #{realCharge},
+	        RECORD_ID = #{recordId},
+	        SYS_WRITE_DATE = #{sysWriteDate},
+	        USER_TYPE = #{userType},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CAR_IN_OUT_RECORD
+			<set>
+    	        CONFIDENCE = #{item.confidence},
+    	        DISCOUNT_CHARGE = #{item.discountCharge},
+    	        DISCOUNT_CODE = #{item.discountCode},
+    	        DISCOUNT_TIME = #{item.discountTime},
+    	        EDIT_FLAG = #{item.editFlag},
+    	        INGATE_ID = #{item.ingateId},
+    	        IN_IMAGENAME = #{item.inImagename},
+    	        IN_LEDID = #{item.inLedid},
+    	        INOROUT = #{item.inorout},
+    	        INREADER_ID = #{item.inreaderId},
+    	        INTIME = #{item.intime},
+    	        INVIDEO_ID = #{item.invideoId},
+    	        INVOICE_CODE = #{item.invoiceCode},
+    	        OFFLINE_CHARGE = #{item.offlineCharge},
+    	        ONLINE_CHARGE = #{item.onlineCharge},
+    	        ORDER_ID = #{item.orderId},
+    	        OUTGATE_ID = #{item.outgateId},
+    	        OUT_IMAGENAME = #{item.outImagename},
+    	        OUTLED_ID = #{item.outledId},
+    	        OUTREADER_ID = #{item.outreaderId},
+    	        OUTTIME = #{item.outtime},
+    	        OUTVIDEO_ID = #{item.outvideoId},
+    	        PARK_ID = #{item.parkId},
+    	        PARK_SPACE_NUM = #{item.parkSpaceNum},
+    	        PAY_CHARGE = #{item.payCharge},
+    	        PLATE_COLOR = #{item.plateColor},
+    	        PLATE_ID = #{item.plateId},
+    	        PLATEK = #{item.platek},
+    	        REAL_CHARGE = #{item.realCharge},
+    	        RECORD_ID = #{item.recordId},
+    	        SYS_WRITE_DATE = #{item.sysWriteDate},
+    	        USER_TYPE = #{item.userType},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+	<select id="getTempOfflineByDate" resultMap="resultMap">
+		SELECT SUM(A.PAY_CHARGE)/100 AS PAY_CHARGE,SUM(A.REAL_CHARGE)/100 AS REAL_CHARGE FROM
+		(
+			SELECT tc.* FROM t_car_in_out_record tc
+			LEFT JOIN t_villageinfo tv ON tv.item01 = tc.PARK_ID
+			WHERE tv.item01 IS NOT NULL
+			AND tc.OUTTIME BETWEEN #{startTime} AND #{endTime}
+			AND tc.INOROUT = 2
+			AND tv.id IN (${parkingIds})
+			GROUP BY tc.OUTTIME
+		) A
+	</select>
+	<select id="getTempOfflineByMonth" resultMap="resultMap">
+		SELECT SUM(A.PAY_CHARGE)/100 AS PAY_CHARGE,SUM(A.REAL_CHARGE)/100 AS REAL_CHARGE FROM
+		(
+		SELECT tc.* FROM t_car_in_out_record tc
+		LEFT JOIN t_villageinfo tv ON tv.item01 = tc.PARK_ID
+		WHERE tv.item01 IS NOT NULL
+		AND DATE_FORMAT(tc.OUTTIME, "%Y%-%m") = #{inputDate}
+		AND tc.INOROUT = 2
+		AND tv.id IN (${parkingIds})
+		GROUP BY tc.OUTTIME
+		) A
+	</select>
+</mapper>

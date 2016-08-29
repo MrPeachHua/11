@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.order.dao.OrderDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.order.po.Order">
+        <result column="order_id" property="orderId"/>
+        <result column="order_unit_fee" property="orderUnitFee"/>
+        <result column="order_total_fee" property="orderTotalFee"/>
+        <result column="order_plan_begin" property="orderPlanBegin"/>
+        <result column="order_plan_end" property="orderPlanEnd"/>
+        <result column="order_actual_begin_start" property="orderActualBeginStart"/>
+        <result column="order_actual_end_stop" property="orderActualEndStop"/>
+        <result column="order_duration" property="orderDuration"/>
+        <result column="order_path" property="orderPath"/>
+        <result column="order_img_count" property="orderImgCount"/>
+        <result column="parking_path" property="parkingPath"/>
+        <result column="parking_img_count" property="parkingImgCount"/>
+        <result column="parking_id" property="parkingId"/>
+        <result column="parking_name" property="parkingName"/>
+        <result column="parking_area" property="parkingArea"/>
+        <result column="parking_latitude" property="parkingLatitude"/>
+        <result column="parking_longitude" property="parkingLongitude"/>
+        <result column="parker_id" property="parkerId"/>
+        <result column="parker_name" property="parkerName"/>
+        <result column="parker_mobile" property="parkerMobile"/>
+        <result column="parker_cardid" property="parkerCardid"/>
+        <result column="parker_level" property="parkerLevel"/>
+        <result column="car_brand" property="carBrand"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="customer_nickname" property="customerNickname"/>
+        <result column="customer_head" property="customerHead"/>
+        <result column="customer_sex" property="customerSex"/>
+        <result column="customer_mobile" property="customerMobile"/>
+        <result column="customer_email" property="customerEmail"/>
+        <result column="parker_id_back" property="parkerIdBack"/>
+        <result column="parker_name_back" property="parkerNameBack"/>
+        <result column="parker_mobile_back" property="parkerMobileBack"/>
+        <result column="parker_carid_back" property="parkerCaridBack"/>
+        <result column="order_state" property="orderState"/>
+        <result column="create_at" property="createAt"/>
+        <result column="updated_at" property="updatedAt"/>
+        <result column="charge_type" property="chargeType"/>
+        <result column="order_type" property="orderType"/>
+        <result column="pay_type" property="payType"/>
+        <result column="order_discount" property="orderDiscount"/>
+        <result column="order_out_amount" property="orderOutAmount"/>
+        <result column="charge" property="charge"/>
+        <result column="bluecard_id" property="bluecardId"/>
+        <result column="parking_code" property="parkingCode"/>
+        <result column="coupon_dicount" property="couponDicount"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		order_id, order_unit_fee, order_total_fee, order_plan_begin, order_plan_end, order_actual_begin_start, order_actual_end_stop, order_duration, order_path, order_img_count, parking_path, parking_img_count, parking_id, parking_name, parking_area, parking_latitude, parking_longitude, parker_id, parker_name, parker_mobile, parker_cardid, parker_level, car_brand, car_number, customer_id, customer_nickname, customer_head, customer_sex, customer_mobile, customer_email, parker_id_back, parker_name_back, parker_mobile_back, parker_carid_back, order_state, create_at, updated_at, charge_type, order_type, pay_type, order_discount, order_out_amount, charge, bluecard_id, parking_code, coupon_dicount
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="orderId != null and orderId != '' ">
+		AND order_id = #{orderId}
+		</if>
+		<if test="orderUnitFee != null and orderUnitFee != '' ">
+		AND order_unit_fee = #{orderUnitFee}
+		</if>
+		<if test="orderTotalFee != null and orderTotalFee != '' ">
+		AND order_total_fee = #{orderTotalFee}
+		</if>
+		<if test="orderPlanBegin != null and orderPlanBegin != '' ">
+		AND order_plan_begin = #{orderPlanBegin}
+		</if>
+		<if test="orderPlanEnd != null and orderPlanEnd != '' ">
+		AND order_plan_end = #{orderPlanEnd}
+		</if>
+		<if test="orderActualBeginStart != null and orderActualBeginStart != '' ">
+		AND order_actual_begin_start = #{orderActualBeginStart}
+		</if>
+		<if test="orderActualEndStop != null and orderActualEndStop != '' ">
+		AND order_actual_end_stop = #{orderActualEndStop}
+		</if>
+		<if test="orderDuration != null and orderDuration != '' ">
+		AND order_duration = #{orderDuration}
+		</if>
+		<if test="orderPath != null and orderPath != '' ">
+		AND order_path = #{orderPath}
+		</if>
+		<if test="orderImgCount != null and orderImgCount != '' ">
+		AND order_img_count = #{orderImgCount}
+		</if>
+		<if test="parkingPath != null and parkingPath != '' ">
+		AND parking_path = #{parkingPath}
+		</if>
+		<if test="parkingImgCount != null and parkingImgCount != '' ">
+		AND parking_img_count = #{parkingImgCount}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND parking_id = #{parkingId}
+		</if>
+		<if test="parkingName != null and parkingName != '' ">
+		AND parking_name = #{parkingName}
+		</if>
+		<if test="parkingArea != null and parkingArea != '' ">
+		AND parking_area = #{parkingArea}
+		</if>
+		<if test="parkingLatitude != null and parkingLatitude != '' ">
+		AND parking_latitude = #{parkingLatitude}
+		</if>
+		<if test="parkingLongitude != null and parkingLongitude != '' ">
+		AND parking_longitude = #{parkingLongitude}
+		</if>
+		<if test="parkerId != null and parkerId != '' ">
+		AND parker_id = #{parkerId}
+		</if>
+		<if test="parkerName != null and parkerName != '' ">
+		AND parker_name = #{parkerName}
+		</if>
+		<if test="parkerMobile != null and parkerMobile != '' ">
+		AND parker_mobile = #{parkerMobile}
+		</if>
+		<if test="parkerCardid != null and parkerCardid != '' ">
+		AND parker_cardid = #{parkerCardid}
+		</if>
+		<if test="parkerLevel != null and parkerLevel != '' ">
+		AND parker_level = #{parkerLevel}
+		</if>
+		<if test="carBrand != null and carBrand != '' ">
+		AND car_brand = #{carBrand}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND car_number = #{carNumber}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND customer_id = #{customerId}
+		</if>
+		<if test="customerNickname != null and customerNickname != '' ">
+		AND customer_nickname = #{customerNickname}
+		</if>
+		<if test="customerHead != null and customerHead != '' ">
+		AND customer_head = #{customerHead}
+		</if>
+		<if test="customerSex != null and customerSex != '' ">
+		AND customer_sex = #{customerSex}
+		</if>
+		<if test="customerMobile != null and customerMobile != '' ">
+		AND customer_mobile = #{customerMobile}
+		</if>
+		<if test="customerEmail != null and customerEmail != '' ">
+		AND customer_email = #{customerEmail}
+		</if>
+		<if test="parkerIdBack != null and parkerIdBack != '' ">
+		AND parker_id_back = #{parkerIdBack}
+		</if>
+		<if test="parkerNameBack != null and parkerNameBack != '' ">
+		AND parker_name_back = #{parkerNameBack}
+		</if>
+		<if test="parkerMobileBack != null and parkerMobileBack != '' ">
+		AND parker_mobile_back = #{parkerMobileBack}
+		</if>
+		<if test="parkerCaridBack != null and parkerCaridBack != '' ">
+		AND parker_carid_back = #{parkerCaridBack}
+		</if>
+		<if test="orderState != null and orderState != '' ">
+		AND order_state = #{orderState}
+		</if>
+		<if test="createAt != null and createAt != '' ">
+		AND create_at = #{createAt}
+		</if>
+		<if test="updatedAt != null and updatedAt != '' ">
+		AND updated_at = #{updatedAt}
+		</if>
+		<if test="chargeType != null and chargeType != '' ">
+		AND charge_type = #{chargeType}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+		AND order_type = #{orderType}
+		</if>
+		<if test="payType != null and payType != '' ">
+		AND pay_type = #{payType}
+		</if>
+		<if test="orderDiscount != null and orderDiscount != '' ">
+		AND order_discount = #{orderDiscount}
+		</if>
+		<if test="orderOutAmount != null and orderOutAmount != '' ">
+		AND order_out_amount = #{orderOutAmount}
+		</if>
+		<if test="charge != null and charge != '' ">
+		AND charge = #{charge}
+		</if>
+		<if test="bluecardId != null and bluecardId != '' ">
+		AND bluecard_id = #{bluecardId}
+		</if>
+		<if test="parkingCode != null and parkingCode != '' ">
+		AND parking_code = #{parkingCode}
+		</if>
+		<if test="couponDicount != null and couponDicount != '' ">
+		AND coupon_dicount = #{couponDicount}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.orderId != null and params.orderId != '' ">
+		AND order_id = #{params.orderId}
+		</if>
+		<if test="params.orderUnitFee != null and params.orderUnitFee != '' ">
+		AND order_unit_fee = #{params.orderUnitFee}
+		</if>
+		<if test="params.orderTotalFee != null and params.orderTotalFee != '' ">
+		AND order_total_fee = #{params.orderTotalFee}
+		</if>
+		<if test="params.orderPlanBegin != null and params.orderPlanBegin != '' ">
+		AND order_plan_begin = #{params.orderPlanBegin}
+		</if>
+		<if test="params.orderPlanEnd != null and params.orderPlanEnd != '' ">
+		AND order_plan_end = #{params.orderPlanEnd}
+		</if>
+		<if test="params.orderActualBeginStart != null and params.orderActualBeginStart != '' ">
+		AND order_actual_begin_start = #{params.orderActualBeginStart}
+		</if>
+		<if test="params.orderActualEndStop != null and params.orderActualEndStop != '' ">
+		AND order_actual_end_stop = #{params.orderActualEndStop}
+		</if>
+		<if test="params.orderDuration != null and params.orderDuration != '' ">
+		AND order_duration = #{params.orderDuration}
+		</if>
+		<if test="params.orderPath != null and params.orderPath != '' ">
+		AND order_path = #{params.orderPath}
+		</if>
+		<if test="params.orderImgCount != null and params.orderImgCount != '' ">
+		AND order_img_count = #{params.orderImgCount}
+		</if>
+		<if test="params.parkingPath != null and params.parkingPath != '' ">
+		AND parking_path = #{params.parkingPath}
+		</if>
+		<if test="params.parkingImgCount != null and params.parkingImgCount != '' ">
+		AND parking_img_count = #{params.parkingImgCount}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND parking_id = #{params.parkingId}
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+		AND parking_name = #{params.parkingName}
+		</if>
+		<if test="params.parkingArea != null and params.parkingArea != '' ">
+		AND parking_area = #{params.parkingArea}
+		</if>
+		<if test="params.parkingLatitude != null and params.parkingLatitude != '' ">
+		AND parking_latitude = #{params.parkingLatitude}
+		</if>
+		<if test="params.parkingLongitude != null and params.parkingLongitude != '' ">
+		AND parking_longitude = #{params.parkingLongitude}
+		</if>
+		<if test="params.parkerId != null and params.parkerId != '' ">
+		AND parker_id = #{params.parkerId}
+		</if>
+		<if test="params.parkerName != null and params.parkerName != '' ">
+		AND parker_name = #{params.parkerName}
+		</if>
+		<if test="params.parkerMobile != null and params.parkerMobile != '' ">
+		AND parker_mobile = #{params.parkerMobile}
+		</if>
+		<if test="params.parkerCardid != null and params.parkerCardid != '' ">
+		AND parker_cardid = #{params.parkerCardid}
+		</if>
+		<if test="params.parkerLevel != null and params.parkerLevel != '' ">
+		AND parker_level = #{params.parkerLevel}
+		</if>
+		<if test="params.carBrand != null and params.carBrand != '' ">
+		AND car_brand = #{params.carBrand}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND car_number = #{params.carNumber}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND customer_id = #{params.customerId}
+		</if>
+		<if test="params.customerNickname != null and params.customerNickname != '' ">
+		AND customer_nickname = #{params.customerNickname}
+		</if>
+		<if test="params.customerHead != null and params.customerHead != '' ">
+		AND customer_head = #{params.customerHead}
+		</if>
+		<if test="params.customerSex != null and params.customerSex != '' ">
+		AND customer_sex = #{params.customerSex}
+		</if>
+		<if test="params.customerMobile != null and params.customerMobile != '' ">
+		AND customer_mobile = #{params.customerMobile}
+		</if>
+		<if test="params.customerEmail != null and params.customerEmail != '' ">
+		AND customer_email = #{params.customerEmail}
+		</if>
+		<if test="params.parkerIdBack != null and params.parkerIdBack != '' ">
+		AND parker_id_back = #{params.parkerIdBack}
+		</if>
+		<if test="params.parkerNameBack != null and params.parkerNameBack != '' ">
+		AND parker_name_back = #{params.parkerNameBack}
+		</if>
+		<if test="params.parkerMobileBack != null and params.parkerMobileBack != '' ">
+		AND parker_mobile_back = #{params.parkerMobileBack}
+		</if>
+		<if test="params.parkerCaridBack != null and params.parkerCaridBack != '' ">
+		AND parker_carid_back = #{params.parkerCaridBack}
+		</if>
+		<if test="params.orderState != null and params.orderState != '' ">
+		AND order_state = #{params.orderState}
+		</if>
+		<if test="params.createAt != null and params.createAt != '' ">
+		AND create_at = #{params.createAt}
+		</if>
+		<if test="params.updatedAt != null and params.updatedAt != '' ">
+		AND updated_at = #{params.updatedAt}
+		</if>
+		<if test="params.chargeType != null and params.chargeType != '' ">
+		AND charge_type = #{params.chargeType}
+		</if>
+		<if test="params.orderType != null and params.orderType != '' ">
+		AND order_type = #{params.orderType}
+		</if>
+		<if test="params.payType != null and params.payType != '' ">
+		AND pay_type = #{params.payType}
+		</if>
+		<if test="params.orderDiscount != null and params.orderDiscount != '' ">
+		AND order_discount = #{params.orderDiscount}
+		</if>
+		<if test="params.orderOutAmount != null and params.orderOutAmount != '' ">
+		AND order_out_amount = #{params.orderOutAmount}
+		</if>
+		<if test="params.charge != null and params.charge != '' ">
+		AND charge = #{params.charge}
+		</if>
+		<if test="params.bluecardId != null and params.bluecardId != '' ">
+		AND bluecard_id = #{params.bluecardId}
+		</if>
+		<if test="params.parkingCode != null and params.parkingCode != '' ">
+		AND parking_code = #{params.parkingCode}
+		</if>
+		<if test="params.couponDicount != null and params.couponDicount != '' ">
+		AND coupon_dicount = #{params.couponDicount}
+		</if>
+	</sql>
+
+	<!-- 查询未完成订单条数-->
+	<select id="selectCount" resultType="java.lang.Integer">
+		SELECT count(a.order_id)
+		FROM t_order_main a INNER JOIN t_order_park b ON a.ORDER_ID = b.ORDER_ID
+		WHERE  ORDER_STATUS NOT IN ('5','12') and a.ORDER_TYPE='12' and  a.customer_id=#{customerId}
+
+	</select>
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER 
+	     WHERE order_id = #{orderId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.order.po.Order">
+        INSERT INTO T_ORDER (
+        	order_id,
+        	order_unit_fee,
+        	order_total_fee,
+        	order_plan_begin,
+        	order_plan_end,
+        	order_actual_begin_start,
+        	order_actual_end_stop,
+        	order_duration,
+        	order_path,
+        	order_img_count,
+        	parking_path,
+        	parking_img_count,
+        	parking_id,
+        	parking_name,
+        	parking_area,
+        	parking_latitude,
+        	parking_longitude,
+        	parker_id,
+        	parker_name,
+        	parker_mobile,
+        	parker_cardid,
+        	parker_level,
+        	car_brand,
+        	car_number,
+        	customer_id,
+        	customer_nickname,
+        	customer_head,
+        	customer_sex,
+        	customer_mobile,
+        	customer_email,
+        	parker_id_back,
+        	parker_name_back,
+        	parker_mobile_back,
+        	parker_carid_back,
+        	order_state,
+        	create_at,
+        	updated_at,
+        	charge_type,
+        	order_type,
+        	pay_type,
+        	order_discount,
+        	order_out_amount,
+        	charge,
+        	bluecard_id,
+        	parking_code,
+        	coupon_dicount
+        ) VALUES (
+        	#{orderId},
+        	#{orderUnitFee},
+        	#{orderTotalFee},
+        	#{orderPlanBegin},
+        	#{orderPlanEnd},
+        	#{orderActualBeginStart},
+        	#{orderActualEndStop},
+        	#{orderDuration},
+        	#{orderPath},
+        	#{orderImgCount},
+        	#{parkingPath},
+        	#{parkingImgCount},
+        	#{parkingId},
+        	#{parkingName},
+        	#{parkingArea},
+        	#{parkingLatitude},
+        	#{parkingLongitude},
+        	#{parkerId},
+        	#{parkerName},
+        	#{parkerMobile},
+        	#{parkerCardid},
+        	#{parkerLevel},
+        	#{carBrand},
+        	#{carNumber},
+        	#{customerId},
+        	#{customerNickname},
+        	#{customerHead},
+        	#{customerSex},
+        	#{customerMobile},
+        	#{customerEmail},
+        	#{parkerIdBack},
+        	#{parkerNameBack},
+        	#{parkerMobileBack},
+        	#{parkerCaridBack},
+        	#{orderState},
+        	#{createAt},
+        	#{updatedAt},
+        	#{chargeType},
+        	#{orderType},
+        	#{payType},
+        	#{orderDiscount},
+        	#{orderOutAmount},
+        	#{charge},
+        	#{bluecardId},
+        	#{parkingCode},
+        	#{couponDicount}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_ORDER 
+		 WHERE order_id = #{orderId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.order.po.Order">
+        UPDATE T_ORDER 
+		SET
+	        order_unit_fee = #{orderUnitFee},
+	        order_total_fee = #{orderTotalFee},
+	        order_plan_begin = #{orderPlanBegin},
+	        order_plan_end = #{orderPlanEnd},
+	        order_actual_begin_start = #{orderActualBeginStart},
+	        order_actual_end_stop = #{orderActualEndStop},
+	        order_duration = #{orderDuration},
+	        order_path = #{orderPath},
+	        order_img_count = #{orderImgCount},
+	        parking_path = #{parkingPath},
+	        parking_img_count = #{parkingImgCount},
+	        parking_id = #{parkingId},
+	        parking_name = #{parkingName},
+	        parking_area = #{parkingArea},
+	        parking_latitude = #{parkingLatitude},
+	        parking_longitude = #{parkingLongitude},
+	        parker_id = #{parkerId},
+	        parker_name = #{parkerName},
+	        parker_mobile = #{parkerMobile},
+	        parker_cardid = #{parkerCardid},
+	        parker_level = #{parkerLevel},
+	        car_brand = #{carBrand},
+	        car_number = #{carNumber},
+	        customer_id = #{customerId},
+	        customer_nickname = #{customerNickname},
+	        customer_head = #{customerHead},
+	        customer_sex = #{customerSex},
+	        customer_mobile = #{customerMobile},
+	        customer_email = #{customerEmail},
+	        parker_id_back = #{parkerIdBack},
+	        parker_name_back = #{parkerNameBack},
+	        parker_mobile_back = #{parkerMobileBack},
+	        parker_carid_back = #{parkerCaridBack},
+	        order_state = #{orderState},
+	        create_at = #{createAt},
+	        updated_at = #{updatedAt},
+	        charge_type = #{chargeType},
+	        order_type = #{orderType},
+	        pay_type = #{payType},
+	        order_discount = #{orderDiscount},
+	        order_out_amount = #{orderOutAmount},
+	        charge = #{charge},
+	        bluecard_id = #{bluecardId},
+	        parking_code = #{parkingCode},
+	        coupon_dicount = #{couponDicount}
+        WHERE order_id = #{orderId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_ORDER
+			<set>
+    	        order_unit_fee = #{item.orderUnitFee},
+    	        order_total_fee = #{item.orderTotalFee},
+    	        order_plan_begin = #{item.orderPlanBegin},
+    	        order_plan_end = #{item.orderPlanEnd},
+    	        order_actual_begin_start = #{item.orderActualBeginStart},
+    	        order_actual_end_stop = #{item.orderActualEndStop},
+    	        order_duration = #{item.orderDuration},
+    	        order_path = #{item.orderPath},
+    	        order_img_count = #{item.orderImgCount},
+    	        parking_path = #{item.parkingPath},
+    	        parking_img_count = #{item.parkingImgCount},
+    	        parking_id = #{item.parkingId},
+    	        parking_name = #{item.parkingName},
+    	        parking_area = #{item.parkingArea},
+    	        parking_latitude = #{item.parkingLatitude},
+    	        parking_longitude = #{item.parkingLongitude},
+    	        parker_id = #{item.parkerId},
+    	        parker_name = #{item.parkerName},
+    	        parker_mobile = #{item.parkerMobile},
+    	        parker_cardid = #{item.parkerCardid},
+    	        parker_level = #{item.parkerLevel},
+    	        car_brand = #{item.carBrand},
+    	        car_number = #{item.carNumber},
+    	        customer_id = #{item.customerId},
+    	        customer_nickname = #{item.customerNickname},
+    	        customer_head = #{item.customerHead},
+    	        customer_sex = #{item.customerSex},
+    	        customer_mobile = #{item.customerMobile},
+    	        customer_email = #{item.customerEmail},
+    	        parker_id_back = #{item.parkerIdBack},
+    	        parker_name_back = #{item.parkerNameBack},
+    	        parker_mobile_back = #{item.parkerMobileBack},
+    	        parker_carid_back = #{item.parkerCaridBack},
+    	        order_state = #{item.orderState},
+    	        create_at = #{item.createAt},
+    	        updated_at = #{item.updatedAt},
+    	        charge_type = #{item.chargeType},
+    	        order_type = #{item.orderType},
+    	        pay_type = #{item.payType},
+    	        order_discount = #{item.orderDiscount},
+    	        order_out_amount = #{item.orderOutAmount},
+    	        charge = #{item.charge},
+    	        bluecard_id = #{item.bluecardId},
+    	        parking_code = #{item.parkingCode},
+    	        coupon_dicount = #{item.couponDicount}
+			</set>
+            WHERE order_id = #{item.orderId} 	
+		</foreach>
+	</update>
+</mapper>

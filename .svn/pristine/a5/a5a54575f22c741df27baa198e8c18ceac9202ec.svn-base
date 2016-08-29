@@ -1,0 +1,266 @@
+body {
+	background-color: #eeeeee;
+}
+
+header {
+	width: 100%;
+	height: 10%;
+	background-color: #37b69d;
+	text-align: center;
+}
+
+.logo21 {
+	width: 30%;
+	display: block;
+	margin: 0 auto;
+	margin: 3% auto;
+}
+
+.back:before {
+	width: 26px;
+	height: 45px;
+	background: url(../images/back.png) 0 0 no-repeat;
+	position: absolute;
+	left: 20px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+
+.zhangdan {
+	font-size: 50px;
+	color: #fcfcfc;
+	padding-top: 100px;
+	line-height: 100px;
+	display: inline-block;
+}
+
+.center {
+	display: block;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 90%;
+	height: 80px;
+	margin: 0 auto;
+	display: inline-block;
+	border: 3px solid #999;
+	border-radius: 5px;
+	line-height: 30px;
+	font-size: 12px;
+	text-indent: 100px;
+	position: relative;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 40px;
+	line-height: 40px;
+	background: url(../../images/html5/search.png) 15px 15px no-repeat #FFF;
+}
+
+.center:before {
+	content: '';
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	left: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	background: url(../images/search.png) 0 0 no-repeat;
+	-webkit-background-size: 46px 46px;
+	background-size: 46px 46px;
+}
+
+.explain {
+	width: 90%;
+	margin: 0 auto;
+	font-size: 32px;
+	color: #919191;
+	margin: 30px auto;
+}
+
+.explain strong {
+	font-size: 40px;
+}
+
+.chooseList {
+	font-size: 40px;
+	color: #808080;
+	text-indent: 5%
+}
+
+.selectList {
+	width: 90%;
+	margin: 0 auto;
+	background: #38cbae;
+	position:relative;
+	z-index:10;
+}
+
+.selectList li {
+	float: left;
+	width: 30%;
+	height: 70px;
+	border: #757978 solid 1px;
+	background-color: #FFF;
+	margin: 30px auto;
+	line-height: 70px;
+	font-size: 40px;
+	text-align: center;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.selectList li.current {
+	background: #FFF url(../../images/html5/sanjiao.png) right bottom
+		no-repeat;
+}
+
+.selectList li:nth-child(2) {
+	margin: 30px 5%;
+}
+
+button {
+	width: 416px;
+	height: 90px;
+	border-radius: 5px;
+	background-color: #38cbae;
+	font-size: 54px;
+	font-weight: bold;
+	line-height: 90px;
+	text-align: center;
+	margin: 0 auto;
+	color: #fcfcfc;
+	display: block;
+	/* margin-top: 100px;
+	margin-bottom: 40px; */
+}
+
+hr {
+	width: 90%;
+	border: 2px solid #bfbfbf;
+	margin-bottom: 30px;
+	margin-top:40px;
+}
+
+.fukuandan {
+	text-indent: 2em;
+	font-size: 40px;
+	color: #7f7f7f;
+	font-weight: normal;
+}
+
+.fukuandan span {
+	color: #78c6b5;
+	font-size: 50px;
+	font-weight: normal;
+}
+
+.section {
+	width: 90%;
+	height: 470px;
+	border-top: 9px solid #1cd8aa;
+	background-color: #fff;
+	margin: 30px auto;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+
+.chepai {
+	height: 90px;
+}
+
+.left,.right {
+	font-size: 50px;
+	line-height: 90px;
+	height: 90px;
+	display: inline-block;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.time {
+	font-size: 40px;
+	color: #696969;
+	display: inline-block;
+}
+
+.time span {
+	font-size: 40px;
+	height: 40px;
+	line-height: 40px;
+}
+
+.detail {
+	overflow: hidden;
+	zoom: 1;
+}
+
+.detail li {
+	float: left;
+	width: 400px;
+	height: 135px;
+	margin-top: 40px;
+}
+
+.detail li span {
+	display: block;
+	font-size: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-indent: 1em;
+}
+
+.detail li .times {
+	color: #37b69d;
+	font-size: 50px;
+	line-height: 80px;
+	text-align: center;
+}
+
+.detail li .pays {
+	color: #f39800;
+	font-size: 50px;
+	line-height: 80px;
+	text-align: center;
+}
+
+.detail li .pays span {
+	display: inline-block;
+	color: #333333;
+}
+
+.detail li.parktime {
+	border-right: #bbbbbb solid 3px;
+}
+
+button.paynow {
+	width: 415px;
+	heigh: 90px;
+	background-color: #38cbae;
+	font-size: 50px;
+	font-weight: bold;
+	text-align: center;
+	color: #fcfcfc;
+	margin: 30px auto 0;
+}
+
+.btn_cont {
+	width: 100%;
+	height: 220px;
+}
+
+.btn_cont .btn_main {
+	width: 416px;
+	margin: 0 auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}

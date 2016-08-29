@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.order.dao.PropertyparkinginfoDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.order.po.Propertyparkinginfo">
+        <result column="village_id" property="villageId"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="parking_number" property="parkingNumber"/>
+        <result column="owner" property="owner"/>
+        <result column="certificate" property="certificate"/>
+        <result column="address" property="address"/>
+        <result column="phone" property="phone"/>
+        <result column="carColor" property="carColor"/>
+        <result column="management_fee_monthly_unit" property="managementFeeMonthlyUnit"/>
+        <result column="iIllegal_flg" property="iillegalFlg"/>
+        <result column="validity_flg" property="validityFlg"/>
+        <result column="parking_addr_info" property="parkingAddrInfo"/>
+        <result column="parking_property_info" property="parkingPropertyInfo"/>
+        <result column="purchase_date" property="purchaseDate"/>
+        <result column="parking_info" property="parkingInfo"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="item01" property="item01"/>
+        <result column="item02" property="item02"/>
+        <result column="item03" property="item03"/>
+        <result column="item04" property="item04"/>
+        <result column="item05" property="item05"/>
+         <result column="parking_name" property="villageName"/>
+        <result column="effect_begin_time" property="effect_begin_time"/>
+        <result column="effect_end_time" property="effect_end_time"/>
+        <result column="max_date" property="max_date"/>
+        <result column="online_payment" property="onlinePayment"/>
+        <result column="MAKEUP" property="makeUp"/>
+		<result column="is_used" property="isUsed"/>
+		<result column="module" property="module"/>
+	</resultMap>
+	<resultMap id="resultMap1" type="com.boxiang.share.product.order.po.Propertyparkinginfo">
+        <result column="village_id" property="villageId"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="parking_number" property="parkingNumber"/>
+        <result column="owner" property="owner"/>
+        <result column="certificate" property="certificate"/>
+        <result column="address" property="address"/>
+        <result column="phone" property="phone"/>
+        <result column="carColor" property="carColor"/>
+        <result column="management_fee_monthly_unit" property="managementFeeMonthlyUnit"/>
+        <result column="iIllegal_flg" property="iillegalFlg"/>
+        <result column="validity_flg" property="validityFlg"/>
+        <result column="parking_addr_info" property="parkingAddrInfo"/>
+        <result column="parking_property_info" property="parkingPropertyInfo"/>
+        <result column="purchase_date" property="purchaseDate"/>
+        <result column="parking_info" property="parkingInfo"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="item01" property="item01"/>
+        <result column="item02" property="item02"/>
+        <result column="item03" property="item03"/>
+        <result column="item04" property="item04"/>
+        <result column="item05" property="item05"/>
+        <result column="parking_name" property="villageName"/>
+        <result column="effect_begin_time" property="effect_begin_time"/>
+        <result column="effect_end_time" property="effect_end_time"/>
+        <result column="max_date" property="max_date"/>
+        <result column="online_payment" property="onlinePayment"/>
+        <result column="validity_start_time" property="validityStartTime"/>
+        <result column="validity_end_time" property="validityEndTime"/>
+        <result column="park_code" property="parkCode"/>
+		<result column="module" property="module"/>
+	</resultMap>
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		village_id, car_number, parking_number, owner, certificate, address, phone, carColor, management_fee_monthly_unit,effect_begin_time, effect_end_time,iIllegal_flg, validity_flg, parking_addr_info, parking_property_info, purchase_date, parking_info, create_time, create_user, update_time, update_user, item01, item02, item03, item04, item05,max_date,online_payment,MAKEUP,module
+	</sql>
+<sql id="columns_parking">
+		pp.is_used,pp.village_id, pp.car_number, pp.parking_number, pp.owner, pp.certificate, pp.address, pp.phone, pp.carColor, pp.management_fee_monthly_unit,pp.effect_begin_time, pp.effect_end_time,pp.iIllegal_flg, pp.validity_flg, pp.parking_addr_info, pp.parking_property_info, pp.purchase_date, pp.parking_info,pp.module
+	</sql>
+	<sql id="columns_excel">
+		p.parking_name, pp.car_number, pp.parking_number, pp.owner, pp.certificate, pp.address, pp.phone, pp.carColor, pp.management_fee_monthly_unit,pp.iIllegal_flg, pp.validity_flg, pp.parking_addr_info, pp.parking_property_info, pp.parking_info, pp.purchase_date,pp.max_date,pp.effect_begin_time,pp.effect_end_time,online_payment,is_used,pp.module
+	</sql>
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="villageId != null and villageId != '' ">
+		AND village_id = #{villageId}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND car_number = #{carNumber}
+		</if>
+		<if test="parkingNumber != null and parkingNumber != '' ">
+		AND parking_number = #{parkingNumber}
+		</if>
+		<if test="owner != null and owner != '' ">
+		AND owner = #{owner}
+		</if>
+		<if test="certificate != null and certificate != '' ">
+		AND certificate = #{certificate}
+		</if>
+		<if test="address != null and address != '' ">
+		AND address = #{address}
+		</if>
+		<if test="phone != null and phone != '' ">
+		AND phone = #{phone}
+		</if>
+		<if test="carColor != null and carColor != '' ">
+		AND carColor = #{carColor}
+		</if>
+		<if test="managementFeeMonthlyUnit != null and managementFeeMonthlyUnit != '' ">
+		AND management_fee_monthly_unit = #{managementFeeMonthlyUnit}
+		</if>
+		<if test="iillegalFlg != null and iillegalFlg != '' ">
+		AND iIllegal_flg = #{iillegalFlg}
+		</if>
+		<if test="validityFlg != null and validityFlg != '' ">
+		AND validity_flg = #{validityFlg}
+		</if>
+		<if test="parkingAddrInfo != null and parkingAddrInfo != '' ">
+		AND parking_addr_info = #{parkingAddrInfo}
+		</if>
+		<if test="parkingPropertyInfo != null and parkingPropertyInfo != '' ">
+		AND parking_property_info = #{parkingPropertyInfo}
+		</if>
+		<if test="purchaseDate != null and purchaseDate != '' ">
+		AND purchase_date = #{purchaseDate}
+		</if>
+		<if test="parkingInfo != null and parkingInfo != '' ">
+		AND parking_info = #{parkingInfo}
+		</if>
+		<if test="createTime != null and createTime != '' ">
+		AND create_time = #{createTime}
+		</if>
+		<if test="createUser != null and createUser != '' ">
+		AND create_user = #{createUser}
+		</if>
+		<if test="updateTime != null and updateTime != '' ">
+		AND update_time = #{updateTime}
+		</if>
+		<if test="updateUser != null and updateUser != '' ">
+		AND update_user = #{updateUser}
+		</if>
+		<if test="item01 != null and item01 != '' ">
+		AND item01 = #{item01}
+		</if>
+		<if test="item02 != null and item02 != '' ">
+		AND item02 = #{item02}
+		</if>
+		<if test="item03 != null and item03 != '' ">
+		AND item03 = #{item03}
+		</if>
+		<if test="item04 != null and item04 != '' ">
+		AND item04 = #{item04}
+		</if>
+		<if test="item05 != null and item05 != '' ">
+		AND item05 = #{item05}
+		</if>
+		<if test="onlinePayment != null and onlinePayment != '' ">
+		AND online_payment = #{onlinePayment}
+		</if>
+		<if test="isUsed !=null and isUsed !='' ">
+			AND is_used=#{isUsed}
+		</if>
+		<if test="module != null and module != '' ">
+			AND module = #{module}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.villageId != null and params.villageId != '' ">
+		AND village_id = #{params.villageId}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND car_number = #{params.carNumber}
+		</if>
+		<if test="params.parkingNumber != null and params.parkingNumber != '' ">
+		AND parking_number = #{params.parkingNumber}
+		</if>
+		<if test="params.owner != null and params.owner != '' ">
+		AND owner = #{params.owner}
+		</if>
+		<if test="params.certificate != null and params.certificate != '' ">
+		AND certificate = #{params.certificate}
+		</if>
+		<if test="params.address != null and params.address != '' ">
+		AND address = #{params.address}
+		</if>
+		<if test="params.phone != null and params.phone != '' ">
+		AND phone = #{params.phone}
+		</if>
+		<if test="params.carColor != null and params.carColor != '' ">
+		AND carColor = #{params.carColor}
+		</if>
+		<if test="params.managementFeeMonthlyUnit != null and params.managementFeeMonthlyUnit != '' ">
+		AND management_fee_monthly_unit = #{params.managementFeeMonthlyUnit}
+		</if>
+		<if test="params.iillegalFlg != null and params.iillegalFlg != '' ">
+		AND iIllegal_flg = #{params.iillegalFlg}
+		</if>
+		<if test="params.validityFlg != null and params.validityFlg != '' ">
+		AND validity_flg = #{params.validityFlg}
+		</if>
+		<if test="params.parkingAddrInfo != null and params.parkingAddrInfo != '' ">
+		AND parking_addr_info = #{params.parkingAddrInfo}
+		</if>
+		<if test="params.parkingPropertyInfo != null and params.parkingPropertyInfo != '' ">
+		AND parking_property_info = #{params.parkingPropertyInfo}
+		</if>
+		<if test="params.purchaseDate != null and params.purchaseDate != '' ">
+		AND purchase_date = #{params.purchaseDate}
+		</if>
+		<if test="params.parkingInfo != null and params.parkingInfo != '' ">
+		AND parking_info = #{params.parkingInfo}
+		</if>
+		<if test="params.createTime != null and params.createTime != '' ">
+		AND create_time = #{params.createTime}
+		</if>
+		<if test="params.createUser != null and params.createUser != '' ">
+		AND create_user = #{params.createUser}
+		</if>
+		<if test="params.updateTime != null and params.updateTime != '' ">
+		AND update_time = #{params.updateTime}
+		</if>
+		<if test="params.updateUser != null and params.updateUser != '' ">
+		AND update_user = #{params.updateUser}
+		</if>
+		<if test="params.item01 != null and params.item01 != '' ">
+		AND item01 = #{params.item01}
+		</if>
+		<if test="params.item02 != null and params.item02 != '' ">
+		AND item02 = #{params.item02}
+		</if>
+		<if test="params.item03 != null and params.item03 != '' ">
+		AND item03 = #{params.item03}
+		</if>
+		<if test="params.item04 != null and params.item04 != '' ">
+		AND item04 = #{params.item04}
+		</if>
+		<if test="params.item05 != null and params.item05 != '' ">
+		AND item05 = #{params.item05}
+		</if>
+		<if test="params.onlinePayment != null and params.onlinePayment != '' ">
+		AND online_payment = #{params.onlinePayment}
+		</if>
+		<if test="params.isUsed !=null and params.isUsed !='' ">
+			AND is_used=#{params.isUsed}
+		</if>
+		<if test="params.module != null and params.module != '' ">
+			AND module = #{params.module}
+		</if>
+	</sql>
+       <sql id="wherePageSql_parking">
+       <if test="params.villageId != null and params.villageId != '' ">
+		AND pp.village_id in (${params.villageId})
+		</if>
+		<if test="params.villageName != null and params.villageName != '' ">
+		AND p.parking_name like CONCAT('%',#{params.villageName},'%')
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND pp.car_number like  '%${params.carNumber}%'
+		</if>
+		   <if test="params.isUsed != null and params.isUsed != '' ">
+			   AND pp.is_used like  '%${params.isUsed}%'
+		   </if>
+		   <if test="params.module != null and params.module != '' ">
+			   AND module = #{params.module}
+		   </if>
+		</sql>
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PROPERTYPARKINGINFO 
+	     WHERE village_id = #{villageId} ,car_number = #{carNumber}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PROPERTYPARKINGINFO
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns_parking" />
+		,p.parking_name
+		  FROM T_PROPERTYPARKINGINFO pp left join t_parking p on pp.village_id = p.parking_id
+		 WHERE 1 = 1
+		 <include refid="wherePageSql_parking" />
+		 order by pp.create_time desc
+	</select>
+	
+<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListExcel" resultMap="resultMap">
+		SELECT <include refid="columns_excel" />
+		  FROM T_PROPERTYPARKINGINFO pp left join t_parking p on pp.village_id = p.parking_id
+		 WHERE 1 = 1
+		 <if test="villageId != null and villageId != '' ">
+		AND pp.village_id in ${villageId}
+		</if>
+		 <if test="villageName != null and villageName != '' ">
+		AND p.parking_name like '%${villageName}%'
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND pp.car_number = #{carNumber}
+		</if>
+		<if test="isUsed != null and  isUsed!= '' ">
+			AND pp.is_used = #{isUsed}
+		</if>
+		<if test="module != null and module != '' ">
+			AND module = #{module}
+		</if>
+		 order by pp.create_time desc
+	</select>
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.order.po.Propertyparkinginfo">
+        INSERT INTO T_PROPERTYPARKINGINFO (
+        	village_id,
+        	car_number,
+        	parking_number,
+        	owner,
+        	certificate,
+        	address,
+        	phone,
+        	carColor,
+        	management_fee_monthly_unit,
+        	iIllegal_flg,
+        	validity_flg,
+        	parking_addr_info,
+        	parking_property_info,
+        	purchase_date,
+        	parking_info,
+        	create_time,
+        	create_user,
+        	update_time,
+        	update_user,
+        	effect_begin_time,
+        	effect_end_time,
+        	max_date,
+        	item01,
+        	item02,
+        	item03,
+        	item04,
+        	item05,
+        	online_payment,
+        	MAKEUP,
+        	module
+        ) VALUES (
+        	#{villageId},
+        	#{carNumber},
+        	#{parkingNumber},
+        	#{owner},
+        	#{certificate},
+        	#{address},
+        	#{phone},
+        	#{carColor},
+        	#{managementFeeMonthlyUnit},
+        	#{iillegalFlg},
+        	#{validityFlg},
+        	#{parkingAddrInfo},
+        	#{parkingPropertyInfo},
+        	#{purchaseDate},
+        	#{parkingInfo},
+        	#{createTime},
+        	#{createUser},
+        	#{updateTime},
+        	#{updateUser},
+        	#{effect_begin_time},
+        	#{effect_end_time},
+        	#{max_date},
+        	#{item01},
+        	#{item02},
+        	#{item03},
+        	#{item04},
+        	#{item05},
+        	#{onlinePayment},
+        	#{makeUp},
+        	#{module}
+        )
+	</insert>
+	<update id="updateParkingInfo" parameterType="com.boxiang.share.product.order.po.Propertyparkinginfo">
+		UPDATE t_propertyparkinginfo
+		SET is_used =#{isUsed}
+		<if test="effect_end_time !=null and effect_end_time != ''">
+		,effect_end_time=#{effect_end_time}
+		</if>
+		WHERE village_id = #{villageId} AND car_number = #{carNumber}
+	</update>
+	<update id="updateParkingTime" parameterType="com.boxiang.share.product.order.po.Propertyparkinginfo">
+		UPDATE t_propertyparkinginfo
+		SET effect_begin_time = #{effect_begin_time},
+		effect_end_time = #{effect_end_time}
+		WHERE village_id = #{villageId} AND car_number = #{carNumber}
+	</update>
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_PROPERTYPARKINGINFO 
+		 WHERE village_id = #{villageId} ,car_number = #{carNumber} 
+	</delete>
+<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="deleteByCarNumber">
+		DELETE FROM T_PROPERTYPARKINGINFO 
+		 WHERE village_id = #{villageId} and car_number = #{carNumber} 
+	</delete>
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.order.po.Propertyparkinginfo">
+        UPDATE T_PROPERTYPARKINGINFO 
+		SET
+		<if test="newCarNumber !=null and newCarNumber != ''">
+			car_number = #{newCarNumber},
+		</if>
+	        parking_number = #{parkingNumber},
+	        owner = #{owner},
+	        certificate = #{certificate},
+	        address = #{address},
+	        phone = #{phone},
+	        carColor = #{carColor},
+	        management_fee_monthly_unit = #{managementFeeMonthlyUnit},
+	        iIllegal_flg = #{iillegalFlg},
+	        validity_flg = #{validityFlg},
+	        parking_addr_info = #{parkingAddrInfo},
+	        parking_property_info = #{parkingPropertyInfo},
+	         effect_begin_time = #{effect_begin_time},
+	        effect_end_time = #{effect_end_time},
+	        purchase_date = #{purchaseDate},
+	        parking_info = #{parkingInfo},
+	        create_time = #{createTime},
+	        create_user = #{createUser},
+	        update_time = #{updateTime},
+	        update_user = #{updateUser},
+	        max_date=#{max_date},
+	        item01 = #{item01},
+	        item02 = #{item02},
+	        item03 = #{item03},
+	        item04 = #{item04},
+	        item05 = #{item05},
+	        online_payment=#{onlinePayment},
+			MAKEUP = #{makeUp}
+        WHERE village_id = #{villageId} AND car_number = #{carNumber} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_PROPERTYPARKINGINFO
+			<set>
+    	        parking_number = #{item.parkingNumber},
+    	        owner = #{item.owner},
+    	        certificate = #{item.certificate},
+    	        address = #{item.address},
+    	        phone = #{item.phone},
+    	        carColor = #{item.carColor},
+    	        management_fee_monthly_unit = #{item.managementFeeMonthlyUnit},
+    	        iIllegal_flg = #{item.iillegalFlg},
+    	        validity_flg = #{item.validityFlg},
+    	        parking_addr_info = #{item.parkingAddrInfo},
+    	        parking_property_info = #{item.parkingPropertyInfo},
+    	        purchase_date = #{item.purchaseDate},
+    	        parking_info = #{item.parkingInfo},
+    	        create_time = #{item.createTime},
+    	        create_user = #{item.createUser},
+    	        update_time = #{item.updateTime},
+    	        update_user = #{item.updateUser},
+    	        item01 = #{item.item01},
+    	        item02 = #{item.item02},
+    	        item03 = #{item.item03},
+    	        item04 = #{item.item04},
+    	        item05 = #{item.item05},
+    	        online_payment=#{item.onlinePayment},
+				module=#{module}
+			</set>
+            WHERE village_id = #{item.villageId} ,car_number = #{item.carNumber} 	
+		</foreach>
+	</update>
+	<!-- 根据传入的小区ID查询月租车位，并且要满足当前时间在订单表的有效期内，当月的积分要小于12 -->
+	<select id="findByVillageIdForUserSync" resultMap="resultMap1">
+		<!-- select tv.item01 AS park_code,a.*,b.BEGIN_DATE AS validity_start_time,b.END_DATE AS validity_end_time,ifnull(c.total_value,0) as total_value
+			from t_propertyparkingInfo a 
+			left join t_order_equity b 
+			on b.PARKING_ID=a.village_id
+			and b.car_number=a.car_number
+			left join (select z.village_id,z.car_number,sum(value) total_value from t_villageintegralrecInfo z where date_format(z.create_time,'%Y-%m') = date_format(now(),'%Y-%m') and z.del_flg=0 group by z.village_id,z.car_number) c
+			on c.village_id=a.village_id
+			and c.car_number=a.car_number
+			LEFT JOIN t_villageinfo tv ON tv.id = a.village_id
+			where 
+			(isnull(c.total_value) or c.total_value &lt; 12)
+			and date_format(b.BEGIN_DATE,'%Y-%m') = date_format(now(),'%Y-%m') 
+			and date_format(b.END_DATE,'%Y-%m') = date_format(now(),'%Y-%m')
+			and tv.item01 IS NOT NULL
+			and tv.item01 !=""  -->
+			select tv.item01 AS park_code,a.*
+			from t_propertyparkingInfo a 
+			LEFT JOIN t_villageinfo tv ON tv.id = a.village_id
+			where 
+             tv.item01 IS NOT NULL
+			and tv.item01 !=""
+			<if test="parkingStr!=null and parkingStr!='' ">
+			and a.village_id in (${parkingStr})
+			</if>
+			group by a.village_id,a.car_number  
+	</select>
+	
+	<select id="findMaxByVillageIdForUserSync" resultMap="resultMap1">
+		<![CDATA[
+			select tv.item01 AS park_code,a.*,max(b.BEGIN_DATE) validity_start_time,max(b.END_DATE) validity_end_time
+			from t_propertyparkinginfo a 
+			left join t_order_equity b 
+			on b.PARKING_ID=a.village_id
+			and b.car_number=a.car_number
+			left join t_villageinfo tv ON tv.id = a.village_id
+		]]>
+		
+		<where>
+			<![CDATA[
+			and date_format(b.BEGIN_DATE,'%Y-%m') < date_format(now(),'%Y-%m') 
+			and date_format(b.END_DATE,'%Y-%m') < date_format(now(),'%Y-%m')
+			and tv.item01 IS NOT NULL
+			and tv.item01 !="" 
+			]]>
+			<if test="carNumberList != null and carNumberList.size != 0">
+				and a.car_number not in   
+			 	<foreach item="item" index="index" collection="carNumberList" open="(" separator="," close=")">  
+			  		#{item}
+			 	</foreach>  
+			</if>
+		</where>
+		group by b.parking_id,b.car_number
+	</select>
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectListGroup" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		FROM T_PROPERTYPARKINGINFO
+		WHERE 1 = 1
+		<include refid="whereSQL" />
+		GROUP BY village_id
+	</select>
+</mapper>

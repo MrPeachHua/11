@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.order.dao.OrderParkDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.order.po.OrderPark">
+        <result column="ID" property="id"/>
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="PARKER_ID" property="parkerId"/>
+        <result column="PARKER_BACK_ID" property="parkerBackId"/>
+        <result column="VALIDATE_IMAGE_PATH" property="validateImagePath"/>
+        <result column="PARKING_IMAGE_PATH" property="parkingImagePath"/>
+        <result column="CAR_NUMBER" property="carNumber"/>
+        <result column="ORDER_BEGIN_DATE" property="orderBeginDate"/>
+        <result column="ORDER_END_DATE" property="orderEndDate"/>
+        <result column="ACTUAL_BEGIN_DATE" property="actualBeginDate"/>
+        <result column="ACTUAL_END_DATE" property="actualEndDate"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="TARGET_PARKING_ID" property="targetParkingId"/>
+		<result column="KEY_BOX" property="keyBox"/>
+		<result column="BACK_PARK" property="backPark"/>
+		<result column="is_push" property="isPush"/>
+		
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, ORDER_ID, PARKING_ID, TARGET_PARKING_ID, KEY_BOX, BACK_PARK, PARKER_ID, PARKER_BACK_ID, VALIDATE_IMAGE_PATH, PARKING_IMAGE_PATH, CAR_NUMBER, ORDER_BEGIN_DATE, ORDER_END_DATE, ACTUAL_BEGIN_DATE, ACTUAL_END_DATE, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE,is_push
+	
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="orderId != null and orderId != '' ">
+		AND ORDER_ID = #{orderId}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="parkerId != null and parkerId != '' ">
+		AND PARKER_ID = #{parkerId}
+		</if>
+		<if test="parkerBackId != null and parkerBackId != '' ">
+		AND PARKER_BACK_ID = #{parkerBackId}
+		</if>
+		<if test="validateImagePath != null and validateImagePath != '' ">
+		AND VALIDATE_IMAGE_PATH = #{validateImagePath}
+		</if>
+		<if test="parkingImagePath != null and parkingImagePath != '' ">
+		AND PARKING_IMAGE_PATH = #{parkingImagePath}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND CAR_NUMBER = #{carNumber}
+		</if>
+		<if test="orderBeginDate != null and orderBeginDate != '' ">
+		AND ORDER_BEGIN_DATE = #{orderBeginDate}
+		</if>
+		<if test="orderEndDate != null and orderEndDate != '' ">
+		AND ORDER_END_DATE = #{orderEndDate}
+		</if>
+		<if test="actualBeginDate != null and actualBeginDate != '' ">
+		AND ACTUAL_BEGIN_DATE = #{actualBeginDate}
+		</if>
+		<if test="actualEndDate != null and actualEndDate != '' ">
+		AND ACTUAL_END_DATE = #{actualEndDate}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+		
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.orderId != null and params.orderId != '' ">
+		AND ORDER_ID = #{params.orderId}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.parkerId != null and params.parkerId != '' ">
+		AND PARKER_ID = #{params.parkerId}
+		</if>
+		<if test="params.parkerBackId != null and params.parkerBackId != '' ">
+		AND PARKER_BACK_ID = #{params.parkerBackId}
+		</if>
+		<if test="params.validateImagePath != null and params.validateImagePath != '' ">
+		AND VALIDATE_IMAGE_PATH = #{params.validateImagePath}
+		</if>
+		<if test="params.parkingImagePath != null and params.parkingImagePath != '' ">
+		AND PARKING_IMAGE_PATH = #{params.parkingImagePath}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND CAR_NUMBER = #{params.carNumber}
+		</if>
+		<if test="params.orderBeginDate != null and params.orderBeginDate != '' ">
+		AND ORDER_BEGIN_DATE = #{params.orderBeginDate}
+		</if>
+		<if test="params.orderEndDate != null and params.orderEndDate != '' ">
+		AND ORDER_END_DATE = #{params.orderEndDate}
+		</if>
+		<if test="params.actualBeginDate != null and params.actualBeginDate != '' ">
+		AND ACTUAL_BEGIN_DATE = #{params.actualBeginDate}
+		</if>
+		<if test="params.actualEndDate != null and params.actualEndDate != '' ">
+		AND ACTUAL_END_DATE = #{params.actualEndDate}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+		
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_PARK 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_PARK
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_PARK
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.order.po.OrderPark">
+        INSERT INTO T_ORDER_PARK (
+        	ID,
+        	ORDER_ID,
+        	PARKING_ID,
+        	PARKER_ID,
+        	PARKER_BACK_ID,
+        	VALIDATE_IMAGE_PATH,
+        	PARKING_IMAGE_PATH,
+        	CAR_NUMBER,
+        	ORDER_BEGIN_DATE,
+        	ORDER_END_DATE,
+        	ACTUAL_BEGIN_DATE,
+        	ACTUAL_END_DATE,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE,
+        	TARGET_PARKING_ID,
+        	KEY_BOX,
+        	BACK_PARK
+        ) VALUES (
+        	#{id},
+        	#{orderId},
+        	#{parkingId},
+        	#{parkerId},
+        	#{parkerBackId},
+        	#{validateImagePath},
+        	#{parkingImagePath},
+        	#{carNumber},
+        	#{orderBeginDate},
+        	#{orderEndDate},
+        	#{actualBeginDate},
+        	#{actualEndDate},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate},
+        	#{targetParkingId},
+        	#{keyBox},
+        	#{backPark}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_ORDER_PARK 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.order.po.OrderPark">
+        UPDATE T_ORDER_PARK 
+		SET
+	        ORDER_ID = #{orderId},
+	        PARKING_ID = #{parkingId},
+	        PARKER_ID = #{parkerId},
+	        PARKER_BACK_ID = #{parkerBackId},
+	        VALIDATE_IMAGE_PATH = #{validateImagePath},
+	        PARKING_IMAGE_PATH = #{parkingImagePath},
+	        CAR_NUMBER = #{carNumber},
+	        ORDER_BEGIN_DATE = #{orderBeginDate},
+	        ORDER_END_DATE = #{orderEndDate},
+	        ACTUAL_BEGIN_DATE = #{actualBeginDate},
+	        ACTUAL_END_DATE = #{actualEndDate},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate},
+	        TARGET_PARKING_ID = #{targetParkingId},
+        	KEY_BOX = #{keyBox},
+        	BACK_PARK = #{backPark}
+        WHERE ID = #{id}
+	</update>
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="merge">
+		UPDATE T_ORDER_PARK
+		SET
+		is_push='1'
+		WHERE order_id = #{orderId}
+	</update>
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_ORDER_PARK
+			<set>
+    	        ORDER_ID = #{item.orderId},
+    	        PARKING_ID = #{item.parkingId},
+    	        PARKER_ID = #{item.parkerId},
+    	        PARKER_BACK_ID = #{item.parkerBackId},
+    	        VALIDATE_IMAGE_PATH = #{item.validateImagePath},
+    	        PARKING_IMAGE_PATH = #{item.parkingImagePath},
+    	        CAR_NUMBER = #{item.carNumber},
+    	        ORDER_BEGIN_DATE = #{item.orderBeginDate},
+    	        ORDER_END_DATE = #{item.orderEndDate},
+    	        ACTUAL_BEGIN_DATE = #{item.actualBeginDate},
+    	        ACTUAL_END_DATE = #{item.actualEndDate},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate},
+				TARGET_PARKING_ID = #{targetParkingId},
+				KEY_BOX = #{keyBox},
+				BACK_PARK = #{backPark}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+
+	<select id="queryParkerOrder" resultType="com.boxiang.share.product.order.po.ParkerOrderVo">
+		select
+		op.ORDER_ID orderId,
+		cus.customer_nickname customerNickName,
+		op.CAR_NUMBER carNumber,
+		cus.customer_mobile customerMobile,
+		op.ORDER_BEGIN_DATE orderBeginDate,
+		op.ORDER_END_DATE orderEndDate,
+		op.ACTUAL_BEGIN_DATE actualBeginDate,
+		op.ACTUAL_END_DATE actualEndDate,
+		om.ORDER_STATUS orderStatus,
+		om.PAY_TYPE payType,
+		om.PAY_TIME payTime,
+		om.AMOUNT_PAYABLE amountPayable,
+		om.AMOUNT_DISCOUNT amountDiscount,
+		om.AMOUNT_PAID amountPaid,
+		op.VALIDATE_IMAGE_PATH validateImagePath,
+		op.PARKING_IMAGE_PATH parkingImagePath,
+		op.PARKING_ID parkingId,
+		op.PARKER_ID parkerId,
+		op.TARGET_PARKING_ID targetParkingId,
+		(select parking_name from t_parking where parking_id = op.TARGET_PARKING_ID) targetParkingName,
+		op.KEY_BOX keyBox,
+		op.BACK_PARK backPark,
+		(select parker_name from t_parker where parker_id = op.PARKER_ID) parkerName,
+		op.PARKER_BACK_ID parkerBackId,
+		(select parker_name from t_parker where parker_id = op.PARKER_BACK_ID) parkerBackName,
+		om.CREATE_DATE createDate,
+		comm.comment_content commentContent,
+		comm.comment_level commentLevel
+		from t_order_park op
+		left join t_order_main om on om.ORDER_ID = op.ORDER_ID
+		left join t_customer cus on cus.customer_id = om.CUSTOMER_ID
+		left join t_comment comm on comm.order_id = op.ORDER_ID
+		where 1 = 1
+		<if test="params.tab == 1">
+			and
+			(op.PARKER_ID = #{params.parkerId} and om.ORDER_STATUS in ('1','2'))
+			or
+			(op.PARKER_BACK_ID = #{params.parkerId} and om.ORDER_STATUS in ('8','9'))
+		</if>
+		<if test="params.tab == 2">
+			and op.PARKING_ID = (select parking_id from t_parker where parker_id = #{params.parkerId})
+			and om.ORDER_STATUS not in ('5','12')
+		</if>
+		<if test="params.tab == 3">
+			and (op.PARKER_ID = #{params.parkerId} or PARKER_BACK_ID = #{params.parkerId})
+			and om.ORDER_STATUS = '5'
+		</if>
+		order by op.CREATE_DATE desc
+	</select>
+
+	<select id="queryParkerOrderById" parameterType="java.lang.String" resultType="com.boxiang.share.product.order.po.ParkerOrderVo">
+		select
+		op.ORDER_ID orderId,
+		cus.customer_nickname customerNickName,
+		op.CAR_NUMBER carNumber,
+		cus.customer_mobile customerMobile,
+		op.ORDER_BEGIN_DATE orderBeginDate,
+		op.ORDER_END_DATE orderEndDate,
+		op.ACTUAL_BEGIN_DATE actualBeginDate,
+		op.ACTUAL_END_DATE actualEndDate,
+		om.ORDER_STATUS orderStatus,
+		om.PAY_TYPE payType,
+		om.PAY_TIME payTime,
+		om.AMOUNT_PAYABLE amountPayable,
+		om.AMOUNT_DISCOUNT amountDiscount,
+		om.AMOUNT_PAID amountPaid,
+		op.VALIDATE_IMAGE_PATH validateImagePath,
+		op.PARKING_IMAGE_PATH parkingImagePath,
+		op.PARKING_ID parkingId,
+		op.PARKER_ID parkerId,
+		op.TARGET_PARKING_ID targetParkingId,
+		(select parking_name from t_parking where parking_id = op.TARGET_PARKING_ID) targetParkingName,
+		op.KEY_BOX keyBox,
+		op.BACK_PARK backPark,
+		(select parker_name from t_parker where parker_id = op.PARKER_ID) parkerName,
+		op.PARKER_BACK_ID parkerBackId,
+		(select parker_name from t_parker where parker_id = op.PARKER_BACK_ID) parkerBackName,
+		om.CREATE_DATE createDate,
+		comm.comment_content commentContent,
+		comm.comment_level commentLevel
+		from t_order_park op
+		left join t_order_main om on om.ORDER_ID = op.ORDER_ID
+		left join t_customer cus on cus.customer_id = om.CUSTOMER_ID
+		left join t_comment comm on comm.order_id = op.ORDER_ID
+		where 1 = 1
+		and op.ORDER_ID = #{orderId}
+	</select>
+
+	<!--查询今天订单数量,不包含已取消订单-->
+	<select id="queryTodayCount" parameterType="java.util.Map" resultType="int">
+		select count(*) from t_order_park op
+		LEFT JOIN t_order_main om ON om.ORDER_ID = op.ORDER_ID
+		WHERE
+		om.ORDER_STATUS != 12
+		<if test="parkingId != null and parkingId != ''">
+			and op.PARKING_ID = #{parkingId}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and op.CREATE_DATE >= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			and op.CREATE_DATE <![CDATA[ <= ]]>  #{endTime}
+		</if>
+	</select>
+
+	<select id="queryCountJoinOrderMain" parameterType="java.util.Map" resultType="int">
+		select count(*) from t_order_park op
+		left join t_order_main om on om.ORDER_ID = op.ORDER_ID
+		where 1 = 1
+		<if test="carNumber != null and carNumber != ''">
+			and CAR_NUMBER = #{carNumber}
+		</if>
+		<if test="notOrderStatus != null and notOrderStatus != ''">
+			and om.ORDER_STATUS not in ${notOrderStatus}
+		</if>
+	</select>
+
+	<select id="queryByOrderId" resultMap="resultMap">
+		SELECT  <include refid="columns" />
+		FROM T_ORDER_PARK
+		WHERE ORDER_ID = #{orderId}
+		GROUP BY ORDER_ID
+	</select>
+	<!-- 定时推送 -->
+	<select id="queryByOrderIspush" parameterType="java.lang.Long" resultType="java.util.Map" >
+		SELECT
+		  a.customer_id,b.is_push,a.order_id,(SELECT c.customer_mobile from t_customer c where c.customer_id=a.CUSTOMER_ID) customer_mobile
+		FROM
+		t_order_main a
+		INNER JOIN t_order_park b ON a.ORDER_ID = b.ORDER_ID
+		WHERE
+		 b.is_push != '1'
+		and
+		a.ORDER_STATUS IN ('4', '14')
+		AND (UNIX_TIMESTAMP(ORDER_END_DATE) -  UNIX_TIMESTAMP()) <![CDATA[<=]]> 1800;
+	</select>
+
+</mapper>

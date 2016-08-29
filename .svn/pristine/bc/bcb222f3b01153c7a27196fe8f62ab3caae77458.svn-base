@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.record.dao.ParkingScanRecordDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.record.po.ParkingScanRecord">
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="COUNT" property="count"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		PARKING_ID, COUNT
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="count != null and count != '' ">
+		AND COUNT = #{count}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.count != null and params.count != '' ">
+		AND COUNT = #{params.count}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_SCAN_RECORD 
+	     WHERE PARKING_ID = #{parkingId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_SCAN_RECORD
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_SCAN_RECORD
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.record.po.ParkingScanRecord">
+        INSERT INTO T_PARKING_SCAN_RECORD (
+        	PARKING_ID,
+        	COUNT
+        ) VALUES (
+        	#{parkingId},
+        	#{count}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_PARKING_SCAN_RECORD 
+		 WHERE PARKING_ID = #{parkingId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.record.po.ParkingScanRecord">
+        UPDATE T_PARKING_SCAN_RECORD 
+		SET
+	        COUNT = #{count}
+        WHERE PARKING_ID = #{parkingId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_PARKING_SCAN_RECORD
+			<set>
+    	        COUNT = #{item.count}
+			</set>
+            WHERE PARKING_ID = #{item.parkingId} 	
+		</foreach>
+	</update>
+</mapper>

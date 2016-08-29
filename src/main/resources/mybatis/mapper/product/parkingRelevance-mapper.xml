@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.parking.dao.ParkingRelevanceDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.parking.po.ParkingRelevance">
+        <result column="ID" property="id"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="CORRESPONDING_ID" property="correspondingId"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, PARKING_ID, CORRESPONDING_ID
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="correspondingId != null and correspondingId != '' ">
+		AND CORRESPONDING_ID = #{correspondingId}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.correspondingId != null and params.correspondingId != '' ">
+		AND CORRESPONDING_ID = #{params.correspondingId}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_RELEVANCE 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_RELEVANCE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_PARKING_RELEVANCE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.parking.po.ParkingRelevance">
+        INSERT INTO T_PARKING_RELEVANCE (
+        	ID,
+        	PARKING_ID,
+        	CORRESPONDING_ID
+        ) VALUES (
+        	#{id},
+        	#{parkingId},
+        	#{correspondingId}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_PARKING_RELEVANCE 
+		 WHERE ID = #{id} 
+	</delete>
+	<delete id="del">
+		DELETE FROM T_PARKING_RELEVANCE
+		WHERE parking_id = #{parkingId}
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.parking.po.ParkingRelevance">
+        UPDATE T_PARKING_RELEVANCE 
+		SET
+	        PARKING_ID = #{parkingId},
+	        CORRESPONDING_ID = #{correspondingId}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_PARKING_RELEVANCE
+			<set>
+    	        PARKING_ID = #{item.parkingId},
+    	        CORRESPONDING_ID = #{item.correspondingId}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

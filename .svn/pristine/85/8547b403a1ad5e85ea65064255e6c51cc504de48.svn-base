@@ -1,0 +1,2508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.order.dao.OrderMainDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.order.po.OrderMain">
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="ORDER_TYPE" property="orderType"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>
+        <result column="INVOICE_STATUS" property="invoiceStatus"/>
+        <result column="CUSTOMER_ID" property="customerId"/>
+        <result column="AMOUNT_PAYABLE" property="amountPayable"/>
+        <result column="AMOUNT_DISCOUNT" property="amountDiscount"/>
+        <result column="AMOUNT_PAID" property="amountPaid"/>
+        <result column="PAY_TYPE" property="payType"/>
+        <result column="PAY_TIME" property="payTime"/>
+        <result column="TRADE_NO" property="tradeNo"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+        <result column="customer_nickname" property="customer_nickname"/>
+        <result column="customer_mobile" property="customer_mobile"/>
+        <result column="startTime" property="startTime"/>
+        <result column="stopTime" property="stopTime"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="parking_name" property="parkingName"/>
+        <result column="gift_Amount" property="giftAmount"/>
+        <result column="RESERVE_DATE" property="reserveDate"/>
+        <result column="IS_NEED_INVOICE" property="isNeedInvoice"/>
+		<result column="VOUCHER_STATUS" property="voucherStatus"/>
+		<result column="PARKING_CODE" property="parkingCode"/>
+		<result column="CAR_NUMBER" property="carNumber"/>
+		<result column="SUM_PAID" property="sumPaid"/>
+		<result column="SUM_DISCOUNT" property="sumDiscount"/>
+		<result column="amount" property="amount"/>
+		<result column="payDate" property="payDate"/>
+		<result column="parking_id" property="parkingId"/>
+		<result column="sum_price_point" property="sumPricePoint"/>
+	</resultMap>
+
+	<resultMap id="resultMapExcel" type="com.boxiang.share.product.order.po.OrderMainExcel">
+		<result column="ORDER_ID" property="orderId"/>
+		<result column="ORDER_TYPE" property="orderType"/>
+		<result column="ORDER_STATUS" property="orderStatus"/>
+		<result column="INVOICE_STATUS" property="invoiceStatus"/>
+		<result column="CUSTOMER_ID" property="customerId"/>
+		<result column="AMOUNT_PAYABLE" property="amountPayable"/>
+		<result column="AMOUNT_DISCOUNT" property="amountDiscount"/>
+		<result column="AMOUNT_PAID" property="amountPaid"/>
+		<result column="PAY_TYPE" property="payType"/>
+		<result column="PAY_TIME" property="payTime"/>
+		<result column="TRADE_NO" property="tradeNo"/>
+		<result column="IS_USED" property="isUsed"/>
+		<result column="CREATEOR" property="createor"/>
+		<result column="MODIFIED" property="modified"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="customer_nickname" property="customer_nickname"/>
+		<result column="customer_mobile" property="customer_mobile"/>
+		<result column="startTime" property="startTime"/>
+		<result column="stopTime" property="stopTime"/>
+		<result column="PARKING_ID" property="parkingId"/>
+		<result column="parking_name" property="parkingName"/>
+		<result column="gift_Amount" property="giftAmount"/>
+	</resultMap>
+
+	<resultMap id="resultMapWithCarNumber" type="com.boxiang.share.product.order.po.OrderMain">
+		<result column="ORDER_ID" property="orderId"/>
+		<result column="ORDER_TYPE" property="orderType"/>
+		<result column="ORDER_STATUS" property="orderStatus"/>
+		<result column="INVOICE_STATUS" property="invoiceStatus"/>
+		<result column="CUSTOMER_ID" property="customerId"/>
+		<result column="AMOUNT_PAYABLE" property="amountPayable"/>
+		<result column="AMOUNT_DISCOUNT" property="amountDiscount"/>
+		<result column="AMOUNT_PAID" property="amountPaid"/>
+		<result column="PAY_TYPE" property="payType"/>
+		<result column="PAY_TIME" property="payTime"/>
+		<result column="TRADE_NO" property="tradeNo"/>
+		<result column="IS_USED" property="isUsed"/>
+		<result column="CREATEOR" property="createor"/>
+		<result column="MODIFIED" property="modified"/>
+		<result column="CREATE_DATE" property="createDate"/>
+		<result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="customer_nickname" property="customer_nickname"/>
+		<result column="customer_mobile" property="customer_mobile"/>
+		<result column="startTime" property="startTime"/>
+		<result column="stopTime" property="stopTime"/>
+		<result column="parking_name" property="parkingName"/>
+		<result column="CAR_NUMBER" property="carNumber"/>
+		<result column="BEGIN_DATE" property="beginTime"/>
+		<result column="END_DATE" property="endTime"/>
+	</resultMap>
+	<resultMap id="resultCarwash" type="com.boxiang.share.product.order.po.OrderMainCarwash">
+		<result column="ORDER_ID" property="orderId"/>
+		<result column="ORDER_TYPE" property="orderType"/>
+		<result column="ORDER_STATUS" property="orderStatus"/>
+		<result column="INVOICE_STATUS" property="invoiceStatus"/>
+		<result column="AMOUNT_PAYABLE" property="amountPayable"/>
+		<result column="AMOUNT_DISCOUNT" property="amountDiscount"/>
+		<result column="AMOUNT_PAID" property="amountPaid"/>
+		<result column="PAY_TYPE" property="payType"/>
+		<result column="PAY_TIME" property="payTime"/>
+		<result column="TRADE_NO" property="tradeNo"/>
+		<result column="customer_nickname" property="customer_nickname"/>
+		<result column="customer_mobile" property="customer_mobile"/>
+		<result column="parking_name" property="parkingName"/>
+		<result column="CAR_NUMBER" property="carNumber"/>
+		<result column="RESERVE_DATE" property="reserveDate"/>
+		<result column="CAR_TYPE" property="carType"/>
+	</resultMap>
+	
+	
+	<resultMap id="resultMap1" type="com.boxiang.share.product.order.po.OrderMain">
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="ORDER_TYPE" property="orderType"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>
+        <result column="AMOUNT_PAYABLE" property="amountPayable"/>
+        <result column="AMOUNT_DISCOUNT" property="amountDiscount"/>
+        <result column="AMOUNT_PAID" property="amountPaid"/>
+        <result column="PAY_TYPE" property="payType"/>
+        <result column="PAY_TIME" property="payTime"/>
+        <result column="CREATE_DATE" property="createDate"/>
+		<result column="PARKING_ID" property="parkingId"/>
+		<result column="PARKING_NAME" property="parkingName"/>
+		<result column="CAR_NUMBER" property="carNumber"/>
+		<result column="PARKING_NO" property="parkingNo"/>
+		<result column="BEGIN_DATE" property="beginTime"/>
+		<result column="END_DATE" property="endTime"/>
+		<result column="MONTH_NUM" property="monthNum"/>
+		<result column="PARKING_CODE" property="parkingCode"/>
+		<result column="APPOINTMENT_DATE" property="appointmentDate"/>
+		<result column="VOUCHER_STATUS" property="voucherStatus"/>
+		<result column="startTime" property="startTime"/>
+		<result column="stopTime" property="stopTime"/>
+		<result column="monday_begin_time" property="mondayBeginTime"/>
+		<result column="monday_end_time" property="mondayEndTime"/>
+		<result column="friday_begin_time" property="fridayBeginTime"/>
+		<result column="friday_end_time" property="fridayEndTime"/>
+		<result column="saturday_begin_time" property="saturdayBeginTime"/>
+		<result column="saturday_end_time" property="saturdayEndTime"/>
+		<result column="sunday_begin_time" property="sundayBeginTime"/>
+		<result column="sunday_end_time" property="sundayEndTime"/>
+		<result column="thursday_begin_time" property="thursdayBeginTime"/>
+		<result column="thursday_end_time" property="thursdayEndTime"/>
+		<result column="tuesday_begin_time" property="tuesdayBeginTime"/>
+		<result column="tuesday_end_time" property="tuesdayEndTime"/>
+		<result column="wednesday_begin_time" property="wednesdayBeginTime"/>
+		<result column="wednesday_end_time" property="wednesdayEndTime"/>
+		<result column="start_end_time" property="startEndTime"/>
+		<result column="trade_no" property="tradeNo"/>
+		<result column="effect_end_date" property="effectEndDate"/>
+		
+	</resultMap>
+	<resultMap id="resultMap2" type="com.boxiang.share.product.order.po.OrderMain">
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="ORDER_TYPE" property="orderType"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>    
+        <result column="orderStatusName" property="orderStatusName"/>
+        <result column="orderTypeName" property="orderTypeName"/>
+        <result column="AMOUNT_PAID" property="amountPaid"/>
+        <result column="PAY_TIME" property="payTime"/>
+         <result column="parking_name" property="parkingName"/>
+        <result column="car_number" property="carNumber"/>
+	</resultMap>
+	<resultMap id="resultPark" type="com.boxiang.share.product.order.po.OrderMain">
+        <result column="ID" property="id"/>
+        <result column="ORDER_ID" property="orderId"/>
+		<result column="ORDER_TYPE" property="orderType"/>
+		<result column="ORDER_STATUS" property="orderStatus"/>
+		<result column="INVOICE_STATUS" property="invoiceStatus"/>
+		<result column="CUSTOMER_ID" property="customerId"/>
+		<result column="AMOUNT_PAYABLE" property="amountPayable"/>
+		<result column="AMOUNT_DISCOUNT" property="amountDiscount"/>
+		<result column="AMOUNT_PAID" property="amountPaid"/>
+		<result column="PAY_TYPE" property="payType"/>
+		<result column="PAY_TIME" property="payTime"/>
+		<result column="TRADE_NO" property="tradeNo"/>
+		<result column="customer_nickname" property="customer_nickname"/>
+		<result column="customer_mobile" property="customer_mobile"/>
+		<result column="PARKING_ID" property="parkingId"/>
+		<result column="parking_name" property="parkingName"/>
+		<result column="gift_Amount" property="giftAmount"/>
+		<result column="CAR_NUMBER" property="carNumber"/>
+        <result column="PARKER_ID" property="parkerId"/>
+        <result column="PARKER_BACK_ID" property="parkerBackId"/>
+        <result column="VALIDATE_IMAGE_PATH" property="validateImagePath"/>
+        <result column="PARKING_IMAGE_PATH" property="parkingImagePath"/>
+       <!--  <result column="ORDER_BEGIN_DATE" property="orderBeginDate"/>
+        <result column="ORDER_END_DATE" property="orderEndDate"/>
+        <result column="ACTUAL_BEGIN_DATE" property="actualBeginDate"/>
+        <result column="ACTUAL_END_DATE" property="actualEndDate"/> -->
+		<result column="TARGET_PARKING_ID" property="targetParkingId"/>
+		<result column="KEY_BOX" property="keyBox"/>
+		<result column="BACK_PARK" property="backPark"/>
+		<result column="is_push" property="isPush"/>
+		<result column="parker_name" property="parkerName"/>
+		<result column="CAR_TYPE" property="carType"/>
+		<result column="startTime" property="startTime"/>
+        <result column="stopTime" property="stopTime"/>
+	</resultMap>
+	<select id="queryListPageForRecharge" resultMap="resultMap">
+		select ORDER_TYPE,PAY_TYPE,PAY_TIME,AMOUNT_PAID,AMOUNT_PAYABLE,AMOUNT_DISCOUNT from t_order_main where ORDER_TYPE = '16'
+		AND ORDER_STATUS ='11' 
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND CUSTOMER_ID = #{params.customerId}
+		</if>
+		ORDER BY CREATE_DATE DESC
+	</select>
+	<select id="queryListPageForConsum" resultMap="resultMap">
+		SELECT al.* FROM 
+(select ORDER_TYPE,PAY_TIME,AMOUNT_PAID,AMOUNT_PAYABLE,AMOUNT_DISCOUNT from t_order_main where PAY_TYPE='05'
+		AND ORDER_STATUS ='11' 
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND CUSTOMER_ID = #{params.customerId}
+		</if>
+UNION ALL
+select t.order_type AS ORDER_TYPE, t.updated_at AS PAY_TIME,t.order_total_fee AS AMOUNT_PAID, t.charge AS AMOUNT_PAYABLE, t.order_discount AS AMOUNT_DISCOUNT
+from t_order t
+		Left join t_order_pay_record p on t.order_id = p.order_id
+		where t.order_state in ('5','11') and t.order_type='1' and t.pay_type='05'
+		<if test="params.customerId != null and params.customerId != '' ">
+			AND t.CUSTOMER_ID = #{params.customerId}
+		</if>
+		) al
+ORDER BY al.PAY_TIME DESC	
+	<!-- 
+		
+		select ORDER_TYPE,PAY_TIME,AMOUNT_PAID,AMOUNT_PAYABLE,AMOUNT_DISCOUNT from t_order_main where PAY_TYPE='05'
+		AND ORDER_STATUS ='11' 
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND CUSTOMER_ID = #{params.customerId}
+		</if> -->
+	</select>
+	<!-- <select id="queryListByOrder" resultMap="resultMap">
+		select t.charge as AMOUNT_PAID , t.order_discount as AMOUNT_DISCOUNT,t.charge as AMOUNT_PAYABLE,
+		
+		from t_order t
+		Left join t_order_pay_record p on t.order_id = p.order_id
+		where p.PAY_TYPE='05' and t.order_state='5' and t.order_type='1'
+	</select> -->
+	<!-- 临停缴费 -->
+	<select id="selectOrderDetailT" resultMap="resultMap1">
+		select 
+		a.ORDER_ID,a.ORDER_TYPE,a.ORDER_STATUS,a.AMOUNT_PAYABLE,a.AMOUNT_DISCOUNT,
+		a.AMOUNT_PAID,a.PAY_TYPE,a.PAY_TIME,a.CREATE_DATE,b.PARKING_ID,b.begin_date,b.end_date,
+		b.CAR_NUMBER,c.PARKING_NAME,a.TRADE_NO
+		from T_ORDER_MAIN a 
+		LEFT JOIN t_order_temporary b on a.ORDER_ID = b.ORDER_ID
+		LEFT JOIN T_PARKING c on c.parking_id = b.PARKING_ID
+		WHERE 1 = 1 AND a.ORDER_ID=#{orderId} AND a.ORDER_TYPE = #{orderType}
+	</select>
+	<!-- 共享临停-->
+	<select id="selectOrderDetailTS" resultMap="resultMap1">
+		select 
+		a.ORDER_ID,a.ORDER_TYPE,a.ORDER_STATUS,a.AMOUNT_PAYABLE,a.AMOUNT_DISCOUNT,
+		a.AMOUNT_PAID,a.PAY_TYPE,a.PAY_TIME,a.CREATE_DATE,b.PARKING_ID,
+		b.CAR_NUMBER,c.PARKING_NAME,b.PARKING_CODE,b.VOUCHER_STATUS,b.APPOINTMENT_DATE,c.StartTime,c.StopTime,
+		p.monday_begin_time,
+		p.monday_end_time,
+		p.friday_begin_time,
+		p.friday_end_time,
+		p.saturday_begin_time,
+		p.saturday_end_time,
+		p.sunday_begin_time,
+		p.sunday_end_time,
+		p.thursday_begin_time,
+		p.thursday_end_time,
+		p.tuesday_begin_time,
+		p.tuesday_end_time,
+		p.wednesday_begin_time,
+		p.wednesday_end_time,
+		b.start_end_time,
+		a.TRADE_NO,
+		b.APPOINTMENT_DATE
+		from T_ORDER_MAIN a 
+		LEFT JOIN t_order_temporary_share b on a.ORDER_ID = b.ORDER_ID
+		LEFT JOIN T_PARKING c on c.parking_id = b.PARKING_ID
+		LEFT JOIN t_discount_parking_price p ON p.parking_id=b.PARKING_ID
+		WHERE 1 = 1 AND a.ORDER_ID=#{orderId} AND a.ORDER_TYPE = #{orderType}
+	</select>
+	<!-- 月租 -->
+	<select id="selectOrderDetailM" resultMap="resultMap1">
+		select 
+		a.ORDER_ID,a.ORDER_TYPE,a.ORDER_STATUS,a.AMOUNT_PAYABLE,a.AMOUNT_DISCOUNT,
+		a.AMOUNT_PAID,a.PAY_TYPE,a.PAY_TIME,a.CREATE_DATE,b.PARKING_ID,b.BEGIN_DATE,
+		b.END_DATE AS effect_end_date,b.MONTH_NUM,a.TRADE_NO,
+		b.CAR_NUMBER,c.PARKING_NAME
+		from T_ORDER_MAIN a 
+		LEFT JOIN t_order_monthly b on a.ORDER_ID = b.ORDER_ID
+		LEFT JOIN T_PARKING c on c.parking_id = b.PARKING_ID
+		WHERE 1 = 1 AND a.ORDER_ID=#{orderId} AND a.ORDER_TYPE = #{orderType}
+	</select>
+	<!-- 产权 -->
+	<select id="selectOrderDetailE" resultMap="resultMap1">
+		select 
+		a.ORDER_ID,a.ORDER_TYPE,a.ORDER_STATUS,a.AMOUNT_PAYABLE,a.AMOUNT_DISCOUNT,
+		a.AMOUNT_PAID,a.PAY_TYPE,a.PAY_TIME,a.CREATE_DATE,b.PARKING_ID,b.BEGIN_DATE,
+		b.END_DATE AS effect_end_date,b.MONTH_NUM,a.TRADE_NO,
+		b.PARKING_NO,b.CAR_NUMBER,c.PARKING_NAME
+		from T_ORDER_MAIN a 
+		LEFT JOIN t_order_equity b on a.ORDER_ID = b.ORDER_ID
+		LEFT JOIN T_PARKING c on c.parking_id = b.PARKING_ID
+		WHERE 1 = 1 AND a.ORDER_ID=#{orderId} AND a.ORDER_TYPE = #{orderType}
+	</select>
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		a.ORDER_ID, a.ORDER_TYPE, a.ORDER_STATUS, a.INVOICE_STATUS,a.IS_NEED_INVOICE, a.CUSTOMER_ID, a.AMOUNT_PAYABLE,a.AMOUNT_DISCOUNT, a.AMOUNT_PAID, a.PAY_TYPE, a.PAY_TIME, a.TRADE_NO, a.IS_USED, a.CREATEOR, a.MODIFIED, a.CREATE_DATE, a.MODIFY_DATE
+	</sql>
+<sql id="columns_order">
+		a.ORDER_ID, a.ORDER_TYPE, a.ORDER_STATUS, a.INVOICE_STATUS,a.IS_NEED_INVOICE, a.AMOUNT_PAYABLE,a.AMOUNT_DISCOUNT, a.AMOUNT_PAID, a.PAY_TYPE, a.PAY_TIME,a.CUSTOMER_ID, a.TRADE_NO  
+	</sql>
+	<sql id="columns_order_excel">
+		a.ORDER_ID, a.ORDER_TYPE, a.ORDER_STATUS, a.INVOICE_STATUS,a.IS_NEED_INVOICE, a.AMOUNT_PAYABLE,a.AMOUNT_DISCOUNT, a.AMOUNT_PAID, a.PAY_TYPE, a.PAY_TIME,a.TRADE_NO  
+	</sql>
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="orderId != null and orderId != '' ">
+		AND a.ORDER_ID = #{orderId}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+		AND a.ORDER_TYPE = #{orderType}
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+		AND a.ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="invoiceStatus != null and invoiceStatus != '' ">
+		AND a.INVOICE_STATUS = #{invoiceStatus}
+		</if>
+		<if test="isNeedInvoice != null and isNeedInvoice != '' ">
+		AND a.IS_NEED_INVOICE = #{isNeedInvoice}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND a.CUSTOMER_ID = #{customerId}
+		</if>
+		<if test="amountPayable != null and amountPayable != '' ">
+		AND a.AMOUNT_PAYABLE = #{amountPayable}
+		</if>
+		<if test="amountDiscount != null and amountDiscount != '' ">
+		AND a.AMOUNT_DISCOUNT = #{amountDiscount}
+		</if>
+		<if test="amountPaid != null and amountPaid != '' ">
+		AND a.AMOUNT_PAID = #{amountPaid}
+		</if>
+		<if test="payType != null and payType != '' ">
+		AND a.PAY_TYPE = #{payType}
+		</if>
+		<if test="payTime != null and payTime != '' ">
+		AND a.PAY_TIME = #{payTime}
+		</if>
+		<if test="tradeNo != null and tradeNo != '' ">
+		AND a.TRADE_NO = #{tradeNo}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND a.IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND a.CREATEOR = #{createor}
+		</if>
+		<if test="customer_nickname != null and customer_nickname != '' ">
+		AND b.customer_nickname like '%${customer_nickname}%'
+		</if>
+		<if test="customer_mobile != null and customer_mobile != '' ">
+		AND b.customer_mobile like '%${customer_mobile}%'
+		</if>
+		<if test="startTime != null and startTime != '' and stopTime!=null and stopTime!='' ">
+		AND a.PAY_TIME between #{startTime} and   '${stopTime} 23:59:59'
+		</if>
+		<if test="startTime != null and startTime != '' and (stopTime==null or stopTime=='') ">
+		AND a.PAY_TIME  &gt;=   #{startTime} 
+		</if>
+		<if test="(startTime == null or startTime == '') and stopTime!=null and stopTime!='' ">
+		AND a.PAY_TIME &lt;=  '${stopTime} 23:59:59'
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND a.MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND a.CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND a.MODIFY_DATE = #{modifyDate}
+		</if>
+		<if test="parkingCode != null and parkingCode != '' ">
+			AND c.PARKING_CODE = #{parkingCode}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.orderId != null and params.orderId != '' ">
+		AND a.ORDER_ID = #{params.orderId}
+		</if>
+		<if test="params.orderType != null and params.orderType != '' ">
+		AND a.ORDER_TYPE = #{params.orderType}
+		</if>
+		<if test="params.orderStatus != null and params.orderStatus != '' ">
+		AND a.ORDER_STATUS = #{params.orderStatus}
+		</if>
+		<if test="params.invoiceStatus != null and params.invoiceStatus != '' ">
+		AND a.INVOICE_STATUS = #{params.invoiceStatus}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND a.CUSTOMER_ID = #{params.customerId}
+		</if>
+		<if test="params.amountPayable != null and params.amountPayable != '' ">
+		AND a.AMOUNT_PAYABLE = #{params.amountPayable}
+		</if>
+		<if test="params.amountDiscount != null and params.amountDiscount != '' ">
+		AND a.AMOUNT_DISCOUNT = #{params.amountDiscount}
+		</if>
+		<if test="params.amountPaid != null and params.amountPaid != '' ">
+		AND a.AMOUNT_PAID = #{params.amountPaid}
+		</if>
+		<if test="params.payType != null and params.payType != '' ">
+		AND a.PAY_TYPE = #{params.payType}
+		</if>
+		<if test="params.tradeNo != null and params.tradeNo != '' ">
+		AND a.TRADE_NO = #{params.tradeNo}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND a.IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND a.CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND a.MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND a.CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND a.MODIFY_DATE = #{params.modifyDate}
+		</if>
+		<if test="params.customer_nickname != null and params.customer_nickname != '' ">
+		AND b.customer_nickname like '%${params.customer_nickname}%'
+		</if>
+		<if test="params.customer_mobile != null and params.customer_mobile != '' ">
+		AND b.customer_mobile like '%${params.customer_mobile}%'
+		</if>
+		 <if test="params.startTime != null and params.startTime != '' and params.stopTime != null and params.stopTime != '' ">
+		AND a.PAY_TIME between #{params.startTime} and   '${params.stopTime} 23:59:59'
+		</if>
+		<if test="params.startTime != null and params.startTime != '' and (params.stopTime == null or params.stopTime == '') ">
+		AND a.PAY_TIME &gt;= #{params.startTime}  
+		</if>
+ 		<if test="(params.startTime == null or params.startTime == '') and params.stopTime != null and params.stopTime != '' "> 
+  		AND a.PAY_TIME &lt;= '${params.stopTime} 23:59:59'
+  		</if>  
+  		<if test="params.carType != null and params.carType != '' ">
+		AND a.CAR_TYPE = #{params.carType}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_ORDER_MAIN a
+	     WHERE a.ORDER_ID = #{orderId}     
+	</select>
+<update id="finishPay" parameterType="string">
+		update T_ORDER_MAIN set order_status=11 where order_id=#{order_id}
+	</update>
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns_order" />
+		,b.customer_nickname,b.customer_mobile
+		  FROM T_ORDER_MAIN a INNER JOIN t_customer b on a.CUSTOMER_ID=b.customer_id
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+		  order by a.CREATE_DATE desc
+	</select>
+	<select id="selectListExcel" resultMap="resultMap">
+		SELECT <include refid="columns_order_excel" />
+		,b.customer_nickname,b.customer_mobile
+		  FROM T_ORDER_MAIN a LEFT JOIN t_customer b on a.CUSTOMER_ID=b.customer_id
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+		 <if test="parkingId != null and parkingId != '' ">
+		 and (a.ORDER_ID in 
+		  	(select m.ORDER_ID from t_order_monthly m where m.PARKING_ID=#{parkingId})
+		  	  or a.ORDER_ID in (select e.ORDER_ID from t_order_equity e where e.PARKING_ID=#{parkingId})
+		  	  or a.ORDER_ID in (select t.ORDER_ID from t_order_temporary t where t.PARKING_ID=#{parkingId})
+		  	  or a.ORDER_ID in (select s.ORDER_ID from t_order_temporary_share s where s.PARKING_ID=#{parkingId})
+		  	)
+		 	<if test="orderType == null or orderType == '' ">
+				AND a.ORDER_TYPE !='15'
+			</if>
+		 </if>
+		  order by a.CREATE_DATE desc
+	</select>
+	<!--查询未付款订单条数 -->
+	<select id="selectCount"   resultType="java.lang.Integer" >
+   SELECT
+	COUNT(a.ORDER_ID)
+FROM
+	t_order_main a
+WHERE
+	1 = 1
+	and a.IS_USED='1'
+	and a.ORDER_STATUS='10'
+and
+	a.ORDER_TYPE = #{orderType}
+and a.customer_id =#{customerId}
+
+
+	</select>
+
+
+     <!-- 查询15分钟未付款订单 2016-02-29 -->
+	<select id="selectListByStatus" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		FROM
+			T_ORDER_MAIN a
+		WHERE
+			a.ORDER_STATUS='10' and IS_USED='1'  and a.order_type in ('10','11','13','14','15','16','17')
+and CURRENT_TIMESTAMP() >DATE_ADD(a.create_date,INTERVAL 15 MINUTE)
+		  
+	</select>
+	<!-- 临停缴费 -->
+	<select id="queryTempPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		,b.customer_nickname,b.customer_mobile,d.parking_name,c.CAR_NUMBER
+		 FROM
+		T_ORDER_MAIN a
+	LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+		LEFT JOIN t_order_temporary c ON a.ORDER_ID=c.ORDER_ID
+		LEFT JOIN t_parking d ON c.parking_id = d.parking_id
+		  		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 <if test="params.parkingName != null and params.parkingName != '' ">
+			AND d.PARKING_NAME like '%${params.parkingName}%'
+		 </if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND c.car_number like '%${params.carNumber}%'
+		</if>
+		 <if test="params.parkingId != null and params.parkingId != '' ">
+		 and (a.ORDER_ID in (select s.ORDER_ID from t_order_temporary s where s.PARKING_ID in (${params.parkingId}))
+		  	)
+		 	<if test="params.orderType == null or params.orderType == '' ">
+				AND a.ORDER_TYPE !='15'
+			</if>
+		 </if>
+		 order by a.CREATE_DATE desc
+	</select>
+	<!-- 临停缴费导出 -->
+	<select id="queryTempExcel" resultMap="resultMap">
+		SELECT <include refid="columns_order_excel" />
+		,b.customer_nickname,b.customer_mobile,d.parking_name,c.CAR_NUMBER
+		FROM
+		T_ORDER_MAIN a
+		LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+		LEFT JOIN t_order_temporary c ON a.ORDER_ID=c.ORDER_ID
+		LEFT JOIN t_parking d ON c.parking_id = d.parking_id
+		WHERE 1 = 1
+		<include refid="whereSQL" />
+		<if test="parkingName != null and parkingName != '' ">
+			AND d.PARKING_NAME like '%${parkingName}%'
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+			AND c.car_number like '%${carNumber}%'
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+			and (a.ORDER_ID in (select s.ORDER_ID from t_order_temporary s where s.PARKING_ID=#{parkingId})
+			)
+		</if>
+		order by a.CREATE_DATE desc
+	</select>
+	<!-- 共享临停订单 -->
+	<select id="queryTempSharePage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		,b.customer_nickname,b.customer_mobile,d.parking_name,c.PARKING_CODE,c.VOUCHER_STATUS,c.CAR_NUMBER
+		  FROM
+		T_ORDER_MAIN a
+	LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+		LEFT JOIN t_order_temporary_share c ON a.ORDER_ID=c.ORDER_ID
+		LEFT JOIN t_parking d ON c.parking_id = d.parking_id
+		  		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 <if test="params.parkingName != null and params.parkingName != '' ">
+			AND d.PARKING_NAME like '%${params.parkingName}%'
+		 </if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND c.car_number like '%${params.carNumber}%'
+		</if>
+		<if test="params.parkingCode!= null and params.parkingCode != '' ">
+			AND c.PARKING_CODE =  #{params.parkingCode}
+		</if>
+		 <if test="params.parkingId != null and params.parkingId != '' ">
+		 and (a.ORDER_ID in (select s.ORDER_ID from t_order_temporary_share s where s.PARKING_ID=#{params.parkingId})
+		  	)
+		 	<if test="params.orderType == null or params.orderType == '' ">
+				AND a.ORDER_TYPE !='15'
+			</if>
+		 </if>
+		 order by a.CREATE_DATE desc
+	</select>
+	<!-- 共享临停订单导出 -->
+	<select id="queryTempShareExcel" resultMap="resultMap">
+		SELECT <include refid="columns_order_excel" />
+		,b.customer_nickname,b.customer_mobile,d.parking_name,c.PARKING_CODE,c.VOUCHER_STATUS,c.CAR_NUMBER
+		FROM
+		T_ORDER_MAIN a
+		LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+		LEFT JOIN t_order_temporary_share c ON a.ORDER_ID=c.ORDER_ID
+		LEFT JOIN t_parking d ON c.parking_id = d.parking_id
+		WHERE 1 = 1
+		<include refid="whereSQL" />
+		<if test="parkingName != null and parkingName != '' ">
+			AND d.PARKING_NAME like '%${parkingName}%'
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+			AND c.car_number like '%${carNumber}%'
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+			and (a.ORDER_ID in (select s.ORDER_ID from t_order_temporary_share s where s.PARKING_ID=#{parkingId})
+			)
+		</if>
+		order by a.CREATE_DATE desc
+	</select>
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		,b.customer_nickname,b.customer_mobile
+		  FROM T_ORDER_MAIN a  
+		  LEFT JOIN t_customer b on a.CUSTOMER_ID=b.customer_id
+		  		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 <if test="params.parkingId != null and params.parkingId != '' ">
+		 and (a.ORDER_ID in 
+		  	(select m.ORDER_ID from t_order_monthly m where m.PARKING_ID=#{params.parkingId})
+		  	  or a.ORDER_ID in (select e.ORDER_ID from t_order_equity e where e.PARKING_ID=#{params.parkingId})
+		  	  or a.ORDER_ID in (select t.ORDER_ID from t_order_temporary t where t.PARKING_ID=#{params.parkingId})
+		  	  or a.ORDER_ID in (select s.ORDER_ID from t_order_temporary_share s where s.PARKING_ID=#{params.parkingId})
+		  	)
+		 	<if test="params.orderType == null or params.orderType == '' ">
+				AND a.ORDER_TYPE !='15'
+			</if>
+		 </if>
+		 order by a.CREATE_DATE desc
+	</select>
+		<!-- 查询分页列表 接口boxiang 2016-01-03 -->
+	<select id="queryListByPage" resultMap="resultMap2">
+		SELECT * from (
+		SELECT tp.parking_name,tom.CAR_NUMBER,tm.* FROM t_order_main tm
+		LEFT JOIN t_order_monthly tom ON tom.ORDER_ID = tm.ORDER_ID
+		LEFT JOIN t_parking tp ON tp.parking_id = tom.PARKING_ID
+		WHERE tom.ORDER_ID = tm.ORDER_ID
+		UNION ALL
+		SELECT tp.parking_name,toe.CAR_NUMBER,tm.* FROM t_order_main tm
+		LEFT JOIN t_order_equity toe ON toe.ORDER_ID = tm.ORDER_ID
+		LEFT JOIN t_parking tp ON tp.parking_id = toe.PARKING_ID
+		WHERE toe.ORDER_ID = tm.ORDER_ID
+		GROUP BY tm.ORDER_ID
+		) a
+		WHERE 1 = 1
+		<include refid="wherePageSql"/>
+		and a.order_status='11'
+		order by a.CREATE_DATE desc
+	</select>
+
+	<select id="rechargelist" resultMap="resultMap">
+		select
+		a.order_id,
+		a.ORDER_STATUS,
+		a.INVOICE_STATUS,
+		a.AMOUNT_PAYABLE,
+		a.AMOUNT_DISCOUNT,
+		a.AMOUNT_PAID,
+		a.pay_type,
+		a.pay_time,
+		a.TRADE_NO,
+		c.customer_nickname,
+		c.customer_mobile,
+		b.gift_Amount
+		from t_order_main a left join t_order_recharge b
+		on a.order_id=b.order_id and b.is_used='1'
+		left join t_customer c on a.customer_id=c.customer_id
+		where a.is_used='1'
+		and a.ORDER_TYPE='16'
+		<if test="params.orderId != null and params.orderId != '' ">
+			AND a.order_id like #{params.orderId}
+		</if>
+		<if test="params.orderStatus != null and params.orderStatus != '' ">
+			AND a.ORDER_STATUS = #{params.orderStatus}
+		</if>
+		<if test="params.customerMobile != null and params.customerMobile != '' ">
+			AND c.customer_mobile = #{params.customerMobile}
+		</if>
+		<if test="params.payType != null and params.payType != '' ">
+			AND a.pay_type = #{params.payType}
+		</if>
+		<if test="params.beginTime != null and params.beginTime != '' ">
+			AND a.pay_time >= #{params.beginTime}
+		</if>
+		<if test="params.stopTime != null and params.stopTime != '' ">
+			AND a.pay_time <![CDATA[ <= ]]> '${params.stopTime} 23:59:59'
+		</if>
+		order by a.pay_time desc
+	</select>
+	<select id="rechargeExcel" resultMap="resultMapExcel">
+		select
+		a.order_id,
+		a.ORDER_STATUS,
+		a.INVOICE_STATUS,
+		a.AMOUNT_PAYABLE,
+		a.AMOUNT_DISCOUNT,
+		a.AMOUNT_PAID,
+		a.pay_type,
+		a.pay_time,
+		a.TRADE_NO,
+		c.customer_nickname,
+		c.customer_mobile,
+		b.gift_Amount
+		from t_order_main a left join t_order_recharge b
+		on a.order_id=b.order_id and b.is_used='1'
+		left join t_customer c on a.customer_id=c.customer_id
+		where a.is_used='1'
+		and a.ORDER_TYPE='16'
+		<if test="orderId != null and orderId != '' ">
+			AND a.order_id like #{orderId}
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+			AND a.ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="customerMobile != null and customerMobile != '' ">
+			AND c.customer_mobile = #{customerMobile}
+		</if>
+		<if test="payType != null and payType != '' ">
+			AND a.pay_type = #{payType}
+		</if>
+		<if test="beginTime != null and beginTime != '' ">
+			AND a.pay_time >= #{beginTime}
+		</if>
+		<if test="stopTime != null and stopTime != '' ">
+			AND a.pay_time <![CDATA[ <= ]]> '${stopTime} 23:59:59'
+		</if>
+		order by a.pay_time desc
+	</select>
+	
+	
+	<select id="queryListByTempPage" resultMap="resultMap2">
+	SELECT * from (
+	SELECT tp.parking_name,tom.CAR_NUMBER,tm.* FROM t_order_main tm
+	LEFT JOIN t_order_temporary tom ON tom.ORDER_ID = tm.ORDER_ID
+	LEFT JOIN t_parking tp ON tp.parking_id = tom.PARKING_ID
+	WHERE tom.ORDER_ID = tm.ORDER_ID
+	UNION ALL
+	SELECT tp.parking_name,toe.CAR_NUMBER,tm.* FROM t_order_main tm
+	LEFT JOIN t_order_temporary_share toe ON toe.ORDER_ID = tm.ORDER_ID
+	LEFT JOIN t_parking tp ON tp.parking_id = toe.PARKING_ID
+	WHERE toe.ORDER_ID = tm.ORDER_ID
+	GROUP BY tm.ORDER_ID
+	) a
+    WHERE 1 = 1
+	 <include refid="wherePageSql" />
+    and a.order_status='11'
+	order by a.PAY_TIME desc
+	</select>
+	
+	<select id="queryByIdAndType" resultMap="resultMap">
+		select <include refid="columns" /> from T_ORDER_MAIN a where 
+		a.ORDER_ID = #{orderId} and a.ORDER_TYPE = #{orderType}
+	</select>
+	
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.order.po.OrderMain">
+        INSERT INTO T_ORDER_MAIN (
+        	ORDER_ID,
+        	ORDER_TYPE,
+        	ORDER_STATUS,
+        	INVOICE_STATUS,
+        	CUSTOMER_ID,
+        	AMOUNT_PAYABLE,
+        	AMOUNT_DISCOUNT,
+        	AMOUNT_PAID,
+        	PAY_TYPE,
+        	PAY_TIME,
+        	TRADE_NO,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE,
+        	IS_NEED_INVOICE
+        ) VALUES (
+        	#{orderId},
+        	#{orderType},
+        	#{orderStatus},
+        	#{invoiceStatus},
+        	#{customerId},
+        	#{amountPayable},
+        	#{amountDiscount},
+        	#{amountPaid},
+        	#{payType},
+        	#{payTime},
+        	#{tradeNo},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate},
+        	#{isNeedInvoice}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_ORDER_MAIN 
+		 WHERE ORDER_ID = #{orderId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.order.po.OrderMain">
+        UPDATE T_ORDER_MAIN 
+		SET
+	        ORDER_TYPE = #{orderType},
+	        ORDER_STATUS = #{orderStatus},
+	        INVOICE_STATUS = #{invoiceStatus},
+	        CUSTOMER_ID = #{customerId},
+	        AMOUNT_PAYABLE = #{amountPayable},
+	        AMOUNT_DISCOUNT = #{amountDiscount},
+	        AMOUNT_PAID = #{amountPaid},
+	        PAY_TYPE = #{payType},
+	        PAY_TIME = #{payTime},
+	        TRADE_NO = #{tradeNo},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ORDER_ID = #{orderId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_ORDER_MAIN
+			<set>
+    	        ORDER_TYPE = #{item.orderType},
+    	        ORDER_STATUS = #{item.orderStatus},
+    	        INVOICE_STATUS = #{item.invoiceStatus},
+    	        CUSTOMER_ID = #{item.customerId},
+    	        AMOUNT_PAYABLE = #{item.amountPayable},
+    	        AMOUNT_DISCOUNT = #{item.amountDiscount},
+    	        AMOUNT_PAID = #{item.amountPaid},
+    	        PAY_TYPE = #{item.payType},
+    	        PAY_TIME = #{item.payTime},
+    	        TRADE_NO = #{item.tradeNo},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ORDER_ID = #{item.orderId} 	
+		</foreach>
+	</update>
+
+	<!--&lt;!&ndash;查询分页，带车牌号的&ndash;&gt;-->
+	<!--<select id="queryListPageWithCarNumber" resultMap="resultMapWithCarNumber">-->
+		<!--SELECT * FROM (-->
+			<!--SELECT <include refid="columns" />-->
+			<!--,b.customer_nickname, b.customer_mobile,-->
+			<!--CASE a.ORDER_TYPE-->
+				<!--WHEN '13' THEN (SELECT m.CAR_NUMBER FROM t_order_monthly m where m.ORDER_ID = a.ORDER_ID)-->
+				<!--WHEN '14' THEN (SELECT e.CAR_NUMBER FROM t_order_equity e where e.ORDER_ID = a.ORDER_ID)-->
+			<!--END AS carNumber,-->
+			<!--CASE a.ORDER_TYPE-->
+				<!--WHEN '13' THEN (select parking_name from t_parking where parking_id = (SELECT m.PARKING_ID FROM t_order_monthly m where m.ORDER_ID = a.ORDER_ID))-->
+				<!--WHEN '14' THEN (select parking_name from t_parking where parking_id = (SELECT e.PARKING_ID FROM t_order_equity e where e.ORDER_ID = a.ORDER_ID))-->
+			<!--END AS parkingName-->
+			<!--FROM T_ORDER_MAIN a-->
+			<!--LEFT JOIN t_customer b on a.CUSTOMER_ID = b.customer_id-->
+			<!--WHERE 1 = 1-->
+			<!--<include refid="wherePageSql" />-->
+			<!--<if test="params.orderType == null or params.orderType == '' ">-->
+				<!--AND a.ORDER_TYPE in ('13','14')-->
+			<!--</if>-->
+			<!--<if test="params.parkingId != null and params.parkingId != '' ">-->
+				<!--and (a.ORDER_ID in-->
+				<!--(select m.ORDER_ID from t_order_monthly m where m.PARKING_ID = #{params.parkingId})-->
+				<!--or a.ORDER_ID in (select e.ORDER_ID from t_order_equity e where e.PARKING_ID = #{params.parkingId})-->
+				<!--or a.ORDER_ID in (select t.ORDER_ID from t_order_temporary t where t.PARKING_ID = #{params.parkingId})-->
+				<!--or a.ORDER_ID in (select s.ORDER_ID from t_order_temporary_share s where s.PARKING_ID = #{params.parkingId})-->
+				<!--)-->
+				<!--<if test="params.orderType == null or params.orderType == '' ">-->
+					<!--AND a.ORDER_TYPE !='15'-->
+				<!--</if>-->
+			<!--</if>-->
+			<!--ORDER BY a.CREATE_DATE DESC-->
+		<!--) tmp WHERE 1 = 1-->
+		<!--<if test="params.carNumber != null and params.carNumber != '' ">-->
+			<!--AND tmp.carNumber LIKE '%${params.carNumber}%'-->
+		<!--</if>-->
+	<!--</select>-->
+	<!--&lt;!&ndash;导出表格，带车牌号的&ndash;&gt;-->
+	<!--<select id="selectListExcelWithCarNumber" resultMap="resultMapWithCarNumber">-->
+		<!--SELECT * FROM (-->
+			<!--SELECT <include refid="columns_order_excel" />-->
+			<!--,b.customer_nickname,b.customer_mobile,-->
+			<!--CASE a.ORDER_TYPE-->
+				<!--WHEN '13' THEN (SELECT m.CAR_NUMBER FROM t_order_monthly m where m.ORDER_ID = a.ORDER_ID)-->
+				<!--WHEN '14' THEN (SELECT e.CAR_NUMBER FROM t_order_equity e where e.ORDER_ID = a.ORDER_ID)-->
+			<!--END AS carNumber,-->
+			<!--CASE a.ORDER_TYPE-->
+				<!--WHEN '13' THEN (select parking_name from t_parking where parking_id = (SELECT m.PARKING_ID FROM t_order_monthly m where m.ORDER_ID = a.ORDER_ID))-->
+				<!--WHEN '14' THEN (select parking_name from t_parking where parking_id = (SELECT e.PARKING_ID FROM t_order_equity e where e.ORDER_ID = a.ORDER_ID))-->
+			<!--END AS parkingName-->
+			<!--FROM T_ORDER_MAIN a LEFT JOIN t_customer b on a.CUSTOMER_ID=b.customer_id-->
+			<!--WHERE 1 = 1-->
+			<!--<include refid="whereSQL" />-->
+			<!--<if test="orderType == null or orderType == '' ">-->
+				<!--AND a.ORDER_TYPE in ('13','14')-->
+			<!--</if>-->
+			<!--<if test="parkingId != null and parkingId != '' ">-->
+				<!--and (a.ORDER_ID in-->
+				<!--(select m.ORDER_ID from t_order_monthly m where m.PARKING_ID=#{parkingId})-->
+				<!--or a.ORDER_ID in (select e.ORDER_ID from t_order_equity e where e.PARKING_ID=#{parkingId})-->
+				<!--or a.ORDER_ID in (select t.ORDER_ID from t_order_temporary t where t.PARKING_ID=#{parkingId})-->
+				<!--or a.ORDER_ID in (select s.ORDER_ID from t_order_temporary_share s where s.PARKING_ID=#{parkingId})-->
+				<!--)-->
+				<!--<if test="orderType == null or orderType == '' ">-->
+					<!--AND a.ORDER_TYPE !='15'-->
+				<!--</if>-->
+			<!--</if>-->
+			<!--order by a.CREATE_DATE desc-->
+		<!--) tmp WHERE 1 = 1-->
+		<!--<if test="carNumber != null and carNumber != '' ">-->
+			<!--AND tmp.carNumber LIKE '%${carNumber}%'-->
+		<!--</if>-->
+	<!--</select>-->
+
+	<!--查询分页，带车牌号的-->
+	<select id="queryListPageWithCarNumber" resultMap="resultMapWithCarNumber">
+		select * from (
+			select
+			main.ORDER_ID,
+			main.ORDER_TYPE,
+			main.ORDER_STATUS,
+			park.parking_id,
+			park.parking_name,
+			cus.customer_nickname,
+			mon.CAR_NUMBER,
+			mon.BEGIN_DATE,
+			mon.END_DATE,
+			cus.customer_mobile,
+			main.AMOUNT_PAYABLE,
+			main.AMOUNT_DISCOUNT,
+			main.AMOUNT_PAID,
+			main.PAY_TYPE,
+			main.PAY_TIME,
+			main.TRADE_NO,
+			main.CREATE_DATE,
+			main.IS_USED
+			from t_order_monthly mon
+			left join t_order_main main on main.ORDER_ID = mon.ORDER_ID
+			left join t_customer cus on cus.customer_id = main.CUSTOMER_ID
+			left join t_parking park on park.parking_id = mon.PARKING_ID
+			UNION ALL
+			select
+			main.ORDER_ID,
+			main.ORDER_TYPE,
+			main.ORDER_STATUS,
+			park.parking_id,
+			park.parking_name,
+			cus.customer_nickname,
+			equ.CAR_NUMBER,
+			equ.BEGIN_DATE,
+			equ.END_DATE,
+			cus.customer_mobile,
+			main.AMOUNT_PAYABLE,
+			main.AMOUNT_DISCOUNT,
+			main.AMOUNT_PAID,
+			main.PAY_TYPE,
+			main.PAY_TIME,
+			main.TRADE_NO,
+			main.CREATE_DATE,
+			main.IS_USED
+			from t_order_equity equ
+			left join t_order_main main on main.ORDER_ID = equ.ORDER_ID
+			left join t_customer cus on cus.customer_id = main.CUSTOMER_ID
+			left join t_parking park on park.parking_id = equ.PARKING_ID
+		) a
+		WHERE 1 = 1
+		<if test="params.orderId != null and params.orderId != '' ">
+			AND a.ORDER_ID = #{params.orderId}
+		</if>
+		<if test="params.orderType != null and params.orderType != '' ">
+			AND a.ORDER_TYPE = #{params.orderType}
+		</if>
+		<if test="params.orderStatus != null and params.orderStatus != '' ">
+			AND a.ORDER_STATUS = #{params.orderStatus}
+		</if>
+		<if test="params.invoiceStatus != null and params.invoiceStatus != '' ">
+			AND a.INVOICE_STATUS = #{params.invoiceStatus}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+			AND a.CUSTOMER_ID = #{params.customerId}
+		</if>
+		<if test="params.amountPayable != null and params.amountPayable != '' ">
+			AND a.AMOUNT_PAYABLE = #{params.amountPayable}
+		</if>
+		<if test="params.amountDiscount != null and params.amountDiscount != '' ">
+			AND a.AMOUNT_DISCOUNT = #{params.amountDiscount}
+		</if>
+		<if test="params.amountPaid != null and params.amountPaid != '' ">
+			AND a.AMOUNT_PAID = #{params.amountPaid}
+		</if>
+		<if test="params.payType != null and params.payType != '' ">
+			AND a.PAY_TYPE = #{params.payType}
+		</if>
+		<if test="params.tradeNo != null and params.tradeNo != '' ">
+			AND a.TRADE_NO = #{params.tradeNo}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+			AND a.IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+			AND a.CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+			AND a.MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+			AND a.CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+			AND a.MODIFY_DATE = #{params.modifyDate}
+		</if>
+		<if test="params.customer_nickname != null and params.customer_nickname != '' ">
+			AND a.customer_nickname like '%${params.customer_nickname}%'
+		</if>
+		<if test="params.customer_mobile != null and params.customer_mobile != '' ">
+			AND a.customer_mobile like '%${params.customer_mobile}%'
+		</if>
+		<if test="params.startTime != null and params.startTime != '' and params.stopTime != null and params.stopTime != '' ">
+			AND a.PAY_TIME between #{params.startTime} and   '${params.stopTime} 23:59:59'
+		</if>
+		<if test="params.startTime != null and params.startTime != '' and (params.stopTime == null or params.stopTime == '') ">
+			AND a.PAY_TIME &gt;= #{params.startTime}
+		</if>
+		<if test="(params.startTime == null or params.startTime == '') and params.stopTime != null and params.stopTime != '' ">
+			AND a.PAY_TIME &lt;= '${params.stopTime} 23:59:59'
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+			AND a.parking_name LIKE '%${params.parkingName}%'
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND a.CAR_NUMBER LIKE '%${params.carNumber}%'
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			and (a.ORDER_ID in
+			(select m.ORDER_ID from t_order_monthly m where m.PARKING_ID in (${params.parkingId}))
+			or a.ORDER_ID in (select e.ORDER_ID from t_order_equity e where e.PARKING_ID in (${params.parkingId}))
+			or a.ORDER_ID in (select t.ORDER_ID from t_order_temporary t where t.PARKING_ID in (${params.parkingId}))
+			or a.ORDER_ID in (select s.ORDER_ID from t_order_temporary_share s where s.PARKING_ID in (${params.parkingId}))
+			)
+			<if test="params.orderType == null or params.orderType == '' ">
+				AND a.ORDER_TYPE !='15'
+			</if>
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+	<!--导出表格，带车牌号的-->
+	<select id="selectListExcelWithCarNumber" resultMap="resultMapWithCarNumber">
+		select
+		a.ORDER_ID,
+		a.ORDER_TYPE,
+		a.ORDER_STATUS,
+		a.parking_name,
+		a.customer_nickname,
+		a.CAR_NUMBER,
+		a.BEGIN_DATE,
+		a.END_DATE,
+		a.customer_mobile,
+		a.AMOUNT_PAYABLE,
+		a.AMOUNT_DISCOUNT,
+		a.AMOUNT_PAID,
+		a.PAY_TYPE,
+		a.PAY_TIME,
+		a.TRADE_NO
+		from (
+		select
+		main.ORDER_ID,
+		main.ORDER_TYPE,
+		main.ORDER_STATUS,
+		park.parking_id,
+		park.parking_name,
+		cus.customer_nickname,
+		mon.CAR_NUMBER,
+		mon.BEGIN_DATE,
+		mon.END_DATE,
+		cus.customer_mobile,
+		main.AMOUNT_PAYABLE,
+		main.AMOUNT_DISCOUNT,
+		main.AMOUNT_PAID,
+		main.PAY_TYPE,
+		main.PAY_TIME,
+		main.TRADE_NO,
+		main.CREATE_DATE,
+		main.IS_USED
+		from t_order_monthly mon
+		left join t_order_main main on main.ORDER_ID = mon.ORDER_ID
+		left join t_customer cus on cus.customer_id = main.CUSTOMER_ID
+		left join t_parking park on park.parking_id = mon.PARKING_ID
+		UNION ALL
+		select
+		main.ORDER_ID,
+		main.ORDER_TYPE,
+		main.ORDER_STATUS,
+		park.parking_id,
+		park.parking_name,
+		cus.customer_nickname,
+		equ.CAR_NUMBER,
+		equ.BEGIN_DATE,
+		equ.END_DATE,
+		cus.customer_mobile,
+		main.AMOUNT_PAYABLE,
+		main.AMOUNT_DISCOUNT,
+		main.AMOUNT_PAID,
+		main.PAY_TYPE,
+		main.PAY_TIME,
+		main.TRADE_NO,
+		main.CREATE_DATE,
+		main.IS_USED
+		from t_order_equity equ
+		left join t_order_main main on main.ORDER_ID = equ.ORDER_ID
+		left join t_customer cus on cus.customer_id = main.CUSTOMER_ID
+		left join t_parking park on park.parking_id = equ.PARKING_ID
+		) a
+		WHERE 1 = 1
+		<if test="parkingName != null and parkingName != '' ">
+			AND a.parking_name = #{parkingName}
+		</if>
+		<if test="orderId != null and orderId != '' ">
+			AND a.ORDER_ID = #{orderId}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+			AND a.ORDER_TYPE = #{orderType}
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+			AND a.ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="invoiceStatus != null and invoiceStatus != '' ">
+			AND a.INVOICE_STATUS = #{invoiceStatus}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+			AND a.CUSTOMER_ID = #{customerId}
+		</if>
+		<if test="amountPayable != null and amountPayable != '' ">
+			AND a.AMOUNT_PAYABLE = #{amountPayable}
+		</if>
+		<if test="amountDiscount != null and amountDiscount != '' ">
+			AND a.AMOUNT_DISCOUNT = #{amountDiscount}
+		</if>
+		<if test="amountPaid != null and amountPaid != '' ">
+			AND a.AMOUNT_PAID = #{amountPaid}
+		</if>
+		<if test="payType != null and payType != '' ">
+			AND a.PAY_TYPE = #{payType}
+		</if>
+		<if test="payTime != null and payTime != '' ">
+			AND a.PAY_TIME = #{payTime}
+		</if>
+		<if test="tradeNo != null and tradeNo != '' ">
+			AND a.TRADE_NO = #{tradeNo}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+			AND a.IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+			AND a.CREATEOR = #{createor}
+		</if>
+		<if test="customer_nickname != null and customer_nickname != '' ">
+			AND a.customer_nickname like '%${customer_nickname}%'
+		</if>
+		<if test="customer_mobile != null and customer_mobile != '' ">
+			AND a.customer_mobile like '%${customer_mobile}%'
+		</if>
+		<if test="startTime != null and startTime != '' and stopTime!=null and stopTime!='' ">
+			AND a.PAY_TIME between #{startTime} and   '${stopTime} 23:59:59'
+		</if>
+		<if test="startTime != null and startTime != '' and (stopTime==null or stopTime=='') ">
+			AND a.PAY_TIME  &gt;=   #{startTime}
+		</if>
+		<if test="(startTime == null or startTime == '') and stopTime!=null and stopTime!='' ">
+			AND a.PAY_TIME &lt;=  '${stopTime} 23:59:59'
+		</if>
+		<if test="modified != null and modified != '' ">
+			AND a.MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+			AND a.CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+			AND a.MODIFY_DATE = #{modifyDate}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+			AND a.CAR_NUMBER LIKE '%${carNumber}%'
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+			and (a.ORDER_ID in
+			(select m.ORDER_ID from t_order_monthly m where m.PARKING_ID = #{parkingId})
+			or a.ORDER_ID in (select e.ORDER_ID from t_order_equity e where e.PARKING_ID = #{parkingId})
+			or a.ORDER_ID in (select t.ORDER_ID from t_order_temporary t where t.PARKING_ID = #{parkingId})
+			or a.ORDER_ID in (select s.ORDER_ID from t_order_temporary_share s where s.PARKING_ID = #{parkingId})
+			)
+			<if test="orderType == null or orderType == '' ">
+				AND a.ORDER_TYPE !='15'
+			</if>
+		</if>
+		ORDER BY a.CREATE_DATE DESC
+	</select>
+
+	<!-- app端查询月租产权已付款未付款订单分页列表 -->
+	<select id="queryMonthlyEquityListPage" resultMap="resultMap1">
+		SELECT * from (
+		SELECT tom.BEGIN_DATE,tom.END_DATE,tom.MONTH_NUM,tp.parking_id,tp.parking_name,tom.CAR_NUMBER,tm.* FROM t_order_main tm
+		LEFT JOIN t_order_monthly tom ON tom.ORDER_ID = tm.ORDER_ID
+		LEFT JOIN t_parking tp ON tp.parking_id = tom.PARKING_ID
+		WHERE tom.ORDER_ID = tm.ORDER_ID
+		UNION ALL
+		SELECT toe.BEGIN_DATE,toe.END_DATE,toe.MONTH_NUM,tp.parking_id,tp.parking_name,toe.CAR_NUMBER,tm.* FROM t_order_main tm
+		LEFT JOIN t_order_equity toe ON toe.ORDER_ID = tm.ORDER_ID
+		LEFT JOIN t_parking tp ON tp.parking_id = toe.PARKING_ID
+		WHERE toe.ORDER_ID = tm.ORDER_ID
+		GROUP BY tm.ORDER_ID
+		) a
+		WHERE 1 = 1
+		<include refid="wherePageSql" />
+		order by a.CREATE_DATE desc
+	</select>
+
+	<update id="updateUnpayToPaid" parameterType="java.lang.String">
+		update t_order_main
+		set ORDER_STATUS = '11'
+		where ORDER_STATUS = '10'
+		and ORDER_ID = #{orderId}
+	</update>
+<select id="queryOrderStatus" resultMap="resultMap">
+		SELECT * from t_order_main a 
+		 LEFT JOIN t_order_carwash b ON a.ORDER_ID=b.ORDER_ID LEFT JOIN t_parking c ON c.parking_id=b.PARKING_ID
+		  WHERE a.CUSTOMER_ID=#{params.customerId} AND a.ORDER_TYPE='17' AND a.IS_USED='1' AND b.IS_USED='1'
+		   AND a.ORDER_STATUS=#{params.orderStatus}
+		   order by a.pay_time desc,a.create_date desc
+	</select>
+	<select id="queryCarwashByOrderId" resultMap="resultMap">
+		SELECT * from t_order_main a
+		LEFT JOIN t_order_carwash b ON a.ORDER_ID=b.ORDER_ID
+		LEFT JOIN t_parking c ON c.parking_id=b.PARKING_ID
+		WHERE a.ORDER_ID = #{orderId}
+	</select>
+	<select id="queryCarwashPage" resultMap="resultCarwash">
+		SELECT <include refid="columns" />
+		,b.customer_nickname,b.customer_mobile,d.parking_name,c.RESERVE_DATE,c.CAR_NUMBER,c.CAR_TYPE
+		  FROM
+		T_ORDER_MAIN a
+	LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+		LEFT JOIN t_order_carwash c ON a.ORDER_ID=c.ORDER_ID
+		LEFT JOIN t_parking d ON c.parking_id = d.parking_id
+		  		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+		 <if test="params.parkingName != null and params.parkingName != '' ">
+			AND d.PARKING_NAME like '%${params.parkingName}%'
+		 </if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND c.car_number like '%${params.carNumber}%'
+		</if>
+		 <if test="params.reserveDate != null and params.reserveDate != '' ">
+			AND c.RESERVE_DATE like '%${params.reserveDate}%'
+		 </if>
+		 <if test="params.parkingId != null and params.parkingId != '' ">
+		 and (a.ORDER_ID in (select s.ORDER_ID from t_order_carwash s where s.PARKING_ID  in (${params.parkingId}))
+		  	)
+		 	<if test="params.orderType == null or params.orderType == '' ">
+				AND a.ORDER_TYPE !='15'
+			</if>
+		 </if>
+		 order by a.CREATE_DATE desc
+	</select>
+	
+	<!--导出洗车订单  -->
+	<select id="queryCarwasExport" resultMap="resultCarwash">
+		SELECT <include refid="columns" />
+		,b.customer_nickname,b.customer_mobile,d.parking_name,c.RESERVE_DATE,c.CAR_NUMBER,c.CAR_TYPE
+		  FROM
+		T_ORDER_MAIN a
+	LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+		LEFT JOIN t_order_carwash c ON a.ORDER_ID=c.ORDER_ID
+		LEFT JOIN t_parking d ON c.parking_id = d.parking_id
+		  		 WHERE 1 = 1
+		 <include refid="whereSQL" />
+		 <if test="parkingName != null and parkingName != '' ">
+			AND d.PARKING_NAME like '%${parkingName}%'
+		 </if>
+		<if test="carNumber != null and carNumber != '' ">
+			AND c.car_number like '%${carNumber}%'
+		</if>
+		 <if test="reserveDate != null and reserveDate != '' ">
+			AND c.RESERVE_DATE like '%${reserveDate}%'
+		 </if>
+		 <if test="parkingId != null and parkingId != '' ">
+		 and (a.ORDER_ID in (select s.ORDER_ID from t_order_carwash s where s.PARKING_ID=#{parkingId})
+		  	)
+		 	<if test="orderType == null or orderType == '' ">
+				AND a.ORDER_TYPE !='15'
+			</if>
+		 </if>
+		 order by a.CREATE_DATE desc
+	</select>
+	<!-- 代泊订单 -->
+	<select id="queryParkPage" resultMap="resultPark">
+		SELECT <include refid="columns" />
+		,b.customer_nickname,b.customer_mobile,d.parking_name,c.CAR_NUMBER,
+		c.ORDER_BEGIN_DATE,c.ORDER_END_DATE 
+		FROM t_order_main a 
+		LEFT JOIN t_customer b ON a.CUSTOMER_ID=b.customer_id
+		LEFT JOIN t_order_park c ON a.ORDER_ID=c.ORDER_ID
+		LEFT JOIN t_parking d ON c.PARKING_ID=d.parking_id
+		WHERE 1=1 AND a.ORDER_TYPE=12
+		 <include refid="wherePageSql" />
+		 <if test="params.parkingName != null and params.parkingName != '' ">
+			AND d.PARKING_NAME like '%${params.parkingName}%'
+		 </if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND c.car_number like '%${params.carNumber}%'
+		</if>
+		 <if test="params.reserveDate != null and params.reserveDate != '' ">
+			AND c.RESERVE_DATE like '%${params.reserveDate}%'
+		 </if>
+		 <if test="params.carNumber != null and params.carNumber != '' ">
+			AND c.CAR_NUMBER like '%${params.carNumber}%'
+		 </if>
+		 
+		 order by a.CREATE_DATE desc
+	</select>
+	<select id="getOrderByParam" resultMap="resultMap">
+		SELECT sum(rm.AMOUNT_PAID) AS sum_paid,sum(rm.AMOUNT_DISCOUNT) AS sum_discount,rm.* FROM (
+		SELECT o.*,tm.PARKING_ID FROM t_order_main o
+		LEFT JOIN t_order_monthly tm ON o.ORDER_ID = tm.ORDER_ID
+
+		WHERE 1 = 1
+		AND o.ORDER_ID = tm.ORDER_ID
+		<if test="payType != null and payType != '' ">
+			AND o.pay_type in (${payType})
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+			AND o.ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+			AND o.ORDER_TYPE = #{orderType}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			AND o.PAY_TIME &gt; #{startTime}
+		</if>
+
+		<if test="endTime != null and endTime != '' ">
+			AND o.PAY_TIME &lt; #{endTime}
+		</if>
+		<if test="parkingIds != null and parkingIds != '' ">
+			AND tm.PARKING_ID in (${parkingIds})
+		</if>
+		UNION ALL
+		SELECT o.*,tm.PARKING_ID FROM t_order_main o
+		LEFT JOIN t_order_equity tm ON o.ORDER_ID = tm.ORDER_ID
+
+		WHERE 1 = 1
+		AND o.ORDER_ID = tm.ORDER_ID
+		<if test="payType != null and payType != '' ">
+			AND o.pay_type in (${payType})
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+			AND o.ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+			AND o.ORDER_TYPE = #{orderType}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			AND o.PAY_TIME &gt; #{startTime}
+		</if>
+
+		<if test="endTime != null and endTime != '' ">
+			AND o.PAY_TIME &lt; #{endTime}
+		</if>
+		<if test="parkingIds != null and parkingIds != '' ">
+			AND tm.PARKING_ID in (${parkingIds})
+		</if>
+		UNION ALL
+		SELECT o.*,tm.PARKING_ID FROM t_order_main o
+		LEFT JOIN t_order_temporary tm ON o.ORDER_ID = tm.ORDER_ID
+
+		WHERE 1 = 1
+		AND o.ORDER_ID = tm.ORDER_ID
+		<if test="payType != null and payType != '' ">
+			AND o.pay_type in (${payType})
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+			AND o.ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+			AND o.ORDER_TYPE = #{orderType}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			AND o.PAY_TIME &gt; #{startTime}
+		</if>
+
+		<if test="endTime != null and endTime != '' ">
+			AND o.PAY_TIME &lt; #{endTime}
+		</if>
+		<if test="parkingIds != null and parkingIds != '' ">
+			AND tm.PARKING_ID in (${parkingIds})
+		</if>
+		) rm
+
+
+	</select>
+	<!-- 按条件查询月租订单金额总和-->
+	<select id="getMonthlyOrderByParam" resultMap="resultMap">
+		SELECT sum(o.AMOUNT_PAID) AS sum_paid,sum(o.AMOUNT_DISCOUNT) AS sum_discount FROM t_order_main o
+		LEFT JOIN t_order_monthly tm ON o.ORDER_ID = tm.ORDER_ID
+
+		WHERE 1 = 1
+		AND o.IS_USED = 1
+		AND o.ORDER_ID = tm.ORDER_ID
+		AND o.PAY_TYPE IN('00','01','02','05')
+		<if test="payType != null and payType != '' ">
+			AND o.pay_type in (${payType})
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+			AND o.ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+			AND o.ORDER_TYPE = #{orderType}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			AND o.PAY_TIME &gt; #{startTime}
+		</if>
+
+		<if test="endTime != null and endTime != '' ">
+			AND o.PAY_TIME &lt; #{endTime}
+		</if>
+		<if test="parkingIds != null and parkingIds != '' ">
+			AND tm.PARKING_ID in (${parkingIds})
+		</if>
+
+
+	</select>
+
+	<!-- 按条件查询产权订单金额总和-->
+	<select id="getEquityOrderByParam" resultMap="resultMap">
+		SELECT sum(o.AMOUNT_PAID) AS sum_paid,sum(o.AMOUNT_DISCOUNT) AS sum_discount FROM t_order_main o
+		LEFT JOIN t_order_equity tm ON o.ORDER_ID = tm.ORDER_ID
+		WHERE 1 = 1
+		AND o.IS_USED = 1
+		AND o.ORDER_ID = tm.ORDER_ID
+		AND o.PAY_TYPE IN('00','01','02','05')
+		<if test="payType != null and payType != '' ">
+			AND o.pay_type in (${payType})
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+			AND o.ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+			AND o.ORDER_TYPE = #{orderType}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			AND o.PAY_TIME &gt; #{startTime}
+		</if>
+
+		<if test="endTime != null and endTime != '' ">
+			AND o.PAY_TIME &lt; #{endTime}
+		</if>
+		<if test="parkingIds != null and parkingIds != '' ">
+			AND tm.PARKING_ID in (${parkingIds})
+		</if>
+
+	</select>
+	<!-- 按条件查询临停订单金额总和-->
+	<select id="getTempOrderByParam" resultMap="resultMap">
+		SELECT sum(o.AMOUNT_PAID) AS sum_paid,sum(o.AMOUNT_DISCOUNT) AS sum_discount FROM t_order_main o
+		LEFT JOIN t_order_temporary tm ON o.ORDER_ID = tm.ORDER_ID
+		WHERE 1 = 1
+		AND o.IS_USED = 1
+		AND o.ORDER_ID = tm.ORDER_ID
+		AND o.PAY_TYPE IN('00','01','02','05')
+		<if test="payType != null and payType != '' ">
+			AND o.pay_type in (${payType})
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+			AND o.ORDER_STATUS = #{orderStatus}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+			AND o.ORDER_TYPE = #{orderType}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			AND o.PAY_TIME &gt; #{startTime}
+		</if>
+
+		<if test="endTime != null and endTime != '' ">
+			AND o.PAY_TIME &lt; #{endTime}
+		</if>
+		<if test="parkingIds != null and parkingIds != '' ">
+			AND tm.PARKING_ID in (${parkingIds})
+		</if>
+
+	</select>
+	<!-- 获取月租目标金额 -->
+	<select id="getMonthPoint" resultMap="resultMap">
+		SELECT SUM(tm.monthly_rental_price) AS sum_price_point FROM t_monthlyparkinginfo tm
+		WHERE  <!--#{inputDate} BETWEEN
+		DATE_FORMAT(tm.effect_begin_time, "%Y%-%m")  AND
+		DATE_FORMAT(tm.effect_end_time, "%Y%-%m")
+		AND--> tm.village_id IN (${parkingIds})
+		AND tm.is_used=1
+	</select>
+	<!-- 获取产权目标金额 -->
+	<select id="getPropertyPoint" resultMap="resultMap">
+		SELECT SUM(tm.management_fee_monthly_unit) AS sum_price_point FROM t_propertyparkinginfo tm
+		WHERE  <!--#{inputDate} BETWEEN
+		DATE_FORMAT(tm.effect_begin_time, "%Y%-%m")  AND
+		DATE_FORMAT(tm.effect_end_time, "%Y%-%m")
+		AND--> tm.village_id IN (${parkingIds})
+		AND tm.is_used=1
+	</select>
+	<select id="getMonthPaid" resultMap="resultMap">
+		SELECT SUM(tm.PRICE) AS sum_paid FROM t_order_main o
+		LEFT JOIN t_order_monthly tm ON o.ORDER_ID = tm.ORDER_ID
+		WHERE 1 = 1
+		AND o.ORDER_ID = tm.ORDER_ID
+		AND #{inputDate} BETWEEN DATE_FORMAT(tm.BEGIN_DATE, "%Y%-%m")
+		AND DATE_FORMAT(date_add(tm.BEGIN_DATE, interval tm.MONTH_NUM day), "%Y%-%m")
+		AND tm.PARKING_ID IN (${parkingIds})
+		AND o.ORDER_STATUS = '11'
+		AND o.IS_USED = 1
+	</select>
+	<select id="getPropertyPaid" resultMap="resultMap">
+		SELECT SUM(tm.PRICE) AS sum_paid FROM t_order_main o
+		LEFT JOIN t_order_equity tm ON o.ORDER_ID = tm.ORDER_ID
+		WHERE 1 = 1
+		AND o.ORDER_ID = tm.ORDER_ID
+		AND #{inputDate} BETWEEN DATE_FORMAT(tm.BEGIN_DATE, "%Y%-%m")
+		AND DATE_FORMAT(date_add(tm.BEGIN_DATE, interval tm.MONTH_NUM day), "%Y%-%m")
+		AND tm.PARKING_ID IN (${parkingIds})
+		AND o.ORDER_STATUS = '11'
+		AND o.IS_USED = 1
+	</select>
+
+	<select id="getTemPaid" resultMap="resultMap">
+		SELECT SUM(o.AMOUNT_PAID) AS sum_paid FROM t_order_main o
+		LEFT JOIN t_order_temporary tm ON o.ORDER_ID = tm.ORDER_ID
+		WHERE 1 = 1
+		AND o.ORDER_ID = tm.ORDER_ID
+		AND tm.PARKING_ID IN (${parkingIds})
+		AND DATE_FORMAT(o.PAY_TIME, "%Y%-%m") = #{inputDate}
+	</select>
+
+	<!-- 导出代泊订单 -->
+	<select id="queryParkExport" resultMap="resultMapExcel">
+		SELECT <include refid="columns" />
+		,b.customer_nickname,b.customer_mobile,d.parking_name,c.CAR_NUMBER,
+		c.ORDER_BEGIN_DATE,c.ORDER_END_DATE 
+		FROM t_order_main a 
+		LEFT JOIN t_customer b ON a.CUSTOMER_ID=b.customer_id
+		LEFT JOIN t_order_park c ON a.ORDER_ID=c.ORDER_ID
+		LEFT JOIN t_parking d ON c.PARKING_ID=d.parking_id
+		WHERE 1=1 AND a.ORDER_TYPE=12
+		<include refid="whereSQL" />
+		 <if test="parkingName != null and parkingName != '' ">
+			AND d.PARKING_NAME like '%${parkingName}%'
+		 </if>
+		<if test="carNumber != null and carNumber != '' ">
+			AND c.car_number like '%${carNumber}%'
+		</if>
+		 <if test="reserveDate != null and reserveDate != '' ">
+			AND c.RESERVE_DATE like '%${reserveDate}%'
+		 </if>
+		 <if test="customerMobile != null and customerMobile != '' ">
+			AND c.customer_mobile = #{customerMobile}
+		</if>
+		
+		 order by a.CREATE_DATE desc
+	</select>
+
+	<select id="queryListByStream" resultMap="resultMap2">
+		SELECT * from (
+		SELECT  tom.CAR_NUMBER,tom.parking_id, tm.order_type,tm.pay_time,tm.order_status,tm.AMOUNT_PAID FROM t_order_main tm
+		INNER JOIN t_order_monthly tom ON tom.ORDER_ID = tm.ORDER_ID
+		UNION ALL
+		SELECT  toe.CAR_NUMBER,toe.parking_id, tm.order_type,tm.pay_time,tm.order_status,tm.AMOUNT_PAID FROM t_order_main tm
+		INNER JOIN t_order_equity toe ON toe.ORDER_ID = tm.ORDER_ID
+		GROUP BY tm.ORDER_ID
+		UNION ALL
+		SELECT  tot.CAR_NUMBER,tot.parking_id, tm.order_type,tm.pay_time,tm.order_status,tm.AMOUNT_PAID FROM t_order_main tm
+		INNER JOIN t_order_temporary tot ON tot.ORDER_ID = tm.ORDER_ID
+		UNION ALL
+		SELECT tci.PLATE_ID AS car_number,tv.id AS parking_id,'11' AS order_type,tci.OUT_TIME AS pay_time ,'11' AS ordre_status,tci.REAL_CHARGE as amount_paid FROM t_car_in_out_record_v2 tci
+		LEFT JOIN t_villageinfo  tv ON tv.item01 = tci.PARK_ID
+		WHERE tv.id IS NOT NULL and tci.REAL_CHARGE <![CDATA[ > ]]> 0 and tci.PAY_TYPE<![CDATA[ <> ]]>'云收费'
+		AND tci.OUT_TIME IS NOT NULL
+		) a
+		WHERE 1 = 1 and a.ORDER_STATUS = '11'
+		<if test="params.order != null and params.order != '' ">
+			AND a.ORDER_TYPE in (${params.order})
+		</if>
+		<if test="params.parking != null and params.parking != '' ">
+			AND a.parking_id in (${params.parking})
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND a.car_number  LIKE  '%${params.carNumber}%'
+		</if>
+		order by a.PAY_TIME DESC
+	</select>
+<select id="queryAmountPaid" resultMap="resultMap">
+	SELECT SUM(AMOUNT_PAID)amount ,ORDER_TYPE from t_order_main WHERE PAY_TYPE in(00,01,02,05)  AND ORDER_ID in(
+SELECT ORDER_ID from t_order_monthly where PARKING_ID=#{parkingId}) AND  YEAR(PAY_TIME)=year(#{payDate})
+UNION ALL
+SELECT SUM(AMOUNT_PAID)amount ,ORDER_TYPE from t_order_main WHERE PAY_TYPE in(00,01,02,05)  AND ORDER_ID in(
+SELECT ORDER_ID from t_order_equity where PARKING_ID=#{parkingId}) AND  YEAR(PAY_TIME)=year(#{payDate})
+UNION ALL
+SELECT SUM(AMOUNT_PAID)amount ,ORDER_TYPE from t_order_main WHERE PAY_TYPE in(00,01,02,05)  AND ORDER_ID in(
+SELECT ORDER_ID from t_order_temporary where PARKING_ID=#{parkingId}) AND  YEAR(PAY_TIME)=year(#{payDate})
+</select>
+	<select id="queryAmountPaidByMonth" resultMap="resultMap">
+		SELECT SUM(AMOUNT_PAID)amount ,ORDER_TYPE from t_order_main WHERE PAY_TYPE in(00,01,02,05)  AND ORDER_ID in(
+SELECT ORDER_ID from t_order_monthly where PARKING_ID=#{parkingId}) AND  YEAR(PAY_TIME)=year(#{payDate})AND MONTH (PAY_TIME)=MONTH(#{payDate})
+UNION ALL
+SELECT SUM(AMOUNT_PAID)amount ,ORDER_TYPE from t_order_main WHERE PAY_TYPE in(00,01,02,05)  AND ORDER_ID in(
+SELECT ORDER_ID from t_order_equity where PARKING_ID=#{parkingId}) AND  YEAR(PAY_TIME)=year(#{payDate})AND MONTH (PAY_TIME)=MONTH(#{payDate})
+UNION ALL
+SELECT SUM(AMOUNT_PAID)amount ,ORDER_TYPE from t_order_main WHERE PAY_TYPE in(00,01,02,05)  AND ORDER_ID in(
+SELECT ORDER_ID from t_order_temporary where PARKING_ID=#{parkingId}) AND  YEAR(PAY_TIME)=year(#{payDate})AND MONTH (PAY_TIME)=MONTH(#{payDate})
+	</select>
+
+	<select id="queryAllOrder" resultType="java.util.Map">
+		SELECT * FROM (
+			<foreach collection="params.tableNames" item="item" open="" close="" separator="UNION ALL">
+				SELECT
+					m.ORDER_ID orderId,
+					m.ORDER_TYPE orderType,
+					m.ORDER_STATUS orderStatus,
+					CAST(m.AMOUNT_DISCOUNT / 100 AS UNSIGNED) amountDiscount,
+					CAST(m.AMOUNT_PAID / 100 AS UNSIGNED) amountPaid,
+					CAST(m.AMOUNT_PAYABLE / 100 AS UNSIGNED) amountPayable,
+					DATE_FORMAT(m.CREATE_DATE, '%Y-%m-%d %H:%i:%s') createDate,
+					<choose>
+						<when test="item == 't_order_equity' or item == 't_order_monthly' ">
+							sub.MONTH_NUM monthNum,
+						</when>
+						<otherwise>
+							'' monthNum,
+						</otherwise>
+					</choose>
+					<choose>
+						<when test="item == 't_order_temporary' or item == 't_order_equity' or item == 't_order_monthly' ">
+							DATE_FORMAT(sub.END_DATE, '%Y-%m-%d %H:%i:%s') endDate,
+						</when>
+						<otherwise>
+							'' endDate,
+						</otherwise>
+					</choose>
+					<choose>
+						<when test="item != 't_order_refuel' ">
+							sub.CAR_NUMBER carNumber,
+							sub.PARKING_ID parkingId,
+							p.parking_name parkingName,
+						</when>
+						<otherwise>
+							'' carNumber,
+							'' parkingId,
+							'' parkingName,
+						</otherwise>
+					</choose>
+					CASE WHEN c.comment_id IS NULL THEN '0' ELSE '1' END isComment,
+					d.DICT_NAME orderTypeName
+				FROM
+					${item} sub
+				LEFT JOIN t_order_main m ON m.ORDER_ID = sub.ORDER_ID
+				<if test="item != 't_order_refuel' ">
+					LEFT JOIN t_parking p ON p.parking_id = sub.PARKING_ID
+				</if>
+				LEFT JOIN t_comment c ON c.order_id = sub.ORDER_ID
+				LEFT JOIN (
+					SELECT DICT_NAME, DICT_VALUE FROM t_dictionary
+					WHERE DICT_CODE = 'order_type' AND IS_USED = '1'
+				) d ON d.DICT_VALUE = m.ORDER_TYPE
+				WHERE
+					m.IS_USED = '1'
+				<if test="params.customerId != null and params.customerId != '' ">
+					AND m.CUSTOMER_ID = #{params.customerId}
+				</if>
+				<if test="params.tab == 1 ">
+					<choose>
+						<when test="item == 't_order_temporary_share' or item == 't_order_temporary' ">
+							AND m.ORDER_STATUS = '11'
+						</when>
+						<otherwise>
+							AND m.ORDER_STATUS != '12'
+						</otherwise>
+					</choose>
+				</if>
+				<if test="params.tab == 2 ">
+					AND m.ORDER_STATUS in ('10','14','15','4')
+				</if>
+				<if test="params.tab == 3 ">
+					AND m.ORDER_STATUS in ('11','5')
+					AND c.comment_id IS NULL
+				</if>
+			</foreach>
+		) tmp
+		ORDER BY createDate DESC
+	</select>
+	<!-- 后台缴费统计 1674-->
+<!--	<select id="queryStatistics"  resultType="com.boxiang.share.product.order.po.Cenuse">
+					SELECT
+	temp.PAY_TIME,
+	temp.parking_name,
+	temp.parking_id,
+	SUM(temp.AMOUNT_PAID) AMOUNT_PAID,
+	temp.pay_type,
+	temp.region
+FROM
+	(
+		SELECT
+			DATE_FORMAT(t.OUTTIME, '%Y-%m-%d') AS PAY_TIME,
+			(
+				SELECT
+					b.parking_name
+				FROM
+					t_villageinfo a
+				INNER JOIN t_parking b ON a.id = b.parking_id
+				WHERE
+					LENGTH(a.item01) > 0
+				AND a.item01 = t.PARK_ID
+				AND b.parking_name IS NOT NULL
+			) AS parking_name,
+			t.PARK_ID AS parking_id,
+			sum(t.REAL_CHARGE) AS AMOUNT_PAID,
+			'lineoff' AS pay_type,
+			'' AS region
+		FROM
+			t_car_in_out_record t
+		WHERE
+			EXISTS (
+				SELECT
+					1
+				FROM
+					t_villageinfo c
+				WHERE
+					c.item01 = PARK_ID
+			)
+		AND t.REAL_CHARGE > 0
+		<if test="params.beginDate != null and params.beginDate != '' and params.endDate != null and params.endDate != '' ">
+			AND t.OUTTIME BETWEEN #{params.beginDate}
+			AND #{params.endDate}
+		</if>
+		GROUP BY
+			DATE_FORMAT(t.OUTTIME, '%Y-%m-%d'),
+			PARK_ID
+		UNION ALL
+			SELECT
+				DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d') AS PAY_TIME,
+				c.parking_name,
+				c.parking_id,
+				SUM(a.AMOUNT_PAID) AMOUNT_PAID,
+				'lineon' AS pay_type,
+				(
+					SELECT
+						d.DICT_NAME
+					FROM
+						t_dictionary d
+					WHERE
+						d.DICT_VALUE = c.region
+					AND d.DICT_CODE = 'region'
+				) region
+			FROM
+				t_order_main a
+			INNER JOIN t_order_temporary b ON a.ORDER_ID = b.ORDER_ID
+			LEFT JOIN t_parking c ON c.parking_id = b.PARKING_ID
+			WHERE
+				a.ORDER_STATUS = '11'
+		<if test="params.beginDate != null and params.beginDate != '' and params.endDate != null and params.endDate != '' ">
+			AND a.PAY_TIME BETWEEN #{params.beginDate}
+							AND #{params.endDate}
+		</if>
+			GROUP BY
+				DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d'),
+				b.PARKING_ID
+			UNION ALL
+				SELECT
+					DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d'),
+					c.parking_name,
+					c.parking_id,
+					SUM(a.AMOUNT_PAID) AMOUNT_PAID,
+					'lineon' AS pay_type,
+					(
+						SELECT
+							d.DICT_NAME
+						FROM
+							t_dictionary d
+						WHERE
+							d.DICT_VALUE = c.region
+						AND d.DICT_CODE = 'region'
+					) region
+				FROM
+					t_order_main a
+				INNER JOIN t_order_monthly b ON a.ORDER_ID = b.ORDER_ID
+				LEFT JOIN t_parking c ON c.parking_id = b.PARKING_ID
+				WHERE
+					a.ORDER_STATUS = '11'
+				AND a.PAY_TYPE IN ('00', '01', '02', '05')
+		<if test="params.beginDate != null and params.beginDate != '' and params.endDate != null and params.endDate != '' ">
+				AND a.PAY_TIME BETWEEN #{params.beginDate}
+							AND #{params.endDate}
+		</if>
+				GROUP BY
+					DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d'),
+					b.PARKING_ID
+				UNION ALL
+					SELECT
+						DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d'),
+						c.parking_name,
+						c.parking_id,
+						SUM(a.AMOUNT_PAID) AMOUNT_PAID,
+						'lineoff' AS pay_type,
+						(
+							SELECT
+								d.DICT_NAME
+							FROM
+								t_dictionary d
+							WHERE
+								d.DICT_VALUE = c.region
+							AND d.DICT_CODE = 'region'
+						) region
+					FROM
+						t_order_main a
+					INNER JOIN t_order_monthly b ON a.ORDER_ID = b.ORDER_ID
+					LEFT JOIN t_parking c ON c.parking_id = b.PARKING_ID
+					WHERE
+						a.ORDER_STATUS = '11'
+					AND a.PAY_TYPE IN ('03', '04')
+		<if test="params.beginDate != null and params.beginDate != '' and params.endDate != null and params.endDate != '' ">
+					AND a.PAY_TIME BETWEEN #{params.beginDate}
+							AND #{params.endDate}
+		</if>
+					GROUP BY
+						DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d'),
+						b.PARKING_ID
+					UNION ALL
+						SELECT
+							DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d'),
+							c.parking_name,
+							c.parking_id,
+							SUM(a.AMOUNT_PAID) AMOUNT_PAID,
+							'lineon' AS pay_type,
+							(
+								SELECT
+									d.DICT_NAME
+								FROM
+									t_dictionary d
+								WHERE
+									d.DICT_VALUE = c.region
+								AND d.DICT_CODE = 'region'
+							) region
+						FROM
+							t_order_main a
+						INNER JOIN t_order_equity b ON a.ORDER_ID = b.ORDER_ID
+						LEFT JOIN t_parking c ON c.parking_id = b.PARKING_ID
+						WHERE
+							a.ORDER_STATUS = '11'
+						AND a.PAY_TYPE IN ('00', '01', '02', '05')
+		<if test="params.beginDate != null and params.beginDate != '' and params.endDate != null and params.endDate != '' ">
+						AND a.PAY_TIME BETWEEN #{params.beginDate}
+							AND #{params.endDate}
+		</if>
+						GROUP BY
+							DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d'),
+							b.PARKING_ID
+						UNION ALL
+							SELECT
+								DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d'),
+								c.parking_name,
+								c.parking_id,
+								SUM(a.AMOUNT_PAID) AMOUNT_PAID,
+								'lineoff' AS pay_type,
+								(
+									SELECT
+										d.DICT_NAME
+									FROM
+										t_dictionary d
+									WHERE
+										d.DICT_VALUE = c.region
+									AND d.DICT_CODE = 'region'
+								) region
+							FROM
+								t_order_main a
+							INNER JOIN t_order_equity b ON a.ORDER_ID = b.ORDER_ID
+							LEFT JOIN t_parking c ON c.parking_id = b.PARKING_ID
+							WHERE
+								a.ORDER_STATUS = '11'
+							AND a.PAY_TYPE IN ('03', '04')
+		<if test="params.beginDate != null and params.beginDate != '' and params.endDate != null and params.endDate != '' ">
+							AND a.PAY_TIME BETWEEN #{params.beginDate}
+							AND #{params.endDate}
+		</if>
+							GROUP BY
+								DATE_FORMAT(a.PAY_TIME, '%Y-%m-%d'),
+								b.PARKING_ID
+	) temp
+GROUP BY
+	DATE_FORMAT(temp.PAY_TIME, '%Y-%m-%d'),
+	temp.PARKING_ID,
+	temp.pay_type
+	ORDER BY   temp.region DESC ,temp.PAY_TIME asc
+	</select>-->
+	<select id="queryStatistics" resultType="java.util.Map" >
+		SELECT  * from(
+		select statistics_date,
+		(select DICT_NAME from t_dictionary d where d.DICT_CODE="region" and d.DICT_VALUE=p.region) as regionName,
+		p.region,a.parking_id,a.parking_name,IFNULL(sum(amount_online),0) as amount_online
+		,IFNULL(sum(amount_offline),0) as amount_offline
+		,IFNULL(sum(amount_online),0)+IFNULL(sum(amount_offline),0) as amount_total
+		,(select b.REGION_MANAGER from t_region_user b where b.PARKING_ID=a.parking_id) as REGION_MANAGER
+		,(select b.REGION_LEADER from t_region_user b where b.PARKING_ID=a.parking_id) as REGION_LEADER
+		from tmp_payfeels_statistics a
+		LEFT JOIN t_parking p on a.parking_id=p.parking_id
+		GROUP BY statistics_date,p.region,parking_id ) temp
+    where 1=1
+	<if test="params.beginDate != null and params.beginDate != ''">
+		AND statistics_date >= #{params.beginDate}
+	</if>
+		<if test="params.endDate != null and params.endDate != ''">
+			AND statistics_date <![CDATA[ <= ]]> '${params.endDate} 23:59:59'
+		</if>
+		<if test="params.region != null and params.region != ''">
+			AND  region=#{params.region}
+				</if>
+		<if test="params.region1 != null and params.region1 != ''">
+			AND  region=#{params.region1}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != ''">
+			AND  parking_id in (${params.parkingId})
+		</if>
+		<if test="params.parkingName != null and params.parkingName != ''">
+			AND  parking_id = #{params.parkingName}
+		</if>
+		<if test="params.parkingName1 != null and params.parkingName1 != ''">
+			AND  parking_name = #{params.parkingName1}
+		</if>
+		<if test="params.regionManager != null and params.regionManager != ''">
+			AND  REGION_MANAGER like '%${params.regionManager}%'
+		</if>
+		<if test="params.regionLeader != null and params.regionLeader != ''">
+			AND  REGION_LEADER like '%${params.regionLeader}%'
+		</if>
+		ORDER BY statistics_date desc,region asc
+	</select>
+
+	<!-- 获取报表临停线上-->
+	<select id="getTempOnlinePayment" resultMap="resultMap">
+		SELECT
+		#{inputDate} AS pay_time,
+		tp.parking_name,
+		tp.region,
+		tm.ORDER_TYPE,
+		tm.PAY_TYPE,
+		SUM(tm.AMOUNT_PAID/100) AS SUM_PAID,
+		tp.parking_id
+		FROM t_order_main tm
+		LEFT JOIN t_order_temporary tot ON tot.ORDER_ID = tm.ORDER_ID
+		LEFT JOIN t_parking tp ON tot.PARKING_ID = tp.parking_id
+		WHERE 1=1
+		AND tot.PARKING_ID = #{parkingId}
+		AND tm.ORDER_TYPE = '11'
+		AND tm.PAY_TYPE in (${payTypes})
+		AND date_format(tm.PAY_TIME,"%Y%-%m-%d") = #{inputDate}
+		AND tp.region = #{region}
+	</select>
+	<!-- 获取报表月租-->
+	<select id="getMonthlyPayment" resultMap="resultMap">
+		SELECT
+		#{inputDate} AS pay_time,
+		tp.parking_name,
+		tp.region,
+		tm.ORDER_TYPE,
+		tm.PAY_TYPE,
+		SUM(tm.AMOUNT_PAID/100) AS SUM_PAID,
+		tp.parking_id
+		FROM t_order_main tm
+		LEFT JOIN t_order_monthly tot ON tot.ORDER_ID = tm.ORDER_ID
+		LEFT JOIN t_parking tp ON tot.PARKING_ID = tp.parking_id
+		WHERE 1=1
+		AND tot.PARKING_ID = #{parkingId}
+		AND tm.ORDER_TYPE = '13'
+		AND tm.PAY_TYPE in (${payTypes})
+		AND date_format(tm.PAY_TIME,"%Y%-%m-%d") = #{inputDate}
+		AND tp.region = #{region}
+	</select>
+	<!-- 获取报表产权-->
+	<select id="getEquityPayment" resultMap="resultMap">
+		SELECT
+		#{inputDate} AS pay_time,
+		tp.parking_name,
+		tp.region,
+		tm.ORDER_TYPE,
+		tm.PAY_TYPE,
+		SUM(tm.AMOUNT_PAID/100) AS SUM_PAID,
+		tp.parking_id
+		FROM t_order_main tm
+		LEFT JOIN t_order_equity tot ON tot.ORDER_ID = tm.ORDER_ID
+		LEFT JOIN t_parking tp ON tot.PARKING_ID = tp.parking_id
+		WHERE 1=1
+		AND tot.PARKING_ID = #{parkingId}
+		AND tm.ORDER_TYPE = '14'
+		AND tm.PAY_TYPE in (${payTypes})
+		AND date_format(tm.PAY_TIME,"%Y%-%m-%d") = #{inputDate}
+		AND tp.region = #{region}
+	</select>
+	<!-- 获取临停线下详情-->
+	<select id="getTempOfflinePayment" resultMap="resultMap">
+		SELECT
+		#{inputDate} AS pay_time,
+		tp.parking_name,
+		tp.region,
+		'11' AS order_type,
+		'' AS pay_type,
+		SUM(tio.REAL_CHARGE/100) AS SUM_PAID
+		FROM t_car_in_out_record_v2 tio
+		LEFT JOIN t_villageinfo tv ON tv.item01 = tio.PARK_ID
+		LEFT JOIN t_parking tp ON tp.parking_id = tv.id
+		WHERE tio.out_time is not null
+		and tio.PAY_TYPE <![CDATA[ <> ]]> '云收费'
+		AND date_format(tio.OUT_TIME,"%Y%-%m-%d") = #{inputDate}
+		AND tp.parking_id = #{parkingId}
+		AND tp.region = #{region}
+	</select>
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+<!--	<select id="queryList<![CDATA[ <> ]]>Page2" resultMap="resultMap">
+		SELECT * FROM
+		(SELECT a.ORDER_ID,a.ORDER_TYPE,a.AMOUNT_PAID,a.PAY_TIME,a.PAY_TYPE,a.CREATE_DATE
+		,b.customer_nickname,b.customer_mobile,tp.parking_name,tp.region,tx.PARKING_ID
+		FROM T_ORDER_MAIN a
+		LEFT JOIN t_customer b on a.CUSTOMER_ID=b.customer_id
+		LEFT JOIN t_order_temporary tx ON tx.ORDER_ID = a.ORDER_ID
+		LEFT JOIN t_parking tp ON tp.parking_id = tx.PARKING_ID
+		WHERE 1 = 1
+		AND a.ORDER_STATUS = '11'
+		UNION ALL
+		SELECT a.ORDER_ID,a.ORDER_TYPE,a.AMOUNT_PAID,a.PAY_TIME,a.PAY_TYPE,a.CREATE_DATE
+		,b.customer_nickname,b.customer_mobile,tp.parking_name,tp.region,tx.PARKING_ID
+		FROM T_ORDER_MAIN a
+		LEFT JOIN t_customer b on a.CUSTOMER_ID=b.customer_id
+		LEFT JOIN t_order_monthly tx ON tx.ORDER_ID = a.ORDER_ID
+		LEFT JOIN t_parking tp ON tp.parking_id = tx.PARKING_ID
+		WHERE 1 = 1
+		AND a.ORDER_STATUS = '11'
+		UNION ALL
+		SELECT a.ORDER_ID,a.ORDER_TYPE,a.AMOUNT_PAID,a.PAY_TIME,a.PAY_TYPE,a.CREATE_DATE
+		,b.customer_nickname,b.customer_mobile,tp.parking_name,tp.region,tx.PARKING_ID
+		FROM T_ORDER_MAIN a
+		LEFT JOIN t_customer b on a.CUSTOMER_ID=b.customer_id
+		LEFT JOIN t_order_equity tx ON tx.ORDER_ID = a.ORDER_ID
+		LEFT JOIN t_parking tp ON tp.parking_id = tx.PARKING_ID
+		WHERE 1 = 1
+		AND a.ORDER_STATUS = '11'
+		) a
+		WHERE  1=1
+		&lt;!&ndash; where 2=2 详情页进入&ndash;&gt;
+		<if test="params.inputDate != null and params.inputDate != '' ">
+			AND date_format(a.PAY_TIME,"%Y%-%m-%d") =  #{params.inputDate}
+		</if>
+		<if test="params.region != null and params.region != '' ">
+			AND a.region =  #{params.region}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			AND a.parking_id =  #{params.parkingId}
+		</if>
+
+
+		<if test="params.orderType != null and params.orderType != '' ">
+			AND a.ORDER_TYPE in (${params.orderType})
+		</if>
+		<if test="params.payType != null and params.payType != '' ">
+			AND a.PAY_TYPE = #{params.payType}
+		</if>
+		<if test="params.customer_mobile != null and params.customer_mobile != '' ">
+			AND a.customer_mobile like '%${params.customer_mobile}%'
+		</if>
+		<if test="params.startTime != null and params.startTime != '' and params.stopTime != null and params.stopTime != '' ">
+			AND a.PAY_TIME between #{params.startTime} and   '${params.stopTime} 23:59:59'
+		</if>
+		<if test="params.startTime != null and params.startTime != '' and (params.stopTime == null or params.stopTime == '') ">
+			AND a.PAY_TIME &gt;= #{params.startTime}
+		</if>
+		<if test="(params.startTime == null or params.startTime == '') and params.stopTime != null and params.stopTime != '' ">
+			AND a.PAY_TIME &lt;= '${params.stopTime} 23:59:59'
+		</if>
+		<if test="params.carType != null and params.carType != '' ">
+			AND a.CAR_TYPE = #{params.carType}
+		</if>
+		order by a.CREATE_DATE desc
+	</select>-->
+	<select id="queryListPage2" resultMap="resultMap">
+				SELECT
+					a.ORDER_ID,
+					a.ORDER_TYPE,
+					a.AMOUNT_PAID,
+		            temp.car_number,
+					a.PAY_TIME,
+					a.PAY_TYPE,
+					a.CREATE_DATE,
+					b.customer_nickname,
+					b.customer_mobile,
+					p.parking_name,
+					p.region,
+					p.PARKING_ID
+				FROM
+					T_ORDER_MAIN a
+				LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+				LEFT JOIN ${params.tableName} temp on a.ORDER_ID = temp.ORDER_ID
+				LEFT JOIN t_parking p on p.parking_id = temp.PARKING_ID
+				where a.ORDER_STATUS = '11'
+		<if test="params.inputDate != null and params.inputDate != '' ">
+			AND date_format(a.PAY_TIME,"%Y%-%m-%d") =  #{params.inputDate}
+		</if>
+		<if test="params.region != null and params.region != '' ">
+			AND p.region =  #{params.region}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND temp.car_number like '%${params.carNumber}%'
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			AND p.parking_id   in (${params.parkingId})
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+			AND p.parking_name like '%${params.parkingName}%'
+		</if>
+		<if test="params.onlineType != null and params.onlineType != '' ">
+			AND a.PAY_TYPE in (${params.onlineType})
+		</if>
+		<if test="params.payType != null and params.payType != '' ">
+			AND a.PAY_TYPE =#{params.payType}
+		</if>
+		<if test="params.customer_mobile != null and params.customer_mobile != '' ">
+			AND b.customer_mobile like '%${params.customer_mobile}%'
+		</if>
+		<if test="params.startTime != null and params.startTime != '' and params.stopTime != null and params.stopTime != '' ">
+			AND a.PAY_TIME between #{params.startTime} and   '${params.stopTime} 23:59:59'
+		</if>
+		<if test="params.startTime != null and params.startTime != '' and (params.stopTime == null or params.stopTime == '') ">
+			AND a.PAY_TIME &gt;= #{params.startTime}
+		</if>
+		<if test="(params.startTime == null or params.startTime == '') and params.stopTime != null and params.stopTime != '' ">
+			AND a.PAY_TIME &lt;= '${params.stopTime} 23:59:59'
+		</if>
+		order by a.CREATE_DATE desc
+	</select>
+	<!-- 临停线下订单 -->
+	<select id="queryListPage3" resultMap="resultMap">
+	SELECT
+	'' as ORDER_ID,
+	'11' as ORDER_TYPE,
+	sub.REAL_CHARGE AMOUNT_PAID,
+	sub.PLATE_ID car_number,
+	sub.OUT_TIME PAY_TIME,
+	'03' as PAY_TYPE,
+	sub.IN_TIME CREATE_DATE,
+	'' as customer_nickname,
+	'' as customer_mobile,
+	p.parking_name,
+	p.region,
+	p.PARKING_ID
+
+		FROM
+		t_car_in_out_record_v2 sub
+		LEFT JOIN t_villageinfo m ON m.item01 = sub.PARK_ID
+    LEFT JOIN t_parking p on m.id = p.parking_id
+		WHERE
+			sub.REAL_CHARGE > 0
+		AND sub.OUT_TIME IS NOT NULL
+		AND sub.IN_TIME IS NOT NULL
+		and sub.PAY_TYPE <![CDATA[ <> ]]> '云收费'
+		<if test="params.carNumber != null and params.carNumber != '' ">
+			AND sub.PLATE_ID like '%${params.carNumber}%'
+		</if>
+		<if test="params.inputDate != null and params.inputDate != '' ">
+			AND date_format(sub.out_time,"%Y%-%m-%d") =  #{params.inputDate}
+		</if>
+		<if test="params.region != null and params.region != '' ">
+			AND p.region =  #{params.region}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+			AND p.parking_id  in (${params.parkingId})
+		</if>
+		<if test="params.parkingName != null and params.parkingName != '' ">
+			AND p.parking_name like '%${params.parkingName}%'
+		</if>
+		<if test="params.customer_mobile != null and params.customer_mobile != '' ">
+			AND customer_mobile like '%${params.customer_mobile}%'
+		</if>
+		<if test="params.startTime != null and params.startTime != '' and params.stopTime != null and params.stopTime != '' ">
+			AND sub.OUT_TIME between #{params.startTime} and   '${params.stopTime} 23:59:59'
+		</if>
+		<if test="params.startTime != null and params.startTime != '' and (params.stopTime == null or params.stopTime == '') ">
+			AND sub.OUT_TIME &gt;= #{params.startTime}
+		</if>
+		<if test="(params.startTime == null or params.startTime == '') and params.stopTime != null and params.stopTime != '' ">
+			AND sub.OUT_TIME &lt;= '${params.stopTime} 23:59:59'
+		</if>
+	</select>
+	<!-- 计算全部金额sql-->
+	<select id="queryMoney"  resultType="com.boxiang.share.utils.ResultMap">
+		SELECT
+	(
+		SELECT
+			SUM(om.AMOUNT_PAID)
+		FROM
+			t_order_main om
+		WHERE
+			om.ORDER_TYPE = '13'
+		AND om.ORDER_STATUS = '11'
+	) monthly,
+	(
+		SELECT
+			SUM(om.AMOUNT_PAID)
+		FROM
+			t_order_main om
+		WHERE
+			om.ORDER_TYPE = '13'
+		AND om.ORDER_STATUS = '11'
+	) equity,
+	(
+		SELECT
+			SUM(om.AMOUNT_PAID)
+		FROM
+			t_order_main om
+		WHERE
+			om.ORDER_TYPE = '11'
+		AND om.ORDER_STATUS = '11'
+	) temp,
+	(
+		SELECT
+			SUM(sub.REAL_CHARGE)
+		FROM
+			t_car_in_out_record sub
+		LEFT JOIN t_villageinfo m ON m.item01 = sub.PARK_ID
+		WHERE
+			sub.REAL_CHARGE > 0
+		AND sub.OUTTIME IS NOT NULL
+		AND sub.INTIME IS NOT NULL
+	) temp2,
+	(
+		SELECT
+			SUM(om.AMOUNT_PAID)
+		FROM
+			t_order_main om
+		WHERE
+			om.PAY_TYPE = '03'
+		AND om.ORDER_STATUS = '11'
+	) lineoff,
+	(
+		SELECT
+			SUM(om.AMOUNT_PAID)
+		FROM
+			t_order_main om
+		WHERE
+			om.PAY_TYPE = '00'
+		AND om.ORDER_STATUS = '11'
+	) alipay,
+	(
+		SELECT
+			SUM(om.AMOUNT_PAID)
+		FROM
+			t_order_main om
+		WHERE
+			om.PAY_TYPE = '01'
+		AND om.ORDER_STATUS = '11'
+	) wechat,
+	(
+		SELECT
+			SUM(om.AMOUNT_PAID)
+		FROM
+			t_order_main om
+		WHERE
+			om.PAY_TYPE = '05'
+		AND om.ORDER_STATUS = '11'
+	) wallet
+	</select>
+	<!--月租产权临停  及临停线下订单合并 -->
+   <select id="queryListPage4" resultMap="resultMap">
+						   SELECT
+						   *
+						   FROM
+						   (
+						   SELECT
+						   a.ORDER_ID,
+						   a.ORDER_TYPE,
+						   a.AMOUNT_PAID,
+						   tx.CAR_NUMBER,
+						   a.PAY_TIME,
+						   a.PAY_TYPE,
+						   a.CREATE_DATE,
+						   b.customer_nickname,
+						   b.customer_mobile,
+						   tp.parking_name,
+						   tp.region,
+						   tx.PARKING_ID
+						   FROM
+						   T_ORDER_MAIN a
+						   LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+						   INNER  JOIN t_order_temporary tx ON tx.ORDER_ID = a.ORDER_ID
+						   LEFT JOIN t_parking tp ON tp.parking_id = tx.PARKING_ID
+						   WHERE
+						   1 = 1
+						   AND a.ORDER_STATUS = '11' and a.ORDER_TYPE = '11'
+						   UNION ALL
+						   SELECT
+						   a.ORDER_ID,
+						   a.ORDER_TYPE,
+						   a.AMOUNT_PAID,
+						   tx.CAR_NUMBER,
+						   a.PAY_TIME,
+						   a.PAY_TYPE,
+						   a.CREATE_DATE,
+						   b.customer_nickname,
+						   b.customer_mobile,
+						   tp.parking_name,
+						   tp.region,
+						   tx.PARKING_ID
+						   FROM
+						   T_ORDER_MAIN a
+						   LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+						   INNER JOIN t_order_monthly tx ON tx.ORDER_ID = a.ORDER_ID
+						   LEFT JOIN t_parking tp ON tp.parking_id = tx.PARKING_ID
+						   WHERE
+						   1 = 1
+						   AND a.ORDER_STATUS = '11' and a.ORDER_TYPE = '13'
+						   UNION ALL
+						   SELECT
+						   a.ORDER_ID,
+						   a.ORDER_TYPE,
+						   a.AMOUNT_PAID,
+						   tx.CAR_NUMBER,
+						   a.PAY_TIME,
+						   a.PAY_TYPE,
+						   a.CREATE_DATE,
+						   b.customer_nickname,
+						   b.customer_mobile,
+						   tp.parking_name,
+						   tp.region,
+						   tx.PARKING_ID
+						   FROM
+						   T_ORDER_MAIN a
+						   LEFT JOIN t_customer b ON a.CUSTOMER_ID = b.customer_id
+						   INNER JOIN t_order_equity tx ON tx.ORDER_ID = a.ORDER_ID
+						   LEFT JOIN t_parking tp ON tp.parking_id = tx.PARKING_ID
+						   WHERE
+						   1 = 1
+						   AND a.ORDER_STATUS = '11' and a.ORDER_TYPE = '14'
+						   UNION ALL
+						   SELECT
+						   '' AS ORDER_ID,
+						   '11' AS ORDER_TYPE,
+						   sub.REAL_CHARGE AMOUNT_PAID,
+						   sub.PLATE_ID car_number,
+						   sub.OUT_TIME PAY_TIME,
+						   '03' AS PAY_TYPE,
+						   sub.IN_TIME CREATE_DATE,
+						   '' AS customer_nickname,
+						   '' AS customer_mobile,
+						   p.parking_name,
+						   p.region,
+						   p.PARKING_ID
+						   FROM
+	                       t_car_in_out_record_v2 sub
+						   LEFT JOIN t_villageinfo m ON m.item01 = sub.PARK_ID
+						   LEFT JOIN t_parking p ON m.id = p.parking_id
+						   WHERE
+						   sub.REAL_CHARGE > 0
+						   AND sub.OUT_TIME IS NOT NULL
+						   AND sub.IN_TIME IS NOT NULL
+	   						and sub.PAY_TYPE <![CDATA[ <> ]]> '云收费'
+						   ) a
+						   WHERE
+						   1 = 1
+	   <if test="params.carNumber != null and params.carNumber != '' ">
+		   AND a.car_number LIKE '%${params.carNumber}%'
+	   </if>
+	   <if test="params.orderType != null and params.orderType != '' ">
+		   AND a.ORDER_TYPE =  #{params.orderType}
+	   </if>
+	   <if test="params.parkingName != null and params.parkingName != '' ">
+		   AND a.parking_name like '%${params.parkingName}%'
+	   </if>
+	   <if test="params.parkingId != null and params.parkingId != '' ">
+		   AND a.parking_id in (${params.parkingId})
+	   </if>
+	   <if test="params.payType != null and params.payType != '' ">
+		   AND a.PAY_TYPE =  #{params.payType}
+	   </if>
+	   <if test="params.customer_mobile != null and params.customer_mobile != '' ">
+		   AND a.customer_mobile like '%${params.customer_mobile}%'
+	   </if>
+	   <if test="params.startTime != null and params.startTime != ''">
+		   AND a.PAY_TIME &gt;= #{params.startTime}
+	   </if>
+	   <if test=" params.stopTime != null and params.stopTime != '' ">
+		   AND a.PAY_TIME &lt;= '${params.stopTime} 23:59:59'
+	   </if>
+	   order by a.PAY_TIME desc
+   </select>
+	<select id="getStatistics" statementType="CALLABLE" parameterType="java.util.Map">
+		{call payfeels_statistics(#{wasai,mode=IN,jdbcType=VARCHAR},null,#{num,mode=IN,jdbcType=VARCHAR})}
+	</select>
+	<!-- 获取微信缴费第一步信息-->
+	<select id="getWeixinPkList" resultMap="resultMap">
+		SELECT A.*,B.parking_name AS PARKING_NAME FROM (
+		SELECT * FROM(
+		SELECT
+		t.CREATE_DATE,
+		CASE
+		WHEN tmon.PARKING_ID IS NOT NULL THEN tmon.PARKING_ID
+		WHEN teq.PARKING_ID IS NOT NULL THEN teq.PARKING_ID
+		WHEN ttem.PARKING_ID IS NOT NULL THEN ttem.PARKING_ID
+		END AS PARKING_ID,
+		CASE
+		WHEN tmon.CAR_NUMBER IS NOT NULL THEN tmon.CAR_NUMBER
+		WHEN teq.CAR_NUMBER IS NOT NULL THEN teq.CAR_NUMBER
+		WHEN ttem.CAR_NUMBER IS NOT NULL THEN ttem.CAR_NUMBER
+		END AS CAR_NUMBER
+		FROM t_order_main t
+		LEFT JOIN t_order_monthly tmon ON tmon.ORDER_ID = t.ORDER_ID
+		LEFT JOIN t_order_equity teq ON teq.ORDER_ID = t.ORDER_ID
+		LEFT JOIN t_order_temporary ttem ON ttem.ORDER_ID = t.ORDER_ID
+		WHERE t.ORDER_TYPE IN ("11","13","14")
+		<if test="customerId != null and customerId != '' ">
+			AND t.CUSTOMER_ID = #{customerId}
+		</if>
+		<if test="orderType != null and orderType != '' ">
+			AND t.ORDER_TYPE = #{orderType}
+		</if>
+		ORDER BY t.CREATE_DATE DESC
+		) C
+		GROUP BY C.PARKING_ID,C.CAR_NUMBER
+		)AS  A
+		LEFT JOIN t_parking B ON A.PARKING_ID = B.parking_id
+		WHERE A.CAR_NUMBER IS NOT NULL
+		AND A.PARKING_ID IS NOT NULL
+		ORDER BY A.CREATE_DATE DESC
+	</select>
+	<select id="queryPayfeelsStatistics" resultType="java.util.Map">
+		SELECT * from (
+select parking_id,parking_name,statistics_date,CASE region WHEN '1' THEN '第一区域' WHEN '2' THEN '第二区域' WHEN '3' THEN '第三区域' ELSE '未定义' END as region
+,(select DICT_NAME from t_dictionary a where a.dict_code='order_type' and IS_USED='1' and a.dict_value=t.order_type) as order_type
+,IFNULL(sum(amount_online),0) as amount_online,"线上" as onlineType
+from tmp_payfeels_statistics t
+group by statistics_date,region,parking_id,order_type
+UNION ALL
+select parking_id,parking_name,statistics_date,CASE region WHEN '1' THEN '第一区域' WHEN '2' THEN '第二区域' WHEN '3' THEN '第三区域' ELSE '未定义' END as region
+,(select DICT_NAME from t_dictionary a where a.dict_code='order_type' and IS_USED='1' and a.dict_value=t.order_type) as order_type
+,IFNULL(sum(amount_offline),0) as amount_online,"线下" as onlineType
+from tmp_payfeels_statistics t
+group by statistics_date,region,parking_id,order_type
+) tem where 1=1
+		<if test=" params.statistics_date != null and params.statistics_date != '' ">
+			AND statistics_date =  DATE_FORMAT('${params.statistics_date}','%Y-%m-%d')
+		</if>
+		<if test=" params.parkingId != null and params.parkingId != '' ">
+			AND parking_id = #{params.parkingId}
+		</if>
+		<if test=" params.region != null and params.region != '' ">
+			AND region = #{params.region}
+		</if>
+order by tem.parking_id,tem.statistics_date,tem.onlineType,order_type
+	</select>
+	<select id="selectCountByCarCus" resultType="java.lang.Integer">
+		SELECT COUNT(ttm.ORDER_ID) FROM t_order_main tom LEFT JOIN t_order_temporary ttm ON ttm.ORDER_ID = tom.ORDER_ID
+		WHERE tom.CUSTOMER_ID=#{customerId} AND ttm.CAR_NUMBER=#{carNumber}
+	</select>
+	<select id="getBytemCarAdPk" resultMap="resultMap">
+	SELECT  tom.ORDER_ID,
+        	tom.ORDER_TYPE,
+        	tom.ORDER_STATUS,
+        	tom.INVOICE_STATUS,
+        	tom.CUSTOMER_ID,
+        	tom.AMOUNT_PAYABLE,
+        	tom.AMOUNT_DISCOUNT,
+        	tom.AMOUNT_PAID,
+        	tom.PAY_TYPE,
+        	tom.PAY_TIME,
+        	tom.TRADE_NO,
+        	tom.IS_USED,
+        	tom.CREATEOR,
+        	tom.MODIFIED,
+        	tom.CREATE_DATE,
+        	tom.MODIFY_DATE,
+        	tom.IS_NEED_INVOICE
+		FROM t_order_main tom
+		INNER JOIN t_order_temporary tem ON tom.ORDER_ID = tem.ORDER_ID
+		INNER JOIN t_villageinfo tv ON tv.id = tem.PARKING_ID
+		WHERE tv.item01 = #{parkId}
+		AND tom.ORDER_STATUS = '10'
+		AND tem.CAR_NUMBER = #{plateId}
+	</select>
+</mapper>

@@ -1,0 +1,293 @@
+body {
+    margin: 0;
+    background-color: #EFEEEC;
+    font-family: "Microsoft YaHei", "微软雅黑", "sans-serif";
+    color: #6D7D83;
+    font-size: 14px;
+}
+
+.queryView input[type=text],
+.queryView input[type=password],
+.queryView select,
+.editView input[type=text],
+.editView input[type=password],
+.editView select {
+    border: 1px solid #D0CCC7;
+    border-radius: 3px;
+    margin: 7px;
+    padding: 0 2px;
+    height: 22px;
+    width: 134px;
+}
+
+.queryView select,
+.editView select {
+    height: 24px;
+    width: 140px;
+}
+
+.mainColor {
+    color: #00D9B6;
+}
+
+.searchBtn {
+    font-size: 15px;
+    background-color: #00D9B6;
+    border: 0;
+    color: #ffffff;
+    border-radius: 5px;
+    width: 80px;
+    height: 25px;
+    font-weight: bolder;
+    box-shadow: 1px 2px 1px #00B394;
+    margin: 0 2px 0 2px;
+    cursor: pointer;
+}
+
+.queryView {
+    padding: 10px 0;
+}
+
+.queryView ul {
+    margin: 0;
+    padding: 0;
+    clear: both;
+    height: 40px;
+}
+
+.queryView ul li {
+    margin-left: 50px;
+    padding: 0;
+    list-style-type: none;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+}
+
+.queryView ul li.right {
+    float: right;
+    margin-right: 50px;
+    margin-left: 0;
+}
+
+.contentView {
+    padding: 0 12px;
+}
+
+.contentTable {
+    height: 100px;
+    width: 100%;
+}
+
+.contentTable thead tr td {
+    text-align: center;
+    height: 40px;
+    color: #444F53;
+    background-color: #EBF6FF;
+    padding: 5px;
+    white-space: nowrap;
+}
+
+.contentTable tbody tr td {
+    background-color: #ffffff;
+    text-align: center;
+    height: 40px;
+    border-bottom: 1px solid #D0CCC7;
+    padding: 5px;
+}
+
+.contentLine {
+    background-color: #ffffff;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #D0CCC7;
+}
+
+.delete {
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+    background: #FF6160 url("/share/images/new/delete.png") no-repeat center;
+    background-size: 20px;
+    border-radius: 3px;
+    border: 0;
+    cursor: pointer;
+}
+
+.edit {
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+    background: #3EB5F3 url("/share/images/new/compile.png") no-repeat center;
+    background-size: 20px;
+    border-radius: 3px;
+    border: 0;
+    cursor: pointer;
+}
+
+.chose {
+    display: inline-block;
+    width: 57px;
+    line-height: 22px;
+    height: 22px;
+    background: #00D9B6 url("/share/images/new/compile.png") no-repeat 5px center;
+    background-size: 20px;
+    border-radius: 3px;
+    border: 0;
+    cursor: pointer;
+    color: #ffffff;
+    text-align: right;
+}
+
+.editView {
+    background-color: #ffffff;
+    box-shadow: 0 0 1px #bbbbbb;
+    margin: 20px;
+}
+
+.titleView {
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    background-color: #EBF6FF;
+    padding-left: 15px;
+    color: #444F53;
+}
+
+.footView {
+    text-align: center;
+}
+
+.star {
+    /*color: #00D9B6;*/
+    color: #ff0000;
+    font-family: "黑体";
+}
+
+.greenBtn {
+    background-color: #00D9B6;
+    border: 0;
+    color: #ffffff;
+    border-radius: 5px;
+    width: 100px;
+    height: 35px;
+    font-weight: bolder;
+    font-size: 15px;
+    box-shadow: 1px 1px 1px #DDDDDD;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.editTable {
+    margin: 15px auto 0 auto;
+    width: 77%;
+}
+
+.editTable td {
+    padding: 0 5px 0 0;
+}
+
+.editTable tr td:nth-of-type(odd) {
+    text-align: right;
+}
+
+.editTable tr td:nth-of-type(even) {
+    text-align: left;
+}
+
+.alertView {
+    position: absolute;
+    width: 80%;
+    height: 450px;
+    overflow: auto;
+    left: 10%;
+    top: 10%;
+    display: none;
+    background-color: #EFEEEC;
+    box-shadow: 0 0 5px #bbbbbb;
+    padding-bottom: 12px;
+    z-index: 9999;
+}
+
+.alertView .queryView ul li {
+    margin: 0 0 0 15px;
+}
+
+.alertView .queryView ul li.right {
+    margin: 0 15px 0 0;
+}
+
+.alertView .contentView .contentTable {
+    box-shadow: 0 0 2px #CCCCCC;
+}
+
+.bgTransparent {
+    background-color: #000000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    display: none;
+}
+
+.importView {
+    position: absolute;
+    overflow: auto;
+    left: 20%;
+    top: 10%;
+    box-shadow: 0 0 5px #666666;
+    display: none;
+    width: 600px;
+    height: 300px;
+    background-color: #ffffff
+}
+
+.importView .importHead {
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    padding-right: 20px;
+    background-color: #3f4752;
+}
+
+.importView .importHead img {
+    cursor: pointer;
+}
+
+.importView .importBody {
+    position: relative;
+    margin: 50px 50px 0 50px;
+    height: 120px;
+    border: 1px dashed #D3D3D3;
+    border-radius: 5px;
+}
+
+.importView .importBody .fileInput {
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.importView .importBody .importContent {
+    background: url('/share/images/new/file.png') 38% 40% no-repeat;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+}
+
+.importView .importBody .importContent p {
+    line-height: 80px;
+    font-size: 18px;
+    margin-left: 50px;
+}
+
+.importView .importFoot {
+    text-align: right;
+    padding: 10px 30px 0 0;
+}

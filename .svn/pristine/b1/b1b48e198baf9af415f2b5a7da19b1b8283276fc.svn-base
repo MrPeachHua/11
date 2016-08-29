@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.user.dao.UserRoleDao">
+	
+	<!-- 列结果resultMap junior.pan 2016-1-2 -->
+	<resultMap id="resultMap" type="com.boxiang.share.user.po.UserRole">
+        <result column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_power" property="rolePower"/>
+        <result column="is_used" property="isUsed"/>
+	</resultMap>
+
+	<!-- 公共列 junior.pan 2016-1-2 -->
+	<sql id="columns">
+		role_id, role_name, role_power, is_used
+	</sql>
+
+	<!-- 公共条件 junior.pan 2016-1-2 -->
+	<sql id="whereSQL">
+		<if test="roleId != null and roleId != '' ">
+		AND role_id = #{roleId}
+		</if>
+		<if test="roleName != null and roleName != '' ">
+		AND role_name like '%${roleName}%'
+		</if>
+		<if test="rolePower != null and rolePower != '' ">
+		AND role_power = #{rolePower}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND is_used = #{isUsed}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL junior.pan 2016-1-2 -->
+	<sql id="wherePageSql">
+		<if test="params.roleId != null and params.roleId != '' ">
+		AND role_id = #{params.roleId}
+		</if>
+		<if test="params.roleName != null and params.roleName != '' ">
+		AND role_name like '%${params.roleName}%'
+		</if>
+		<if test="params.rolePower != null and params.rolePower != '' ">
+		AND role_power = #{params.rolePower}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND is_used = #{params.isUsed}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 junior.pan 2016-1-2 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_USER_ROLE 
+	     WHERE role_id = #{roleId}     
+	</select>
+	<select id="queryMaxPower" resultMap="resultMap">
+		select (max(role_power)+1) as role_power from t_user_role
+	</select>
+
+	<!-- 查询列表 junior.pan 2016-1-2 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_USER_ROLE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 junior.pan 2016-1-2 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_USER_ROLE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 junior.pan 2016-1-2 -->
+	<insert id="insert" parameterType="com.boxiang.share.user.po.UserRole">
+        INSERT INTO T_USER_ROLE (
+        	role_id,
+        	role_name,
+        	role_power,
+        	is_used
+        ) VALUES (
+        	#{roleId},
+        	#{roleName},
+        	#{rolePower},
+        	#{isUsed}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 junior.pan 2016-1-2 -->
+	<delete id="delete">
+		DELETE FROM T_USER_ROLE 
+		 WHERE role_id = #{roleId} 
+	</delete>
+
+	<update id="deleteFalse">
+        UPDATE T_USER_ROLE 
+		SET
+	        is_used = '0'
+		 WHERE role_id = #{roleId} 
+	</update>
+
+	<!-- 更新 junior.pan 2016-1-2 -->
+	<update id="update" parameterType="com.boxiang.share.user.po.UserRole">
+        UPDATE T_USER_ROLE 
+		SET
+	        role_name = #{roleName},
+	        role_power = #{rolePower},
+	        is_used = #{isUsed}
+        WHERE role_id = #{roleId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_USER_ROLE
+			<set>
+    	        role_name = #{item.roleName},
+    	        role_power = #{item.rolePower},
+    	        is_used = #{item.isUsed}
+			</set>
+            WHERE role_id = #{item.roleId} 	
+		</foreach>
+	</update>
+</mapper>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.villageowner.dao.InvitationDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.villageowner.po.Invitation">
+        <result column="ID" property="id"/>
+        <result column="CUSTOMER_ID" property="customerId"/>
+        <result column="PARKING_ID" property="parkingId"/>
+        <result column="INVITE_DATE" property="inviteDate"/>
+        <result column="NAME" property="name"/>
+        <result column="MOBILE" property="mobile"/>
+        <result column="CAR_NUMBER" property="carNumber"/>
+        <result column="IN_TIME" property="inTime"/>
+        <result column="OUT_TIME" property="outTime"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+		<result column="parking_name" property="parkingName"/>
+		<result column="peacetimePrice" property="peacetimePrice"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, CUSTOMER_ID, PARKING_ID, INVITE_DATE, NAME, MOBILE, CAR_NUMBER, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="customerId != null and customerId != '' ">
+		AND CUSTOMER_ID = #{customerId}
+		</if>
+		<if test="parkingId != null and parkingId != '' ">
+		AND PARKING_ID = #{parkingId}
+		</if>
+		<if test="inviteDate != null and inviteDate != '' ">
+		AND INVITE_DATE = #{inviteDate}
+		</if>
+		<if test="name != null and name != '' ">
+		AND NAME = #{name}
+		</if>
+		<if test="mobile != null and mobile != '' ">
+		AND MOBILE = #{mobile}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND CAR_NUMBER = #{carNumber}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.customerId != null and params.customerId != '' ">
+		AND CUSTOMER_ID = #{params.customerId}
+		</if>
+		<if test="params.parkingId != null and params.parkingId != '' ">
+		AND PARKING_ID = #{params.parkingId}
+		</if>
+		<if test="params.inviteDate != null and params.inviteDate != '' ">
+		AND INVITE_DATE = #{params.inviteDate}
+		</if>
+		<if test="params.name != null and params.name != '' ">
+		AND NAME = #{params.name}
+		</if>
+		<if test="params.mobile != null and params.mobile != '' ">
+		AND MOBILE = #{params.mobile}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND CAR_NUMBER = #{params.carNumber}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_INVITATION 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_INVITATION
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_INVITATION
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" useGeneratedKeys="true" keyColumn="ID" keyProperty="id" parameterType="com.boxiang.share.product.villageowner.po.Invitation">
+        INSERT INTO T_INVITATION (
+        	ID,
+        	CUSTOMER_ID,
+        	PARKING_ID,
+        	INVITE_DATE,
+        	NAME,
+        	MOBILE,
+        	CAR_NUMBER,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{customerId},
+        	#{parkingId},
+        	#{inviteDate},
+        	#{name},
+        	#{mobile},
+        	#{carNumber},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_INVITATION 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.villageowner.po.Invitation">
+        UPDATE T_INVITATION 
+		SET
+	        CUSTOMER_ID = #{customerId},
+	        PARKING_ID = #{parkingId},
+	        INVITE_DATE = #{inviteDate},
+	        NAME = #{name},
+	        MOBILE = #{mobile},
+	        CAR_NUMBER = #{carNumber},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_INVITATION
+			<set>
+    	        CUSTOMER_ID = #{item.customerId},
+    	        PARKING_ID = #{item.parkingId},
+    	        INVITE_DATE = #{item.inviteDate},
+    	        NAME = #{item.name},
+    	        MOBILE = #{item.mobile},
+    	        CAR_NUMBER = #{item.carNumber},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+
+	<select id="queryTodayCount" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM `t_invitation`
+		WHERE CUSTOMER_ID = #{customerId}
+		AND DATE(CREATE_DATE) = CURDATE()
+	</select>
+
+	<select id="queryUnExpire" resultMap="resultMap">
+		SELECT
+			i.*,
+			p.parking_name,
+			p.peacetimePrice,
+			(SELECT INTIME FROM t_car_in_out_record r
+			 WHERE r.PLATE_ID = i.CAR_NUMBER
+			 AND r.PARK_ID = (SELECT item01 FROM t_villageinfo WHERE ID = i.PARKING_ID)
+			 AND DATE(r.INTIME) = DATE(i.INVITE_DATE)
+			 ORDER BY r.INTIME DESC LIMIT 1) IN_TIME,
+			(SELECT OUTTIME FROM t_car_in_out_record r
+			 WHERE r.PLATE_ID = i.CAR_NUMBER
+			 AND r.PARK_ID = (SELECT item01 FROM t_villageinfo WHERE ID = i.PARKING_ID)
+			 AND DATE(r.OUTTIME) = DATE(i.INVITE_DATE)
+			 ORDER BY r.OUTTIME DESC LIMIT 1) OUT_TIME
+		FROM
+			t_invitation i
+		LEFT JOIN t_parking p ON p.parking_id = i.PARKING_ID
+		WHERE
+			i.ID = #{id}
+		AND DATE(i.INVITE_DATE) >= CURDATE()
+	</select>
+
+	<select id="queryHistory" resultType="java.util.Map">
+		SELECT
+			i.PARKING_ID parkingId,
+			p.parking_name parkingName,
+			DATE(i.INVITE_DATE) createDate,
+			GROUP_CONCAT(i.CAR_NUMBER) carNumber
+		FROM
+			t_invitation i
+		LEFT JOIN t_parking p ON p.parking_id = i.PARKING_ID
+		WHERE
+			1 = 1
+		<if test="params.customerId != null and params.customerId != '' ">
+			AND i.CUSTOMER_ID = #{params.customerId}
+		</if>
+		GROUP BY
+			DATE(i.INVITE_DATE),
+			i.PARKING_ID
+		ORDER BY
+			DATE(i.INVITE_DATE) DESC
+	</select>
+</mapper>

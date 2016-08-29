@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.car.dao.CarMainDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.car.po.CarMain">
+        <result column="ID" property="id"/>
+        <result column="LEVEL_ID" property="levelId"/>
+        <result column="TRADE_NAME" property="tradeName"/>
+        <result column="BRAND" property="brand"/>
+        <result column="CAR_SERIES" property="carSeries"/>
+        <result column="VEHICLE_TYPE" property="vehicleType"/>
+        <result column="SALES_NAME" property="salesName"/>
+        <result column="SALES_VER" property="salesVer"/>
+        <result column="STYLE_YEAR" property="styleYear"/>
+        <result column="EMISSION_STANDARD" property="emissionStandard"/>
+        <result column="CAR_TYPE" property="carType"/>
+        <result column="CAR_LEVEL" property="carLevel"/>
+        <result column="GUIDE_PRICE" property="guidePrice"/>
+        <result column="MARKET_YEAR" property="marketYear"/>
+        <result column="MARKET_MONTH" property="marketMonth"/>
+        <result column="PROD_YEAR" property="prodYear"/>
+        <result column="STOP_PROD_YEAR" property="stopProdYear"/>
+        <result column="PROD_STATUS" property="prodStatus"/>
+        <result column="SALES_STATUS" property="salesStatus"/>
+        <result column="COUNTRY" property="country"/>
+        <result column="PROD_AREA" property="prodArea"/>
+        <result column="CYLINDER_CAPACITY" property="cylinderCapacity"/>
+        <result column="DISPLACEMENT" property="displacement"/>
+        <result column="INTAKE_TYPE" property="intakeType"/>
+        <result column="TYRE_SIZE_FRONT" property="tyreSizeFront"/>
+        <result column="TYRE_SIZE_BACK" property="tyreSizeBack"/>
+        <result column="HUP_SIZE_FRONT" property="hupSizeFront"/>
+        <result column="HUP_SIZE_BACK" property="hupSizeBack"/>
+        <result column="HUP_MATERIALS" property="hupMaterials"/>
+        <result column="SPARE_WHEEL_SIZE" property="spareWheelSize"/>
+        <result column="MEMO" property="memo"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, LEVEL_ID, TRADE_NAME, BRAND, CAR_SERIES, VEHICLE_TYPE, SALES_NAME, SALES_VER, STYLE_YEAR, EMISSION_STANDARD, CAR_TYPE, CAR_LEVEL, GUIDE_PRICE, MARKET_YEAR, MARKET_MONTH, PROD_YEAR, STOP_PROD_YEAR, PROD_STATUS, SALES_STATUS, COUNTRY, PROD_AREA, CYLINDER_CAPACITY, DISPLACEMENT, INTAKE_TYPE, TYRE_SIZE_FRONT, TYRE_SIZE_BACK, HUP_SIZE_FRONT, HUP_SIZE_BACK, HUP_MATERIALS, SPARE_WHEEL_SIZE, MEMO
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="levelId != null and levelId != '' ">
+		AND LEVEL_ID = #{levelId}
+		</if>
+		<if test="tradeName != null and tradeName != '' ">
+		AND TRADE_NAME = #{tradeName}
+		</if>
+		<if test="brand != null and brand != '' ">
+		AND BRAND = #{brand}
+		</if>
+		<if test="carSeries != null and carSeries != '' ">
+		AND CAR_SERIES = #{carSeries}
+		</if>
+		<if test="vehicleType != null and vehicleType != '' ">
+		AND VEHICLE_TYPE = #{vehicleType}
+		</if>
+		<if test="salesName != null and salesName != '' ">
+		AND SALES_NAME = #{salesName}
+		</if>
+		<if test="salesVer != null and salesVer != '' ">
+		AND SALES_VER = #{salesVer}
+		</if>
+		<if test="styleYear != null and styleYear != '' ">
+		AND STYLE_YEAR = #{styleYear}
+		</if>
+		<if test="emissionStandard != null and emissionStandard != '' ">
+		AND EMISSION_STANDARD = #{emissionStandard}
+		</if>
+		<if test="carType != null and carType != '' ">
+		AND CAR_TYPE = #{carType}
+		</if>
+		<if test="carLevel != null and carLevel != '' ">
+		AND CAR_LEVEL = #{carLevel}
+		</if>
+		<if test="guidePrice != null and guidePrice != '' ">
+		AND GUIDE_PRICE = #{guidePrice}
+		</if>
+		<if test="marketYear != null and marketYear != '' ">
+		AND MARKET_YEAR = #{marketYear}
+		</if>
+		<if test="marketMonth != null and marketMonth != '' ">
+		AND MARKET_MONTH = #{marketMonth}
+		</if>
+		<if test="prodYear != null and prodYear != '' ">
+		AND PROD_YEAR = #{prodYear}
+		</if>
+		<if test="stopProdYear != null and stopProdYear != '' ">
+		AND STOP_PROD_YEAR = #{stopProdYear}
+		</if>
+		<if test="prodStatus != null and prodStatus != '' ">
+		AND PROD_STATUS = #{prodStatus}
+		</if>
+		<if test="salesStatus != null and salesStatus != '' ">
+		AND SALES_STATUS = #{salesStatus}
+		</if>
+		<if test="country != null and country != '' ">
+		AND COUNTRY = #{country}
+		</if>
+		<if test="prodArea != null and prodArea != '' ">
+		AND PROD_AREA = #{prodArea}
+		</if>
+		<if test="cylinderCapacity != null and cylinderCapacity != '' ">
+		AND CYLINDER_CAPACITY = #{cylinderCapacity}
+		</if>
+		<if test="displacement != null and displacement != '' ">
+		AND DISPLACEMENT = #{displacement}
+		</if>
+		<if test="intakeType != null and intakeType != '' ">
+		AND INTAKE_TYPE = #{intakeType}
+		</if>
+		<if test="tyreSizeFront != null and tyreSizeFront != '' ">
+		AND TYRE_SIZE_FRONT = #{tyreSizeFront}
+		</if>
+		<if test="tyreSizeBack != null and tyreSizeBack != '' ">
+		AND TYRE_SIZE_BACK = #{tyreSizeBack}
+		</if>
+		<if test="hupSizeFront != null and hupSizeFront != '' ">
+		AND HUP_SIZE_FRONT = #{hupSizeFront}
+		</if>
+		<if test="hupSizeBack != null and hupSizeBack != '' ">
+		AND HUP_SIZE_BACK = #{hupSizeBack}
+		</if>
+		<if test="hupMaterials != null and hupMaterials != '' ">
+		AND HUP_MATERIALS = #{hupMaterials}
+		</if>
+		<if test="spareWheelSize != null and spareWheelSize != '' ">
+		AND SPARE_WHEEL_SIZE = #{spareWheelSize}
+		</if>
+		<if test="memo != null and memo != '' ">
+		AND MEMO = #{memo}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.levelId != null and params.levelId != '' ">
+		AND LEVEL_ID = #{params.levelId}
+		</if>
+		<if test="params.tradeName != null and params.tradeName != '' ">
+		AND TRADE_NAME = #{params.tradeName}
+		</if>
+		<if test="params.brand != null and params.brand != '' ">
+		AND BRAND = #{params.brand}
+		</if>
+		<if test="params.carSeries != null and params.carSeries != '' ">
+		AND CAR_SERIES = #{params.carSeries}
+		</if>
+		<if test="params.vehicleType != null and params.vehicleType != '' ">
+		AND VEHICLE_TYPE = #{params.vehicleType}
+		</if>
+		<if test="params.salesName != null and params.salesName != '' ">
+		AND SALES_NAME = #{params.salesName}
+		</if>
+		<if test="params.salesVer != null and params.salesVer != '' ">
+		AND SALES_VER = #{params.salesVer}
+		</if>
+		<if test="params.styleYear != null and params.styleYear != '' ">
+		AND STYLE_YEAR = #{params.styleYear}
+		</if>
+		<if test="params.emissionStandard != null and params.emissionStandard != '' ">
+		AND EMISSION_STANDARD = #{params.emissionStandard}
+		</if>
+		<if test="params.carType != null and params.carType != '' ">
+		AND CAR_TYPE = #{params.carType}
+		</if>
+		<if test="params.carLevel != null and params.carLevel != '' ">
+		AND CAR_LEVEL = #{params.carLevel}
+		</if>
+		<if test="params.guidePrice != null and params.guidePrice != '' ">
+		AND GUIDE_PRICE = #{params.guidePrice}
+		</if>
+		<if test="params.marketYear != null and params.marketYear != '' ">
+		AND MARKET_YEAR = #{params.marketYear}
+		</if>
+		<if test="params.marketMonth != null and params.marketMonth != '' ">
+		AND MARKET_MONTH = #{params.marketMonth}
+		</if>
+		<if test="params.prodYear != null and params.prodYear != '' ">
+		AND PROD_YEAR = #{params.prodYear}
+		</if>
+		<if test="params.stopProdYear != null and params.stopProdYear != '' ">
+		AND STOP_PROD_YEAR = #{params.stopProdYear}
+		</if>
+		<if test="params.prodStatus != null and params.prodStatus != '' ">
+		AND PROD_STATUS = #{params.prodStatus}
+		</if>
+		<if test="params.salesStatus != null and params.salesStatus != '' ">
+		AND SALES_STATUS = #{params.salesStatus}
+		</if>
+		<if test="params.country != null and params.country != '' ">
+		AND COUNTRY = #{params.country}
+		</if>
+		<if test="params.prodArea != null and params.prodArea != '' ">
+		AND PROD_AREA = #{params.prodArea}
+		</if>
+		<if test="params.cylinderCapacity != null and params.cylinderCapacity != '' ">
+		AND CYLINDER_CAPACITY = #{params.cylinderCapacity}
+		</if>
+		<if test="params.displacement != null and params.displacement != '' ">
+		AND DISPLACEMENT = #{params.displacement}
+		</if>
+		<if test="params.intakeType != null and params.intakeType != '' ">
+		AND INTAKE_TYPE = #{params.intakeType}
+		</if>
+		<if test="params.tyreSizeFront != null and params.tyreSizeFront != '' ">
+		AND TYRE_SIZE_FRONT = #{params.tyreSizeFront}
+		</if>
+		<if test="params.tyreSizeBack != null and params.tyreSizeBack != '' ">
+		AND TYRE_SIZE_BACK = #{params.tyreSizeBack}
+		</if>
+		<if test="params.hupSizeFront != null and params.hupSizeFront != '' ">
+		AND HUP_SIZE_FRONT = #{params.hupSizeFront}
+		</if>
+		<if test="params.hupSizeBack != null and params.hupSizeBack != '' ">
+		AND HUP_SIZE_BACK = #{params.hupSizeBack}
+		</if>
+		<if test="params.hupMaterials != null and params.hupMaterials != '' ">
+		AND HUP_MATERIALS = #{params.hupMaterials}
+		</if>
+		<if test="params.spareWheelSize != null and params.spareWheelSize != '' ">
+		AND SPARE_WHEEL_SIZE = #{params.spareWheelSize}
+		</if>
+		<if test="params.memo != null and params.memo != '' ">
+		AND MEMO = #{params.memo}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_MAIN 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_MAIN
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_MAIN
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.car.po.CarMain">
+        INSERT INTO T_CAR_MAIN (
+        	ID,
+        	LEVEL_ID,
+        	TRADE_NAME,
+        	BRAND,
+        	CAR_SERIES,
+        	VEHICLE_TYPE,
+        	SALES_NAME,
+        	SALES_VER,
+        	STYLE_YEAR,
+        	EMISSION_STANDARD,
+        	CAR_TYPE,
+        	CAR_LEVEL,
+        	GUIDE_PRICE,
+        	MARKET_YEAR,
+        	MARKET_MONTH,
+        	PROD_YEAR,
+        	STOP_PROD_YEAR,
+        	PROD_STATUS,
+        	SALES_STATUS,
+        	COUNTRY,
+        	PROD_AREA,
+        	CYLINDER_CAPACITY,
+        	DISPLACEMENT,
+        	INTAKE_TYPE,
+        	TYRE_SIZE_FRONT,
+        	TYRE_SIZE_BACK,
+        	HUP_SIZE_FRONT,
+        	HUP_SIZE_BACK,
+        	HUP_MATERIALS,
+        	SPARE_WHEEL_SIZE,
+        	MEMO
+        ) VALUES (
+        	#{id},
+        	#{levelId},
+        	#{tradeName},
+        	#{brand},
+        	#{carSeries},
+        	#{vehicleType},
+        	#{salesName},
+        	#{salesVer},
+        	#{styleYear},
+        	#{emissionStandard},
+        	#{carType},
+        	#{carLevel},
+        	#{guidePrice},
+        	#{marketYear},
+        	#{marketMonth},
+        	#{prodYear},
+        	#{stopProdYear},
+        	#{prodStatus},
+        	#{salesStatus},
+        	#{country},
+        	#{prodArea},
+        	#{cylinderCapacity},
+        	#{displacement},
+        	#{intakeType},
+        	#{tyreSizeFront},
+        	#{tyreSizeBack},
+        	#{hupSizeFront},
+        	#{hupSizeBack},
+        	#{hupMaterials},
+        	#{spareWheelSize},
+        	#{memo}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CAR_MAIN 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.car.po.CarMain">
+        UPDATE T_CAR_MAIN 
+		SET
+	        LEVEL_ID = #{levelId},
+	        TRADE_NAME = #{tradeName},
+	        BRAND = #{brand},
+	        CAR_SERIES = #{carSeries},
+	        VEHICLE_TYPE = #{vehicleType},
+	        SALES_NAME = #{salesName},
+	        SALES_VER = #{salesVer},
+	        STYLE_YEAR = #{styleYear},
+	        EMISSION_STANDARD = #{emissionStandard},
+	        CAR_TYPE = #{carType},
+	        CAR_LEVEL = #{carLevel},
+	        GUIDE_PRICE = #{guidePrice},
+	        MARKET_YEAR = #{marketYear},
+	        MARKET_MONTH = #{marketMonth},
+	        PROD_YEAR = #{prodYear},
+	        STOP_PROD_YEAR = #{stopProdYear},
+	        PROD_STATUS = #{prodStatus},
+	        SALES_STATUS = #{salesStatus},
+	        COUNTRY = #{country},
+	        PROD_AREA = #{prodArea},
+	        CYLINDER_CAPACITY = #{cylinderCapacity},
+	        DISPLACEMENT = #{displacement},
+	        INTAKE_TYPE = #{intakeType},
+	        TYRE_SIZE_FRONT = #{tyreSizeFront},
+	        TYRE_SIZE_BACK = #{tyreSizeBack},
+	        HUP_SIZE_FRONT = #{hupSizeFront},
+	        HUP_SIZE_BACK = #{hupSizeBack},
+	        HUP_MATERIALS = #{hupMaterials},
+	        SPARE_WHEEL_SIZE = #{spareWheelSize},
+	        MEMO = #{memo}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CAR_MAIN
+			<set>
+    	        LEVEL_ID = #{item.levelId},
+    	        TRADE_NAME = #{item.tradeName},
+    	        BRAND = #{item.brand},
+    	        CAR_SERIES = #{item.carSeries},
+    	        VEHICLE_TYPE = #{item.vehicleType},
+    	        SALES_NAME = #{item.salesName},
+    	        SALES_VER = #{item.salesVer},
+    	        STYLE_YEAR = #{item.styleYear},
+    	        EMISSION_STANDARD = #{item.emissionStandard},
+    	        CAR_TYPE = #{item.carType},
+    	        CAR_LEVEL = #{item.carLevel},
+    	        GUIDE_PRICE = #{item.guidePrice},
+    	        MARKET_YEAR = #{item.marketYear},
+    	        MARKET_MONTH = #{item.marketMonth},
+    	        PROD_YEAR = #{item.prodYear},
+    	        STOP_PROD_YEAR = #{item.stopProdYear},
+    	        PROD_STATUS = #{item.prodStatus},
+    	        SALES_STATUS = #{item.salesStatus},
+    	        COUNTRY = #{item.country},
+    	        PROD_AREA = #{item.prodArea},
+    	        CYLINDER_CAPACITY = #{item.cylinderCapacity},
+    	        DISPLACEMENT = #{item.displacement},
+    	        INTAKE_TYPE = #{item.intakeType},
+    	        TYRE_SIZE_FRONT = #{item.tyreSizeFront},
+    	        TYRE_SIZE_BACK = #{item.tyreSizeBack},
+    	        HUP_SIZE_FRONT = #{item.hupSizeFront},
+    	        HUP_SIZE_BACK = #{item.hupSizeBack},
+    	        HUP_MATERIALS = #{item.hupMaterials},
+    	        SPARE_WHEEL_SIZE = #{item.spareWheelSize},
+    	        MEMO = #{item.memo}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+	<select id="queryTrandName" resultType="java.util.Map">
+		SELECT BRAND,TRADE_NAME from t_car_main where BRAND = #{carBrand}  GROUP BY TRADE_NAME
+	</select>
+
+	<select id="queryCarSeries" resultType="java.util.Map">
+		SELECT CAR_SERIES from t_car_main  where BRAND = #{carBrand} AND TRADE_NAME = #{trandName}   GROUP BY CAR_SERIES
+	</select>
+	<select id="queryCarSeries2" resultType="java.util.Map">
+					SELECT
+				CAR_SERIES
+			FROM
+				t_car_main
+			WHERE
+				BRAND = #{carBrand}  GROUP BY CAR_SERIES
+	</select>
+	<select id="queryDisplacement" resultType="java.util.Map">
+		SELECT IFNULL(DISPLACEMENT,'') DISPLACEMENT,
+	IFNULL(STYLE_YEAR,'') STYLE_YEAR,IFNULL((
+		SELECT
+			DICT_NAME
+		FROM
+			t_dictionary d
+		WHERE
+			d.DICT_CODE = 'intake_type'
+		AND d.DICT_VALUE = t_car_main.intake_type
+	),'') intake_type,IFNULL((
+		SELECT
+			DICT_VALUE
+		FROM
+			t_dictionary d
+		WHERE
+			d.DICT_CODE = 'intake_type'
+		AND d.DICT_VALUE = t_car_main.intake_type
+	), '') intakeTypeValue from t_car_main  where  BRAND = #{brand}
+		 and TRADE_NAME  = #{tradeName}  and CAR_SERIES = #{carSeries}
+	    GROUP BY DISPLACEMENT
+	</select>
+	<select id="queryDisplacement2" resultType="java.util.Map">
+		SELECT IFNULL(STYLE_YEAR,'') STYLE_YEAR	  from t_car_main  where  BRAND = #{brand}
+		and TRADE_NAME  = #{tradeName}  and CAR_SERIES = #{carSeries} and DISPLACEMENT = #{displacement} GROUP BY STYLE_YEAR
+	</select>
+	<select id="queryDisplacement3" resultType="java.util.Map">
+		SELECT IFNULL(DISPLACEMENT,'') DISPLACEMENT,
+		IFNULL(STYLE_YEAR,'') STYLE_YEAR,IFNULL((
+		SELECT
+		DICT_NAME
+		FROM
+		t_dictionary d
+		WHERE
+		d.DICT_CODE = 'intake_type'
+		AND d.DICT_VALUE = t_car_main.intake_type
+		),'') intake_type,IFNULL((
+		SELECT
+		DICT_VALUE
+		FROM
+		t_dictionary d
+		WHERE
+		d.DICT_CODE = 'intake_type'
+		AND d.DICT_VALUE = t_car_main.intake_type
+		), '') intakeTypeValue from t_car_main  where  BRAND = #{brand}
+		 and CAR_SERIES = #{carSeries}
+		GROUP BY DISPLACEMENT
+	</select>
+	<select id="queryDisplacement4" resultType="java.util.Map">
+		SELECT IFNULL(STYLE_YEAR,'') STYLE_YEAR	  from t_car_main  where  BRAND = #{brand}
+		and CAR_SERIES = #{carSeries} and DISPLACEMENT = #{displacement} GROUP BY STYLE_YEAR
+	</select>
+</mapper>

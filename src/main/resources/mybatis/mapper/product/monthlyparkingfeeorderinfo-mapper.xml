@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.order.dao.MonthlyparkingfeeorderinfoDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.order.po.Monthlyparkingfeeorderinfo">
+        <result column="id" property="id"/>
+        <result column="village_id" property="villageId"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="order_serial_number" property="orderSerialNumber"/>
+        <result column="receivables_platform_type" property="receivablesPlatformType"/>
+        <result column="monthly_rental_price" property="monthlyRentalPrice"/>
+        <result column="amount_payable" property="amountPayable"/>
+        <result column="discount_amount" property="discountAmount"/>
+        <result column="amount" property="amount"/>
+        <result column="validity_start_time" property="validityStartTime"/>
+        <result column="validity_end_time" property="validityEndTime"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="invoice_status" property="invoiceStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="item01" property="item01"/>
+        <result column="item02" property="item02"/>
+        <result column="item03" property="item03"/>
+        <result column="item04" property="item04"/>
+        <result column="item05" property="item05"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		id, village_id, car_number, order_serial_number, receivables_platform_type, monthly_rental_price, amount_payable, discount_amount, amount, validity_start_time, validity_end_time, order_status, invoice_status, create_time, create_user, update_time, update_user, item01, item02, item03, item04, item05
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND id = #{id}
+		</if>
+		<if test="villageId != null and villageId != '' ">
+		AND village_id = #{villageId}
+		</if>
+		<if test="carNumber != null and carNumber != '' ">
+		AND car_number = #{carNumber}
+		</if>
+		<if test="orderSerialNumber != null and orderSerialNumber != '' ">
+		AND order_serial_number = #{orderSerialNumber}
+		</if>
+		<if test="receivablesPlatformType != null and receivablesPlatformType != '' ">
+		AND receivables_platform_type = #{receivablesPlatformType}
+		</if>
+		<if test="monthlyRentalPrice != null and monthlyRentalPrice != '' ">
+		AND monthly_rental_price = #{monthlyRentalPrice}
+		</if>
+		<if test="amountPayable != null and amountPayable != '' ">
+		AND amount_payable = #{amountPayable}
+		</if>
+		<if test="discountAmount != null and discountAmount != '' ">
+		AND discount_amount = #{discountAmount}
+		</if>
+		<if test="amount != null and amount != '' ">
+		AND amount = #{amount}
+		</if>
+		<if test="validityStartTime != null and validityStartTime != '' ">
+		AND validity_start_time = #{validityStartTime}
+		</if>
+		<if test="validityEndTime != null and validityEndTime != '' ">
+		AND validity_end_time = #{validityEndTime}
+		</if>
+		<if test="orderStatus != null and orderStatus != '' ">
+		AND order_status = #{orderStatus}
+		</if>
+		<if test="invoiceStatus != null and invoiceStatus != '' ">
+		AND invoice_status = #{invoiceStatus}
+		</if>
+		<if test="createTime != null and createTime != '' ">
+		AND create_time = #{createTime}
+		</if>
+		<if test="createUser != null and createUser != '' ">
+		AND create_user = #{createUser}
+		</if>
+		<if test="updateTime != null and updateTime != '' ">
+		AND update_time = #{updateTime}
+		</if>
+		<if test="updateUser != null and updateUser != '' ">
+		AND update_user = #{updateUser}
+		</if>
+		<if test="item01 != null and item01 != '' ">
+		AND item01 = #{item01}
+		</if>
+		<if test="item02 != null and item02 != '' ">
+		AND item02 = #{item02}
+		</if>
+		<if test="item03 != null and item03 != '' ">
+		AND item03 = #{item03}
+		</if>
+		<if test="item04 != null and item04 != '' ">
+		AND item04 = #{item04}
+		</if>
+		<if test="item05 != null and item05 != '' ">
+		AND item05 = #{item05}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND id = #{params.id}
+		</if>
+		<if test="params.villageId != null and params.villageId != '' ">
+		AND village_id = #{params.villageId}
+		</if>
+		<if test="params.carNumber != null and params.carNumber != '' ">
+		AND car_number = #{params.carNumber}
+		</if>
+		<if test="params.orderSerialNumber != null and params.orderSerialNumber != '' ">
+		AND order_serial_number = #{params.orderSerialNumber}
+		</if>
+		<if test="params.receivablesPlatformType != null and params.receivablesPlatformType != '' ">
+		AND receivables_platform_type = #{params.receivablesPlatformType}
+		</if>
+		<if test="params.monthlyRentalPrice != null and params.monthlyRentalPrice != '' ">
+		AND monthly_rental_price = #{params.monthlyRentalPrice}
+		</if>
+		<if test="params.amountPayable != null and params.amountPayable != '' ">
+		AND amount_payable = #{params.amountPayable}
+		</if>
+		<if test="params.discountAmount != null and params.discountAmount != '' ">
+		AND discount_amount = #{params.discountAmount}
+		</if>
+		<if test="params.amount != null and params.amount != '' ">
+		AND amount = #{params.amount}
+		</if>
+		<if test="params.validityStartTime != null and params.validityStartTime != '' ">
+		AND validity_start_time = #{params.validityStartTime}
+		</if>
+		<if test="params.validityEndTime != null and params.validityEndTime != '' ">
+		AND validity_end_time = #{params.validityEndTime}
+		</if>
+		<if test="params.orderStatus != null and params.orderStatus != '' ">
+		AND order_status = #{params.orderStatus}
+		</if>
+		<if test="params.invoiceStatus != null and params.invoiceStatus != '' ">
+		AND invoice_status = #{params.invoiceStatus}
+		</if>
+		<if test="params.createTime != null and params.createTime != '' ">
+		AND create_time = #{params.createTime}
+		</if>
+		<if test="params.createUser != null and params.createUser != '' ">
+		AND create_user = #{params.createUser}
+		</if>
+		<if test="params.updateTime != null and params.updateTime != '' ">
+		AND update_time = #{params.updateTime}
+		</if>
+		<if test="params.updateUser != null and params.updateUser != '' ">
+		AND update_user = #{params.updateUser}
+		</if>
+		<if test="params.item01 != null and params.item01 != '' ">
+		AND item01 = #{params.item01}
+		</if>
+		<if test="params.item02 != null and params.item02 != '' ">
+		AND item02 = #{params.item02}
+		</if>
+		<if test="params.item03 != null and params.item03 != '' ">
+		AND item03 = #{params.item03}
+		</if>
+		<if test="params.item04 != null and params.item04 != '' ">
+		AND item04 = #{params.item04}
+		</if>
+		<if test="params.item05 != null and params.item05 != '' ">
+		AND item05 = #{params.item05}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MONTHLYPARKINGFEEORDERINFO 
+	     WHERE id = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MONTHLYPARKINGFEEORDERINFO
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_MONTHLYPARKINGFEEORDERINFO
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.order.po.Monthlyparkingfeeorderinfo">
+        INSERT INTO T_MONTHLYPARKINGFEEORDERINFO (
+        	id,
+        	village_id,
+        	car_number,
+        	order_serial_number,
+        	receivables_platform_type,
+        	monthly_rental_price,
+        	amount_payable,
+        	discount_amount,
+        	amount,
+        	validity_start_time,
+        	validity_end_time,
+        	order_status,
+        	invoice_status,
+        	create_time,
+        	create_user,
+        	update_time,
+        	update_user,
+        	item01,
+        	item02,
+        	item03,
+        	item04,
+        	item05
+        ) VALUES (
+        	#{id},
+        	#{villageId},
+        	#{carNumber},
+        	#{orderSerialNumber},
+        	#{receivablesPlatformType},
+        	#{monthlyRentalPrice},
+        	#{amountPayable},
+        	#{discountAmount},
+        	#{amount},
+        	#{validityStartTime},
+        	#{validityEndTime},
+        	#{orderStatus},
+        	#{invoiceStatus},
+        	#{createTime},
+        	#{createUser},
+        	#{updateTime},
+        	#{updateUser},
+        	#{item01},
+        	#{item02},
+        	#{item03},
+        	#{item04},
+        	#{item05}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_MONTHLYPARKINGFEEORDERINFO 
+		 WHERE id = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.order.po.Monthlyparkingfeeorderinfo">
+        UPDATE T_MONTHLYPARKINGFEEORDERINFO 
+		SET
+	        village_id = #{villageId},
+	        car_number = #{carNumber},
+	        order_serial_number = #{orderSerialNumber},
+	        receivables_platform_type = #{receivablesPlatformType},
+	        monthly_rental_price = #{monthlyRentalPrice},
+	        amount_payable = #{amountPayable},
+	        discount_amount = #{discountAmount},
+	        amount = #{amount},
+	        validity_start_time = #{validityStartTime},
+	        validity_end_time = #{validityEndTime},
+	        order_status = #{orderStatus},
+	        invoice_status = #{invoiceStatus},
+	        create_time = #{createTime},
+	        create_user = #{createUser},
+	        update_time = #{updateTime},
+	        update_user = #{updateUser},
+	        item01 = #{item01},
+	        item02 = #{item02},
+	        item03 = #{item03},
+	        item04 = #{item04},
+	        item05 = #{item05}
+        WHERE id = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_MONTHLYPARKINGFEEORDERINFO
+			<set>
+    	        village_id = #{item.villageId},
+    	        car_number = #{item.carNumber},
+    	        order_serial_number = #{item.orderSerialNumber},
+    	        receivables_platform_type = #{item.receivablesPlatformType},
+    	        monthly_rental_price = #{item.monthlyRentalPrice},
+    	        amount_payable = #{item.amountPayable},
+    	        discount_amount = #{item.discountAmount},
+    	        amount = #{item.amount},
+    	        validity_start_time = #{item.validityStartTime},
+    	        validity_end_time = #{item.validityEndTime},
+    	        order_status = #{item.orderStatus},
+    	        invoice_status = #{item.invoiceStatus},
+    	        create_time = #{item.createTime},
+    	        create_user = #{item.createUser},
+    	        update_time = #{item.updateTime},
+    	        update_user = #{item.updateUser},
+    	        item01 = #{item.item01},
+    	        item02 = #{item.item02},
+    	        item03 = #{item.item03},
+    	        item04 = #{item.item04},
+    	        item05 = #{item.item05}
+			</set>
+            WHERE id = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

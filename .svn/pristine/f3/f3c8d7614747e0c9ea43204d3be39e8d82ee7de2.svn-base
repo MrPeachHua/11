@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   
+    http://www.springframework.org/schema/tx   
+    http://www.springframework.org/schema/tx/spring-tx-3.1.xsd  
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task-3.1.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	    
+	<!-- 启用注解 -->
+	<context:component-scan base-package="com.boxiang.share" />
+	
+	<!-- 加载属性配置文件  -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			 <list>
+				<value>classpath*:properties/datasource.properties</value>
+				<value>classpath*:properties/share.properties</value>
+			</list>
+		</property>
+	</bean>
+    
+    <import resource="classpath*:spring/framework/applicationContext-datasource.xml"/>
+    <import resource="classpath*:spring/framework/applicationContext-transaction.xml"/>
+    <import resource="classpath*:spring/framework/applicationContext-mybatis.xml"/>
+    <import resource="classpath*:spring/framework/applicationContext-log.xml"/>
+    <import resource="classpath*:spring/share/applicationContext-*.xml"/>
+    
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" >
+		<property name="configLocation" value="classpath:ehcache.xml"/>
+		<!-- <property name="configLocation" value="/WEB-INF/ehcache.xml"/> -->
+	</bean>
+
+	<!-- 启用用户的缓存功能 -->
+	<bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheName" value="userCache" />  <!-- 对应ehcache.xml中的name -->
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>	
+	<bean id="userCache"
+		class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
+		<property name="cache" ref="userEhCache" />
+	</bean>
+	<!-- 启用数据的缓存功能 -->
+	<bean id="dataEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheName" value="dataCache" />  <!-- 对应ehcache.xml中的name -->
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>	
+    
+    <bean id="applicationContextUtil" class="com.boxiang.share.utils.ApplicationContextUtil"/>
+	
+	<bean id="uploadImagePath" class="java.lang.String">											
+		<constructor-arg index="0" value="${uploadImage}"/>
+	</bean>
+	
+	<bean id="uploadImageType" class="java.lang.String">											
+		<constructor-arg index="0" value="${uploadType}"/>
+	</bean>
+	
+	<bean id="profileId" class="java.lang.String">											
+		<constructor-arg index="0" value="${profileId}"/>
+	</bean>
+	
+	<bean class="com.boxiang.share.utils.jpush.JPushConstants">											
+		<property name="profileId" ref="profileId"/>
+	</bean>
+	
+	
+</beans>

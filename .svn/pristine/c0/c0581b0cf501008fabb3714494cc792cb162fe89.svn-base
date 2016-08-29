@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.ccic.dao.CcicOrderInfoDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.ccic.po.CcicOrderInfo">
+        <result column="ID" property="id"/>
+        <result column="CHANCE_CREATE_TIME" property="chanceCreateTime"/>
+        <result column="START_DATE" property="startDate"/>
+        <result column="INSURANCE_APPLICANT_NO" property="insuranceApplicantNo"/>
+        <result column="PREMIUM" property="premium"/>
+        <result column="POLICY_NO" property="policyNo"/>
+        <result column="EFFECT_DATE" property="effectDate"/>
+        <result column="INSURANCE_TYPE" property="insuranceType"/>
+        <result column="UTMSN" property="utmsn"/>
+        <result column="COMMERCIAL_INSURE_PREMIUM" property="commercialInsurePremium"/>
+        <result column="COMPULSORY_INSURE_PREMIUM" property="compulsoryInsurePremium"/>
+        <result column="COMPULSORY_TRAVEL_TAX" property="compulsoryTravelTax"/>
+        <result column="VEHICLE_INFO" property="vehicleInfo"/>
+        <result column="APPLICANT_INFO" property="applicantInfo"/>
+        <result column="INSURED_INFO" property="insuredInfo"/>
+        <result column="DISTRIBUTION_INFO" property="distributionInfo"/>
+        <result column="PAYMENT_NO" property="paymentNo"/>
+        <result column="PAYMENT_TIME" property="paymentTime"/>
+        <result column="PAY_TIME" property="payTime"/>
+        <result column="PAY_TYPE" property="payType"/>
+        <result column="PAY_OUT_TIME" property="payOutTime"/>
+        <result column="PAY_URL" property="payUrl"/>
+        <result column="VIN" property="vin"/>
+        <result column="LICENSE_NO" property="licenseNo"/>
+        <result column="CAR_CITY" property="carCity"/>
+        <result column="CAR_PROVINCE" property="carProvince"/>
+        <result column="CAR_TYPE" property="carType"/>
+        <result column="ENGINE_NO" property="engineNo"/>
+        <result column="DISPLACEMENT" property="displacement"/>
+        <result column="FIRST_REGISTER_DATE" property="firstRegisterDate"/>
+        <result column="SEAT_NUMBER" property="seatNumber"/>
+        <result column="PURCHASE_PRICE" property="purchasePrice"/>
+        <result column="TRANSFER_FLAG" property="transferFlag"/>
+        <result column="TRANSFER_DATE" property="transferDate"/>
+        <result column="DRIVER_NAME" property="driverName"/>
+        <result column="MOBILE" property="mobile"/>
+        <result column="EMAIL" property="email"/>
+        <result column="APPLICANT_NAME" property="applicantName"/>
+        <result column="APPLICANT_IDENTIFY_TYPE" property="applicantIdentifyType"/>
+        <result column="APPLICANT_IDENTIFY_NUMBER" property="applicantIdentifyNumber"/>
+        <result column="APPLICANT_MOBILE" property="applicantMobile"/>
+        <result column="APPLICANT_EMAIL" property="applicantEmail"/>
+        <result column="INSURED_NAME" property="insuredName"/>
+        <result column="INSURED_IDENTIFY_TYPE" property="insuredIdentifyType"/>
+        <result column="INSURED_IDENTIFY_NUMBER" property="insuredIdentifyNumber"/>
+        <result column="INSURED_MOBILE" property="insuredMobile"/>
+        <result column="INSURED_EMAIL" property="insuredEmail"/>
+        <result column="RECEIVER_NAME" property="receiverName"/>
+        <result column="RECEIVER_MOBILE" property="receiverMobile"/>
+        <result column="RECEIVER_ADDRESS" property="receiverAddress"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, CHANCE_CREATE_TIME, START_DATE, INSURANCE_APPLICANT_NO, PREMIUM, POLICY_NO, EFFECT_DATE, INSURANCE_TYPE, UTMSN, COMMERCIAL_INSURE_PREMIUM, COMPULSORY_INSURE_PREMIUM, COMPULSORY_TRAVEL_TAX, VEHICLE_INFO, APPLICANT_INFO, INSURED_INFO, DISTRIBUTION_INFO, PAYMENT_NO, PAYMENT_TIME, PAY_TIME, PAY_TYPE, PAY_OUT_TIME, PAY_URL, VIN, LICENSE_NO, CAR_CITY, CAR_PROVINCE, CAR_TYPE, ENGINE_NO, DISPLACEMENT, FIRST_REGISTER_DATE, SEAT_NUMBER, PURCHASE_PRICE, TRANSFER_FLAG, TRANSFER_DATE, DRIVER_NAME, MOBILE, EMAIL, APPLICANT_NAME, APPLICANT_IDENTIFY_TYPE, APPLICANT_IDENTIFY_NUMBER, APPLICANT_MOBILE, APPLICANT_EMAIL, INSURED_NAME, INSURED_IDENTIFY_TYPE, INSURED_IDENTIFY_NUMBER, INSURED_MOBILE, INSURED_EMAIL, RECEIVER_NAME, RECEIVER_MOBILE, RECEIVER_ADDRESS, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="chanceCreateTime != null and chanceCreateTime != '' ">
+		AND CHANCE_CREATE_TIME = #{chanceCreateTime}
+		</if>
+		<if test="startDate != null and startDate != '' ">
+		AND START_DATE = #{startDate}
+		</if>
+		<if test="insuranceApplicantNo != null and insuranceApplicantNo != '' ">
+		AND INSURANCE_APPLICANT_NO = #{insuranceApplicantNo}
+		</if>
+		<if test="premium != null and premium != '' ">
+		AND PREMIUM = #{premium}
+		</if>
+		<if test="policyNo != null and policyNo != '' ">
+		AND POLICY_NO = #{policyNo}
+		</if>
+		<if test="effectDate != null and effectDate != '' ">
+		AND EFFECT_DATE = #{effectDate}
+		</if>
+		<if test="insuranceType != null and insuranceType != '' ">
+		AND INSURANCE_TYPE = #{insuranceType}
+		</if>
+		<if test="utmsn != null and utmsn != '' ">
+		AND UTMSN = #{utmsn}
+		</if>
+		<if test="commercialInsurePremium != null and commercialInsurePremium != '' ">
+		AND COMMERCIAL_INSURE_PREMIUM = #{commercialInsurePremium}
+		</if>
+		<if test="compulsoryInsurePremium != null and compulsoryInsurePremium != '' ">
+		AND COMPULSORY_INSURE_PREMIUM = #{compulsoryInsurePremium}
+		</if>
+		<if test="compulsoryTravelTax != null and compulsoryTravelTax != '' ">
+		AND COMPULSORY_TRAVEL_TAX = #{compulsoryTravelTax}
+		</if>
+		<if test="vehicleInfo != null and vehicleInfo != '' ">
+		AND VEHICLE_INFO = #{vehicleInfo}
+		</if>
+		<if test="applicantInfo != null and applicantInfo != '' ">
+		AND APPLICANT_INFO = #{applicantInfo}
+		</if>
+		<if test="insuredInfo != null and insuredInfo != '' ">
+		AND INSURED_INFO = #{insuredInfo}
+		</if>
+		<if test="distributionInfo != null and distributionInfo != '' ">
+		AND DISTRIBUTION_INFO = #{distributionInfo}
+		</if>
+		<if test="paymentNo != null and paymentNo != '' ">
+		AND PAYMENT_NO = #{paymentNo}
+		</if>
+		<if test="paymentTime != null and paymentTime != '' ">
+		AND PAYMENT_TIME = #{paymentTime}
+		</if>
+		<if test="payTime != null and payTime != '' ">
+		AND PAY_TIME = #{payTime}
+		</if>
+		<if test="payType != null and payType != '' ">
+		AND PAY_TYPE = #{payType}
+		</if>
+		<if test="payOutTime != null and payOutTime != '' ">
+		AND PAY_OUT_TIME = #{payOutTime}
+		</if>
+		<if test="payUrl != null and payUrl != '' ">
+		AND PAY_URL = #{payUrl}
+		</if>
+		<if test="vin != null and vin != '' ">
+		AND VIN = #{vin}
+		</if>
+		<if test="licenseNo != null and licenseNo != '' ">
+		AND LICENSE_NO = #{licenseNo}
+		</if>
+		<if test="carCity != null and carCity != '' ">
+		AND CAR_CITY = #{carCity}
+		</if>
+		<if test="carProvince != null and carProvince != '' ">
+		AND CAR_PROVINCE = #{carProvince}
+		</if>
+		<if test="carType != null and carType != '' ">
+		AND CAR_TYPE = #{carType}
+		</if>
+		<if test="engineNo != null and engineNo != '' ">
+		AND ENGINE_NO = #{engineNo}
+		</if>
+		<if test="displacement != null and displacement != '' ">
+		AND DISPLACEMENT = #{displacement}
+		</if>
+		<if test="firstRegisterDate != null and firstRegisterDate != '' ">
+		AND FIRST_REGISTER_DATE = #{firstRegisterDate}
+		</if>
+		<if test="seatNumber != null and seatNumber != '' ">
+		AND SEAT_NUMBER = #{seatNumber}
+		</if>
+		<if test="purchasePrice != null and purchasePrice != '' ">
+		AND PURCHASE_PRICE = #{purchasePrice}
+		</if>
+		<if test="transferFlag != null and transferFlag != '' ">
+		AND TRANSFER_FLAG = #{transferFlag}
+		</if>
+		<if test="transferDate != null and transferDate != '' ">
+		AND TRANSFER_DATE = #{transferDate}
+		</if>
+		<if test="driverName != null and driverName != '' ">
+		AND DRIVER_NAME = #{driverName}
+		</if>
+		<if test="mobile != null and mobile != '' ">
+		AND MOBILE = #{mobile}
+		</if>
+		<if test="email != null and email != '' ">
+		AND EMAIL = #{email}
+		</if>
+		<if test="applicantName != null and applicantName != '' ">
+		AND APPLICANT_NAME = #{applicantName}
+		</if>
+		<if test="applicantIdentifyType != null and applicantIdentifyType != '' ">
+		AND APPLICANT_IDENTIFY_TYPE = #{applicantIdentifyType}
+		</if>
+		<if test="applicantIdentifyNumber != null and applicantIdentifyNumber != '' ">
+		AND APPLICANT_IDENTIFY_NUMBER = #{applicantIdentifyNumber}
+		</if>
+		<if test="applicantMobile != null and applicantMobile != '' ">
+		AND APPLICANT_MOBILE = #{applicantMobile}
+		</if>
+		<if test="applicantEmail != null and applicantEmail != '' ">
+		AND APPLICANT_EMAIL = #{applicantEmail}
+		</if>
+		<if test="insuredName != null and insuredName != '' ">
+		AND INSURED_NAME = #{insuredName}
+		</if>
+		<if test="insuredIdentifyType != null and insuredIdentifyType != '' ">
+		AND INSURED_IDENTIFY_TYPE = #{insuredIdentifyType}
+		</if>
+		<if test="insuredIdentifyNumber != null and insuredIdentifyNumber != '' ">
+		AND INSURED_IDENTIFY_NUMBER = #{insuredIdentifyNumber}
+		</if>
+		<if test="insuredMobile != null and insuredMobile != '' ">
+		AND INSURED_MOBILE = #{insuredMobile}
+		</if>
+		<if test="insuredEmail != null and insuredEmail != '' ">
+		AND INSURED_EMAIL = #{insuredEmail}
+		</if>
+		<if test="receiverName != null and receiverName != '' ">
+		AND RECEIVER_NAME = #{receiverName}
+		</if>
+		<if test="receiverMobile != null and receiverMobile != '' ">
+		AND RECEIVER_MOBILE = #{receiverMobile}
+		</if>
+		<if test="receiverAddress != null and receiverAddress != '' ">
+		AND RECEIVER_ADDRESS = #{receiverAddress}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.chanceCreateTime != null and params.chanceCreateTime != '' ">
+		AND CHANCE_CREATE_TIME = #{params.chanceCreateTime}
+		</if>
+		<if test="params.startDate != null and params.startDate != '' ">
+		AND START_DATE = #{params.startDate}
+		</if>
+		<if test="params.insuranceApplicantNo != null and params.insuranceApplicantNo != '' ">
+		AND INSURANCE_APPLICANT_NO = #{params.insuranceApplicantNo}
+		</if>
+		<if test="params.premium != null and params.premium != '' ">
+		AND PREMIUM = #{params.premium}
+		</if>
+		<if test="params.policyNo != null and params.policyNo != '' ">
+		AND POLICY_NO = #{params.policyNo}
+		</if>
+		<if test="params.effectDate != null and params.effectDate != '' ">
+		AND EFFECT_DATE = #{params.effectDate}
+		</if>
+		<if test="params.insuranceType != null and params.insuranceType != '' ">
+		AND INSURANCE_TYPE = #{params.insuranceType}
+		</if>
+		<if test="params.utmsn != null and params.utmsn != '' ">
+		AND UTMSN = #{params.utmsn}
+		</if>
+		<if test="params.commercialInsurePremium != null and params.commercialInsurePremium != '' ">
+		AND COMMERCIAL_INSURE_PREMIUM = #{params.commercialInsurePremium}
+		</if>
+		<if test="params.compulsoryInsurePremium != null and params.compulsoryInsurePremium != '' ">
+		AND COMPULSORY_INSURE_PREMIUM = #{params.compulsoryInsurePremium}
+		</if>
+		<if test="params.compulsoryTravelTax != null and params.compulsoryTravelTax != '' ">
+		AND COMPULSORY_TRAVEL_TAX = #{params.compulsoryTravelTax}
+		</if>
+		<if test="params.vehicleInfo != null and params.vehicleInfo != '' ">
+		AND VEHICLE_INFO = #{params.vehicleInfo}
+		</if>
+		<if test="params.applicantInfo != null and params.applicantInfo != '' ">
+		AND APPLICANT_INFO = #{params.applicantInfo}
+		</if>
+		<if test="params.insuredInfo != null and params.insuredInfo != '' ">
+		AND INSURED_INFO = #{params.insuredInfo}
+		</if>
+		<if test="params.distributionInfo != null and params.distributionInfo != '' ">
+		AND DISTRIBUTION_INFO = #{params.distributionInfo}
+		</if>
+		<if test="params.paymentNo != null and params.paymentNo != '' ">
+		AND PAYMENT_NO = #{params.paymentNo}
+		</if>
+		<if test="params.paymentTime != null and params.paymentTime != '' ">
+		AND PAYMENT_TIME = #{params.paymentTime}
+		</if>
+		<if test="params.payTime != null and params.payTime != '' ">
+		AND PAY_TIME = #{params.payTime}
+		</if>
+		<if test="params.payType != null and params.payType != '' ">
+		AND PAY_TYPE = #{params.payType}
+		</if>
+		<if test="params.payOutTime != null and params.payOutTime != '' ">
+		AND PAY_OUT_TIME = #{params.payOutTime}
+		</if>
+		<if test="params.payUrl != null and params.payUrl != '' ">
+		AND PAY_URL = #{params.payUrl}
+		</if>
+		<if test="params.vin != null and params.vin != '' ">
+		AND VIN = #{params.vin}
+		</if>
+		<if test="params.licenseNo != null and params.licenseNo != '' ">
+		AND LICENSE_NO like '%${params.licenseNo}%'
+		</if>
+		<if test="params.carCity != null and params.carCity != '' ">
+		AND CAR_CITY = #{params.carCity}
+		</if>
+		<if test="params.carProvince != null and params.carProvince != '' ">
+		AND CAR_PROVINCE = #{params.carProvince}
+		</if>
+		<if test="params.carType != null and params.carType != '' ">
+		AND CAR_TYPE = #{params.carType}
+		</if>
+		<if test="params.engineNo != null and params.engineNo != '' ">
+		AND ENGINE_NO = #{params.engineNo}
+		</if>
+		<if test="params.displacement != null and params.displacement != '' ">
+		AND DISPLACEMENT = #{params.displacement}
+		</if>
+		<if test="params.firstRegisterDate != null and params.firstRegisterDate != '' ">
+		AND FIRST_REGISTER_DATE = #{params.firstRegisterDate}
+		</if>
+		<if test="params.seatNumber != null and params.seatNumber != '' ">
+		AND SEAT_NUMBER = #{params.seatNumber}
+		</if>
+		<if test="params.purchasePrice != null and params.purchasePrice != '' ">
+		AND PURCHASE_PRICE = #{params.purchasePrice}
+		</if>
+		<if test="params.transferFlag != null and params.transferFlag != '' ">
+		AND TRANSFER_FLAG = #{params.transferFlag}
+		</if>
+		<if test="params.transferDate != null and params.transferDate != '' ">
+		AND TRANSFER_DATE = #{params.transferDate}
+		</if>
+		<if test="params.driverName != null and params.driverName != '' ">
+		AND DRIVER_NAME = #{params.driverName}
+		</if>
+		<if test="params.mobile != null and params.mobile != '' ">
+		AND MOBILE = #{params.mobile}
+		</if>
+		<if test="params.email != null and params.email != '' ">
+		AND EMAIL = #{params.email}
+		</if>
+		<if test="params.applicantName != null and params.applicantName != '' ">
+		AND APPLICANT_NAME = #{params.applicantName}
+		</if>
+		<if test="params.applicantIdentifyType != null and params.applicantIdentifyType != '' ">
+		AND APPLICANT_IDENTIFY_TYPE = #{params.applicantIdentifyType}
+		</if>
+		<if test="params.applicantIdentifyNumber != null and params.applicantIdentifyNumber != '' ">
+		AND APPLICANT_IDENTIFY_NUMBER = #{params.applicantIdentifyNumber}
+		</if>
+		<if test="params.applicantMobile != null and params.applicantMobile != '' ">
+		AND APPLICANT_MOBILE = #{params.applicantMobile}
+		</if>
+		<if test="params.applicantEmail != null and params.applicantEmail != '' ">
+		AND APPLICANT_EMAIL = #{params.applicantEmail}
+		</if>
+		<if test="params.insuredName != null and params.insuredName != '' ">
+		AND INSURED_NAME = #{params.insuredName}
+		</if>
+		<if test="params.insuredIdentifyType != null and params.insuredIdentifyType != '' ">
+		AND INSURED_IDENTIFY_TYPE = #{params.insuredIdentifyType}
+		</if>
+		<if test="params.insuredIdentifyNumber != null and params.insuredIdentifyNumber != '' ">
+		AND INSURED_IDENTIFY_NUMBER = #{params.insuredIdentifyNumber}
+		</if>
+		<if test="params.insuredMobile != null and params.insuredMobile != '' ">
+		AND INSURED_MOBILE = #{params.insuredMobile}
+		</if>
+		<if test="params.insuredEmail != null and params.insuredEmail != '' ">
+		AND INSURED_EMAIL = #{params.insuredEmail}
+		</if>
+		<if test="params.receiverName != null and params.receiverName != '' ">
+		AND RECEIVER_NAME = #{params.receiverName}
+		</if>
+		<if test="params.receiverMobile != null and params.receiverMobile != '' ">
+		AND RECEIVER_MOBILE = #{params.receiverMobile}
+		</if>
+		<if test="params.receiverAddress != null and params.receiverAddress != '' ">
+		AND RECEIVER_ADDRESS = #{params.receiverAddress}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CCIC_ORDER_INFO 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CCIC_ORDER_INFO
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CCIC_ORDER_INFO
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.ccic.po.CcicOrderInfo">
+        INSERT INTO T_CCIC_ORDER_INFO (
+        	ID,
+        	CHANCE_CREATE_TIME,
+        	START_DATE,
+        	INSURANCE_APPLICANT_NO,
+        	PREMIUM,
+        	POLICY_NO,
+        	EFFECT_DATE,
+        	INSURANCE_TYPE,
+        	UTMSN,
+        	COMMERCIAL_INSURE_PREMIUM,
+        	COMPULSORY_INSURE_PREMIUM,
+        	COMPULSORY_TRAVEL_TAX,
+        	VEHICLE_INFO,
+        	APPLICANT_INFO,
+        	INSURED_INFO,
+        	DISTRIBUTION_INFO,
+        	PAYMENT_NO,
+        	PAYMENT_TIME,
+        	PAY_TIME,
+        	PAY_TYPE,
+        	PAY_OUT_TIME,
+        	PAY_URL,
+        	VIN,
+        	LICENSE_NO,
+        	CAR_CITY,
+        	CAR_PROVINCE,
+        	CAR_TYPE,
+        	ENGINE_NO,
+        	DISPLACEMENT,
+        	FIRST_REGISTER_DATE,
+        	SEAT_NUMBER,
+        	PURCHASE_PRICE,
+        	TRANSFER_FLAG,
+        	TRANSFER_DATE,
+        	DRIVER_NAME,
+        	MOBILE,
+        	EMAIL,
+        	APPLICANT_NAME,
+        	APPLICANT_IDENTIFY_TYPE,
+        	APPLICANT_IDENTIFY_NUMBER,
+        	APPLICANT_MOBILE,
+        	APPLICANT_EMAIL,
+        	INSURED_NAME,
+        	INSURED_IDENTIFY_TYPE,
+        	INSURED_IDENTIFY_NUMBER,
+        	INSURED_MOBILE,
+        	INSURED_EMAIL,
+        	RECEIVER_NAME,
+        	RECEIVER_MOBILE,
+        	RECEIVER_ADDRESS,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{chanceCreateTime},
+        	#{startDate},
+        	#{insuranceApplicantNo},
+        	#{premium},
+        	#{policyNo},
+        	#{effectDate},
+        	#{insuranceType},
+        	#{utmsn},
+        	#{commercialInsurePremium},
+        	#{compulsoryInsurePremium},
+        	#{compulsoryTravelTax},
+        	#{vehicleInfo},
+        	#{applicantInfo},
+        	#{insuredInfo},
+        	#{distributionInfo},
+        	#{paymentNo},
+        	#{paymentTime},
+        	#{payTime},
+        	#{payType},
+        	#{payOutTime},
+        	#{payUrl},
+        	#{vin},
+        	#{licenseNo},
+        	#{carCity},
+        	#{carProvince},
+        	#{carType},
+        	#{engineNo},
+        	#{displacement},
+        	#{firstRegisterDate},
+        	#{seatNumber},
+        	#{purchasePrice},
+        	#{transferFlag},
+        	#{transferDate},
+        	#{driverName},
+        	#{mobile},
+        	#{email},
+        	#{applicantName},
+        	#{applicantIdentifyType},
+        	#{applicantIdentifyNumber},
+        	#{applicantMobile},
+        	#{applicantEmail},
+        	#{insuredName},
+        	#{insuredIdentifyType},
+        	#{insuredIdentifyNumber},
+        	#{insuredMobile},
+        	#{insuredEmail},
+        	#{receiverName},
+        	#{receiverMobile},
+        	#{receiverAddress},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CCIC_ORDER_INFO 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.ccic.po.CcicOrderInfo">
+        UPDATE T_CCIC_ORDER_INFO 
+		SET
+	        CHANCE_CREATE_TIME = #{chanceCreateTime},
+	        START_DATE = #{startDate},
+	        INSURANCE_APPLICANT_NO = #{insuranceApplicantNo},
+	        PREMIUM = #{premium},
+	        POLICY_NO = #{policyNo},
+	        EFFECT_DATE = #{effectDate},
+	        INSURANCE_TYPE = #{insuranceType},
+	        UTMSN = #{utmsn},
+	        COMMERCIAL_INSURE_PREMIUM = #{commercialInsurePremium},
+	        COMPULSORY_INSURE_PREMIUM = #{compulsoryInsurePremium},
+	        COMPULSORY_TRAVEL_TAX = #{compulsoryTravelTax},
+	        VEHICLE_INFO = #{vehicleInfo},
+	        APPLICANT_INFO = #{applicantInfo},
+	        INSURED_INFO = #{insuredInfo},
+	        DISTRIBUTION_INFO = #{distributionInfo},
+	        PAYMENT_NO = #{paymentNo},
+	        PAYMENT_TIME = #{paymentTime},
+	        PAY_TIME = #{payTime},
+	        PAY_TYPE = #{payType},
+	        PAY_OUT_TIME = #{payOutTime},
+	        PAY_URL = #{payUrl},
+	        VIN = #{vin},
+	        LICENSE_NO = #{licenseNo},
+	        CAR_CITY = #{carCity},
+	        CAR_PROVINCE = #{carProvince},
+	        CAR_TYPE = #{carType},
+	        ENGINE_NO = #{engineNo},
+	        DISPLACEMENT = #{displacement},
+	        FIRST_REGISTER_DATE = #{firstRegisterDate},
+	        SEAT_NUMBER = #{seatNumber},
+	        PURCHASE_PRICE = #{purchasePrice},
+	        TRANSFER_FLAG = #{transferFlag},
+	        TRANSFER_DATE = #{transferDate},
+	        DRIVER_NAME = #{driverName},
+	        MOBILE = #{mobile},
+	        EMAIL = #{email},
+	        APPLICANT_NAME = #{applicantName},
+	        APPLICANT_IDENTIFY_TYPE = #{applicantIdentifyType},
+	        APPLICANT_IDENTIFY_NUMBER = #{applicantIdentifyNumber},
+	        APPLICANT_MOBILE = #{applicantMobile},
+	        APPLICANT_EMAIL = #{applicantEmail},
+	        INSURED_NAME = #{insuredName},
+	        INSURED_IDENTIFY_TYPE = #{insuredIdentifyType},
+	        INSURED_IDENTIFY_NUMBER = #{insuredIdentifyNumber},
+	        INSURED_MOBILE = #{insuredMobile},
+	        INSURED_EMAIL = #{insuredEmail},
+	        RECEIVER_NAME = #{receiverName},
+	        RECEIVER_MOBILE = #{receiverMobile},
+	        RECEIVER_ADDRESS = #{receiverAddress},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CCIC_ORDER_INFO
+			<set>
+    	        CHANCE_CREATE_TIME = #{item.chanceCreateTime},
+    	        START_DATE = #{item.startDate},
+    	        INSURANCE_APPLICANT_NO = #{item.insuranceApplicantNo},
+    	        PREMIUM = #{item.premium},
+    	        POLICY_NO = #{item.policyNo},
+    	        EFFECT_DATE = #{item.effectDate},
+    	        INSURANCE_TYPE = #{item.insuranceType},
+    	        UTMSN = #{item.utmsn},
+    	        COMMERCIAL_INSURE_PREMIUM = #{item.commercialInsurePremium},
+    	        COMPULSORY_INSURE_PREMIUM = #{item.compulsoryInsurePremium},
+    	        COMPULSORY_TRAVEL_TAX = #{item.compulsoryTravelTax},
+    	        VEHICLE_INFO = #{item.vehicleInfo},
+    	        APPLICANT_INFO = #{item.applicantInfo},
+    	        INSURED_INFO = #{item.insuredInfo},
+    	        DISTRIBUTION_INFO = #{item.distributionInfo},
+    	        PAYMENT_NO = #{item.paymentNo},
+    	        PAYMENT_TIME = #{item.paymentTime},
+    	        PAY_TIME = #{item.payTime},
+    	        PAY_TYPE = #{item.payType},
+    	        PAY_OUT_TIME = #{item.payOutTime},
+    	        PAY_URL = #{item.payUrl},
+    	        VIN = #{item.vin},
+    	        LICENSE_NO = #{item.licenseNo},
+    	        CAR_CITY = #{item.carCity},
+    	        CAR_PROVINCE = #{item.carProvince},
+    	        CAR_TYPE = #{item.carType},
+    	        ENGINE_NO = #{item.engineNo},
+    	        DISPLACEMENT = #{item.displacement},
+    	        FIRST_REGISTER_DATE = #{item.firstRegisterDate},
+    	        SEAT_NUMBER = #{item.seatNumber},
+    	        PURCHASE_PRICE = #{item.purchasePrice},
+    	        TRANSFER_FLAG = #{item.transferFlag},
+    	        TRANSFER_DATE = #{item.transferDate},
+    	        DRIVER_NAME = #{item.driverName},
+    	        MOBILE = #{item.mobile},
+    	        EMAIL = #{item.email},
+    	        APPLICANT_NAME = #{item.applicantName},
+    	        APPLICANT_IDENTIFY_TYPE = #{item.applicantIdentifyType},
+    	        APPLICANT_IDENTIFY_NUMBER = #{item.applicantIdentifyNumber},
+    	        APPLICANT_MOBILE = #{item.applicantMobile},
+    	        APPLICANT_EMAIL = #{item.applicantEmail},
+    	        INSURED_NAME = #{item.insuredName},
+    	        INSURED_IDENTIFY_TYPE = #{item.insuredIdentifyType},
+    	        INSURED_IDENTIFY_NUMBER = #{item.insuredIdentifyNumber},
+    	        INSURED_MOBILE = #{item.insuredMobile},
+    	        INSURED_EMAIL = #{item.insuredEmail},
+    	        RECEIVER_NAME = #{item.receiverName},
+    	        RECEIVER_MOBILE = #{item.receiverMobile},
+    	        RECEIVER_ADDRESS = #{item.receiverAddress},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

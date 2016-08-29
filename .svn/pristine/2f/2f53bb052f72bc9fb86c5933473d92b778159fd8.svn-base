@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.coupon.dao.CouponTemplateDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.coupon.po.CouponTemplate">
+        <result column="ID" property="id"/>
+        <result column="TYPE" property="type"/>
+        <result column="TYPE_ID" property="typeId"/>
+        <result column="COUPON_KIND" property="couponKind"/>
+        <result column="COUPON_NAME" property="couponName"/>
+        <result column="COUPON_TYPE" property="couponType"/>
+        <result column="PAR_AMOUNT" property="parAmount"/>
+        <result column="PAR_DISCOUNT" property="parDiscount"/>
+        <result column="MINCONSUMPTION" property="minconsumption"/>
+        <result column="EFFECTIVE_TYPE" property="effectiveType"/>
+        <result column="EFFECTIVE_BEGIN" property="effectiveBegin"/>
+        <result column="EFFECTIVE_END" property="effectiveEnd"/>
+        <result column="EFFECTIVE_DAY" property="effectiveDay"/>
+        <result column="EXCLUSION_RULE" property="exclusionRule"/>
+        <result column="INFO" property="info"/>
+		<result column="PARKING_ID" property="parkingId"/>
+		<result column="PARKING_NAME" property="parkingName"/>
+        <result column="IS_USED" property="isUsed"/>
+        <result column="CREATEOR" property="createor"/>
+        <result column="MODIFIED" property="modified"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="MODIFY_DATE" property="modifyDate"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		ID, TYPE, TYPE_ID, COUPON_KIND, COUPON_NAME, COUPON_TYPE, PAR_AMOUNT, PAR_DISCOUNT, MINCONSUMPTION, EFFECTIVE_TYPE, EFFECTIVE_BEGIN, EFFECTIVE_END, EFFECTIVE_DAY, EXCLUSION_RULE, INFO, PARKING_ID, PARKING_NAME, IS_USED, CREATEOR, MODIFIED, CREATE_DATE, MODIFY_DATE
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="id != null and id != '' ">
+		AND ID = #{id}
+		</if>
+		<if test="type != null and type != '' ">
+		AND TYPE = #{type}
+		</if>
+		<if test="typeId != null and typeId != '' ">
+		AND TYPE_ID = #{typeId}
+		</if>
+		<if test="couponKind != null and couponKind != '' ">
+		AND COUPON_KIND = #{couponKind}
+		</if>
+		<if test="couponName != null and couponName != '' ">
+		AND COUPON_NAME = #{couponName}
+		</if>
+		<if test="couponType != null and couponType != '' ">
+		AND COUPON_TYPE = #{couponType}
+		</if>
+		<if test="parAmount != null and parAmount != '' ">
+		AND PAR_AMOUNT = #{parAmount}
+		</if>
+		<if test="parDiscount != null and parDiscount != '' ">
+		AND PAR_DISCOUNT = #{parDiscount}
+		</if>
+		<if test="minconsumption != null and minconsumption != '' ">
+		AND MINCONSUMPTION = #{minconsumption}
+		</if>
+		<if test="effectiveType != null and effectiveType != '' ">
+		AND EFFECTIVE_TYPE = #{effectiveType}
+		</if>
+		<if test="effectiveBegin != null and effectiveBegin != '' ">
+		AND EFFECTIVE_BEGIN = #{effectiveBegin}
+		</if>
+		<if test="effectiveEnd != null and effectiveEnd != '' ">
+		AND EFFECTIVE_END = #{effectiveEnd}
+		</if>
+		<if test="effectiveDay != null and effectiveDay != '' ">
+		AND EFFECTIVE_DAY = #{effectiveDay}
+		</if>
+		<if test="exclusionRule != null and exclusionRule != '' ">
+		AND EXCLUSION_RULE = #{exclusionRule}
+		</if>
+		<if test="info != null and info != '' ">
+		AND INFO = #{info}
+		</if>
+		<if test="isUsed != null and isUsed != '' ">
+		AND IS_USED = #{isUsed}
+		</if>
+		<if test="createor != null and createor != '' ">
+		AND CREATEOR = #{createor}
+		</if>
+		<if test="modified != null and modified != '' ">
+		AND MODIFIED = #{modified}
+		</if>
+		<if test="createDate != null and createDate != '' ">
+		AND CREATE_DATE = #{createDate}
+		</if>
+		<if test="modifyDate != null and modifyDate != '' ">
+		AND MODIFY_DATE = #{modifyDate}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.id != null and params.id != '' ">
+		AND ID = #{params.id}
+		</if>
+		<if test="params.type != null and params.type != '' ">
+		AND TYPE = #{params.type}
+		</if>
+		<if test="params.typeId != null and params.typeId != '' ">
+		AND TYPE_ID = #{params.typeId}
+		</if>
+		<if test="params.couponKind != null and params.couponKind != '' ">
+		AND COUPON_KIND = #{params.couponKind}
+		</if>
+		<if test="params.couponName != null and params.couponName != '' ">
+		AND COUPON_NAME = #{params.couponName}
+		</if>
+		<if test="params.couponType != null and params.couponType != '' ">
+		AND COUPON_TYPE = #{params.couponType}
+		</if>
+		<if test="params.parAmount != null and params.parAmount != '' ">
+		AND PAR_AMOUNT = #{params.parAmount}
+		</if>
+		<if test="params.parDiscount != null and params.parDiscount != '' ">
+		AND PAR_DISCOUNT = #{params.parDiscount}
+		</if>
+		<if test="params.minconsumption != null and params.minconsumption != '' ">
+		AND MINCONSUMPTION = #{params.minconsumption}
+		</if>
+		<if test="params.effectiveType != null and params.effectiveType != '' ">
+		AND EFFECTIVE_TYPE = #{params.effectiveType}
+		</if>
+		<if test="params.effectiveBegin != null and params.effectiveBegin != '' ">
+		AND EFFECTIVE_BEGIN = #{params.effectiveBegin}
+		</if>
+		<if test="params.effectiveEnd != null and params.effectiveEnd != '' ">
+		AND EFFECTIVE_END = #{params.effectiveEnd}
+		</if>
+		<if test="params.effectiveDay != null and params.effectiveDay != '' ">
+		AND EFFECTIVE_DAY = #{params.effectiveDay}
+		</if>
+		<if test="params.exclusionRule != null and params.exclusionRule != '' ">
+		AND EXCLUSION_RULE = #{params.exclusionRule}
+		</if>
+		<if test="params.info != null and params.info != '' ">
+		AND INFO = #{params.info}
+		</if>
+		<if test="params.isUsed != null and params.isUsed != '' ">
+		AND IS_USED = #{params.isUsed}
+		</if>
+		<if test="params.createor != null and params.createor != '' ">
+		AND CREATEOR = #{params.createor}
+		</if>
+		<if test="params.modified != null and params.modified != '' ">
+		AND MODIFIED = #{params.modified}
+		</if>
+		<if test="params.createDate != null and params.createDate != '' ">
+		AND CREATE_DATE = #{params.createDate}
+		</if>
+		<if test="params.modifyDate != null and params.modifyDate != '' ">
+		AND MODIFY_DATE = #{params.modifyDate}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COUPON_TEMPLATE 
+	     WHERE ID = #{id}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COUPON_TEMPLATE
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_COUPON_TEMPLATE
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.coupon.po.CouponTemplate">
+        INSERT INTO T_COUPON_TEMPLATE (
+        	ID,
+        	TYPE,
+        	TYPE_ID,
+        	COUPON_KIND,
+        	COUPON_NAME,
+        	COUPON_TYPE,
+        	PAR_AMOUNT,
+        	PAR_DISCOUNT,
+        	MINCONSUMPTION,
+        	EFFECTIVE_TYPE,
+        	EFFECTIVE_BEGIN,
+        	EFFECTIVE_END,
+        	EFFECTIVE_DAY,
+        	EXCLUSION_RULE,
+        	INFO,
+        	PARKING_ID,
+        	PARKING_NAME,
+        	IS_USED,
+        	CREATEOR,
+        	MODIFIED,
+        	CREATE_DATE,
+        	MODIFY_DATE
+        ) VALUES (
+        	#{id},
+        	#{type},
+        	#{typeId},
+        	#{couponKind},
+        	#{couponName},
+        	#{couponType},
+        	#{parAmount},
+        	#{parDiscount},
+        	#{minconsumption},
+        	#{effectiveType},
+        	#{effectiveBegin},
+        	#{effectiveEnd},
+        	#{effectiveDay},
+        	#{exclusionRule},
+        	#{info},
+        	#{parkingId},
+        	#{parkingName},
+        	#{isUsed},
+        	#{createor},
+        	#{modified},
+        	#{createDate},
+        	#{modifyDate}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_COUPON_TEMPLATE 
+		 WHERE ID = #{id} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.coupon.po.CouponTemplate">
+        UPDATE T_COUPON_TEMPLATE 
+		SET
+	        TYPE = #{type},
+	        TYPE_ID = #{typeId},
+	        COUPON_KIND = #{couponKind},
+	        COUPON_NAME = #{couponName},
+	        COUPON_TYPE = #{couponType},
+	        PAR_AMOUNT = #{parAmount},
+	        PAR_DISCOUNT = #{parDiscount},
+	        MINCONSUMPTION = #{minconsumption},
+	        EFFECTIVE_TYPE = #{effectiveType},
+	        EFFECTIVE_BEGIN = #{effectiveBegin},
+	        EFFECTIVE_END = #{effectiveEnd},
+	        EFFECTIVE_DAY = #{effectiveDay},
+	        EXCLUSION_RULE = #{exclusionRule},
+	        INFO = #{info},
+	        PARKING_ID = #{parkingId},
+        	PARKING_NAME = #{parkingName},
+	        IS_USED = #{isUsed},
+	        CREATEOR = #{createor},
+	        MODIFIED = #{modified},
+	        CREATE_DATE = #{createDate},
+	        MODIFY_DATE = #{modifyDate}
+        WHERE ID = #{id} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_COUPON_TEMPLATE
+			<set>
+    	        TYPE = #{item.type},
+    	        TYPE_ID = #{item.typeId},
+    	        COUPON_KIND = #{item.couponKind},
+    	        COUPON_NAME = #{item.couponName},
+    	        COUPON_TYPE = #{item.couponType},
+    	        PAR_AMOUNT = #{item.parAmount},
+    	        PAR_DISCOUNT = #{item.parDiscount},
+    	        MINCONSUMPTION = #{item.minconsumption},
+    	        EFFECTIVE_TYPE = #{item.effectiveType},
+    	        EFFECTIVE_BEGIN = #{item.effectiveBegin},
+    	        EFFECTIVE_END = #{item.effectiveEnd},
+    	        EFFECTIVE_DAY = #{item.effectiveDay},
+    	        EXCLUSION_RULE = #{item.exclusionRule},
+    	        INFO = #{item.info},
+				PARKING_ID = #{parkingId},
+				PARKING_NAME = #{parkingName},
+    	        IS_USED = #{item.isUsed},
+    	        CREATEOR = #{item.createor},
+    	        MODIFIED = #{item.modified},
+    	        CREATE_DATE = #{item.createDate},
+    	        MODIFY_DATE = #{item.modifyDate}
+			</set>
+            WHERE ID = #{item.id} 	
+		</foreach>
+	</update>
+</mapper>

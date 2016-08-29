@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boxiang.share.product.carBrand.dao.CarBrandDao">
+	
+	<!-- 列结果resultMap boxiang 2016-01-03 -->
+	<resultMap id="resultMap" type="com.boxiang.share.product.carBrand.po.CarBrand">
+        <result column="BRAND_ID" property="brandId"/>
+        <result column="BRAND_NAME" property="brandName"/>
+        <result column="BRAND_ICON" property="brandIcon"/>
+        <result column="IS_HOT" property="isHot"/>
+        <result column="INITIAL" property="initial"/>
+	</resultMap>
+
+	<!-- 公共列 boxiang 2016-01-03 -->
+	<sql id="columns">
+		BRAND_ID, BRAND_NAME, BRAND_ICON, IS_HOT, INITIAL
+	</sql>
+
+	<!-- 公共条件 boxiang 2016-01-03 -->
+	<sql id="whereSQL">
+		<if test="brandId != null and brandId != '' ">
+		AND BRAND_ID = #{brandId}
+		</if>
+		<if test="brandName != null and brandName != '' ">
+		AND BRAND_NAME = #{brandName}
+		</if>
+		<if test="brandIcon != null and brandIcon != '' ">
+		AND BRAND_ICON = #{brandIcon}
+		</if>
+		<if test="isHot != null and isHot != '' ">
+		AND IS_HOT = #{isHot}
+		</if>
+		<if test="initial != null and initial != '' ">
+		AND INITIAL = #{initial}
+		</if>
+	</sql>
+
+	<!-- 公共分页条件SQL boxiang 2016-01-03 -->
+	<sql id="wherePageSql">
+		<if test="params.brandId != null and params.brandId != '' ">
+		AND BRAND_ID = #{params.brandId}
+		</if>
+		<if test="params.brandName != null and params.brandName != '' ">
+		AND BRAND_NAME = #{params.brandName}
+		</if>
+		<if test="params.brandIcon != null and params.brandIcon != '' ">
+		AND BRAND_ICON = #{params.brandIcon}
+		</if>
+		<if test="params.isHot != null and params.isHot != '' ">
+		AND IS_HOT = #{params.isHot}
+		</if>
+		<if test="params.initial != null and params.initial != '' ">
+		AND INITIAL = #{params.initial}
+		</if>
+	</sql>
+
+	<!-- 根据主键ID查询 boxiang 2016-01-03 -->
+	<select id="queryById" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_BRAND 
+	     WHERE BRAND_ID = #{brandId}     
+	</select>
+
+	<!-- 查询列表 boxiang 2016-01-03 -->
+	<select id="selectList" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_BRAND
+		 WHERE 1 = 1	
+		 <include refid="whereSQL" />
+	</select>
+	<select id="selectList2" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		FROM T_CAR_BRAND
+		WHERE 1 = 1
+		<include refid="whereSQL" />
+		ORDER BY sort ASC
+	</select>
+	<!-- 查询分页列表 boxiang 2016-01-03 -->
+	<select id="queryListPage" resultMap="resultMap">
+		SELECT <include refid="columns" />
+		  FROM T_CAR_BRAND
+		 WHERE 1 = 1
+		 <include refid="wherePageSql" />
+	</select>
+
+	<!-- 插入 boxiang 2016-01-03 -->
+	<insert id="insert" parameterType="com.boxiang.share.product.carBrand.po.CarBrand">
+        INSERT INTO T_CAR_BRAND (
+        	BRAND_ID,
+        	BRAND_NAME,
+        	BRAND_ICON,
+        	IS_HOT,
+        	INITIAL
+        ) VALUES (
+        	#{brandId},
+        	#{brandName},
+        	#{brandIcon},
+        	#{isHot},
+        	#{initial}
+        )
+	</insert>
+
+	<!-- 根据主键ID删除 boxiang 2016-01-03 -->
+	<delete id="delete">
+		DELETE FROM T_CAR_BRAND 
+		 WHERE BRAND_ID = #{brandId} 
+	</delete>
+
+	<!-- 更新 boxiang 2016-01-03 -->
+	<update id="update" parameterType="com.boxiang.share.product.carBrand.po.CarBrand">
+        UPDATE T_CAR_BRAND 
+		SET
+	        BRAND_NAME = #{brandName},
+	        BRAND_ICON = #{brandIcon},
+	        IS_HOT = #{isHot},
+	        INITIAL = #{initial}
+        WHERE BRAND_ID = #{brandId} 	        
+	</update>
+
+	<update id="batchUpdate">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			UPDATE T_CAR_BRAND
+			<set>
+    	        BRAND_NAME = #{item.brandName},
+    	        BRAND_ICON = #{item.brandIcon},
+    	        IS_HOT = #{item.isHot},
+    	        INITIAL = #{item.initial}
+			</set>
+            WHERE BRAND_ID = #{item.brandId} 	
+		</foreach>
+	</update>
+</mapper>
